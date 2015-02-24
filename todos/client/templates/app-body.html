@@ -1,6 +1,6 @@
 <template name="appBody">
   <div id="container" class="{{menuOpen}} {{cordova}}">
-
+    
     <section id="menu">
       {{#if currentUser}}
         <div class="btns-group-vertical">
@@ -24,6 +24,7 @@
       {{/if}}
 
       <div class="list-todos">
+          <paper-checkbox checked></paper-checkbox>
         <a class="js-new-list link-list-new"><span class="icon-plus"></span>New List</a>
 
         {{#each lists}}
