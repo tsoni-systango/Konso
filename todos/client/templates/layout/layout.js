@@ -61,7 +61,7 @@ Template.layout.events({
                 dn: "uid="+username+",dc=example,dc=com"
             }, function (err) {
                 if (err) {
-                    console.log(JSON.stringify(err));
+                    GlobalUI.toast(err.reason);
                 } else {
                     console.log('logged in succesfully');
                 }
