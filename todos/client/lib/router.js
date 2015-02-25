@@ -6,7 +6,7 @@ Router.configure({
   notFoundTemplate: 'appNotFound',
 
   // show the appLoading template whilst the subscriptions below load their data
-  loadingTemplate: 'appLoading',
+  //loadingTemplate: 'appLoading',
 
   // wait on the following subscriptions before rendering the page to ensure
   // the data it's expecting is present
@@ -24,22 +24,22 @@ if (Meteor.isClient) {
   // Keep showing the launch screen on mobile devices until we have loaded
   // the app's data
   dataReadyHold = LaunchScreen.hold();
-
+/*
   // Show the loading screen on desktop
   Router.onBeforeAction('loading', {except: ['join', 'signin']});
-  Router.onBeforeAction('dataNotFound', {except: ['join', 'signin']});
+  Router.onBeforeAction('dataNotFound', {except: ['join', 'signin']});*/
 }
 
 Router.map(function() {
   this.route('join');
   this.route('signin');
 
-  this.route('listsShow', {
-    path: '/lists/:_id',
+  this.route('chat', {
+    path: '/lists/',
     // subscribe to todos before the page is rendered but don't wait on the
     // subscription, we'll just render the items as they arrive
     onBeforeAction: function () {
-      this.todosHandle = Meteor.subscribe('todos', this.params._id);
+      //this.todosHandle = Meteor.subscribe('todos', this.params._id);
 
       if (this.ready()) {
         // Handle for launch screen defined in app-body.js
@@ -47,7 +47,7 @@ Router.map(function() {
       }
     },
     data: function () {
-      return Lists.findOne(this.params._id);
+      return null;//Lists.findOne(this.params._id);
     },
     action: function () {
       this.render();
@@ -57,7 +57,7 @@ Router.map(function() {
   this.route('home', {
     path: '/',
     action: function() {
-      Router.go('listsShow', Lists.findOne());
+      Router.go('chat', Lists.findOne());
     }
   });
 });

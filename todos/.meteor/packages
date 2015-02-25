@@ -9,5 +9,15 @@ insecure
 less
 iron:router
 accounts-password
-typ:ldapjs
 tmeasday:presence
+
+
+
+
+
+
+
+meteorhacks:npm
+
+
+npm-container

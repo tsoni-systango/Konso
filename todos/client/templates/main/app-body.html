@@ -1,0 +1,51 @@
+<template name="appBody">
+  
+    
+   {{#unless connected}}
+      <div class="notifications">
+        <div class="notification">
+          <span class="icon-sync"></span>
+          <div class="meta">
+            <div class="title-notification">Trying to connect</div>
+            <div class="description">There seems to be a connection issue</div>
+          </div>
+        </div>
+      </div>
+    {{/unless}}
+
+     
+    <style>    
+      :host {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        top: 0px;
+        left: 0px;
+      }
+      #section {
+        font-family: 'Open Sans', sans-serif;
+        left: 0px;
+        right: 0px;
+        top: 0px;
+        bottom: 0px;
+        position: absolute;
+      }
+      #paper_tabs {
+        color: rgb(255, 255, 255);
+        box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 2px;
+        background-color: rgb(0, 188, 212);
+      }
+    </style>
+    <section id="section" layout vertical>
+      <paper-tabs selected="0" selectedindex="0" id="paper_tabs" horizontal center layout>
+        <paper-tab id="paper_tab" inline flex center-center horizontal layout active>Live Chart</paper-tab>
+        <paper-tab id="paper_tab1" inline flex center-center horizontal layout>To-dos</paper-tab>
+        <paper-tab id="paper_tab1" inline flex center-center horizontal layout>Notes</paper-tab>
+        <paper-tab id="paper_tab1" inline flex center-center horizontal layout>Scheduler</paper-tab>
+      </paper-tabs>
+      
+          {{> yield}}
+      
+    </section>
+</template>

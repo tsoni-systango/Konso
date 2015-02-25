@@ -10,7 +10,7 @@ Session.setDefault(SHOW_CONNECTION_ISSUE_KEY, false);
 var CONNECTION_ISSUE_TIMEOUT = 5000;
 
 Meteor.startup(function () {
-  // set up a swipe left / right handler
+ /* // set up a swipe left / right handler
   $(document.body).touchwipe({
     wipeLeft: function () {
       Session.set(MENU_KEY, false);
@@ -29,11 +29,11 @@ Meteor.startup(function () {
 
     // Show the connection error box
     Session.set(SHOW_CONNECTION_ISSUE_KEY, true);
-  }, CONNECTION_ISSUE_TIMEOUT);
+  }, CONNECTION_ISSUE_TIMEOUT);*/
 });
 
 Template.appBody.rendered = function() {
-  this.find('#content-container')._uihooks = {
+ /* this.find('#content-container')._uihooks = {
     insertElement: function(node, next) {
       $(node)
         .hide()
@@ -47,7 +47,7 @@ Template.appBody.rendered = function() {
         $(this).remove();
       });
     }
-  };
+  };*/
 };
 
 Template.appBody.helpers({
@@ -89,40 +89,3 @@ Template.appBody.helpers({
   }
 });
 
-Template.appBody.events({
-  'click .js-menu': function() {
-    Session.set(MENU_KEY, ! Session.get(MENU_KEY));
-  },
-
-  'click .content-overlay': function(event) {
-    Session.set(MENU_KEY, false);
-    event.preventDefault();
-  },
-
-  'click .js-user-menu': function(event) {
-    Session.set(USER_MENU_KEY, ! Session.get(USER_MENU_KEY));
-    // stop the menu from closing
-    event.stopImmediatePropagation();
-  },
-
-  'click #menu a': function() {
-    Session.set(MENU_KEY, false);
-  },
-
-  'click .js-logout': function() {
-    Meteor.logout();
-    
-    // if we are on a private list, we'll need to go to a public one
-    var current = Router.current();
-    if (current.route.name === 'listsShow' && current.data().userId) {
-      Router.go('listsShow', Lists.findOne({userId: {$exists: false}}));
-    }
-  },
-
-  'click .js-new-list': function() {
-    var list = {name: Lists.defaultName(), incompleteCount: 0};
-    list._id = Lists.insert(list);
-
-    Router.go('listsShow', list);
-  }
-});
