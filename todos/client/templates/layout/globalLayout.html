@@ -1,0 +1,52 @@
+<template name="globalLayout">
+    {{#unless connected}}
+    <div class="notifications">
+        <div class="notification">
+            <span class="icon-sync"></span>
+            <div class="meta">
+                <div class="title-notification">Trying to connect</div>
+                <div class="description">There seems to be a connection issue</div>
+            </div>
+        </div>
+    </div>
+    {{/unless}}
+
+    {{#if isAuthenticated}}
+    {{> UI.contentBlock}}
+    {{else}}
+
+    <div class="entry" fit layout vertical center center-justified>
+        <div class="entry-body">
+            <di-form data-action="log-in">
+
+                <paper-input-decorator label="Username" error="We need your username!"
+                                       floatingLabel class="input-light">
+                    <input is="core-input" id="username" type="text" required>
+                </paper-input-decorator>
+
+                <paper-input-decorator label="Password" error="Whats your password?"
+                                       floatingLabel class="input-light">
+                    <input is="core-input" id="password" type="password" required>
+                </paper-input-decorator>
+
+                <div horizontal layout reverse>
+                    <di-button class="btn btn-accent" type="submit" raised>Log In</di-button>
+                </div>
+
+            </di-form>
+        </div>
+    </div>
+
+    {{/if}}
+
+
+    <paper-action-dialog global-dialog layered backdrop
+                         transition="paper-dialog-transition-bottom"
+                         class={{#if globalDialogFullOnMobile}}full-on-mobile{{/if}}>
+                          {{#if globalDialogTemplate}}
+                          {{> UI.dynamic template=globalDialogTemplate data=globalDialogData}}
+                          {{/if}}
+    </paper-action-dialog>
+
+    <paper-toast global-toast></paper-toast>
+</template>

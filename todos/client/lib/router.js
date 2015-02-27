@@ -1,63 +1,41 @@
 Router.configure({
-  // we use the  appBody template to define the layout for the entire app
-  layoutTemplate: 'layout',
-
-  // the appNotFound template is used for unknown routes and missing lists
-  notFoundTemplate: 'appNotFound',
-
-  // show the loading template whilst the subscriptions below load their data
+    autoRender: false,
+    autoStart: false,
+    // we use the  appBody template to define the layout for the entire app
+    layoutTemplate: 'layout',
+    // the notFound template is used for unknown routes and missing lists
+    notFoundTemplate: 'notFound',
+    // show the loading template whilst the subscriptions below load their data
     loadingTemplate: 'loading',
 
-  // wait on the following subscriptions before rendering the page to ensure
-  // the data it's expecting is present
-  waitOn: function() {
-    return [
-      Meteor.subscribe('publicLists'),
-      Meteor.subscribe('privateLists')
-    ];
-  }
 });
 
-dataReadyHold = null;
+Router.map(function () {
+   
+    this.route('chat', {
+        path: '/chat/',
+        yieldTemplates:{
+            "chatLeftMenu": {to: "leftMenu"}
+        },
+        waitOn: function () {
+            // return one handle, a function, or an array
+            return [
+                Meteor.subscribe('userPresences'),
+                Meteor.subscribe('allUsers')
+            ];
+          }
+    });
+    this.route('todos', {
+        path: '/todos/',
+        yieldTemplates:{
+            "todosLeftMenu": {to: "leftMenu"}
+        }
+    });
 
-if (Meteor.isClient) {
-  // Keep showing the launch screen on mobile devices until we have loaded
-  // the app's data
-  dataReadyHold = LaunchScreen.hold();
-/*
-  // Show the loading screen on desktop
-  Router.onBeforeAction('loading', {except: ['join', 'signin']});
-  Router.onBeforeAction('dataNotFound', {except: ['join', 'signin']});*/
-}
-
-Router.map(function() {
-  this.route('join');
-  this.route('signin');
-
-  this.route('chat', {
-    path: '/lists/',
-    // subscribe to todos before the page is rendered but don't wait on the
-    // subscription, we'll just render the items as they arrive
-    onBeforeAction: function () {
-      //this.todosHandle = Meteor.subscribe('todos', this.params._id);
-
-      if (this.ready()) {
-        // Handle for launch screen defined in app-body.js
-        dataReadyHold.release();
-      }
-    },
-    data: function () {
-      return null;//Lists.findOne(this.params._id);
-    },
-    action: function () {
-      this.render();
-    }
-  });
-
-  this.route('home', {
-    path: '/',
-    action: function() {
-      Router.go('chat', Lists.findOne());
-    }
-  });
+    this.route('home', {
+        path: '/',
+        action: function () {
+            Router.go('chat');
+        }
+    });
 });

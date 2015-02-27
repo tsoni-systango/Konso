@@ -1,0 +1,25 @@
+<template name="chatLeftMenu">
+    <core-menu class="nav">
+        {{#each users}}
+            {{>userItem}}
+        {{/each}}
+    </core-menu>
+
+    <div flex></div>
+
+    <core-menu class="">
+
+    </core-menu>
+</template>
+
+<template name="userItem">
+        <div horizontal layout center class="user-item"> 
+            {{#if isHere}}
+                <core-icon class="online" icon="image:brightness-1"></core-icon>
+            {{else}}
+                <core-icon class="offline" icon="image:panorama-fisheye"></core-icon>
+            {{/if}}
+            <span>{{username}}</span>
+            <paper-ripple fit></paper-ripple>
+        </div>
+</template>

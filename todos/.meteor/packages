@@ -22,3 +22,6 @@ tmeasday:presence
 
 typ:accounts-ldap
 differential:vulcanize
+reactive-var
+meteorhacks:inject-initial
+dpid:user-presence
