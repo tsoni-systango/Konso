@@ -1,8 +1,8 @@
 getCurrentUserOrDie = function () {
-	if(Meteor.user){
+	if(!Meteor.user()){
 		Errors.throw(Errors.NOT_AUTHENTICATED);
 	}
-	return Meteor.user;
+	return Meteor.user();
 }
 getDialogOrDie = function (dialogId) {
 	var dialog = Dialogs.findOne(dialogId);

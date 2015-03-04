@@ -4,10 +4,13 @@
 }
 
 .chat-content .text-area{
-	
+	background: #eee;
 }
 .chat-content .messages-container{
 	background: white;
+	overflow-y: auto;
+	display: flex;
+	flex-direction: column-reverse;
 }
 .chat-content .text-area textarea{
 	width:100%;

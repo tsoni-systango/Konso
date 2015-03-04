@@ -1,0 +1,20 @@
+.dialog-item{
+    position: relative;
+    height: 25px;
+}
+.dialog-item.selected{
+   background: #ccc;
+}
+
+.dialog-item core-icon{
+    width: 13px;
+    height: 13px;
+}
+
+.dialog-item .online{
+    color: #339933;
+}
+
+.dialog-item .offline{
+    color: #aaa;
+}

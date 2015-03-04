@@ -25,3 +25,4 @@ differential:vulcanize
 reactive-var
 meteorhacks:inject-initial
 dpid:user-presence
+u2622:persistent-session

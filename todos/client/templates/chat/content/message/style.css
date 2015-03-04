@@ -1,3 +1,17 @@
 .chat-message{
+	background-color: #BED6E0; 
 	padding: 10px;
+	min-height: 100%;
+	display: table;
+	align-self: flex-start;
+	max-width: 90%;
+	word-wrap: break-word;
+}
+.chat-message-separator{
+	margin: 10px auto;
+}
+.chat-message.own{
+	margin: 10px 0 10px 20px;
+	background-color: #BEDBE0;
+	align-self: flex-end;
 }
