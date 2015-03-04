@@ -1,0 +1,36 @@
+.general-user-item {
+	padding: 5px;
+	position: relative;
+}
+.general-user-item .user-avatar{
+	width:40px;
+	height: 40px;
+	overflow: hidden;
+	float: left;
+	margin-right: 5px;
+}
+.general-user-item .persistance-indicator{
+	position: absolute;
+	bottom: -5px;
+	left: 35px;
+}
+.general-user-item .persistance-indicator .online{
+	color: rgb(87, 150, 28);
+	width: 15px;
+}
+.general-user-item .persistance-indicator .offline{
+	color: #E87474;
+	width: 15px;
+}
+.general-user-item .user-avatar img{
+	width:40px;
+	height: 40px;
+}
+.general-user-item .username{
+	margin-top: 8px;
+	float: left;
+	width: 110px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

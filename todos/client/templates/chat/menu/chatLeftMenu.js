@@ -1,12 +1,13 @@
 Template.chatLeftMenu.helpers({
-    users: function(){
-        return Meteor.users.find();
-    }
+    channels: function(){
+        return Dialogs.find();
+    },
+	dialogs: function(){
+		return Dialogs.find();
+	},
+	rooms: function(){
+		return Dialogs.find();
+	}
 })
 
-Template.userItem.helpers({
-    isHere: function(){
-        return Meteor.users.find();
-    }
-})
 

@@ -2,37 +2,31 @@
 
 
     {{#globalLayout}}
-    <core-drawer-panel data-drawer-panel >
 
-        <!-- Drawer -->
-        <core-header-panel mode="waterfall" drawer>
-            <core-toolbar class="toolbar toolbar-dark">
+    <core-scaffold>
+        <core-header-panel navigation flex mode="seamed">
+            <core-toolbar>
                 {{>yield "leftMenuHeader"}}
             </core-toolbar>
-            <div layout vertical fit>
+            <core-menu theme="core-light-theme">
                 {{>yield "leftMenu"}}
-            </div>
+            </core-menu>
         </core-header-panel>
 
-        <!-- Main Content -->
-        <core-header-panel mode="waterfall" main>
-            <core-toolbar class="toolbar toolbar-primary">
-                <paper-icon-button class="hidden-md narrow" icon="menu" data-action="toggle-drawer">
-                </paper-icon-button>
-                <paper-tabs selected="0" layout flex noink>
-                    <paper-tab><a href="{{pathFor route='chat'}}" horizontal center-center layout>Live Chatting</a></paper-tab>
-                    <paper-tab><a href="{{pathFor route='todos'}}" horizontal center-center layout>To dos</a></paper-tab>
-                    <paper-tab><a href="{{pathFor route='notes'}}" horizontal center-center layout>Notes</a></paper-tab>
-                    <paper-tab><a href="{{pathFor route='scheduler'}}" horizontal center-center layout>Sheduler</a></paper-tab>
-                </paper-tabs>
-            </core-toolbar>
+        <div tool flex>
+            <paper-tabs selected="0" layout flex noink>
+                <paper-tab><a href="{{pathFor route='chat'}}" horizontal center-center layout>Live Chatting</a></paper-tab>
+                <paper-tab><a href="{{pathFor route='todos'}}" horizontal center-center layout>To dos</a></paper-tab>
+                <paper-tab><a href="{{pathFor route='notes'}}" horizontal center-center layout>Notes</a></paper-tab>
+                <paper-tab><a href="{{pathFor route='scheduler'}}" horizontal center-center layout>Sheduler</a></paper-tab>
+            </paper-tabs>
 
-            <div class="content">
-                {{> yield}}
-            </div>
-        </core-header-panel>
+        </div>
 
-    </core-drawer-panel>
+        <div>
+            {{> yield}}
+        </div>
+    </core-scaffold>
 
 
     {{/globalLayout}}

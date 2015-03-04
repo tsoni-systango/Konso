@@ -1,10 +1,15 @@
-#section2 {
-    width: 230px;
-    bottom: 0px;
-    top: 0px;
+.all-user-list {
+	padding: 10px;
+	overflow-y: scroll;
 }
-#paper_tabs1 {
-    color: rgb(255, 255, 255);
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 2px;
-    background-color: rgb(0, 188, 212);
+
+.chat-content .text-area{
+	
+}
+.chat-content .messages-container{
+	background: white;
+}
+.chat-content .text-area textarea{
+	width:100%;
+	padding: 10px
 }
