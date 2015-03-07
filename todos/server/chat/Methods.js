@@ -25,7 +25,7 @@ Meteor.methods({
 							dialogUser._id
 						]
 			}});
-		
+
 		if (!dialog) {
 			dialog = {
 				created: timestamp(),
@@ -36,5 +36,17 @@ Meteor.methods({
 			dialog._id = Dialogs.insert(dialog);
 		}
 		return dialog._id;
-	}
+	},
+	getUnreadMessagesCountForTimestamp:
+			function (dialogId, timestamp, excludeUserId) {
+				check(dialogId, String);
+				check(timestamp, Number);
+				check(excludeUserId, String);
+				var count = Messages.find({
+					dialogId: dialogId, 
+					created: {$gt: timestamp},
+					ownerId: {$ne: excludeUserId}
+				}).count();
+				return count;
+			}
 })

@@ -1,5 +1,5 @@
 Meteor.subscribe("dialogs")
-
+Meteor.subscribe('lastDialogMessage');
 Template.chatLeftMenu.helpers({
     channels: function(){
         return Dialogs.find({channelId: {$ne:null}, isPrivate: false});

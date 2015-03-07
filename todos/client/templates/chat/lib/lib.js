@@ -1,13 +1,13 @@
 CURRENT_DIALOG_ID_KEY = "CURRENT_DIALOG_ID_KEY";
-setCurrentDialog = function(dialog){
+setCurrentDialog = function (dialog) {
 	Session.setAuth(CURRENT_DIALOG_ID_KEY, dialog);
 }
-getCurrentDialog = function(){
+getCurrentDialog = function () {
 	return Session.get(CURRENT_DIALOG_ID_KEY);
 }
 
 getDialogName = function (dialog) {
-	if(!dialog){
+	if (!dialog) {
 		return null;
 	}
 	if (dialog.channelId) {
@@ -22,4 +22,17 @@ getDialogName = function (dialog) {
 		})
 		return defaultName;
 	}
+}
+setReadedTimestamp = function (dialogId) {
+	var dialogTimestamp = {};
+	dialogTimestamp[dialogId] = timestamp();
+	Meteor.users.update(
+			Meteor.userId(),
+			{
+				$set: {
+					profile: {
+						readedTimestamps: dialogTimestamp
+					}
+				}
+			});
 }

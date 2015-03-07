@@ -1,20 +1,31 @@
 <template name="chatLeftMenu">
-    <h3>Channels</h3>
-	<div>
-        {{#each channels}}
+	<div class='chat-left-menu'>
+		<h3>Channels</h3>
+		<div>
+			{{#each channels}}
             {{>dialogItem}}
-        {{/each}}
-    </div>
-	<h3>Dialogs</h3>
-	<div>
-        {{#each dialogs}}
+			{{/each}}
+		</div>
+		<div class="control-button">
+			<paper-button raised>Create channel</paper-button>
+			<div class="clear"></div>
+		</div>
+		<h3>Dialogs</h3>
+		<div>
+			{{#each dialogs}}
             {{>dialogItem}}
-        {{/each}}
-    </div>
-	<h3>Rooms</h3>
-	<div>
-        {{#each rooms}}
+			{{/each}}
+		</div>
+		<h3>Rooms</h3>
+		<div>
+			{{#each rooms}}
             {{>dialogItem}}
-        {{/each}}
-    </div>
+			{{/each}}
+		</div>
+		<div class="control-button">
+			<paper-button raised>Create dialog</paper-button>
+			<div class="clear"></div>
+		</div>
+	</div>
+
 </template>

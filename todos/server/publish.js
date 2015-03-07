@@ -11,6 +11,24 @@ Meteor.publish("dialogs", function () {
 	}
 });
 Meteor.publish("messages", function (dialogId, limit) {
+	check(dialogId, String);
 	var limit = limit || 50;
-	return Messages.find({dialogId: dialogId}, {sort: {timestamp: 1}, limit: limit});
+	return Messages.find({dialogId: dialogId}, {sort: {created: -1}, limit: limit});
+});
+Meteor.publish("lastDialogMessage", function (dialogId) {
+	if(!dialogId){
+		return;
+	}
+	var self = this;
+	check(dialogId, String);
+	var dialog = getDialogOrDie(dialogId);
+	if(isUserAuthorizedInDialog(dialog, self.userId)){
+		console.log('Publishing last message ', dialogId);
+		return Messages.find({dialogId: dialogId}, 
+			{
+				limit: 1,
+				sort: {created: -1}
+			});
+	}
+	
 });

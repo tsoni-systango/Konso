@@ -3,18 +3,17 @@ Tracker.autorun(function () {
 	if (currentDialog) {
 		Meteor.subscribe("messages", currentDialog._id);
 	}
-})
-
-Template.chat.rendered = function () {
-
-}
+});
 
 Template.chat.helpers({
 	allUsers: function () {
 		return Meteor.users.find();
 	},
 	chatMessages: function () {
-		return Messages.find({}, {sort: {"created": -1}});
+		var currentDialog = getCurrentDialog();
+		if (currentDialog) {
+			return Messages.find({dialogId: currentDialog._id}, {sort: {"created": -1}});
+		}
 	},
 	currentDialogName: function () {
 		return getDialogName(getCurrentDialog());
@@ -29,11 +28,26 @@ Template.chat.events({
 			e.preventDefault();
 			$textarea.val('');
 			Meteor.call('sendMessage', text, getCurrentDialog()._id, function (e, r) {
-				console.log(e)
-				console.log(r)
+
 			})
 		}
+		updateReadTimestamp();
+	},
+	"mouseover .messages-container": function (e) {
+		updateReadTimestamp();
 	}
 });
 
-
+function updateReadTimestamp() {
+	return;
+	var readData = {};
+	readData[getCurrentDialog()._id] = timestamp();
+	Meteor.users.update(Meteor.userId(),
+			{
+				$set: {
+					profile: {
+						readTimestamps: readData
+					}
+				}
+			});
+}

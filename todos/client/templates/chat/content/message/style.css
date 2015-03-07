@@ -6,12 +6,11 @@
 	align-self: flex-start;
 	max-width: 90%;
 	word-wrap: break-word;
-}
-.chat-message-separator{
-	margin: 10px auto;
+	word-break: break-all;
+	margin: 10px 20px 10px 5px;
 }
 .chat-message.own{
-	margin: 10px 0 10px 20px;
+	margin: 10px 5px 10px 20px;
 	background-color: #BEDBE0;
 	align-self: flex-end;
 }

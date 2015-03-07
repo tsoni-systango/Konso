@@ -1,9 +1,27 @@
+.chat-left-menu h3 {
+	margin: 10px 0;
+}
+.chat-left-menu .control-button {
+	margin: 10px 0;
+}
+.chat-left-menu .control-button paper-button{
+	line-height: 0.5;
+	float: right;
+	background: #4B5C79;
+	color: white;
+}
+
 .dialog-item{
     position: relative;
-    height: 25px;
+	margin: 5px 0 5px -12px;
+	padding: 2px 10px 2px 12px;
+	border-radius: 0 3px 3px 0;
+	cursor: pointer;
 }
 .dialog-item.selected{
-   background: #ccc;
+	background: #4B5C79;
+	color: white;
+	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
 }
 
 .dialog-item core-icon{
@@ -11,10 +29,34 @@
     height: 13px;
 }
 
-.dialog-item .online{
-    color: #339933;
+.dialog-item .name{
+    float: left;
+	width: 190px;
+	font-weight: bold;
+}
+.dialog-item .unread{
+    float: right;
+	color:rgb(255, 174, 0);
+	font-weight: bold;
 }
 
-.dialog-item .offline{
+.dialog-item .presence-icon{
+    margin: 4px 2px 0 0;
+	float:left;
+	color: #aaa;
+}
+.dialog-item .presence-icon.online{
+    margin: 4px 2px 0 0;
+	float:left;
+	color: rgb(87, 150, 28)
+}
+
+.dialog-item .last-message{
     color: #aaa;
+	clear:both;
+	width: 220px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-size: .8em;
 }
