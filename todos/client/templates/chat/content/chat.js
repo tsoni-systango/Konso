@@ -7,7 +7,7 @@ Tracker.autorun(function () {
 
 Template.chat.helpers({
 	allUsers: function () {
-		return Meteor.users.find();
+		return Meteor.users.find({_id: {$ne: Meteor.userId()}});
 	},
 	chatMessages: function () {
 		var currentDialog = getCurrentDialog();
@@ -34,20 +34,17 @@ Template.chat.events({
 		updateReadTimestamp();
 	},
 	"mouseover .messages-container": function (e) {
-		updateReadTimestamp();
+		//updateReadTimestamp();
 	}
 });
 
 function updateReadTimestamp() {
-	return;
-	var readData = {};
-	readData[getCurrentDialog()._id] = timestamp();
+	var profile = Meteor.user().profile;
+	profile.readTimestamps[getCurrentDialog()._id] = timestamp();
 	Meteor.users.update(Meteor.userId(),
 			{
 				$set: {
-					profile: {
-						readTimestamps: readData
-					}
+					profile: profile
 				}
 			});
 }

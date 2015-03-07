@@ -1,5 +1,10 @@
 .chat-left-menu h3 {
-	margin: 10px 0;
+	margin: 20px 0 0;
+	font-weight: 100;
+}
+.chat-left-menu .notexists {
+	font-size: .8em;
+	color: #aaa;
 }
 .chat-left-menu .control-button {
 	margin: 10px 0;
@@ -7,8 +12,7 @@
 .chat-left-menu .control-button paper-button{
 	line-height: 0.5;
 	float: right;
-	background: #4B5C79;
-	color: white;
+	font-weight: 100;
 }
 
 .dialog-item{

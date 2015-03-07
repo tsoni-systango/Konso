@@ -2,9 +2,13 @@
 	<div class='chat-left-menu'>
 		<h3>Channels</h3>
 		<div>
-			{{#each channels}}
-            {{>dialogItem}}
-			{{/each}}
+			{{#if channels.count}}
+				{{#each channels}}
+				{{>dialogItem}}
+				{{/each}}
+			{{else}}
+			<span class="notexists">No channels created</span>
+			{{/if}}
 		</div>
 		<div class="control-button">
 			<paper-button raised>Create channel</paper-button>
@@ -12,18 +16,26 @@
 		</div>
 		<h3>Dialogs</h3>
 		<div>
+			{{#if dialogs.count}}
 			{{#each dialogs}}
-            {{>dialogItem}}
+			{{>dialogItem}}
 			{{/each}}
+			{{else}}
+			<span class="notexists">No dialogs created</span>
+			{{/if}}
 		</div>
 		<h3>Rooms</h3>
 		<div>
+			{{#if rooms.count}}
 			{{#each rooms}}
             {{>dialogItem}}
 			{{/each}}
+			{{else}}
+			<span class="notexists">No rooms created</span>
+			{{/if}}
 		</div>
 		<div class="control-button">
-			<paper-button raised>Create dialog</paper-button>
+			<paper-button raised>Create room</paper-button>
 			<div class="clear"></div>
 		</div>
 	</div>

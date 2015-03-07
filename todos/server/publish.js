@@ -23,7 +23,6 @@ Meteor.publish("lastDialogMessage", function (dialogId) {
 	check(dialogId, String);
 	var dialog = getDialogOrDie(dialogId);
 	if(isUserAuthorizedInDialog(dialog, self.userId)){
-		console.log('Publishing last message ', dialogId);
 		return Messages.find({dialogId: dialogId}, 
 			{
 				limit: 1,

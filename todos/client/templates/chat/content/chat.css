@@ -5,6 +5,7 @@
 
 .chat-content .text-area{
 	background: #eee;
+	border-top: 1px solid white;
 }
 .chat-content .messages-container{
 	background: white;
