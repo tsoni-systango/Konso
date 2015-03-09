@@ -43,10 +43,40 @@ Meteor.methods({
 				check(timestamp, Number);
 				check(excludeUserId, String);
 				var count = Messages.find({
-					dialogId: dialogId, 
+					dialogId: dialogId,
 					created: {$gt: timestamp},
 					ownerId: {$ne: excludeUserId}
 				}).count();
 				return count;
-			}
+			},
+	createChannel: function (name) {
+		var currentUser = getCurrentUserOrDie();
+		var channel = {};
+		channel.ownerId = currentUser._id;
+		channel.name = name;
+		channel._id = Channels.insert(channel);
+		var dialog = {
+			created: timestamp(),
+			isPrivate: false,
+			channelId: channel._id,
+			userIds: []
+		};
+		dialog._id = Dialogs.insert(dialog);
+		return dialog;
+	},
+	createRoom: function (name) {
+		var currentUser = getCurrentUserOrDie();
+		var channel = {};
+		channel.ownerId = currentUser._id;
+		channel.name = name;
+		channel._id = Channels.insert(channel);
+		var dialog = {
+			created: timestamp(),
+			isPrivate: true,
+			channelId: channel._id,
+			userIds: [currentUser._id]
+		};
+		dialog._id = Dialogs.insert(dialog);
+		return dialog;
+	},
 })

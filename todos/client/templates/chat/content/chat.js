@@ -1,3 +1,4 @@
+Meteor.subscribe('channels');
 Tracker.autorun(function () {
 	var currentDialog = getCurrentDialog();
 	if (currentDialog) {

@@ -7,7 +7,13 @@ Meteor.publish("allUsers", function () {
 Meteor.publish("dialogs", function () {
 	var self = this;
 	if (self.userId) {
-		return Dialogs.find({userIds: {$in: [self.userId]}});
+		return Dialogs.find({ $or: [{userIds: {$in: [self.userId]}}, {isPrivate: false}]});
+	}
+});
+Meteor.publish("channels", function () {
+	var self = this;
+	if (self.userId) {
+		return Channels.find({});
 	}
 });
 Meteor.publish("messages", function (dialogId, limit) {

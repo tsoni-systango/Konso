@@ -3,15 +3,15 @@
 		<h3>Channels</h3>
 		<div>
 			{{#if channels.count}}
-				{{#each channels}}
-				{{>dialogItem}}
-				{{/each}}
+			{{#each channels}}
+			{{>dialogItem}}
+			{{/each}}
 			{{else}}
 			<span class="notexists">No channels created</span>
 			{{/if}}
 		</div>
 		<div class="control-button">
-			<paper-button raised>Create channel</paper-button>
+			<paper-button raised class="create-channel">Create channel</paper-button>
 			<div class="clear"></div>
 		</div>
 		<h3>Dialogs</h3>
@@ -35,7 +35,7 @@
 			{{/if}}
 		</div>
 		<div class="control-button">
-			<paper-button raised>Create room</paper-button>
+			<paper-button raised class="create-room">Create room</paper-button>
 			<div class="clear"></div>
 		</div>
 	</div>

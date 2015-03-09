@@ -7,6 +7,12 @@
 	background: #eee;
 	border-top: 1px solid white;
 }
+.chat-content .dialog-menu{
+	padding: 10px;
+}
+.chat-content .dialog-menu .name{
+	font-size: 1.2em;
+}
 .chat-content .messages-container{
 	background: white;
 	overflow-y: auto;

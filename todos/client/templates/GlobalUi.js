@@ -13,14 +13,14 @@ this.GlobalUI = (function() {
   GlobalUI.showDialog = function(opts) {
     this.dialog = $("[global-dialog]")[0];
     this.dialog.heading = opts.heading;
-    Session.set("global.ui.dialogData", opts.data);
-    Session.set("global.ui.dialogTemplate", opts.template);
-    Session.set("global.ui.dialogFullOnMobile", opts.fullOnMobile != null);
-    return Tracker.afterFlush((function(_this) {
-      return function() {
-        return _this.dialog.open();
-      };
-    })(this));
+	this.dialogView = Blaze.renderWithData(
+			Template[opts.template],
+			opts.data,
+			this.dialog
+	);
+	Session.set("global.ui.dialogFullOnMobile", opts.fullOnMobile != null);
+    this.dialog.open();
+	return this.dialog;
   };
 
   GlobalUI.closeDialog = function() {
@@ -32,12 +32,6 @@ this.GlobalUI = (function() {
 })();
 
 Template.globalLayout.helpers({
-  globalDialogTemplate: function() {
-    return Session.get("global.ui.dialogTemplate");
-  },
-  globalDialogData: function() {
-    return Session.get("global.ui.dialogData");
-  },
   globalDialogFullOnMobile: function() {
     return Session.get("global.ui.dialogFullOnMobile");
   }
@@ -45,8 +39,8 @@ Template.globalLayout.helpers({
 
 Template.globalLayout.events({
   "core-overlay-close-completed [global-dialog]": function(e) {
-    Session.set("global.ui.dialogTemplate", null);
-    Session.set("global.ui.dialogData", null);
+	Blaze.remove(GlobalUI.dialogView)
+	GlobalUI.dialogView = null;
     return Session.set("global.ui.dialogFullOnMobile", null);
   },
   "click [data-open-dialog]": function(e) {
