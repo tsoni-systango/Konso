@@ -11,6 +11,7 @@ Meteor.methods({
 		message.dialogId = dialogId;
 		message.created = timestamp();
 		message._id = Messages.insert(message);
+		Dialogs.update(dialogId, {$set: {updated: message.created}});
 		return message;
 	},
 	initOneToOneDialog: function (userId) {
@@ -29,6 +30,7 @@ Meteor.methods({
 		if (!dialog) {
 			dialog = {
 				created: timestamp(),
+				updated: null,
 				isPrivate: true,
 				channelId: null,
 				userIds: [currentUser._id, dialogUser._id]
@@ -49,7 +51,10 @@ Meteor.methods({
 				}).count();
 				return count;
 			},
-	createChannel: function (name) {
+	createDialog: function (name, isPrivate) {
+		if (name.trim() === "") {
+			Errors.throw("Name is empty");
+		}
 		var currentUser = getCurrentUserOrDie();
 		var channel = {};
 		channel.ownerId = currentUser._id;
@@ -57,26 +62,12 @@ Meteor.methods({
 		channel._id = Channels.insert(channel);
 		var dialog = {
 			created: timestamp(),
-			isPrivate: false,
+			updated: null,
+			isPrivate: isPrivate,
 			channelId: channel._id,
-			userIds: []
+			userIds: isPrivate? [currentUser._id] : []
 		};
 		dialog._id = Dialogs.insert(dialog);
 		return dialog;
-	},
-	createRoom: function (name) {
-		var currentUser = getCurrentUserOrDie();
-		var channel = {};
-		channel.ownerId = currentUser._id;
-		channel.name = name;
-		channel._id = Channels.insert(channel);
-		var dialog = {
-			created: timestamp(),
-			isPrivate: true,
-			channelId: channel._id,
-			userIds: [currentUser._id]
-		};
-		dialog._id = Dialogs.insert(dialog);
-		return dialog;
-	},
+	}
 })

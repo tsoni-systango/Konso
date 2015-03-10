@@ -1,6 +1,7 @@
 Meteor.startup(function () {
-   //Messages.remove({});
+	//Messages.remove({});
 	//Dialogs.remove({});
+	//Channels.remove({});
 	//Meteor.users.remove({});
   Inject.rawModHtml('addUnresolved', function(html){
       return html.replace('<body>', '<body unresolved fit layout vertical>');

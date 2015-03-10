@@ -14,6 +14,14 @@
 .chat-message.own{
 	background: #e0eaf3;
 }
+.chat-message .unread-indicator{
+	background: #104677;
+	position: absolute;
+	width: 3px;
+	top: 0px;
+	bottom: 0px;
+	left: 0px;
+}
 .chat-message .chat-from{
 	display: table-cell;
 	cursor: pointer;

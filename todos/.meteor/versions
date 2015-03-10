@@ -64,6 +64,7 @@ srp@1.0.2
 templating@1.0.11
 tmeasday:presence@1.0.3
 tracker@1.0.5
+tsega:mentions@0.0.2
 typ:accounts-ldap@0.0.1
 typ:ldapjs@0.7.3
 u2622:persistent-session@0.2.2

@@ -7,5 +7,9 @@ Template.chatMessage.helpers({
 	ownerName: function(){
 		var user = Meteor.users.findOne(this.ownerId);
 		return user.username;
+	},
+	isUnread: function(){
+		var timestamp = getUnreadTimestamp(getCurrentDialog()._id);
+		return this.created > timestamp && this.ownerId !== Meteor.userId();
 	}
 });

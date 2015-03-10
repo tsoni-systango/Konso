@@ -43,7 +43,17 @@
     <paper-action-dialog global-dialog layered backdrop
                          transition="paper-dialog-transition-bottom"
                          class={{#if globalDialogFullOnMobile}}full-on-mobile{{/if}}> 
-    </paper-action-dialog>
+						 
+						<paper-progress style="display: {{progressCSSDisplay}}" indeterminate=""></paper-progress>
+						
+						<div class="modal-content" style="display: {{contentCSSDisplay}}"></div>
+						
+						 </paper-action-dialog>
 
-    <paper-toast global-toast></paper-toast>
-</template>
+						 <paper-toast global-toast>
+							 {{#if isErrorToast}}
+							 <core-icon class="error" icon="error"></core-icon>
+							 {{/if}}
+
+						 </paper-toast>
+	</template>

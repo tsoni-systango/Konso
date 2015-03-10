@@ -6,15 +6,26 @@
 			{{/each}}
 		</div>
 		<div main vertical layout fit class='chat-content'>
-			<div class="dialog-menu">
+
+			{{#if isMessagesReady}}
+			<div class="dialog-menu">	
 				<span class="name">@{{currentDialogName}}</span>
 			</div>
+			{{else}}
+			<paper-progress indeterminate=""></paper-progress>
+			{{/if}}
+
+
 			<div flex class='messages-container'>
-				<div></div>
+				{{#each chatMessagesUnread}}
+				{{> chatMessage}}
+				{{/each}}	
+				<div id="unread-separator"></div>
 				{{#each chatMessages}}
 				{{> chatMessage}}
-				{{/each}}
+				{{/each}}	
 			</div>
+
 			<paper-input-decorator class='text-area' label="Type your message" layout vertical>
 				<paper-autogrow-textarea>
 					<form id="chat-message-form">

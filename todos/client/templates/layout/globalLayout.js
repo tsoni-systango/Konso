@@ -21,7 +21,16 @@ Template.globalLayout.helpers({
     },
     isAuthenticated: function () {
         return Meteor.user();
-    }
+    },
+	isErrorToast: function(){
+		return GlobalUI.isErrorToast.get();
+	},
+	progressCSSDisplay: function(){
+		return GlobalUI.isProgressVisible.get() ? "block": "none";
+	},
+	contentCSSDisplay: function(){
+		return GlobalUI.isProgressVisible.get() ? "none": "block";
+	}
 	
 });
 

@@ -2,28 +2,28 @@ Template.dialogItem.created = function () {
 	var self = this;
 	Meteor.subscribe("lastDialogMessage", self.data._id);
 
-	self.data.lastMessage = new ReactiveVar();
-	self.data.unreadMessageCount = new ReactiveVar();
-	self.data.onlineUsers = new ReactiveVar();
-	self.data.offlineUsers = new ReactiveVar();
+	self.lastMessage = new ReactiveVar();
+	self.unreadMessageCount = new ReactiveVar();
+	self.onlineUsers = new ReactiveVar();
+	self.offlineUsers = new ReactiveVar();
 
-	Tracker.autorun(function () {
+	this.autorun(function () {
 		if (!Meteor.userId()) {
 			return;
 		}
 		var message = Messages.findOne({dialogId: self.data._id}, {
 			sort: {created: -1}
 		});
-		self.data.lastMessage.set(message);
+		self.lastMessage.set(message);
 		Meteor.call("getUnreadMessagesCountForTimestamp",
 				self.data._id,
 				Meteor.user().profile.readTimestamps[self.data._id] || 0,
 				Meteor.userId(), function (er, count) {
-			self.data.unreadMessageCount.set(count);
+			self.unreadMessageCount.set(count);
 		});
 	});
 
-	Tracker.autorun(function () {
+	this.autorun(function () {
 		if (!Meteor.userId()) {
 			return;
 		}
@@ -35,14 +35,14 @@ Template.dialogItem.created = function () {
 				onlineCount++;
 			}
 		});
-		self.data.offlineUsers.set(reactiveDialog.userIds.length - 1 - onlineCount);
-		self.data.onlineUsers.set(onlineCount);
+		self.offlineUsers.set(reactiveDialog.userIds.length - 1 - onlineCount);
+		self.onlineUsers.set(onlineCount);
 	});
 }
 Template.dialogItem.helpers({
 	title: function () {
 		var dialog = Dialogs.findOne(this._id);
-		return getDialogName(dialog);
+		return getChatName(dialog);
 	},
 	selected: function () {
 		var currentDialog = getCurrentDialog();
@@ -51,19 +51,19 @@ Template.dialogItem.helpers({
 		}
 	},
 	unreadCount: function () {
-		return this.unreadMessageCount.get();
+		return Template.instance().unreadMessageCount.get();
 	},
 	lastMessage: function () {
-		return this.lastMessage.get();
+		return Template.instance().lastMessage.get();
 	},
 	onlineCount: function () {
-		return this.onlineUsers.get();
+		return Template.instance().onlineUsers.get();
 	},
 	offlineCount: function () {
-		return this.offlineUsers.get();
+		return Template.instance().offlineUsers.get();
 	},
 	presenceStyle: function () {
-		return this.onlineUsers.get() ? "online": "offline";
+		return Template.instance().onlineUsers.get() ? "online": "offline";
 	}
 });
 Template.dialogItem.events({

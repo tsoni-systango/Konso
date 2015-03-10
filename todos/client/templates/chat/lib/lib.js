@@ -7,8 +7,11 @@ setCurrentDialog = function (dialog) {
 getCurrentDialog = function () {
 	return Session.get(CURRENT_DIALOG_ID_KEY);
 }
+getUnreadTimestamp = function (dialogId) {
+	return Meteor.user().profile.readTimestamps[dialogId] || 0;
+}
 
-getDialogName = function (dialog) {
+getChatName = function (dialog) {
 	if (!dialog) {
 		return null;
 	}
