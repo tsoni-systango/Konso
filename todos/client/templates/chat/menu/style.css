@@ -42,6 +42,10 @@
 .dialog-item.channel .name:before {
     content: "#"
 }
+
+.dialog-item.channel .name {
+    font-weight: 400;
+}
 .dialog-item .unread{
     float: right;
 	color:rgb(255, 174, 0);

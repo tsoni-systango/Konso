@@ -1,7 +1,6 @@
 Template.chatLeftMenu.created = function () {
     this.subscriptions = {
-        dialogs: Meteor.subscribe("dialogs"),
-        lastDialogMessage: Meteor.subscribe('lastDialogMessage')
+        dialogs: Meteor.subscribe("dialogs")
     }
 }
 
