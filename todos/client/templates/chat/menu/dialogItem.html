@@ -1,7 +1,9 @@
 <template name='dialogItem'>
 
-	<div id='{{_id}}' layout center class="dialog-item {{selected}}"> 
-		<core-icon class="presence-icon {{presenceStyle}}" icon="account-circle"></core-icon>
+    <div id='{{_id}}' layout center class="dialog-item {{typeClass}} {{selected}}">
+        {{#if isOneToOne}}
+            <core-icon class="presence-icon {{presenceStyle}}" icon="account-circle"></core-icon>
+        {{/if}}
 		<div class='name'>{{title}}</div>
 		{{#if unreadCount}}
 		<div class='unread'>{{unreadCount}}</div>
@@ -10,6 +12,5 @@
 		<!--div class="offline">Offline: {{offlineCount}}</div-->
 		
 		<div class="last-message">{{lastMessage.text}}</div>
-		
 	</div>
 </template>

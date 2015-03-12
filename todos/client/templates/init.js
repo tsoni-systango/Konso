@@ -15,3 +15,6 @@ Meteor.startup(function() {
     }
   });
 });
+// autosuggest settings
+$.fn.asuggest.defaults.delimiters = "@";
+$.fn.asuggest.defaults.minChunkSize = 1;

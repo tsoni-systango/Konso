@@ -7,7 +7,7 @@ Template.generalUserItem.events({
 	"click .general-user-item": function(e){
 		
 		Meteor.call('initOneToOneDialog', this._id, function(error, dialogId){
-			setCurrentDialog(Dialogs.findOne(dialogId));
+            IM.setCurrentDialog(Dialogs.findOne(dialogId));
 		});
 	}
 })

@@ -9,7 +9,7 @@ Template.chatMessage.helpers({
 		return user.username;
 	},
 	isUnread: function(){
-		var timestamp = getUnreadTimestamp(getCurrentDialog()._id);
+        var timestamp = IM.getCurrentDialogUnreadTimestamp();
 		return this.created > timestamp && this.ownerId !== Meteor.userId();
 	}
 });

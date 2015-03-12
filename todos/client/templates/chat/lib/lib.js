@@ -1,48 +1,68 @@
-CURRENT_DIALOG_ID_KEY = "CURRENT_DIALOG_ID_KEY";
-DIALOG_TYPE_CHANNEL = "DIALOG_TYPE_CHANNEL";
-DIALOG_TYPE_ROOM = "DIALOG_TYPE_ROOM";
-setCurrentDialog = function (dialog) {
-	Session.setAuth(CURRENT_DIALOG_ID_KEY, dialog);
-}
-getCurrentDialog = function () {
-	return Session.get(CURRENT_DIALOG_ID_KEY);
-}
-getUnreadTimestamp = function (dialogId) {
-	return Meteor.user().profile.readTimestamps[dialogId] || 0;
-}
+IM = {};
+(function () {
+    IM.CURRENT_DIALOG_ID_KEY = "CURRENT_DIALOG_ID_KEY";
 
-getChatName = function (dialog) {
-	if (!dialog) {
-		return null;
-	}
-	if (dialog.channelId) {
-		var channel = Channels.findOne(dialog.channelId);
-		if(channel){
-			return channel.name;
-		} else {
-			return "Unknown channel";
-		}
-	} else {
-		var dialogUsers = Meteor.users.find({_id: {$in: dialog.userIds}});
-		var defaultName = "";
-		dialogUsers.forEach(function (el) {
-			if (el._id !== Meteor.user()._id) {
-				defaultName += el.username;
-			}
-		})
-		return defaultName;
-	}
-}
-setReadedTimestamp = function (dialogId) {
-	var dialogTimestamp = {};
-	dialogTimestamp[dialogId] = timestamp();
-	Meteor.users.update(
-			Meteor.userId(),
-			{
-				$set: {
-					profile: {
-						readedTimestamps: dialogTimestamp
-					}
-				}
-			});
-}
+    IM.setCurrentDialog = function (dialog) {
+        Session.setAuth(IM.CURRENT_DIALOG_ID_KEY, dialog);
+    };
+
+    IM.getCurrentDialog = function () {
+        return Session.get(IM.CURRENT_DIALOG_ID_KEY);
+    };
+
+    IM.getCurrentDialogUnreadTimestamp = function () {
+        var dialog = IM.getCurrentDialog();
+        if (!dialog) {
+            return null;
+        }
+        return Meteor.user().profile.readTimestamps[dialog._id] || 0;
+    };
+
+    IM.getChatName = function (dialog) {
+        if (!dialog) {
+            return null;
+        }
+        if (dialog.name) {
+            return dialog.name;
+        } else {
+            var dialogUsers = Meteor.users.find({
+                _id: {
+                    $in: _.without(dialog.userIds, Meteor.userId())
+                }
+            }).fetch();
+            if (_.isEmpty(dialogUsers)) {
+                return "Unknown Dialog";
+            }
+            return _.reduce(dialogUsers, function (m, el) {
+                return m + " " + el.username;
+            }, "");
+        }
+    };
+    IM.updateReadTimestamp = function (value) {
+        var profile = Meteor.user().profile;
+        var currentTimestamp = IM.getCurrentDialogUnreadTimestamp();
+        var newValue = value || _.now();
+        if (newValue < currentTimestamp) {
+            return;
+        }
+        profile.readTimestamps[IM.getCurrentDialog()._id] = value || _.now();
+        Meteor.users.update(Meteor.userId(),
+            {
+                $set: {
+                    profile: profile
+                }
+            });
+    };
+    IM.evaluateAndUpdateReadTimestamp = function () {
+        var $messagesContainer = $('.messages-container');
+        var y = $messagesContainer.offset().top + $messagesContainer.height() - 10;
+        var x = $messagesContainer.offset().left + 5;
+        var el = $(document.elementFromPoint(x, y)).closest(".chat-message");
+        var created = Number(el.attr("created"));
+
+        if (created) {
+            console.log("updated")
+            IM.updateReadTimestamp(created);
+        }
+    }
+})();

@@ -5,16 +5,8 @@ Meteor.publish("allUsers", function () {
 	return Meteor.users.find({}, {fields: {username: 1, emails: 1, profile: 1}});
 });
 Meteor.publish("dialogs", function () {
-	var self = this;
-	if (self.userId) {
-		return Dialogs.find({ $or: [{userIds: {$in: [self.userId]}}, {isPrivate: false}]});
-	}
-});
-Meteor.publish("channels", function () {
-	var self = this;
-	if (self.userId) {
-		return Channels.find({});
-	}
+    check(this.userId, String);
+    return Dialogs.find({$or: [{userIds: {$in: [this.userId]}}, {type: DialogTypes.CHANNEL}]});
 });
 Meteor.publish("messages", function (dialogId, limit) {
 	check(dialogId, String);
@@ -22,9 +14,6 @@ Meteor.publish("messages", function (dialogId, limit) {
 	return Messages.find({dialogId: dialogId}, {sort: {created: -1}, limit: limit});
 });
 Meteor.publish("lastDialogMessage", function (dialogId) {
-	if(!dialogId){
-		return;
-	}
 	var self = this;
 	check(dialogId, String);
 	var dialog = getDialogOrDie(dialogId);

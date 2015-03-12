@@ -38,6 +38,10 @@
 	width: 160px;
 	font-weight: bold;
 }
+
+.dialog-item.channel .name:before {
+    content: "#"
+}
 .dialog-item .unread{
     float: right;
 	color:rgb(255, 174, 0);

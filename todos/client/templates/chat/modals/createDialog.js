@@ -1,8 +1,8 @@
 Template.createDialog.helpers({
 	label: function () {
-		if (this.type === DIALOG_TYPE_CHANNEL) {
+        if (this.type === DialogTypes.CHANNEL) {
 			return "Channel name";
-		} else if (this.type === DIALOG_TYPE_ROOM) {
+        } else if (this.type === DialogTypes.ROOM) {
 			return "Room name";
 		}
 	}
@@ -14,21 +14,16 @@ Template.createDialog.events({
 		if ($form[0].valid) {
 			var dialogName = $form.find("#dialogName").val();
 			var isPrivate;
-			if (self.type === DIALOG_TYPE_CHANNEL) {
-				isPrivate = false;
-			} else if (self.type === DIALOG_TYPE_ROOM) {
-				isPrivate = true;
-			}
 			Meteor.call(
 					"createDialog",
 					dialogName,
-					isPrivate,
+                self.type,
 					GlobalUI.generalModalCallback(onSuccess)
 					);
 		}
 		function onSuccess(dialogId) {
 			var newDialog = Dialogs.findOne(dialogId);
-			setCurrentDialog(newDialog);
+            IM.setCurrentDialog(newDialog);
 		}
 	}
 });

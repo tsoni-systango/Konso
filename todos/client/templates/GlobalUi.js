@@ -44,8 +44,8 @@ this.GlobalUI = (function() {
 			GlobalUI.closeDialog();
 			onSuccess && onSuccess(result);
 		  } else {
-			  console.log(error)
-			GlobalUI.errorToast(error.error); 
+              var msg = error.reason ? error.reason : error.message;
+              GlobalUI.errorToast(msg);
 		  }
 	  }
   };

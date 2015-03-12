@@ -42,14 +42,26 @@ Template.dialogItem.created = function () {
 Template.dialogItem.helpers({
 	title: function () {
 		var dialog = Dialogs.findOne(this._id);
-		return getChatName(dialog);
+        return IM.getChatName(dialog);
 	},
 	selected: function () {
-		var currentDialog = getCurrentDialog();
+        var currentDialog = IM.getCurrentDialog();
 		if (currentDialog && currentDialog._id === this._id) {
 			return "selected";
 		}
 	},
+    typeClass: function () {
+        if (this.type === DialogTypes.ONE_TO_ONE) {
+            return "one-to-one";
+        } else if (this.type === DialogTypes.CHANNEL) {
+            return "channel";
+        } else if (this.type === DialogTypes.ROOM) {
+            return "room";
+        }
+    },
+    isOneToOne: function () {
+        return this.type === DialogTypes.ONE_TO_ONE;
+    },
 	unreadCount: function () {
 		return Template.instance().unreadMessageCount.get();
 	},
@@ -68,6 +80,6 @@ Template.dialogItem.helpers({
 });
 Template.dialogItem.events({
 	"click .dialog-item": function () {
-		setCurrentDialog(this);
+        IM.setCurrentDialog(this);
 	}
 });

@@ -1,29 +1,23 @@
 /*
- Channels Schema
- {
-	name: String
-	ownerId: Id
- }
- */
-Channels = new Mongo.Collection("channels");
-/*
  Dialogs Schema
  {
-	created: Timestamp
-	channelId: Id of a channel, if channels dialog
-	isPrivate: Boolean
-	userIds: Array of ids
+ name: String
+ ownerId: Id
+ created: Timestamp
+ channelId: Id of a channel, if channels dialog
+ userIds: Array of ids
+ type: Enum of DialogType
  }
  */
 Dialogs = new Mongo.Collection("dialogs");
 /*
  Messages Schema
  {
-	created: Timestamp
-	ownerId: Id
-	text: String
-	dialogId: Id 
-	isRead: Boolean
+ created: Timestamp
+ ownerId: Id
+ text: String
+ dialogId: Id
+ isRead: Boolean
  }
  */
 Messages = new Mongo.Collection("messages");

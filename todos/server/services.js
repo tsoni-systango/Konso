@@ -25,6 +25,3 @@ getChannelOrDie = function (channelId) {
 	}
 	return channel;
 }
-timestamp = function(){
-	return new Date().getTime();
-}
