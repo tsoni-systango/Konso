@@ -34,7 +34,7 @@ IM = {};
                 return "Unknown Dialog";
             }
             return _.reduce(dialogUsers, function (m, el) {
-                return m + " " + el.username;
+                return m + " " + Utils.getUsername(el);
             }, "");
         }
     };

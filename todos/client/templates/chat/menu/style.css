@@ -23,7 +23,7 @@
 	cursor: pointer;
 }
 .dialog-item.selected{
-	background: #4B5C79;
+    background: #2C3645;
 	color: white;
 	box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
 }

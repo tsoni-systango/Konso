@@ -1,0 +1,15 @@
+{
+  "authentication": {
+    "default": "ldap",
+    "crowd": {
+      "baseUrl": "http://192.168.1.143:8095/crowd/",
+      "appName": "im",
+      "appPassword": "123qwe"
+    },
+    "ldap": {
+      "baseUrl": "ldap://ldap.forumsys.com",
+      "port": 389,
+      "dn": "dc=example,dc=com"
+    }
+  }
+}

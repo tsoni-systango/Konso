@@ -38,20 +38,14 @@ Template.globalLayout.events({
     "submit [data-action=log-in]": function (e) {
         var form = $(e.target);
         if(form[0].valid){
-            var username = form.find("#username").val();
-            var pass = form.find("#password").val();
+            var username = form.find("#username").val()
+            var pass = form.find("#password").val()
 
-            Meteor.loginWithLDAP(username, pass, {
-                dn: "uid="+username+",dc=example,dc=com"
-            }, function (err) {
-                if (err) {
-                    GlobalUI.toast(err.reason);
-                } else {
-                    console.log('logged in succesfully');
-                }
-
-
-            });
+            /*Meteor.loginWithLDAP(username, pass, {
+             dn: "uid="+username+",dc=example,dc=com"
+             },GlobalUI.generalCallback());
+             */
+            Meteor.loginWithCrowd(username, pass, GlobalUI.generalCallback());
         }
     }
 });

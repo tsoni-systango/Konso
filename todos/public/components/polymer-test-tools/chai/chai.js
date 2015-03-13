@@ -773,7 +773,7 @@ exports.use = function (fn) {
  * Configuration
  */
 
-var config = require('./chai/config');
+    var config = require('./chai/private');
 exports.config = config;
 
 /*!
@@ -820,7 +820,7 @@ require.register("chai/lib/chai/assertion.js", function(exports, require, module
  * MIT Licensed
  */
 
-var config = require('./config');
+    var config = require('./private');
 
 module.exports = function (_chai, util) {
   /*!
@@ -945,17 +945,17 @@ module.exports = function (_chai, util) {
 };
 
 });
-require.register("chai/lib/chai/config.js", function(exports, require, module){
+    require.register("chai/lib/chai/private.js", function (exports, require, module) {
 module.exports = {
 
   /**
-   * ### config.includeStack
+   * ### private.includeStack
    *
    * User configurable property, influences whether stack trace
    * is included in Assertion error message. Default of false
    * suppresses stack trace in the error message.
    *
-   *     chai.config.includeStack = true;  // enable stack on error
+   *     chai.private.includeStack = true;  // enable stack on error
    *
    * @param {Boolean}
    * @api public
@@ -964,7 +964,7 @@ module.exports = {
    includeStack: false,
 
   /**
-   * ### config.showDiff
+   * ### private.showDiff
    *
    * User configurable property, influences whether or not
    * the `showDiff` flag should be included in the thrown
@@ -979,7 +979,7 @@ module.exports = {
   showDiff: true,
 
   /**
-   * ### config.truncateThreshold
+   * ### private.truncateThreshold
    *
    * User configurable property, sets length threshold for actual and
    * expected values in assertion errors. If this threshold is exceeded,
@@ -987,7 +987,7 @@ module.exports = {
    *
    * Set it to zero if you want to disable truncating altogether.
    *
-   *     chai.config.truncateThreshold = 0;  // disable truncating
+   *     chai.private.truncateThreshold = 0;  // disable truncating
    *
    * @param {Number}
    * @api public
@@ -3483,7 +3483,7 @@ require.register("chai/lib/chai/utils/addChainableMethod.js", function(exports, 
 
 var transferFlags = require('./transferFlags');
 var flag = require('./flag');
-var config = require('../config');
+    var config = require('../private');
 
 /*!
  * Module variables
@@ -3591,7 +3591,7 @@ require.register("chai/lib/chai/utils/addMethod.js", function(exports, require, 
  * MIT Licensed
  */
 
-var config = require('../config');
+    var config = require('../private');
 
 /**
  * ### .addMethod (ctx, name, method)
@@ -4427,7 +4427,7 @@ require.register("chai/lib/chai/utils/objDisplay.js", function(exports, require,
  */
 
 var inspect = require('./inspect');
-var config = require('../config');
+    var config = require('../private');
 
 /**
  * ### .objDisplay (object)

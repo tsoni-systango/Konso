@@ -6,7 +6,7 @@ Template.chatMessage.helpers({
 	},
 	ownerName: function(){
 		var user = Meteor.users.findOne(this.ownerId);
-		return user.username;
+        return Utils.getUsername(user);
 	},
 	isUnread: function(){
         var timestamp = IM.getCurrentDialogUnreadTimestamp();

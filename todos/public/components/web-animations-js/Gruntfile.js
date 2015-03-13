@@ -172,7 +172,7 @@ module.exports = function(grunt) {
 
   grunt.task.registerMultiTask('test', 'Run <target> tests under Karma', function() {
     var done = this.async();
-    var karmaConfig = require('karma/lib/config').parseConfig(require('path').resolve('test/karma-config.js'), {});
+      var karmaConfig = require('karma/lib/private').parseConfig(require('path').resolve('test/karma-private.js'), {});
     var config = targetConfig[this.target];
     karmaConfig.files = ['test/runner.js'].concat(config.src, config.test);
     var karmaServer = require('karma').server;
@@ -183,7 +183,7 @@ module.exports = function(grunt) {
 
   grunt.task.registerMultiTask('sauce', 'Run <target> tests under Karma on Saucelabs', function() {
     var done = this.async();
-    var karmaConfig = require('karma/lib/config').parseConfig(require('path').resolve('test/karma-config-ci.js'), {});
+      var karmaConfig = require('karma/lib/private').parseConfig(require('path').resolve('test/karma-private-ci.js'), {});
     var config = targetConfig[this.target];
     karmaConfig.files = ['test/runner.js'].concat(config.src, config.test);
     karmaConfig.sauceLabs.testName = 'web-animation-next ' + this.target + ' Unit tests';

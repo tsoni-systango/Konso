@@ -4,6 +4,7 @@ this.GlobalUI = (function() {
   GlobalUI.dialog = {};
 
   GlobalUI.toast = function(text) {
+      console.log("simple toast")
 	this.isErrorToast.set(false);
     var toast;
     toast = $("[global-toast]")[0];
@@ -33,7 +34,7 @@ this.GlobalUI = (function() {
   };
 
   GlobalUI.closeDialog = function() {
-    return this.dialog.close();
+      return this.dialog && this.dialog.close();
   };
   
   GlobalUI.generalModalCallback = function(onSuccess){
@@ -48,6 +49,17 @@ this.GlobalUI = (function() {
               GlobalUI.errorToast(msg);
 		  }
 	  }
+  };
+    GlobalUI.generalCallback = function (onSuccess) {
+        return function (error, result) {
+
+            if (!error) {
+                onSuccess && onSuccess(result);
+            } else {
+                var msg = error.reason ? error.reason : error.message;
+                GlobalUI.errorToast(msg);
+            }
+        }
   };
   GlobalUI.isProgressVisible = new ReactiveVar(false);
 
