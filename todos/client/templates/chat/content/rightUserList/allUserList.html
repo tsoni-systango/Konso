@@ -1,0 +1,11 @@
+<template name="allUserList">
+
+    <paper-input-decorator class="filter-users" label="Search users" layout vertical>
+        <core-icon icon="search"></core-icon>
+        <input placeholder="Search users" aria-label="Search users">
+    </paper-input-decorator>
+    {{#each users}}
+        {{>generalUserItem}}
+    {{/each}}
+
+</template>

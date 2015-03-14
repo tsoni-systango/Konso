@@ -11,6 +11,16 @@
 	border-top: solid #fff 1px;
 	background: #eee;
 }
+
+.chat-message .mention {
+    display: inline-block;
+    background: #f5f5f5;
+    padding: 2px 5px;
+    border: 1px solid #cccccc;
+    border-radius: 3px;
+    line-height: 16px;
+    white-space: nowrap;
+}
 .chat-message.own{
 	background: #e0eaf3;
 }

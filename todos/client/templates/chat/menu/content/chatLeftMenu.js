@@ -2,6 +2,9 @@ Template.chatLeftMenu.created = function () {
     this.subscriptions = {
         dialogs: Meteor.subscribe("dialogs")
     }
+    this.autorun(function () {
+        $(".filter-dialogs input").val(IM.getFilterDialogsString());
+    });
 }
 
 Template.chatLeftMenu.helpers({
@@ -50,6 +53,9 @@ Template.chatLeftMenu.events({
             },
             template: 'createDialog'
         })
+    },
+    "input .filter-dialogs": function (e) {
+        IM.setDialogsFilterString($(e.target).val());
     }
 });
 

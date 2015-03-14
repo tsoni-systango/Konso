@@ -2,8 +2,31 @@ IM = {};
 (function () {
     IM.CURRENT_DIALOG_ID_KEY = "CURRENT_DIALOG_ID_KEY";
 
+    IM.FILTER_DIALOGS_KEY = "FILTER_DIALOGS_KEY";
+    IM.FILTER_USERS_KEY = "FILTER_USERS_KEY";
+
+    IM.setUsersFilterString = function (value) {
+        Session.set(IM.FILTER_USERS_KEY, value);
+    };
+
+    IM.getFilterUsersString = function () {
+        return Session.get(IM.FILTER_USERS_KEY);
+    };
+
+    IM.setDialogsFilterString = function (value) {
+        Session.set(IM.FILTER_DIALOGS_KEY, value);
+    };
+
+    IM.getFilterDialogsString = function () {
+        return Session.get(IM.FILTER_DIALOGS_KEY);
+    };
+
     IM.setCurrentDialog = function (dialog) {
-        Session.setAuth(IM.CURRENT_DIALOG_ID_KEY, dialog);
+        var currDialog = Session.get(IM.CURRENT_DIALOG_ID_KEY);
+        if (!currDialog || currDialog._id !== dialog._id) {
+            Session.setAuth(IM.CURRENT_DIALOG_ID_KEY, dialog);
+            IM.setDialogsFilterString(null);
+        }
     };
 
     IM.getCurrentDialog = function () {

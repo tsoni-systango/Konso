@@ -1,13 +1,12 @@
 <template name='generalUserItem'>
-	<div class="general-user-item">
-		<div class='user-avatar'>
-			<img src="{{avatarUrl}}" alt="User picture">
-		</div>
-		<div class="presence-indicator">
-			{{>persistenceIndicator userId=this._id}}
-		</div>
-		<div class='username'>{{username}}</div>
-		<paper-ripple fit></paper-ripple>
-		<div class="clear"></div>
-	</div>
+    {{#if isVisible}}
+        <div class="general-user-item">
+            <div class="presence-indicator">
+                {{>persistenceIndicator userId=this._id}}
+            </div>
+            <div class='username'>{{username}}</div>
+            <paper-ripple fit></paper-ripple>
+            <div class="clear"></div>
+        </div>
+    {{/if}}
 </template>

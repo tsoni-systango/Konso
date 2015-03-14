@@ -40,12 +40,16 @@ Template.globalLayout.events({
         if(form[0].valid){
             var username = form.find("#username").val()
             var pass = form.find("#password").val()
-
-            /*Meteor.loginWithLDAP(username, pass, {
-             dn: "uid="+username+",dc=example,dc=com"
-             },GlobalUI.generalCallback());
-             */
-            Meteor.loginWithCrowd(username, pass, GlobalUI.generalCallback());
+            if (Meteor.settings.public.defaultAuth === "ldap") {
+                Meteor.loginWithLDAP(username, pass, {
+                    dn: "uid=" + username + ",dc=example,dc=com"
+                }, GlobalUI.generalCallback());
+            } else if (Meteor.settings.public.defaultAuth === "crowd") {
+                Meteor.loginWithCrowd(username, pass, GlobalUI.generalCallback());
+            } else {
+                GlobalUI.errorToast("defaultAuth property is not set. " +
+                "Don't know how to authenticate you.")
+            }
         }
     }
 });

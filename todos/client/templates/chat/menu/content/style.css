@@ -2,6 +2,20 @@
 	margin: 20px 0 0;
 	font-weight: 100;
 }
+
+.chat-left-menu .filter-dialogs {
+    width: 100%;
+    padding-top: 0;
+}
+
+.filter-dialogs core-icon {
+    width: 20px;
+    margin: 0 3px 0 0;
+}
+
+.filter-dialogs input {
+    width: 120px;
+}
 .chat-left-menu .notexists {
 	font-size: .8em;
 	color: #aaa;
@@ -53,14 +67,8 @@
 }
 
 .dialog-item .presence-icon{
-    margin: 4px 2px 0 0;
+    margin: 2px 2px 0 0;
 	float:left;
-	color: #aaa;
-}
-.dialog-item .presence-icon.online{
-    margin: 4px 2px 0 0;
-	float:left;
-	color: rgb(87, 150, 28)
 }
 
 .dialog-item .last-message{

@@ -132,7 +132,11 @@
                             firstMatchedValue = suggest;
                         }
                     } else {
-                        return suggest.substr(text.length);
+                        if (typeof suggest === "string") {
+                            return suggest.substr(text.length);
+                        } else {
+                            return suggest[0].substr(text.length);
+                        }
                     }
                 }
             }

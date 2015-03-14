@@ -1,4 +1,7 @@
 Template.layout.helpers({
+    username: function () {
+        return Utils.getUsername(Meteor.user());
+    },
   isAuthenticated: function () {
         return Meteor.user();
     },

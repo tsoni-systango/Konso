@@ -14,7 +14,8 @@ Router.map(function () {
 	this.route('chat', {
 		path: '/chat/',
 		yieldTemplates: {
-			"chatLeftMenu": {to: "leftMenu"}
+            "chatLeftMenu": {to: "leftMenu"},
+            "chatLeftMenuHeader": {to: "leftMenuHeader"}
 		},
 		waitOn: function () {
 			// return one handle, a function, or an array

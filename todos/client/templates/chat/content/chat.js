@@ -11,6 +11,7 @@ Template.chat.rendered = function () {
     var self = this;
     self.$messagesContainer = $('.messages-container');
     self.$newMessageForm = $('#chat-message-form');
+    self.$allUsersButton = $('.all-users-button');
     var currentTimeout;
     this.autorun(function () {
         currentTimeout && Meteor.clearTimeout(currentTimeout);
@@ -36,14 +37,36 @@ Template.chat.rendered = function () {
 
     self.$messagesContainer.on('track mousemove scroll click', debouncedTimestampUpdater);
     self.$newMessageForm.on('keyup', debouncedTimestampUpdater);
-
+    self.$allUsersButton.on("click", function () {
+        $(".chat")[0].openDrawer();
+    })
 
     this.autorun(function () {
-        var users = Meteor.users.find({_id: {$ne: Meteor.userId()}}).fetch();
-        var suggestions = _.pluck(users, "username");
-        suggestions.push(["All"]);
-        self.$newMessageForm.find('textarea').asuggest(suggestions);
+        var users = Meteor.users.find({}).fetch();
+        self.suggestionsMap = {};
+        self.suggestions = _.map(users, function (user) {
+            var key = "@" + Utils.getUsername(user);
+            self.suggestionsMap[key] = user;
+            return key;
+        });
+        self.suggestions.push("@all");
+        self.suggestionsMap["@all"] = {_id: "all"};
+        self.suggestions.push("@All");
+        self.suggestionsMap["@All"] = {_id: "all"};
+        self.$newMessageForm.find('textarea').asuggest(self.suggestions);
     });
+
+    $('body #style-block')
+        .html(
+        "<style> " +
+        ".chat-message [mentions=" + Meteor.userId() + "]," +
+        ".chat-message [mentions=all]" +
+        "{" +
+        "background: #3b73af;" +
+        "border: 1px solid #3b73af;" +
+        "color: #fff; " +
+        "} " +
+        "</style>")
 
 }
 Template.chat.destroyed = function () {
@@ -51,12 +74,10 @@ Template.chat.destroyed = function () {
     Meteor.clearInterval(self.intervalId);
     self.$messagesContainer.off()
     self.$newMessageForm.off()
+    self.$allUsersButton.off()
 }
 
 Template.chat.helpers({
-    allUsers: function () {
-        return Meteor.users.find({_id: {$ne: Meteor.userId()}});
-    },
     chatMessages: function () {
         var currentDialog = IM.getCurrentDialog();
         if (currentDialog) {
@@ -92,6 +113,15 @@ Template.chat.events({
         if (e.keyCode === 13 && text.trim()) {
             e.preventDefault();
             $textarea.val('');
+            var suggestions = Template.instance().suggestions;
+            var suggestionsMap = Template.instance().suggestionsMap;
+            suggestions.forEach(function (s) {
+                var mentionSubject = suggestionsMap[s]._id;
+                var regexp = new RegExp(s, "g");
+                text = text.replace(regexp,
+                    '<span class="mention" mentions="' + mentionSubject + '">' + s + '</span>'
+                )
+            })
             Meteor.call('sendMessage', text, IM.getCurrentDialog()._id, function (e, r) {
 
             })

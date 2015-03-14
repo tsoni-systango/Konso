@@ -2,18 +2,15 @@
 	padding: 5px;
 	position: relative;
 	cursor: pointer;
+    border-bottom: 1px solid #eee;
 }
-.general-user-item .user-avatar{
-	width:40px;
-	height: 40px;
-	overflow: hidden;
-	float: left;
-	margin-right: 5px;
+
+.general-user-item .presence-indicator {
+    float: left;
 }
-.general-user-item .presence-indicator{
-	position: absolute;
-	bottom: -4px;
-	left: 34px;
+
+.general-user-item .presence-indicator core-icon {
+    width: 14px;
 }
 .general-user-item .presence-indicator .online{
 	color: rgb(87, 150, 28);
@@ -24,9 +21,9 @@
 	height: 40px;
 }
 .general-user-item .username{
-	margin-top: 8px;
 	float: left;
-	width: 108px;
+    margin: 3px;
+    width: 120px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
