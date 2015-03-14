@@ -7,3 +7,9 @@ isUserAuthorizedInDialog = function (dialog, userId) {
 	}
 	return true;
 }
+isUserOwnerOfDialog = function (dialog, userId) {
+    if (dialog.ownerId !== userId) {
+        Errors.throw(Errors.PERMISSION_DENIED);
+    }
+    return true;
+}

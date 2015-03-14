@@ -28,3 +28,19 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+
+.general-user-item .user-to-dialog-btn {
+    position: absolute;
+    top: 1px;
+    right: 0px;
+    padding: 5px;
+    color: #ccc;
+}
+
+.general-user-item .add-to-dialog:hover {
+    color: green;;
+}
+
+.general-user-item .remove-from-dialog:hover {
+    color: #A93D34;
+}

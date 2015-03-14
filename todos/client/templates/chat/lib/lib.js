@@ -32,6 +32,10 @@ IM = {};
     IM.getCurrentDialog = function () {
         return Session.get(IM.CURRENT_DIALOG_ID_KEY);
     };
+    IM.getCurrentDialogId = function () {
+        var d = IM.getCurrentDialog();
+        return d ? d._id : null;
+    };
 
     IM.getCurrentDialogUnreadTimestamp = function () {
         var dialog = IM.getCurrentDialog();

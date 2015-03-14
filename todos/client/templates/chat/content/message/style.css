@@ -24,6 +24,11 @@
 .chat-message.own{
 	background: #e0eaf3;
 }
+
+.chat-message.system-message {
+    background: white;
+    font-weight: bold;
+}
 .chat-message .unread-indicator{
 	background: #104677;
 	position: absolute;
@@ -67,4 +72,8 @@
 	float: right;
 	margin-left: 10px;
 	width: 100%;
+}
+
+.chat-message.system-message .chat-time {
+    margin-top: 3px;
 }

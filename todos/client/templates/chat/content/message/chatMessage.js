@@ -3,10 +3,17 @@ Template.chatMessage.helpers({
 		if(Meteor.userId() === this.ownerId){
 			return "own";
 		}
+    },
+    systemClass: function () {
+        if (!this.ownerId) {
+            return "system-message";
+        }
 	},
 	ownerName: function(){
-		var user = Meteor.users.findOne(this.ownerId);
-        return Utils.getUsername(user);
+        if (this.ownerId) {
+            var user = Meteor.users.findOne(this.ownerId);
+            return Utils.getUsername(user);
+        }
 	},
 	isUnread: function(){
         var timestamp = IM.getCurrentDialogUnreadTimestamp();

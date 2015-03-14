@@ -69,5 +69,47 @@ Meteor.methods({
         dialog._id = Dialogs.insert(dialog);
         console.log("created dialog: ", dialog._id);
         return dialog;
+    },
+    addUserToDialog: function (dialogId, userId) {
+        check(dialogId, String);
+        check(userId, String);
+        var dialog = getDialogOrDie(dialogId);
+        var user = getUserOrDie(userId);
+        isUserOwnerOfDialog(dialog, Meteor.userId());
+        if (_.contains(dialog.userIds, userId)) {
+            Error.throw("User has been added already");
+        }
+        dialog.userIds.push(userId);
+        Dialogs.update(dialogId, {$set: {userIds: dialog.userIds}})
+        addSystemMessage(dialogId,
+            Utils.getUsername(Meteor.user())
+            + " added "
+            + Utils.getUsername(user)
+            + " to dialog")
+    },
+    removeUserFromDialog: function (dialogId, userId) {
+        check(dialogId, String);
+        check(userId, String);
+        var dialog = getDialogOrDie(dialogId);
+        var user = getUserOrDie(userId);
+        isUserOwnerOfDialog(dialog, Meteor.userId());
+        if (!_.contains(dialog.userIds, userId)) {
+            Error.throw("User does not belong to this dialog");
+        }
+        Dialogs.update(dialogId, {$set: {userIds: _.without(dialog.userIds, userId)}})
+        addSystemMessage(dialogId,
+            Utils.getUsername(Meteor.user())
+            + " removed  "
+            + Utils.getUsername(user)
+            + " from dialog")
     }
-})
+});
+
+addSystemMessage = function (dialogId, text) {
+    var message = {};
+    message.ownerId = null;
+    message.text = text;
+    message.dialogId = dialogId;
+    message.created = _.now();
+    message._id = Messages.insert(message);
+}
