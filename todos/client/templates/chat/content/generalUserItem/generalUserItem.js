@@ -17,14 +17,14 @@ Template.generalUserItem.helpers({
         return name.toLowerCase().indexOf(filterString.toLowerCase()) > -1;
     },
     isUserCouldBeAdded: function () {
-        var curDialog = Dialogs.findOne(IM.getCurrentDialog()._id);
+        var curDialog = Dialogs.findOne(IM.getCurrentDialogId());
         return curDialog
             && curDialog.type === DialogTypes.ROOM
             && curDialog.ownerId === Meteor.userId()
             && !_.contains(curDialog.userIds, this._id);
     },
     isUserCouldBeRemoved: function () {
-        var curDialog = Dialogs.findOne(IM.getCurrentDialog()._id);
+        var curDialog = Dialogs.findOne(IM.getCurrentDialogId());
         return curDialog
             && curDialog.type === DialogTypes.ROOM
             && curDialog.ownerId === Meteor.userId()
