@@ -15,7 +15,7 @@ Meteor.startup(function () {
             };
         }
     } catch (e) {
-        throw new Meteor.Error("Can not parse authentication config")
+        throw new Meteor.Error("Can not parse authentication config. Use 'meteor --settings config.json'")
     }
 
 })
