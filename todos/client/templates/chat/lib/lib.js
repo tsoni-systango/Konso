@@ -52,11 +52,13 @@ IM = {};
         if (dialog.name) {
             return dialog.name;
         } else {
+            console.log(Meteor.users.find({}).fetch())
             var dialogUsers = Meteor.users.find({
                 _id: {
                     $in: _.without(dialog.userIds, Meteor.userId())
                 }
             }).fetch();
+            console.log("users: ", dialogUsers)
             if (_.isEmpty(dialogUsers)) {
                 return "Unknown Dialog";
             }

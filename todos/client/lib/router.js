@@ -20,8 +20,8 @@ Router.map(function () {
 		waitOn: function () {
 			// return one handle, a function, or an array
 			return [
-				Meteor.subscribe('userPresences'),
-				Meteor.subscribe('allUsers')
+                Meteor.subscribe('allUsers'),
+				Meteor.subscribe('userPresences')
 			];
 		},
 		onBeforeAction: function () {

@@ -85,7 +85,7 @@ Meteor.methods({
             Utils.getUsername(Meteor.user())
             + " added "
             + Utils.getUsername(user)
-            + " to dialog")
+            + " to conversation")
     },
     removeUserFromDialog: function (dialogId, userId) {
         check(dialogId, String);
@@ -101,7 +101,7 @@ Meteor.methods({
             Utils.getUsername(Meteor.user())
             + " removed  "
             + Utils.getUsername(user)
-            + " from dialog")
+            + " from conversation")
     }
 });
 
