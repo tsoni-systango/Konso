@@ -1,8 +1,7 @@
 Template.chatLeftMenu.created = function () {
-    this.subscriptions = {
-        dialogs: Meteor.subscribe("dialogs")
-    }
-    this.autorun(function () {
+    var self = this;
+    self.subscribe("dialogs")
+    self.autorun(function () {
         $(".filter-dialogs input").val(IM.getFilterDialogsString());
     });
 }

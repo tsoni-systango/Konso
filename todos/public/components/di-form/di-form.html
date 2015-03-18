@@ -4,7 +4,7 @@
 
 <polymer-element name="di-form" on-keypress="{{keypressHandler}}">
   <template>
-    <form>
+    <form onsubmit="{{submitHandler}}">
       <content></content>
     </form>
     <core-signals on-core-signal-submit="{{submitHandler}}"></core-signals>
@@ -58,7 +58,6 @@
 
       submitHandler: function(e, detail, sender) {
         if (detail === this.querySelector('di-button[type=submit]')) {
-          e.stopPropagation();
           this.submit();
         }
       },

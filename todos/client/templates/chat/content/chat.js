@@ -3,7 +3,7 @@ Template.chat.created = function () {
     this.autorun(function () {
         var currentDialog = IM.getCurrentDialog();
         if (currentDialog) {
-            self.subscription = Meteor.subscribe("messages", currentDialog._id);
+            self.subscribe("messages", currentDialog._id);
         }
     });
 }

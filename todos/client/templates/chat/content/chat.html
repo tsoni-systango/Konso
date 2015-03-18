@@ -5,7 +5,8 @@
         </div>
         <div main vertical layout fit class='chat-content'>
 
-            {{#unless isMessagesReady}}
+            {{#unless Template.subscriptionsReady}}
+                <paper-spinner active></paper-spinner>
                 <paper-progress indeterminate></paper-progress>
             {{/unless}}
             <div class="dialog-menu">

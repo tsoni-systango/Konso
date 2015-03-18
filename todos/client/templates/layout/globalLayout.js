@@ -35,7 +35,8 @@ Template.globalLayout.helpers({
 });
 
 Template.globalLayout.events({
-    "submit [data-action=log-in]": function (e) {
+    "submit [data-action=log-in], shadow-submit [data-action=log-in]": function (e) {
+        console.log(e)
         var form = $(e.target);
         if(form[0].valid){
             var username = form.find("#username").val()

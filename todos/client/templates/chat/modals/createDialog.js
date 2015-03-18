@@ -9,6 +9,12 @@ Template.createDialog.helpers({
 });
 Template.createDialog.events({
 	"submit [data-action=new-dialog]": function (e) {
+        e.preventDefault();
+        var t = Template.instance();
+        if(t.submited){
+            return false;
+        }
+        t.submited = true;
 		var self = this;
 		var $form = $(e.target);
 		if ($form[0].valid) {
@@ -18,12 +24,17 @@ Template.createDialog.events({
 					"createDialog",
 					dialogName,
                 self.type,
-					GlobalUI.generalModalCallback(onSuccess)
+					GlobalUI.generalModalCallback(onSuccess, onError)
 					);
 		}
 		function onSuccess(dialogId) {
 			var newDialog = Dialogs.findOne(dialogId);
             IM.setCurrentDialog(newDialog);
+            t.submited = false;
 		}
+        function onError(msg) {
+            t.submited = false;
+		}
+        return false;
 	}
 });

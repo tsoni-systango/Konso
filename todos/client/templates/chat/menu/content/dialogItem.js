@@ -1,8 +1,7 @@
 Template.dialogItem.created = function () {
     var self = this;
-    this.subscriptions = {
-        lastDialogMessage: Meteor.subscribe("lastDialogMessage", self.data._id)
-    }
+    self.subscribe("lastDialogMessage", self.data._id);
+
 
     self.lastMessage = new ReactiveVar();
     self.unreadMessageCount = new ReactiveVar();

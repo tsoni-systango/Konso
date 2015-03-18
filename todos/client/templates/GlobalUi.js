@@ -22,6 +22,7 @@ this.GlobalUI = (function() {
 
   GlobalUI.showDialog = function(opts) {
     this.dialog = $("[global-dialog]")[0];
+      $(this.dialog).find('.modal-content').html('');
     this.dialog.heading = opts.heading;
 	this.dialogView = Blaze.renderWithData(
 			Template[opts.template],
@@ -34,10 +35,11 @@ this.GlobalUI = (function() {
   };
 
   GlobalUI.closeDialog = function() {
+      Blaze.remove(this.dialogView);
       return this.dialog && this.dialog.close();
   };
   
-  GlobalUI.generalModalCallback = function(onSuccess){
+  GlobalUI.generalModalCallback = function(onSuccess, onError){
 	  GlobalUI.isProgressVisible.set(true);
 	  return function(error, result){
 		  GlobalUI.isProgressVisible.set(false);
@@ -47,6 +49,7 @@ this.GlobalUI = (function() {
 		  } else {
               var msg = error.reason ? error.reason : error.message;
               GlobalUI.errorToast(msg);
+              onError && onError(msg);
 		  }
 	  }
   };

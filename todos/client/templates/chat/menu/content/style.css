@@ -8,12 +8,12 @@
     padding-top: 0;
 }
 
-.filter-dialogs core-icon {
+.chat-left-menu .filter-dialogs core-icon {
     width: 20px;
     margin: 0 3px 0 0;
 }
 
-.filter-dialogs input {
+.chat-left-menu .filter-dialogs input {
     width: 120px;
 }
 .chat-left-menu .notexists {
