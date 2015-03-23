@@ -1,3 +1,6 @@
+Template.chatMessage.rendered = function(){
+    $(this.firstNode).trigger("message-added");
+}
 Template.chatMessage.helpers({
 	ownerClass: function(){
 		if(Meteor.userId() === this.ownerId){
@@ -18,5 +21,8 @@ Template.chatMessage.helpers({
 	isUnread: function(){
         var timestamp = IM.getCurrentDialogUnreadTimestamp();
 		return this.created > timestamp && this.ownerId !== Meteor.userId();
+	},
+    time: function(){
+		return moment(this.created).format('MMM Do, h:mm a');
 	}
 });

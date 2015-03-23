@@ -1,47 +1,49 @@
 <template name="chatLeftMenu">
-	<div class='chat-left-menu'>
+    <div class='chat-left-menu'>
         <paper-input-decorator class="filter-dialogs" label="Search dialogs" layout vertical>
             <core-icon icon="search"></core-icon>
             <input placeholder="Search dialogs" aria-label="Search dialogs">
         </paper-input-decorator>
-		<h3>Channels</h3>
-		<div>
-			{{#if channels.count}}
-			{{#each channels}}
-			{{>dialogItem}}
-			{{/each}}
-			{{else}}
-			<span class="notexists">No channels created</span>
-			{{/if}}
-		</div>
-		<div class="control-button">
-			<paper-button raised class="create-channel">Create channel</paper-button>
-			<div class="clear"></div>
-		</div>
-		<h3>Dialogs</h3>
-		<div>
-			{{#if dialogs.count}}
+        <h3>Dialogs</h3>
+
+        <div>
+		{{#if dialogs.count}}
 			{{#each dialogs}}
-			{{>dialogItem}}
+				{{>dialogItem}}
 			{{/each}}
-			{{else}}
-			<span class="notexists">No dialogs created</span>
-			{{/if}}
-		</div>
-		<h3>Rooms</h3>
-		<div>
-			{{#if rooms.count}}
+
+		{{else}}
+                    <span class="notexists">No dialogs created</span>
+		{{/if}}
+        </div>
+        <h3>Rooms
+            <paper-icon-button icon="add-box" class="create-room"></paper-icon-button>
+        </h3>
+
+        <div>
+		{{#if rooms.count}}
 			{{#each rooms}}
-            {{>dialogItem}}
+				{{>dialogItem}}
 			{{/each}}
-			{{else}}
-			<span class="notexists">No rooms created</span>
-			{{/if}}
-		</div>
-		<div class="control-button">
-			<paper-button raised class="create-room">Create room</paper-button>
-			<div class="clear"></div>
-		</div>
-	</div>
+		{{else}}
+                    <span class="notexists">No rooms created</span>
+		{{/if}}
+        </div>
+
+        <h3>Channels
+            <paper-icon-button icon="add-box" class="create-channel"></paper-icon-button>
+        </h3>
+
+        <div>
+		{{#if channels.count}}
+			{{#each channels}}
+				{{>dialogItem}}
+			{{/each}}
+		{{else}}
+                    <span class="notexists">No channels created</span>
+		{{/if}}
+        </div>
+
+    </div>
 
 </template>

@@ -1,6 +1,7 @@
 IM = {};
 (function () {
     IM.CURRENT_DIALOG_ID_KEY = "CURRENT_DIALOG_ID_KEY";
+    IM.CURRENT_DIALOG_UNREAD_COUNT_KEY = "CURRENT_DIALOG_UNREAD_COUNT_KEY";
 
     IM.FILTER_DIALOGS_KEY = "FILTER_DIALOGS_KEY";
     IM.FILTER_USERS_KEY = "FILTER_USERS_KEY";
@@ -67,6 +68,12 @@ IM = {};
             }, "");
         }
     };
+    IM.setCurrentDialogUnreadMessageCount = function(value){
+        Session.set(IM.CURRENT_DIALOG_UNREAD_COUNT_KEY, value);
+    };
+    IM.getCurrentDialogUnreadMessageCount = function(){
+        return Session.get(IM.CURRENT_DIALOG_UNREAD_COUNT_KEY);
+    };
     IM.updateReadTimestamp = function (value) {
         var profile = Meteor.user().profile;
         var currentTimestamp = IM.getCurrentDialogUnreadTimestamp();
@@ -83,6 +90,9 @@ IM = {};
             });
     };
     IM.evaluateAndUpdateReadTimestamp = function () {
+        if(!IM.getCurrentDialogUnreadMessageCount()){
+            return;
+        }
         var $messagesContainer = $('.messages-container');
         var y = $messagesContainer.offset().top + $messagesContainer.height() - 10;
         var x = $messagesContainer.offset().left + 5;
@@ -93,5 +103,5 @@ IM = {};
             console.log("updated")
             IM.updateReadTimestamp(created);
         }
-    }
+    };
 })();

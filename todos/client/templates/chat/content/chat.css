@@ -14,17 +14,42 @@
 
 .chat .dialog-menu .all-users-button {
     display: none;
+    margin-right: 10px;
 }
 .chat-content .dialog-menu .name{
     text-transform: capitalize;
     font-size: 1.2em;
     font-weight: 500;
 }
+.chat .welcome-btn{
+    text-align: center;
+    font-weight: bold;
+    font-size: 2em;
+    color: #dfdfdf;
+    margin: auto 0;
+    text-transform: initial;
+}
+.chat[narrow] .welcome-btn{
+    color: #ccc;
+}
+.chat .fader {
+    text-align: center;
+}
+.chat .fader paper-spinner{
+    position: absolute;
+    top: 40%;
+}
 .chat-content .messages-container{
 	background: white;
-	overflow-y: auto;
-	display: flex;
-	flex-direction: column-reverse;
+	overflow-y: scroll;
+
+}.chat-content .messages-container .show-more{
+     text-align: center;
+     text-decoration: underline;
+     font-size: 0.8em;
+     padding: 10px;
+     color: #526E9C;
+     cursor: pointer;
 }
 .chat-content .text-area textarea{
 	width:100%;

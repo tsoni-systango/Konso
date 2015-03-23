@@ -1,46 +1,71 @@
 <template name="chat">
     <core-drawer-panel class="chat" drawerWidth='200px' responsiveWidth='940px' main rightDrawer>
         <div drawer class="right-drawer all-user-list">
-            {{> allUserList}}
+		{{> allUserList}}
         </div>
+
+
         <div main vertical layout fit class='chat-content'>
+		{{#if currentDialog}}
+                    <div class="dialog-menu">
 
-            {{#unless Template.subscriptionsReady}}
-                <paper-spinner active></paper-spinner>
-                <paper-progress indeterminate></paper-progress>
-            {{/unless}}
-            <div class="dialog-menu">
+                        <paper-menu-button class="left">
+                            <paper-button noink class="name">
+				    {{currentDialogName}}
+                                <core-icon icon="arrow-drop-down"></core-icon>
+                            </paper-button>
 
-                <paper-menu-button class="left">
-                    <paper-button noink class="name">
-                        {{currentDialogName}}
-                        <core-icon icon="arrow-drop-down"></core-icon>
+                        </paper-menu-button>
+
+
+                        <paper-icon-button icon="supervisor-account" class="right all-users-button"></paper-icon-button>
+                    </div>
+                    <div flex class="relative">
+                       <div style="height: 400px" vertical layout class='messages-container' touch-action="pan-y">
+                            <div flex id="space-filler"></div>
+                            <div id="messages-content">
+				    {{#if hasMoreMessages}}
+                                        <div class="show-more">
+                                            Show more
+                                        </div>
+				    {{/if}}
+				    {{#each chatMessages}}
+					    {{> chatMessage}}
+                                            <script>console.log("RErendered")</script>
+				    {{/each}}
+                                <div id="unread-separator"></div>
+				    {{#each chatMessagesUnread}}
+					    {{> chatMessage}}
+                                        <script>console.log("RErendered")</script>
+				    {{/each}}
+                            </div>
+                        </div>
+			    {{#unless Template.subscriptionsReady}}
+                                <div class="fader" fit layout>
+                                    <paper-spinner active></paper-spinner>
+                                </div>
+			    {{/unless}}
+                    </div>
+                    <paper-input-decorator class='text-area' label="Type your message" layout vertical>
+                        <paper-autogrow-textarea>
+                            <form id="chat-message-form">
+                                <textarea placeholder="" aria-label="with autogrowing text area"></textarea>
+                            </form>
+                        </paper-autogrow-textarea>
+                    </paper-input-decorator>
+
+
+
+		{{else}}
+                    <paper-button class="welcome-btn">
+                    <span>
+                        Choose User to Chat
+                        <core-icon icon="chevron-right"></core-icon>
+                    </span>
                     </paper-button>
-
-                </paper-menu-button>
-
-
-                <paper-icon-button icon="supervisor-account" class="right all-users-button"></paper-icon-button>
-            </div>
-
-            <div flex class='messages-container' touch-action="pan-y">
-                {{#each chatMessagesUnread}}
-                    {{> chatMessage}}
-                {{/each}}
-                <div id="unread-separator"></div>
-                {{#each chatMessages}}
-                    {{> chatMessage}}
-                {{/each}}
-            </div>
-
-            <paper-input-decorator class='text-area' label="Type your message" layout vertical>
-                <paper-autogrow-textarea>
-                    <form id="chat-message-form">
-                        <textarea placeholder="" aria-label="with autogrowing text area"></textarea>
-                    </form>
-                </paper-autogrow-textarea>
-            </paper-input-decorator>
+		{{/if}}
         </div>
+
 
     </core-drawer-panel>
 

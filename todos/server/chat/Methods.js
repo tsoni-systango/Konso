@@ -14,6 +14,9 @@ Meteor.methods({
         Dialogs.update(dialogId, {$set: {updated: message.created}});
         return message;
     },
+    getMessageCount: function (dialogId) {
+        return Messages.find({dialogId: dialogId}).count();
+    },
     initOneToOneDialog: function (userId) {
         var currentUser = getCurrentUserOrDie();
         var dialogUser = getUserOrDie(userId);

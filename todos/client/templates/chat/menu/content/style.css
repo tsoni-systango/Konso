@@ -1,5 +1,5 @@
 .chat-left-menu h3 {
-	margin: 20px 0 0;
+	margin: 20px 0 7px 0;
 	font-weight: 100;
 }
 
@@ -20,13 +20,9 @@
 	font-size: .8em;
 	color: #aaa;
 }
-.chat-left-menu .control-button {
-	margin: 10px 0;
-}
-.chat-left-menu .control-button paper-button{
-	line-height: 0.5;
+.chat-left-menu h3 paper-icon-button {
 	float: right;
-	font-weight: 100;
+	margin-top: -10px;
 }
 
 .dialog-item{
@@ -49,8 +45,11 @@
 
 .dialog-item .name{
     float: left;
-	width: 160px;
-	font-weight: bold;
+    width: 165px;
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .dialog-item.channel .name:before {
@@ -74,7 +73,7 @@
 .dialog-item .last-message{
     color: #aaa;
 	clear:both;
-	width: 220px;
+	width: 210px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
