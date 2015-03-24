@@ -33,6 +33,7 @@ Accounts.onCreateUser(function(options, user) {
 	if(!user.profile.displayName){
 		user.profile.displayName = user.username;
 	}
+	user.profile.sortName = user.profile.displayName.toLowerCase();
 	user.profile.readTimestamps = {};
 	return user;
 });
