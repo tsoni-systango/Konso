@@ -4,6 +4,11 @@
         <core-icon icon="search"></core-icon>
         <input placeholder="Search users" aria-label="Search users">
     </paper-input-decorator>
+    <div class="room-users">
+        {{#each roomUsers}}
+            {{>generalUserItem}}
+        {{/each}}
+    </div>
     {{#each users}}
         {{>generalUserItem}}
     {{/each}}

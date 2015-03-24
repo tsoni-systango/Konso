@@ -14,6 +14,9 @@ Accounts.onCreateUser(function(options, user) {
 	if(!user.profile){
 		user.profile = {};
 	}
+	if(!user.profile.displayName){
+		user.profile.displayName = user.username;
+	}
 	user.profile.readTimestamps = {};
 	return user;
 });

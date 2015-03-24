@@ -11,7 +11,20 @@
 			{{#each dialogs}}
 				{{>dialogItem}}
 			{{/each}}
+			{{#if dialogsOther.count}}
+                            <div class="hidden other-dialogs">
+                                <div class="expandable">
+					{{#each dialogsOther}}
+						{{>dialogItem}}
+					{{/each}}
 
+                                    <div class="expandable-toggle">
+                                        <paper-icon-button icon="arrow-drop-up" class="drop-up"></paper-icon-button>
+                                    </div>
+                                </div>
+                                <div class="expand-title">Show more..</div>
+                            </div>
+			{{/if}}
 		{{else}}
                     <span class="notexists">No dialogs created</span>
 		{{/if}}
@@ -25,6 +38,20 @@
 			{{#each rooms}}
 				{{>dialogItem}}
 			{{/each}}
+			{{#if roomsOther.count}}
+                            <div class="hidden other-dialogs">
+                                <div class="expandable">
+					{{#each roomsOther}}
+						{{>dialogItem}}
+					{{/each}}
+
+                                    <div class="expandable-toggle">
+                                        <paper-icon-button icon="arrow-drop-up" class="drop-up"></paper-icon-button>
+                                    </div>
+                                </div>
+                                <div class="expand-title">Show more..</div>
+                            </div>
+			{{/if}}
 		{{else}}
                     <span class="notexists">No rooms created</span>
 		{{/if}}
@@ -39,6 +66,20 @@
 			{{#each channels}}
 				{{>dialogItem}}
 			{{/each}}
+                    {{#if channelsOther.count}}
+                        <div class="hidden other-dialogs">
+                            <div class="expandable">
+                                {{#each channelsOther}}
+                                    {{>dialogItem}}
+                                {{/each}}
+
+                                <div class="expandable-toggle">
+                                    <paper-icon-button icon="arrow-drop-up" class="drop-up"></paper-icon-button>
+                                </div>
+                            </div>
+                            <div class="expand-title">Show more..</div>
+                        </div>
+                    {{/if}}
 		{{else}}
                     <span class="notexists">No channels created</span>
 		{{/if}}

@@ -37,7 +37,7 @@
 	left: 0px;
 }
 .chat-message .chat-from{
-	display: table-cell;
+	float: left;
 	cursor: pointer;
 	color: #707070;
 	width:20%;
@@ -56,10 +56,10 @@
 	overflow-x: hidden;
 }
 .chat-message .chat-msg-text{
-	display: table-cell;
+	float: left;
 	padding: 0 10px;
 	line-height: 20px;
-	max-width: 0px;
+	width:	80%;
 	word-break: break-all;
 }
 .chat-message .chat-time{

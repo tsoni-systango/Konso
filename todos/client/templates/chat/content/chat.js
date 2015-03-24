@@ -4,11 +4,11 @@ Template.chat.created = function () {
     self.dialogMessageCount = new ReactiveVar();
     self.messagesToShow = new ReactiveVar(50);
     this.autorun(function () {
-        if(IM.getCurrentDialogId() !== self.dialogId){
+        if (IM.getCurrentDialogId() !== self.dialogId) {
             self.messagesToShow.set(50);
-            self.dialogId =IM.getCurrentDialogId();
+            self.dialogId = IM.getCurrentDialogId();
         }
-        Meteor.call('getMessageCount', self.dialogId, function(err, count){
+        Meteor.call('getMessageCount', self.dialogId, function (err, count) {
             var count = count || 0;
             self.dialogMessageCount.set(count);
         })
@@ -78,30 +78,32 @@ Template.chat.rendered = function () {
         "} " +
         "</style>")
 
-    self.adjustMessagesContainerHeight = function (){
+    self.adjustMessagesContainerHeight = function () {
         var height = self.$chatContainer.height() - 46 - 81;
         self.$messagesContainer.height(height);
     }
 
     $(window).resize(self.adjustMessagesContainerHeight);
     self.adjustMessagesContainerHeight();
-    var onScrollDebounced = _.debounce(function (){
+    var onScrollDebounced = _.debounce(function () {
         var scrollTop = self.$messagesContainer.scrollTop(),
             height = self.$messagesContainer.height(),
             scrollHeight = self.$messagesContainer[0].scrollHeight;
-        var scroll = scrollHeight-scrollTop-height;
-        if(!scroll){
+        var scroll = scrollHeight - scrollTop - height;
+        if (!scroll) {
             self.currentScrollPosition = Number.MAX_VALUE;
         } else {
             self.currentScrollPosition = scrollTop;
         }
     }, 250);
-    var onMessageAddedDebounced = _.debounce(function(){
-        self.$messagesContainer.animate({
-            scrollTop: self.currentScrollPosition
-        }, 2000);
+    var onMessageAddedDebounced = _.debounce(function () {
+        if (self.currentScrollPosition === Number.MAX_VALUE) {
+            self.$messagesContainer.animate({
+                scrollTop: self.$messagesContainer[0].scrollHeight
+            }, 1000);
+        }
     }, 250)
-    self.$messagesContainer.on("message-added", onMessageAddedDebounced );
+    self.$messagesContainer.on("message-added", onMessageAddedDebounced);
     self.$messagesContainer.on("scroll", onScrollDebounced);
 
 }
@@ -114,11 +116,11 @@ Template.chat.destroyed = function () {
 }
 
 Template.chat.helpers({
-    currentDialog: function(){
-      return IM.getCurrentDialog();
+    currentDialog: function () {
+        return IM.getCurrentDialog();
     },
-    hasMoreMessages: function(){
-      return  Template.instance().messagesToShow.get() < Template.instance().dialogMessageCount.get();
+    hasMoreMessages: function () {
+        return Template.instance().messagesToShow.get() < Template.instance().dialogMessageCount.get();
     },
     chatMessages: function () {
         var currentDialog = IM.getCurrentDialog();
@@ -169,15 +171,15 @@ Template.chat.events({
             })
         }
     },
-    "click .welcome-btn, click .all-users-button": function(e){
+    "click .welcome-btn, click .all-users-button": function (e) {
         $(".chat")[0].togglePanel();
     },
-    "click .show-more": function(){
+    "click .show-more": function () {
         Template.instance().$messagesContainer.scrollTop(1);
         var current = Template.instance().messagesToShow.get();
         Template.instance().messagesToShow.set(current + 50);
     },
-    "trackend .messages-container": function(){
+    "trackend .messages-container": function () {
         console.log("trackend");
     }
 });
