@@ -45,11 +45,12 @@
 
 }.chat-content .messages-container .show-more{
      text-align: center;
-     text-decoration: underline;
+     text-transform: uppercase;
      font-size: 0.8em;
-     padding: 10px;
-     color: #526E9C;
+     padding: 5px;
+     color: #818181;
      cursor: pointer;
+     background: rgb(238, 238, 238);
 }
 .chat-content .text-area textarea{
 	width:100%;
