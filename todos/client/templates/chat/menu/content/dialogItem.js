@@ -28,10 +28,10 @@ Template.dialogItem.created = function () {
             self.data._id,
             Meteor.user().profile.readTimestamps[self.data._id] || 0,
             Meteor.userId(), function (er, count) {
-                if(IM.getCurrentDialogId() === self.data._id){
-                    IM.setCurrentDialogUnreadMessageCount(count);
+                if(!er){
+                    IM.unreadMessagesForDialogsMap[self.data._id] = count;
+                    self.unreadMessageCount.set(count);
                 }
-                self.unreadMessageCount.set(count);
             });
 
     });

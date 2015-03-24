@@ -45,6 +45,7 @@ Template.chat.rendered = function () {
     }, 3000);
 
     var debouncedTimestampUpdater = function () {
+        console.log("action happened")
         actionHappened = true;
     }
 
