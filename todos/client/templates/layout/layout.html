@@ -7,6 +7,7 @@
         <core-header-panel class="left-menu" navigation flex mode="seamed">
             <core-toolbar class="left-menu-toolbar">
                 <div class="account">{{username}}</div>
+                <paper-icon-button title="Log out" class="right" icon="exit-to-app" onclick="Meteor.logout()"></paper-icon-button>
             </core-toolbar>
             <core-menu theme="core-light-theme">
                 {{>yield "leftMenu"}}

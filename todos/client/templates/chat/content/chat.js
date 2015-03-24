@@ -3,7 +3,7 @@ Template.chat.created = function () {
     self.dialogId = IM.getCurrentDialogId();
     self.dialogMessageCount = new ReactiveVar();
     self.messagesToShow = new ReactiveVar(50);
-    this.autorun(function () {
+    self.autorun(function () {
         if (IM.getCurrentDialogId() !== self.dialogId) {
             self.messagesToShow.set(50);
             self.dialogId = IM.getCurrentDialogId();
@@ -13,7 +13,7 @@ Template.chat.created = function () {
             self.dialogMessageCount.set(count);
         })
     });
-    this.autorun(function () {
+    self.autorun(function () {
         self.subscribe("messages", IM.getCurrentDialogId(), self.messagesToShow.get());
     });
 }

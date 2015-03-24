@@ -16,6 +16,7 @@ var loginWithAtlassianCrowdSync = function (username, password) {
     var crowd = new AtlassianCrowd(ATLASSIAN_CROWD_CONFIG);
     var syncFuture = new Future();
     crowd.user.authenticate(username, password, function (err, res) {
+        console.log(res);
         syncFuture.return({
             error: err ? err.message : null,
             success: res
