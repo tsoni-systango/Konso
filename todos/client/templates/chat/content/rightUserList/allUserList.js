@@ -7,7 +7,7 @@ Template.allUserList.helpers({
             };
             var usersIds = _.without(dialog.userIds, Meteor.userId());
             return Meteor.users.find({_id: {$in: usersIds}},
-                {sort: {displayName: 1}});
+                {sort: {profile: {displayName: 1} }});
         }
     },
     users: function () {
@@ -18,10 +18,10 @@ Template.allUserList.helpers({
             };
             var usersIds = dialog.userIds.concat(Meteor.userId());
             return Meteor.users.find({_id: {$nin: usersIds}},
-                {sort: {displayName: 1}});
+                {sort: {profile: {displayName: 1} }});
         }
         return Meteor.users.find({_id: {$ne: Meteor.userId()}},
-            {sort: {displayName: 1}});
+            {sort: {"profile.sortName": 1} });
     }
 })
 
