@@ -6,5 +6,8 @@ _.mixin({
 
 Utils = {};
 Utils.getUsername = function (user) {
+    if(!user){
+        return "Anonymous User";
+    }
     return user.profile && user.profile.displayName ? user.profile.displayName : user.username;
 }
