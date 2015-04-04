@@ -6,7 +6,7 @@
     <core-scaffold>
         <core-header-panel class="left-menu" navigation flex mode="seamed">
             <core-toolbar class="left-menu-toolbar">
-                <div class="account">{{username}}</div>
+                <div class="account">{{username}} </div>
                 <paper-icon-button title="Log out" class="right" icon="exit-to-app" onclick="Meteor.logout()"></paper-icon-button>
             </core-toolbar>
             <core-menu theme="core-light-theme">
@@ -21,7 +21,6 @@
                 <paper-tab><a href="{{pathFor route='notes'}}" horizontal center-center layout>Notes</a></paper-tab>
                 <paper-tab><a href="{{pathFor route='scheduler'}}" horizontal center-center layout>Sheduler</a></paper-tab>
             </paper-tabs>
-
         </div>
 
         <div>

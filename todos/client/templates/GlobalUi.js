@@ -59,6 +59,7 @@ this.GlobalUI = (function() {
             if (!error) {
                 onSuccess && onSuccess(result);
             } else {
+                console.log(error)
                 var msg = error.reason ? error.reason : error.message;
                 GlobalUI.errorToast(msg);
             }

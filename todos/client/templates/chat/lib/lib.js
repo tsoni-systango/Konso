@@ -25,7 +25,7 @@ IM = {};
 
     IM.setCurrentDialog = function (dialog) {
         var currDialog = Session.get(IM.CURRENT_DIALOG_ID_KEY);
-        if (!currDialog || currDialog._id !== dialog._id) {
+        if (!dialog || !currDialog || currDialog._id !== dialog._id) {
             Session.setAuth(IM.CURRENT_DIALOG_ID_KEY, dialog);
             IM.setDialogsFilterString(null);
         }
@@ -41,7 +41,7 @@ IM = {};
 
     IM.getCurrentDialogUnreadTimestamp = function () {
         var dialog = IM.getCurrentDialog();
-        if (!dialog) {
+        if (!dialog || !Meteor.user()) {
             return null;
         }
         return Meteor.user().profile.readTimestamps[dialog._id] || 0;
@@ -54,13 +54,11 @@ IM = {};
         if (dialog.name) {
             return dialog.name;
         } else {
-            console.log(Meteor.users.find({}).fetch())
             var dialogUsers = Meteor.users.find({
                 _id: {
                     $in: _.without(dialog.userIds, Meteor.userId())
                 }
             }).fetch();
-            console.log("users: ", dialogUsers)
             if (_.isEmpty(dialogUsers)) {
                 return "Unknown Dialog";
             }
@@ -98,7 +96,7 @@ IM = {};
         var created = Number(el.attr("created"));
 
         if (created) {
-            console.log("updated")
+            console.log("updated read timestamp")
             IM.updateReadTimestamp(created);
         }
     };

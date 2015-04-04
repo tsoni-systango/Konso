@@ -42,7 +42,11 @@
 .chat-content .messages-container{
 	background: white;
 	overflow-y: scroll;
-
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
 }.chat-content .messages-container .show-more{
      text-align: center;
      text-transform: uppercase;

@@ -7,7 +7,7 @@ Meteor.methods({
         message.ownerId = getCurrentUserOrDie()._id;
         message.text = text;
         var dialog = getDialogOrDie(dialogId)
-        isUserAuthorizedInDialog(dialog);
+        isUserAuthorizedInDialog(dialog, message.ownerId);
         message.dialogId = dialogId;
         message.created = _.now();
         message._id = Messages.insert(message);

@@ -7,6 +7,7 @@
 
         <div main vertical layout fit class='chat-content'>
 		{{#if currentDialog}}
+
                     <div class="dialog-menu">
 
                         <paper-menu-button class="left">
@@ -21,7 +22,7 @@
                         <paper-icon-button icon="supervisor-account" class="right all-users-button"></paper-icon-button>
                     </div>
                     <div flex class="relative">
-                       <div style="height: 400px" vertical layout class='messages-container' touch-action="pan-y">
+                        <div vertical layout class='messages-container' touch-action="pan-y">
                             <div flex id="space-filler"></div>
                             <div id="messages-content">
 				    {{#if hasMoreMessages}}
@@ -31,13 +32,14 @@
 				    {{/if}}
 				    {{#each chatMessages}}
 					    {{> chatMessage}}
-
 				    {{/each}}
-                                <div id="unread-separator"></div>
+				    {{#if hasUnreadMessages}}
+                                        <div id="unread-separator"></div>
+				    {{/if}}
 				    {{#each chatMessagesUnread}}
 					    {{> chatMessage}}
-
 				    {{/each}}
+                                        <div id="last-message"></div>
                             </div>
                         </div>
 			    {{#unless Template.subscriptionsReady}}
@@ -55,7 +57,7 @@
                     </paper-input-decorator>
 
 
-
+			{{adjustHeight}}
 		{{else}}
                     <paper-button class="welcome-btn">
                     <span>

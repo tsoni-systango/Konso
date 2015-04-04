@@ -1,8 +1,9 @@
 isUserAuthorizedInDialog = function (dialog, userId) {
-	if (dialog.isPrivate){
+	if (dialog.type !== DialogTypes.CHANNEL){
 		var currentUserId = userId || getCurrentUserOrDie()._id;
-		if(!dialog.userIds || dialog.userIds.indexOf(currentUserId) === -1){
-			Errors.throw(Errors.CHANNEL_IS_PRIVATE);
+		var allowedUserIds = dialog.userIds || [];
+		if(!_.contains(allowedUserIds, currentUserId) && dialog.ownerId !== currentUserId){
+			Errors.throw(Errors.CONVERSATION_IS_PRIVATE);
 		}
 	}
 	return true;

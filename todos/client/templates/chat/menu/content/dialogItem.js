@@ -102,8 +102,3 @@ Template.dialogItem.helpers({
         return Template.instance().onlineUsers.get() ? "online" : "offline";
     }
 });
-Template.dialogItem.events({
-    "click .dialog-item": function () {
-        IM.setCurrentDialog(this);
-    }
-});

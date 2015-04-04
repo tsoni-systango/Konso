@@ -24,18 +24,7 @@ Template.chat.rendered = function () {
     self.$newMessageForm = self.$('#chat-message-form');
     self.$dialogMenu = self.$('.dialog-menu');
 
-    var currentTimeout;
-
-    this.autorun(function () {
-        currentTimeout && Meteor.clearTimeout(currentTimeout);
-        if (IM.getCurrentDialog()) {
-            Meteor.setTimeout(function () {
-                self.$messagesContainer.scrollTo('#unread-separator');
-                Meteor.clearTimeout(currentTimeout);
-            }, 1000);
-        }
-    });
-
+//this is to mark messages read
     var actionHappened;
     self.intervalId = Meteor.setInterval(function () {
         if (actionHappened) {
@@ -43,15 +32,14 @@ Template.chat.rendered = function () {
             actionHappened = false;
         }
     }, 3000);
-
     var debouncedTimestampUpdater = function () {
-        console.log("action happened")
         actionHappened = true;
     }
-
     self.$messagesContainer.on('track mousemove scroll click', debouncedTimestampUpdater);
     self.$newMessageForm.on('keyup', debouncedTimestampUpdater);
+//========================
 
+    //this is for @mentions
     this.autorun(function () {
         var users = Meteor.users.find({}).fetch();
         self.suggestionsMap = {};
@@ -66,46 +54,32 @@ Template.chat.rendered = function () {
         self.suggestionsMap["@All"] = {_id: "all"};
         self.$newMessageForm.find('textarea').asuggest(self.suggestions);
     });
+//=========================
 
-    $('body #style-block')
-        .html(
-        "<style> " +
-        ".chat-message [mentions=" + Meteor.userId() + "]," +
-        ".chat-message [mentions=all]" +
-        "{" +
-        "background: #3b73af;" +
-        "border: 1px solid #3b73af;" +
-        "color: #fff; " +
-        "} " +
-        "</style>")
-
-    self.adjustMessagesContainerHeight = function () {
-        var height = self.$chatContainer.height() - 46 - 81;
-        self.$messagesContainer.height(height);
-    }
-
-    $(window).resize(self.adjustMessagesContainerHeight);
-    self.adjustMessagesContainerHeight();
     var onScrollDebounced = _.debounce(function () {
         var scrollTop = self.$messagesContainer.scrollTop(),
             height = self.$messagesContainer.height(),
             scrollHeight = self.$messagesContainer[0].scrollHeight;
         var scroll = scrollHeight - scrollTop - height;
         if (!scroll) {
-            self.currentScrollPosition = Number.MAX_VALUE;
+            self.currentScrollId = Number.MAX_VALUE;
         } else {
-            self.currentScrollPosition = scrollTop;
+            self.currentScrollId = scrollTop;
         }
     }, 250);
-    var onMessageAddedDebounced = _.debounce(function () {
-        if (self.currentScrollPosition === Number.MAX_VALUE) {
-            self.$messagesContainer.animate({
-                scrollTop: self.$messagesContainer[0].scrollHeight
-            }, 1000);
+    this.autorun(function(){
+       var lastMessage = Messages.findOne({dialogId: IM.getCurrentDialogId()}, {sort: {"created": -1}, limit: 1});
+        if(lastMessage) {
+            self.currentScrollId = lastMessage._id;
         }
-    }, 250)
+    });
+
+    self.currentScrollId = "last-message";
+    var onMessageAddedDebounced = _.debounce(function () {
+        window.location.hash = self.currentScrollId;
+    }, 50)
     self.$messagesContainer.on("message-added", onMessageAddedDebounced);
-    self.$messagesContainer.on("scroll", onScrollDebounced);
+    //self.$messagesContainer.on("scroll", onScrollDebounced);
 
 }
 Template.chat.destroyed = function () {
@@ -113,7 +87,6 @@ Template.chat.destroyed = function () {
     Meteor.clearInterval(self.intervalId);
     self.$messagesContainer.off()
     self.$newMessageForm.off()
-    $(window).off('resize', self.adjustMessagesContainerHeight);
 }
 
 Template.chat.helpers({
@@ -135,11 +108,15 @@ Template.chat.helpers({
     chatMessagesUnread: function () {
         var currentDialog = IM.getCurrentDialog();
         if (currentDialog) {
-            return self.messages = Messages.find({
+            return Messages.find({
                 dialogId: currentDialog._id,
                 created: {$gt: IM.getCurrentDialogUnreadTimestamp()}
             }, {sort: {"created": 1}});
         }
+    },
+    hasUnreadMessages: function(){
+        var count = Messages.find({ownerId: {$ne: Meteor.userId()}, dialogId: IM.getCurrentDialogId(), created: {$gt: IM.getCurrentDialogUnreadTimestamp()}}).count();
+        return !!count;
     },
     currentDialogName: function () {
         return IM.getChatName(IM.getCurrentDialog());
@@ -152,8 +129,8 @@ Template.chat.helpers({
 });
 
 Template.chat.events({
-    "keydown #chat-message-form textarea": function (e) {
-        var $textarea = $(e.currentTarget);
+    "keydown #chat-message-form textarea": function (e, t) {
+        var $textarea = t.$(e.currentTarget);
         var text = $textarea.val();
         if (e.keyCode === 13 && text.trim()) {
             e.preventDefault();
@@ -167,9 +144,10 @@ Template.chat.events({
                     '<span class="mention" mentions="' + mentionSubject + '">' + s + '</span>'
                 )
             })
-            Meteor.call('sendMessage', text, IM.getCurrentDialog()._id, function (e, r) {
-
-            })
+            Meteor.call('sendMessage',
+                text,
+                IM.getCurrentDialog()._id,
+                GlobalUI.generalCallback());
         }
     },
     "click .welcome-btn, click .all-users-button": function (e) {

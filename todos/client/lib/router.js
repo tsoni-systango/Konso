@@ -6,25 +6,35 @@ Router.configure({
 	// the notFound template is used for unknown routes and missing lists
 	notFoundTemplate: 'notFound',
 	// show the loading template whilst the subscriptions below load their data
-	loadingTemplate: 'loading',
+	loadingTemplate: 'loading'
+});
+
+Router.onBeforeAction(function(){
+	if(!Meteor.user()){
+		this.layout(null);
+		this.render('login');
+	} else {
+		this.next();
+	}
 });
 
 Router.map(function () {
-
+	this.route('login', {
+		path: "/login/"
+	});
 	this.route('chat', {
-		path: '/chat/',
+		path: '/chat/:id?',
 		yieldTemplates: {
-            "chatLeftMenu": {to: "leftMenu"},
-            "chatLeftMenuHeader": {to: "leftMenuHeader"}
+            "chatLeftMenu": {to: "leftMenu"}
 		},
 		waitOn: function () {
-			// return one handle, a function, or an array
 			return [
                 Meteor.subscribe('allUsers'),
 				Meteor.subscribe('userPresences')
 			];
 		},
 		onBeforeAction: function () {
+			IM.setCurrentDialog(Dialogs.findOne(this.params.id));
 			Session.setAuth('route', 'chat');
 			this.next();
 		}

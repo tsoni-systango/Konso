@@ -23,12 +23,6 @@ Template.layout.helpers({
     },
     lists: function () {
         return Lists.find();
-    },
-    activeListClass: function () {
-        var current = Router.current();
-        if (current.route.name === 'listsShow' && current.params._id === this._id) {
-            return 'active';
-        }
     }
 });
 

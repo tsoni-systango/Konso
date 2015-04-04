@@ -1,0 +1,27 @@
+<template name="login">
+  {{#globalLayout}}
+
+        <div class="entry" fit layout vertical center center-justified>
+            <div class="entry-body">
+                <di-form data-action="log-in">
+
+                    <paper-input-decorator label="Username" error="We need your username!"
+                                           floatingLabel class="input-light">
+                        <input is="core-input" id="username" type="text" required>
+                    </paper-input-decorator>
+
+                    <paper-input-decorator label="Password" error="Whats your password?"
+                                           floatingLabel class="input-light">
+                        <input is="core-input" id="password" type="password" required>
+                    </paper-input-decorator>
+
+                    <div horizontal layout reverse>
+                        <di-button class="btn btn-accent" type="submit" raised>Log In</di-button>
+                    </div>
+
+                </di-form>
+            </div>
+        </div>
+
+  {{/globalLayout}}
+</template>

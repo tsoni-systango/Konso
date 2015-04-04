@@ -1,5 +1,5 @@
 <template name='chatMessage'>
-    <div created="{{created}}" class="{{ownerClass}} {{systemClass}} chat-message">
+    <div id="{{_id}}" created="{{created}}" class="{{ownerClass}} {{systemClass}} chat-message">
         <div class="chat-from">
             {{#if isUnread}}
                 <div class="unread-indicator">
