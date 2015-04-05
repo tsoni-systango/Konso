@@ -36,13 +36,13 @@ Template.generalUserItem.events({
         var $tgt = $(e.target);
         var dialog = IM.getCurrentDialog();
         if ($tgt.is(".add-to-dialog")) {
-            Meteor.call('addUserToDialog', dialog._id, this._id);
+            Meteor.call('addUserToDialog', dialog._id, this._id, GlobalUI.generalCallback());
         } else if ($tgt.is(".remove-from-dialog")) {
-            Meteor.call('removeUserFromDialog', dialog._id, this._id);
+            Meteor.call('removeUserFromDialog', dialog._id, this._id, GlobalUI.generalCallback());
         } else {
-            Meteor.call('initOneToOneDialog', this._id, function (error, dialogId) {
-                IM.setCurrentDialog(Dialogs.findOne(dialogId));
-            });
+            Meteor.call('initOneToOneDialog', this._id, GlobalUI.generalCallback(function (dialogId) {
+                Router.go("chat", {id: dialogId});
+            }));
         }
     }
 })
