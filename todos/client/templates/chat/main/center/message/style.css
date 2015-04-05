@@ -1,14 +1,14 @@
-.chat-message{
-	display: block;
-	width: 100%;
-	padding: 8px 0px;
-	border-top: 1px solid #e9e9e9;
-	box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	position: relative;
-	border-top: solid #fff 1px;
-	background: #eee;
+.chat-message {
+    display: block;
+    width: 100%;
+    padding: 8px 0px;
+    border-top: 1px solid #e9e9e9;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    position: relative;
+    border-top: solid #fff 1px;
+    background: #eee;
 }
 
 .chat-message .mention {
@@ -20,57 +20,63 @@
     line-height: 16px;
     white-space: nowrap;
 }
-.chat-message.own{
-	background: #e0eaf3;
+
+.chat-message.own {
+    background: #e0eaf3;
 }
 
 .chat-message.system-message {
     background: white;
     font-weight: bold;
 }
-.chat-message .unread-indicator{
-	background: #104677;
-	position: absolute;
-	width: 3px;
-	top: 0px;
-	bottom: 0px;
-	left: 0px;
+
+.chat-message .unread-indicator {
+    background: #104677;
+    position: absolute;
+    width: 3px;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
 }
-.chat-message .chat-from{
-	float: left;
-	cursor: pointer;
-	color: #707070;
-	width:20%;
-	text-align: right;
-	vertical-align: top;
-	padding: 0px 10px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+
+.chat-message .chat-from {
+    float: left;
+    cursor: pointer;
+    color: #707070;
+    width: 20%;
+    text-align: right;
+    vertical-align: top;
+    padding: 0px 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
-.chat-message .chat-from .name{
-	vertical-align: top;
-	left: 50px;
-	text-overflow: ellipsis;
-	width: 92px;
-	overflow-x: hidden;
+
+.chat-message .chat-from .name {
+    vertical-align: top;
+    left: 50px;
+    text-overflow: ellipsis;
+    width: 92px;
+    overflow-x: hidden;
 }
-.chat-message .chat-msg-text{
-	float: left;
-	padding: 0 10px;
-	line-height: 20px;
-	width:	80%;
-	word-break: break-all;
+
+.chat-message .chat-msg-text {
+    float: left;
+    padding: 0 10px;
+    line-height: 20px;
+    width: 80%;
+    word-break: break-all;
 }
-.chat-message .chat-time{
-	font-size: 9px !important;
-	color: #999999;
-	white-space: nowrap;
-	text-align: right;
-	vertical-align: top;
-	float: right;
-	margin-left: 10px;
-	width: 100%;
+
+.chat-message .chat-time {
+    font-size: 9px !important;
+    color: #999999;
+    white-space: nowrap;
+    text-align: right;
+    vertical-align: top;
+    float: right;
+    margin-left: 10px;
+    width: 100%;
 }
 
 .chat-message.system-message .chat-time {

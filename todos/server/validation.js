@@ -14,3 +14,9 @@ isUserOwnerOfDialog = function (dialog, userId) {
     }
     return true;
 }
+isUserHasPrivilegesToCreateChannels = function(){
+	if(!PrivilegesUtils.canCreateChannels()){
+		Errors.throw(Errors.PERMISSION_DENIED);
+	}
+	return true;
+}

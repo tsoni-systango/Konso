@@ -62,6 +62,9 @@ Template.chatLeftMenu.helpers({
             {
                 type: DialogTypes.ROOM
             }, {sort: {updated: -1}, skip: 4});
+    },
+    canCreateChannels: function(){
+        return PrivilegesUtils.canCreateChannels();
     }
 });
 Template.chatLeftMenu.events({

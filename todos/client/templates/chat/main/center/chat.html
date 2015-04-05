@@ -39,7 +39,7 @@
 				    {{#each chatMessagesUnread}}
 					    {{> chatMessage}}
 				    {{/each}}
-                                        <div id="last-message"></div>
+                                <div id="last-message"></div>
                             </div>
                         </div>
 			    {{#unless Template.subscriptionsReady}}
@@ -68,7 +68,13 @@
 		{{/if}}
         </div>
 
-
+        <style>
+            .chat-message [mentions="{{currentUser._id}}"], .chat-message [mentions=all] {
+                background: #3b73af;
+                border: 1px solid #3b73af;
+                color: #fff;
+            }
+        </style>
     </core-drawer-panel>
 
 </template>

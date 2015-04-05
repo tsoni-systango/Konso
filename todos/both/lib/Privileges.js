@@ -6,4 +6,5 @@ PrivilegesUtils = (function() {
     this.canCreateChatAlerts = function(){
         return _.intersection(privileges.createChatAlerts, Meteor.user().groups).length !== 0;
     }
+    return this;
 })();

@@ -57,9 +57,9 @@ Meteor.methods({
     },
     createDialog: function (name, type) {
         check(name, String);
-        if (!name.trim()) {
-            Errors.throw("Name is empty");
-        }
+        type === DialogTypes.CHANNEL && isUserHasPrivilegesToCreateChannels();
+        !name.trim() && Errors.throw("Name is empty");
+
         var currentUser = getCurrentUserOrDie();
         var dialog = {
             ownerId: currentUser._id,
