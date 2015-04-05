@@ -1,6 +1,10 @@
 {
   "public": {
-    "defaultAuth": "crowd"
+    "defaultAuth": "crowd",
+    "privileges": {
+      "createChannels": ["crowd-administrators"],
+      "createChatAlerts": ["Admins"]
+    }
   },
   "authentication": {
     "crowd": {

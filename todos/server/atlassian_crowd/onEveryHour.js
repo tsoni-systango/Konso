@@ -3,5 +3,5 @@ SyncedCron.add({
     schedule: function (parser) {
         return parser.text('every 1 hour');
     },
-    job: synchronizeAtlassianCrowdUsersAndGroups
+    job: synchronizeWithAtlassianCrowd
 });
