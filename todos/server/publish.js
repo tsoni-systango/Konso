@@ -10,7 +10,7 @@ Meteor.publish("dialogs", function () {
     }
 });
 Meteor.publish("messages", function (dialogId, limit) {
-    if (this.userId) {
+    if (this.userId && dialogId) {
         check(dialogId, String);
         console.log(1)
         isUserAuthorizedInDialog(Dialogs.findOne(dialogId), this.userId);

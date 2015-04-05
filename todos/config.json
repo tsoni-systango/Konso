@@ -4,7 +4,7 @@
   },
   "authentication": {
     "crowd": {
-      "baseUrl": "http://192.168.1.145:8095/crowd/",
+      "baseUrl": "http://192.168.15.131:8095/crowd/",
       "appName": "im",
       "appPassword": "123qwe"
     },

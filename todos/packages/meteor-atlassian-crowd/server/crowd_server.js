@@ -1,7 +1,13 @@
 AtlassianCrowd = Npm.require('atlassian-crowd');
-Future = Npm.require('fibers/future');
-
+var Future = Npm.require('fibers/future');
 ATLASSIAN_CROWD_CONFIG = {};
+var instance = null;
+AtlassianCrowd.instance = function(){
+    if(!instance){
+        instance = new AtlassianCrowd(ATLASSIAN_CROWD_CONFIG);
+    }
+    return instance;
+}
 
 var loginWithAtlassianCrowdSync = function (username, password) {
     if (!ATLASSIAN_CROWD_CONFIG.crowd || !ATLASSIAN_CROWD_CONFIG.crowd.base) {
@@ -13,9 +19,9 @@ var loginWithAtlassianCrowdSync = function (username, password) {
     if (!ATLASSIAN_CROWD_CONFIG.application.password) {
         throw new Meteor.Error("Malformed config", "application.password is not defined");
     }
-    var crowd = new AtlassianCrowd(ATLASSIAN_CROWD_CONFIG);
+
     var syncFuture = new Future();
-    crowd.user.authenticate(username, password, function (err, res) {
+    AtlassianCrowd.instance().user.authenticate(username, password, function (err, res) {
             syncFuture.return({
                 error: err ? err.message : null,
                 success: res
@@ -82,3 +88,4 @@ Accounts.registerLoginHandler("atlassianCrowd", function (loginRequest) {
         };
     }
 });
+
