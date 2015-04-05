@@ -38,7 +38,6 @@ Router.map(function () {
 			Session.setAuth('route', 'chat');
 			this.next();
 		}
-
 	});
 	this.route('todos', {
 		path: '/todos/',

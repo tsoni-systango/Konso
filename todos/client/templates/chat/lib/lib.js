@@ -1,53 +1,53 @@
-IM = {};
-(function () {
-    IM.CURRENT_DIALOG_ID_KEY = "CURRENT_DIALOG_ID_KEY";
+IM = new function () {
+    var self = this;
+    self.CURRENT_DIALOG_ID_KEY = "CURRENT_DIALOG_ID_KEY";
 
-    IM.FILTER_DIALOGS_KEY = "FILTER_DIALOGS_KEY";
-    IM.FILTER_USERS_KEY = "FILTER_USERS_KEY";
+    self.FILTER_DIALOGS_KEY = "FILTER_DIALOGS_KEY";
+    self.FILTER_USERS_KEY = "FILTER_USERS_KEY";
 
-    IM.unreadMessagesForDialogsMap = {};
+    self.unreadMessagesForDialogsMap = {};
 
-    IM.setUsersFilterString = function (value) {
-        Session.set(IM.FILTER_USERS_KEY, value);
+    self.setUsersFilterString = function (value) {
+        Session.set(self.FILTER_USERS_KEY, value);
     };
 
-    IM.getFilterUsersString = function () {
-        return Session.get(IM.FILTER_USERS_KEY);
+    self.getFilterUsersString = function () {
+        return Session.get(self.FILTER_USERS_KEY);
     };
 
-    IM.setDialogsFilterString = function (value) {
-        Session.set(IM.FILTER_DIALOGS_KEY, value);
+    self.setDialogsFilterString = function (value) {
+        Session.set(self.FILTER_DIALOGS_KEY, value);
     };
 
-    IM.getFilterDialogsString = function () {
-        return Session.get(IM.FILTER_DIALOGS_KEY);
+    self.getFilterDialogsString = function () {
+        return Session.get(self.FILTER_DIALOGS_KEY);
     };
 
-    IM.setCurrentDialog = function (dialog) {
-        var currDialog = Session.get(IM.CURRENT_DIALOG_ID_KEY);
+    self.setCurrentDialog = function (dialog) {
+        var currDialog = Session.get(self.CURRENT_DIALOG_ID_KEY);
         if (!dialog || !currDialog || currDialog._id !== dialog._id) {
-            Session.setAuth(IM.CURRENT_DIALOG_ID_KEY, dialog);
-            IM.setDialogsFilterString(null);
+            Session.setAuth(self.CURRENT_DIALOG_ID_KEY, dialog);
+            self.setDialogsFilterString(null);
         }
     };
 
-    IM.getCurrentDialog = function () {
-        return Session.get(IM.CURRENT_DIALOG_ID_KEY);
+    self.getCurrentDialog = function () {
+        return Session.get(self.CURRENT_DIALOG_ID_KEY);
     };
-    IM.getCurrentDialogId = function () {
-        var d = IM.getCurrentDialog();
+    self.getCurrentDialogId = function () {
+        var d = self.getCurrentDialog();
         return d ? d._id : null;
     };
 
-    IM.getCurrentDialogUnreadTimestamp = function () {
-        var dialog = IM.getCurrentDialog();
+    self.getCurrentDialogUnreadTimestamp = function () {
+        var dialog = self.getCurrentDialog();
         if (!dialog || !Meteor.user()) {
             return null;
         }
         return Meteor.user().profile.readTimestamps[dialog._id] || 0;
     };
 
-    IM.getChatName = function (dialog) {
+    self.getChatName = function (dialog) {
         if (!dialog) {
             return null;
         }
@@ -67,17 +67,17 @@ IM = {};
             }, "");
         }
     };
-    IM.getCurrentDialogUnreadMessageCount = function(){
-        return IM.unreadMessagesForDialogsMap[IM.getCurrentDialogId()];
+    self.getCurrentDialogUnreadMessageCount = function(){
+        return self.unreadMessagesForDialogsMap[self.getCurrentDialogId()];
     };
-    IM.updateReadTimestamp = function (value) {
+    self.updateReadTimestamp = function (value) {
         var profile = Meteor.user().profile;
-        var currentTimestamp = IM.getCurrentDialogUnreadTimestamp();
+        var currentTimestamp = self.getCurrentDialogUnreadTimestamp();
         var newValue = value || _.now();
         if (newValue < currentTimestamp) {
             return;
         }
-        profile.readTimestamps[IM.getCurrentDialog()._id] = value || _.now();
+        profile.readTimestamps[self.getCurrentDialog()._id] = value || _.now();
         Meteor.users.update(Meteor.userId(),
             {
                 $set: {
@@ -85,8 +85,8 @@ IM = {};
                 }
             });
     };
-    IM.evaluateAndUpdateReadTimestamp = function () {
-        if(!IM.getCurrentDialogUnreadMessageCount()){
+    self.evaluateAndUpdateReadTimestamp = function () {
+        if(!self.getCurrentDialogUnreadMessageCount()){
             return;
         }
         var $messagesContainer = $('.messages-container');
@@ -97,7 +97,7 @@ IM = {};
 
         if (created) {
             console.log("updated read timestamp")
-            IM.updateReadTimestamp(created);
+            self.updateReadTimestamp(created);
         }
     };
-})();
+};

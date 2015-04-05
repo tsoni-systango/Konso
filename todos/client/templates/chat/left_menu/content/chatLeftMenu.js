@@ -63,22 +63,27 @@ Template.chatLeftMenu.helpers({
                 type: DialogTypes.ROOM
             }, {sort: {updated: -1}, skip: 4});
     },
-    canCreateChannels: function(){
+    canCreateChannels: function () {
         return PrivilegesUtils.canCreateChannels();
     }
 });
 Template.chatLeftMenu.events({
-    "click .chat-left-menu": function(e){
+    "click .chat-left-menu": function (e) {
         var $tgt = $(e.target);
-      if($tgt.is(".drop-up") || $tgt.is(".expandable-toggle")){
-          var $expandable = $tgt.closest(".expandable");
-          $expandable.closest(".other-dialogs").toggleClass("hidden")
-          $expandable.slideUp("slow");
-      } else if($tgt.is('.expand-title')){
-          var $moreRooms = $tgt.closest(".other-dialogs");
-          $moreRooms.toggleClass("hidden");
-          $moreRooms.find(".expandable").slideDown("slow");
-      }
+        if ($tgt.is(".drop-up") || $tgt.is(".expandable-toggle")) {
+            var $expandable = $tgt.closest(".expandable");
+            $expandable.closest(".other-dialogs").toggleClass("hidden")
+            $expandable.slideUp("slow");
+        } else if ($tgt.is('.expand-title')) {
+            var $moreRooms = $tgt.closest(".other-dialogs");
+            $moreRooms.toggleClass("hidden");
+            $moreRooms.find(".expandable").slideDown("slow");
+        }
+
+
+        if($tgt.closest(".create-conversation").length) {
+            $('core-scaffold')[0].closeDrawer();
+        }
     },
     "click .chat-left-menu .create-channel": function (e) {
         GlobalUI.showDialog({

@@ -11,10 +11,14 @@ Template.chat.created = function () {
         Meteor.call('getMessageCount', self.dialogId, function (err, count) {
             var count = count || 0;
             self.dialogMessageCount.set(count);
-        })
+        });
     });
     self.autorun(function () {
-        self.subscribe("messages", IM.getCurrentDialogId(), self.messagesToShow.get());
+        self.subscribe("messages", IM.getCurrentDialogId(), self.messagesToShow.get(), function(){
+            console.log("Subscribed to messages");
+            $('core-scaffold')[0].closeDrawer();
+            $('.chat')[0].closeDrawer();
+        });
     });
 }
 Template.chat.rendered = function () {
@@ -80,7 +84,6 @@ Template.chat.rendered = function () {
     }, 50)
     self.$messagesContainer.on("message-added", onMessageAddedDebounced);
     //self.$messagesContainer.on("scroll", onScrollDebounced);
-
 }
 Template.chat.destroyed = function () {
     var self = this;
