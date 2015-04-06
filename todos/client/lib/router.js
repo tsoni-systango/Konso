@@ -35,7 +35,8 @@ Router.map(function () {
 		},
 		onBeforeAction: function () {
 			if(this.params.id) {
-				IM.setCurrentDialog(Dialogs.findOne(this.params.id));
+				var dialog = Dialogs.findOne(this.params.id);
+				IM.setCurrentDialog(dialog);
 			}
 			Session.setAuth('route', 'chat');
 			this.next();

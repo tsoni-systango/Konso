@@ -20,6 +20,15 @@ Template.dialogItem.created = function () {
             var messageOwner = Meteor.users.findOne(message.ownerId);
             if (messageOwner) {
                 self.lastMessage.set(Utils.getUsername(messageOwner) + ": " + message.text);
+                if(message.ownerId !== Meteor.userId()){
+                   /* Notification.requestPermission( function(status) {
+                        console.log(status); // notifications will only be displayed if "granted"
+                        var n = new Notification(Utils.getUsername(messageOwner), {body: message.text}); // this also shows the notification
+                        n.onclick =  function(){
+                            window.focus();
+                        }
+                    });*/
+                }
             } else {
                 self.lastMessage.set(message.text);
             }
