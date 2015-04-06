@@ -107,7 +107,9 @@ Template.dialogItem.helpers({
     offlineCount: function () {
         return Template.instance().offlineUsers.get();
     },
-    presenceStyle: function () {
-        return Template.instance().onlineUsers.get() ? "online" : "offline";
+    opponentId: function(){
+        if(this.type === DialogTypes.ONE_TO_ONE){
+            return _.without(this.userIds, Meteor.userId())[0];
+        }
     }
 });

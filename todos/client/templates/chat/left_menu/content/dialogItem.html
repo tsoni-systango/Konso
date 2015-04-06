@@ -3,7 +3,7 @@
             <a href="{{pathFor 'chat' id=this._id }}" class="chat-item-link">
                 <div id='{{_id}}' layout center class="dialog-item {{typeClass}} {{selected}}">
 			{{#if isOneToOne}}
-                            <core-icon class="presence-icon {{presenceStyle}}" icon="account-circle"></core-icon>
+				{{>persistenceIndicator userId=opponentId}}
 			{{/if}}
                     <div class='name'>{{title}}</div>
 			{{#if unreadCount}}
