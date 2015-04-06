@@ -41,7 +41,7 @@
 }
 .chat-content .messages-container{
 	background: white;
-	overflow-y: scroll;
+	overflow-y: auto;
     position: absolute;
     top: 0px;
     bottom: 0px;

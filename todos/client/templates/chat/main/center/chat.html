@@ -1,9 +1,6 @@
 <template name="chat">
     <core-drawer-panel class="chat" drawerWidth='200px' responsiveWidth='940px' main rightDrawer>
-        <div drawer class="right-drawer all-user-list">
-		{{> allUserList}}
-        </div>
-
+            {{> allUserList}}
 
         <div main vertical layout fit class='chat-content'>
 		{{#if currentDialog}}

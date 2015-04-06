@@ -1,16 +1,19 @@
 <template name="allUserList">
+    <div drawer class="right-drawer all-user-list">
 
-    <paper-input-decorator class="filter-users" label="Search users" layout vertical>
-        <core-icon icon="search"></core-icon>
-        <input placeholder="Search users" aria-label="Search users">
-    </paper-input-decorator>
-    <div class="room-users">
-        {{#each roomUsers}}
-            {{>generalUserItem}}
-        {{/each}}
+        <paper-input-decorator class="filter-users" label="Search users" layout vertical>
+            <core-icon icon="search"></core-icon>
+            <input placeholder="Search users" aria-label="Search users">
+        </paper-input-decorator>
+        <div class="scrollable-list">
+            <div class="room-users">
+		    {{#each roomUsers}}
+			    {{>generalUserItem}}
+		    {{/each}}
+            </div>
+		{{#each users}}
+			{{>generalUserItem}}
+		{{/each}}
+        </div>
     </div>
-    {{#each users}}
-        {{>generalUserItem}}
-    {{/each}}
-
 </template>
