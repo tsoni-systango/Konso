@@ -14,6 +14,14 @@ Meteor.methods({
         Dialogs.update(dialogId, {$set: {updated: message.created}});
         return message;
     },
+    removeMessage: function(messageId){
+        check(messageId, String);
+        var message = Messages.findOne(messageId);
+        if(message.ownerId !== getCurrentUserOrDie()._id){
+            Errors.throw(Errors.PERMISSION_DENIED);
+        }
+        Messages.update(messageId, {$set: {removed: true, text: null}});
+    },
     getMessageCount: function (dialogId) {
         return Messages.find({dialogId: dialogId}).count();
     },
