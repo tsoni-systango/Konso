@@ -5,7 +5,7 @@
 
 Package.describe({
 
-	name: 'zuzel:meteor-atlassian-crowd',
+	name: 'zuzel:atlassian-crowd',
 	version: '0.0.1',
 	summary: 'A Meteor package for atlassian crowd nodejs module.',
 	documentation: 'README.md'
@@ -27,18 +27,6 @@ Package.onUse(function(api) {
 	api.export('AtlassianCrowd', 'server');
     api.export('ATLASSIAN_CROWD_CONFIG', 'server');
 
-
-});
-
-
-// ---------------------------------------------
-// Tests
-
-Package.onTest(function(api) {
-
-	api.use('tinytest');
-	api.use('meteor-atlassian-crowd');
-	api.addFiles('meteor-atlassian-crowd-tests.js');
 
 });
 

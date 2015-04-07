@@ -12,7 +12,7 @@ Meteor.loginWithCrowd = function (username, password, callback) {
             if (error) {
                 callback && callback(error);
             } else {
-                callback && callback();
+                callback && callback(result);
             }
         }
     });
