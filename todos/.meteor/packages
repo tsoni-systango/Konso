@@ -27,6 +27,6 @@ dpid:user-presence
 u2622:persistent-session
 tsega:mentions
 underscore
-zuzel:meteor-atlassian-crowd
+zuzel:atlassian-crowd
 mrt:moment
 percolate:synced-cron

@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "atlassian-crowd": {
-      "version": "https://github.com/dsn/node-atlassian-crowd/tarball/b9014d2266c21e9949ce9c8e7dcfae7e7a1ae501"
-    }
-  }
-}
