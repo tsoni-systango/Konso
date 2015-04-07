@@ -20,7 +20,7 @@ Template.dialogItem.created = function () {
             var messageOwner = Meteor.users.findOne(message.ownerId);
             if (messageOwner) {
                 if(message.removed){
-                    self.lastMessage.set(Utils.getUsername(messageOwner) + " removed his message" );
+                    self.lastMessage.set(Utils.getUsername(messageOwner) + "<i> removed message</i>" );
                 } else {
                     self.lastMessage.set(Utils.getUsername(messageOwner) + ": " + message.text);
                 }

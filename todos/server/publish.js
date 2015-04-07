@@ -14,7 +14,7 @@ Meteor.publish("messages", function (dialogId, limit) {
         check(dialogId, String);
         isUserAuthorizedInDialog(Dialogs.findOne(dialogId), this.userId);
         var limit = limit || 50;
-        return Messages.find({dialogId: dialogId}, {sort: {created: -1}, limit: limit});
+        return Messages.find({dialogId: dialogId}, {sort: {created: -1}, limit: limit, fields: {oldText: false}});
     }
 });
 Meteor.publish("lastDialogMessage", function (dialogId) {

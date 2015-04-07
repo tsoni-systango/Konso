@@ -20,7 +20,15 @@ Meteor.methods({
         if(message.ownerId !== getCurrentUserOrDie()._id){
             Errors.throw(Errors.PERMISSION_DENIED);
         }
-        Messages.update(messageId, {$set: {removed: true, text: null}});
+        Messages.update(messageId, {$set: {removed: true, text: null, oldText: message.text}});
+    },
+    recoverMessage: function(messageId){
+        check(messageId, String);
+        var message = Messages.findOne(messageId);
+        if(message.ownerId !== getCurrentUserOrDie()._id || !message.removed){
+            Errors.throw(Errors.PERMISSION_DENIED);
+        }
+        Messages.update(messageId, {$set: {removed: false, text: message.oldText, oldText: null}});
     },
     getMessageCount: function (dialogId) {
         return Messages.find({dialogId: dialogId}).count();

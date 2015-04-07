@@ -26,16 +26,20 @@
             </div>
             <div class="clear"></div>
         </div>
-	    {{#unless isRemoved}}
+
                 <div class="chat-msg-controls">
 			{{#if canEdit}}
+                                {{#if isRemoved}}
+                                    <paper-icon-button icon="undo" class="undo"></paper-icon-button>
+                                        {{else}}
                             <paper-icon-button icon="more-horiz" class="edit"></paper-icon-button>
                             <paper-icon-button icon="editor:mode-edit"
                                                class="animated zoomIn edit-message"></paper-icon-button>
                             <paper-icon-button icon="delete" class="animated zoomIn delete-message"></paper-icon-button>
 			{{/if}}
+			{{/if}}
                 </div>
-	    {{/unless}}
+
         <div class="clear"></div>
     </div>
 </template>

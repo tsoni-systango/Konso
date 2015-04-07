@@ -50,5 +50,8 @@ Template.chatMessage.events({
     },
     "click .delete-message": function (e, t) {
         Meteor.call("removeMessage", this._id, GlobalUI.generalCallback());
+    },
+    "click .undo": function (e, t) {
+        Meteor.call("recoverMessage", this._id, GlobalUI.generalCallback());
     }
 });
