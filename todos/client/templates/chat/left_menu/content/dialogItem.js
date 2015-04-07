@@ -19,7 +19,12 @@ Template.dialogItem.created = function () {
         if (message) {
             var messageOwner = Meteor.users.findOne(message.ownerId);
             if (messageOwner) {
-                self.lastMessage.set(Utils.getUsername(messageOwner) + ": " + message.text);
+                if(message.removed){
+                    self.lastMessage.set(Utils.getUsername(messageOwner) + " removed his message" );
+                } else {
+                    self.lastMessage.set(Utils.getUsername(messageOwner) + ": " + message.text);
+                }
+
                 if(message.ownerId !== Meteor.userId()){
                    /* Notification.requestPermission( function(status) {
                         console.log(status); // notifications will only be displayed if "granted"
