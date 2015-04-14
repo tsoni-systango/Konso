@@ -15,9 +15,8 @@ Template.chat.created = function () {
     });
     self.autorun(function () {
         self.subscribe("messages", IM.getCurrentDialogId(), self.messagesToShow.get(), function(){
-            console.log("Subscribed to messages");
-           // $('core-scaffold')[0].closeDrawer();
-           // $('.chat')[0].closeDrawer();
+           GlobalUI.closeLeftMenu();
+           $('.chat')[0].closeDrawer();
         });
     });
 }

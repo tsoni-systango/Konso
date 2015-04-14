@@ -62,7 +62,7 @@ Router.map(function () {
 	this.route('embedded', {
 		path: '/embedded',
 		action: function () {
-			Session.set("embedded", true);
+			Session.set("embedded", "embedded");
 			Router.go('chat');
 		}
 	});

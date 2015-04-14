@@ -16,6 +16,7 @@
     }
 })(window, document, function ($, jquery_loaded) {
     var width = 256;
+    var headerOffsetLeft = 40;
     var height = 400;
 
     var id = "id" + Math.floor(Math.random() * 1000000000000000);
@@ -48,10 +49,13 @@
         border: "none"
     });
     header.css({
-        height: "30px",
+        height: "40px",
         "margin": 0,
         "padding": 0,
-        width: "100%"
+        position: "absolute",
+        top: "0px",
+        left: headerOffsetLeft+"px",
+        right: "40px"
     })
     wrapper.append(header);
     wrapper.append(iframe);
@@ -69,6 +73,7 @@
             fader.show()
             isDragging = true;
             var headerOffset = header.offset();
+            headerOffset.left -=headerOffsetLeft;
             offset = {x: e.pageX - headerOffset.left + window.scrollX, y: e.pageY - headerOffset.top + window.scrollY};
             windowHeight = $(window).height();
             windowWidth = $(window).width();

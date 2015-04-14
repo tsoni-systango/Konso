@@ -65,7 +65,15 @@ this.GlobalUI = (function() {
             }
         }
   };
-  GlobalUI.isProgressVisible = new ReactiveVar(false);
+    GlobalUI.toggleLeftMenu = function(){
+        var mainTogglePanel = $("#main-drawer-panel")[0];
+        mainTogglePanel && mainTogglePanel.togglePanel();
+    };
+    GlobalUI.closeLeftMenu = function(){
+        var mainTogglePanel = $("#main-drawer-panel")[0];
+        mainTogglePanel && mainTogglePanel.closeDrawer();
+    };
+    GlobalUI.isProgressVisible = new ReactiveVar(false);
 
   return GlobalUI;
 

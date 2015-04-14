@@ -71,14 +71,6 @@ paper-progress{
 	width: 100%
 }
 
-.left-menu {
-  background: rgb(36, 35, 32);
-  color: white;
-}
-
-.left-menu-toolbar {
-  background: #262D38;
-}
 .content {
   font-size: 100%;
 
@@ -104,11 +96,6 @@ paper-progress{
     border-style: solid;
     border-color: @color-black-lightest;
   }
-}
-
-#app-menu{
-  background-color: @color-primary;
-  color: @color-white-light;
 }
 
 html @{deep} .control {
@@ -181,13 +168,6 @@ div[action-buttons] {
     font-size: 17px;
   }
 }
-
-.embedded{
-  core-toolbar{
-    display: none;
-  }
-}
-
 /*Scrollbars*/
 /* Let's get this party started */
 ::-webkit-scrollbar {
@@ -202,4 +182,66 @@ div[action-buttons] {
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: rgba(82, 110, 156, 1);
+}
+/*main-drawer-panel*/
+#main-drawer-panel[narrow]{
+  .toggle-main-menu{
+    display: block;
+  }
+}
+#main-drawer-panel.embedded{
+  #app-menu{
+    display: none;
+  }
+  &::shadow #edgeSwipeOverlay, .chat::shadow #edgeSwipeOverlay{
+    top: 40px;
+  }
+  .chat{
+    .dialog-menu{
+      background-color: @color-primary;
+      color: @color-white;
+      padding: 0 5px;
+    }
+  }
+  .left-menu-toolbar {
+    height: 40px;
+    position: relative;
+    .account {
+      position: absolute;
+      top: 8px;
+      left: 40px;
+      right: 40px;
+    }
+    .logout-btn{
+      right: 0px;
+      top: 0px;
+      position: absolute;
+    }
+    .close-menu-btn{
+      left: 0px;
+      top: 0px;
+      position: absolute;
+      display: block;
+    }
+  }
+}
+#main-drawer-panel{
+  .toggle-main-menu{
+    display: none;
+  }
+  .left-menu {
+    background: rgb(36, 35, 32);
+    color: white;
+  }
+
+  .left-menu-toolbar {
+    background: #262D38;
+    .close-menu-btn{
+      display: none;
+    }
+  }
+  #app-menu{
+    background-color: @color-primary;
+    color: @color-white;
+  }
 }

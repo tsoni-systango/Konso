@@ -2,7 +2,7 @@ Template.layout.helpers({
     username: function () {
         return Utils.getUsername(Meteor.user());
     },
-  isAuthenticated: function () {
+    isAuthenticated: function () {
         return Meteor.user();
     },
     thisArray: function () {
@@ -23,12 +23,10 @@ Template.layout.helpers({
     },
     lists: function () {
         return Lists.find();
-    },
-    isEmbeddedChat:function(){
-        return Session.get("embedded").get();
     }
 });
-Template.layout.events({
 
-});
+Template.registerHelper("isEmbeddedChat", function () {
+    return Session.get("embedded");
+})
 

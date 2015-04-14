@@ -1,14 +1,17 @@
 <template name="layout">
 	{{#globalLayout}}
-            <core-drawer-panel>
+            <core-drawer-panel id="main-drawer-panel" class="{{isEmbeddedChat}}">
 
 
-                <div drawer>
+                <div drawer vertical layout>
                     <div fit>
                         <core-header-panel class="left-menu" navigation fit mode="seamed">
                             <core-toolbar class="left-menu-toolbar">
+
                                 <div class="account">{{username}} </div>
-                                <paper-icon-button title="Log out" class="right" icon="exit-to-app"
+                                <paper-icon-button title="Close menu" class="right close-menu-btn" icon="arrow-back"
+                                                   onclick="GlobalUI.closeLeftMenu()"></paper-icon-button>
+                                <paper-icon-button title="Log out" class="right logout-btn" icon="exit-to-app"
                                                    onclick="Meteor.logout()"></paper-icon-button>
                             </core-toolbar>
                             <core-menu theme="core-light-theme">
@@ -20,6 +23,8 @@
                 <div main vertical layout>
                     {{#unless isEmbeddedChat}}
                     <core-toolbar id="app-menu">
+                        <paper-icon-button title="Open menu" class="left toggle-main-menu" icon="menu"
+                                           onclick="GlobalUI.toggleLeftMenu()"></paper-icon-button>
                         <paper-tabs selected="0" layout flex noink>
                             <paper-tab><a href="{{pathFor route='chat'}}" horizontal center-center layout>Live
                                 Chatting</a></paper-tab>

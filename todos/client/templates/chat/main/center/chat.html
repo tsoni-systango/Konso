@@ -1,19 +1,16 @@
 <template name="chat">
     <core-drawer-panel class="chat" drawerWidth='200px' responsiveWidth='940px' main rightDrawer>
-            {{> allUserList}}
+	    {{> allUserList}}
 
         <div main vertical layout fit class='chat-content'>
 		{{#if currentDialog}}
 
                     <div class="dialog-menu">
-
-                        <paper-menu-button class="left">
-                            <paper-button noink class="name">
-				    {{currentDialogName}}
-                                <core-icon icon="arrow-drop-down"></core-icon>
-                            </paper-button>
-
-                        </paper-menu-button>
+			    {{#if isEmbeddedChat}}
+                                <paper-icon-button title="Open menu" class="left toggle-main-menu" icon="menu"
+                                                   onclick="GlobalUI.toggleLeftMenu()"></paper-icon-button>
+			    {{/if}}
+                        <span class="left name">{{currentDialogName}}</span>
 
 
                         <paper-icon-button icon="supervisor-account" class="right all-users-button"></paper-icon-button>
@@ -66,7 +63,7 @@
         </div>
 
         <style>
-            .chat-message [mentions="{{currentUser._id}}"], .chat-message [mentions=all] {
+            .chat-message {{currentUser._id}}, .chat-message [mentions=all] {
                 background: #3b73af;
                 border: 1px solid #3b73af;
                 color: #fff;
