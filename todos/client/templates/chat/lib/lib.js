@@ -29,6 +29,7 @@ IM = new function () {
             Session.setAuth(self.CURRENT_DIALOG_ID_KEY, dialog);
             self.setDialogsFilterString(null);
         }
+
     };
 
     self.getCurrentDialog = function () {

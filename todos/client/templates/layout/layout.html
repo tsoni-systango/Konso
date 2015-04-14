@@ -1,33 +1,42 @@
 <template name="layout">
+	{{#globalLayout}}
+            <core-drawer-panel>
 
 
-    {{#globalLayout}}
-
-    <core-scaffold>
-        <core-header-panel class="left-menu" navigation flex mode="seamed">
-            <core-toolbar class="left-menu-toolbar">
-                <div class="account">{{username}} </div>
-                <paper-icon-button title="Log out" class="right" icon="exit-to-app" onclick="Meteor.logout()"></paper-icon-button>
-            </core-toolbar>
-            <core-menu theme="core-light-theme">
-                {{>yield "leftMenu"}}
-            </core-menu>
-        </core-header-panel>
-
-        <div tool flex>
-            <paper-tabs selected="0" layout flex noink>
-                <paper-tab><a href="{{pathFor route='chat'}}" horizontal center-center layout>Live Chatting</a></paper-tab>
-                <paper-tab><a href="{{pathFor route='todos'}}" horizontal center-center layout>To dos</a></paper-tab>
-                <paper-tab><a href="{{pathFor route='notes'}}" horizontal center-center layout>Notes</a></paper-tab>
-                <paper-tab><a href="{{pathFor route='scheduler'}}" horizontal center-center layout>Sheduler</a></paper-tab>
-            </paper-tabs>
-        </div>
-
-        <div>
-            {{> yield}}
-        </div>
-    </core-scaffold>
-
-
-    {{/globalLayout}}
+                <div drawer>
+                    <div fit>
+                        <core-header-panel class="left-menu" navigation fit mode="seamed">
+                            <core-toolbar class="left-menu-toolbar">
+                                <div class="account">{{username}} </div>
+                                <paper-icon-button title="Log out" class="right" icon="exit-to-app"
+                                                   onclick="Meteor.logout()"></paper-icon-button>
+                            </core-toolbar>
+                            <core-menu theme="core-light-theme">
+				    {{>yield "leftMenu"}}
+                            </core-menu>
+                        </core-header-panel>
+                    </div>
+                </div>
+                <div main vertical layout>
+                    {{#unless isEmbeddedChat}}
+                    <core-toolbar id="app-menu">
+                        <paper-tabs selected="0" layout flex noink>
+                            <paper-tab><a href="{{pathFor route='chat'}}" horizontal center-center layout>Live
+                                Chatting</a></paper-tab>
+                            <paper-tab><a href="{{pathFor route='todos'}}" horizontal center-center layout>To
+                                dos</a></paper-tab>
+                            <paper-tab><a href="{{pathFor route='notes'}}" horizontal center-center layout>Notes</a>
+                            </paper-tab>
+                            <paper-tab><a href="{{pathFor route='scheduler'}}" horizontal center-center
+                                          layout>Sheduler</a>
+                            </paper-tab>
+                        </paper-tabs>
+                    </core-toolbar>
+                    {{/unless}}
+                    <div style="position: relative;" flex>
+			    {{> yield}}
+                    </div>
+                </div>
+            </core-drawer-panel>
+	{{/globalLayout}}
 </template>

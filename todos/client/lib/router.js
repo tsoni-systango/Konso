@@ -59,4 +59,11 @@ Router.map(function () {
 			Router.go(Session.get('route') || 'chat');
 		}
 	});
+	this.route('embedded', {
+		path: '/embedded',
+		action: function () {
+			Session.set("embedded", true);
+			Router.go('chat');
+		}
+	});
 });

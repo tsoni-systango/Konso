@@ -1,6 +1,6 @@
 {
   "public": {
-    "defaultAuth": "crowd",
+    "defaultAuth": "ldap",
     "privileges": {
       "createChannels": ["crowd-administrators"],
       "createChatAlerts": ["Admins"]
@@ -8,7 +8,7 @@
   },
   "authentication": {
     "crowd": {
-      "baseUrl": "http://localhost:8095/crowd/",
+      "baseUrl": "ahttp://localhost:8095/crowd/",
       "appName": "im",
       "appPassword": "123qwe"
     },

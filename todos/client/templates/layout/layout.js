@@ -23,6 +23,12 @@ Template.layout.helpers({
     },
     lists: function () {
         return Lists.find();
+    },
+    isEmbeddedChat:function(){
+        return Session.get("embedded").get();
     }
+});
+Template.layout.events({
+
 });
 
