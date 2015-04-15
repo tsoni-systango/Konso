@@ -8,7 +8,7 @@
   },
   "authentication": {
     "crowd": {
-      "baseUrl": "ahttp://localhost:8095/crowd/",
+      "baseUrl": "ahttp://localfhost:8095/crowd/",
       "appName": "im",
       "appPassword": "123qwe"
     },
