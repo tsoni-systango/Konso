@@ -5,6 +5,7 @@
                            onclick="GlobalUI.closeSettings()"></paper-icon-button>
         <div id="settings-content">
             <h3>Embeddable script</h3>
+
             <div class="setting embeddable-script">
                 <div horizontal layout>
                     <paper-radio-group class="horizontal" selected="right">
@@ -18,17 +19,53 @@
                 </div>
                 <div center horizontal layout class="sizes">
                     <div>Width</div>
-                    <paper-slider class="embedded-width" value="256" min="200" max="600" editable="" role="slider" tabindex="0" aria-valuemin="200" aria-valuemax="600" aria-valuenow="256"></paper-slider>
+                    <paper-slider class="embedded-width" value="256" min="200" max="600" editable role="slider"
+                                  tabindex="0" aria-valuemin="200" aria-valuemax="600"
+                                  aria-valuenow="256"></paper-slider>
                     <div>Height</div>
-                    <paper-slider class="embedded-height" value="400" min="300" max="1000" editable="" role="slider" tabindex="0" aria-valuemin="300" aria-valuemax="1000" aria-valuenow="400"></paper-slider>
+                    <paper-slider class="embedded-height" value="400" min="300" max="1000" editable role="slider"
+                                  tabindex="0" aria-valuemin="300" aria-valuemax="1000"
+                                  aria-valuenow="400"></paper-slider>
                 </div>
 
-                   <textarea readonly onClick="this.select();" class="script-content"> {{scriptContent}}</textarea>
+                <textarea readonly onClick="this.select();" class="script-content"> {{scriptContent}}</textarea>
 
             </div>
-            <h3>Notifications</h3>
-            <div class="setting">
+            <h3>Growl Notifications
+		    {{#if allowingNotifications}}
+                        <paper-spinner active class="allowing-progress"></paper-spinner>
+		    {{else}}
+			    {{#if isNotificationsDisabled}}
+                                <span class="error-color">Your browser blocks all notifications on this site</span>
+			    {{/if}}
+			    {{#if isNotificationsUnknown}}
+                                <paper-button raised class="right allow-notifications-button">Allow</paper-button>
+                                <span class="warning-color">Please, allow notifications by pushing the button:</span>
+			    {{/if}}
+			    {{#if isNotificationsEnabled}}
+                                <span>Your browser allows notifications on this site.</span>
+			    {{/if}}
+		    {{/if}}
+            </h3>
+            <div class="setting notifications">
+                <section>
+                    <h4>Chat</h4>
 
+                    <core-label center horizontal layout id="n-one-to-one">
+                        <div flex>One-to-one messages</div>
+                        <paper-checkbox class="blue" name="{{getDialogTypes.ONE_TO_ONE}}" {{isNotificationChecked getDialogTypes.ONE_TO_ONE}} for role="checkbox" tabindex="0" aria-checked="true" aria-labelledby="n-one-to-one"></paper-checkbox>
+                    </core-label>
+
+                    <core-label center horizontal layout id="n-room">
+                        <div flex>Room messages</div>
+                        <paper-checkbox class="blue" name="{{getDialogTypes.ROOM}}" {{isNotificationChecked getDialogTypes.ROOM}} for role="checkbox" tabindex="0" aria-checked="false" aria-labelledby="n-room"></paper-checkbox>
+                    </core-label>
+
+                    <core-label center horizontal layout id="n-channel">
+                        <div flex>Channel messages</div>
+                        <paper-checkbox class="blue" name="{{getDialogTypes.CHANNEL}}" {{isNotificationChecked getDialogTypes.CHANNEL}} for role="checkbox" tabindex="0" aria-checked="false" aria-labelledby="n-channel"></paper-checkbox>
+                    </core-label>
+                </section>
             </div>
         </div>
     </div>

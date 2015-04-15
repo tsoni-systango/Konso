@@ -12,36 +12,44 @@ Template.dialogItem.created = function () {
         if (!Meteor.userId()) {
             return;
         }
+        var currentUser = Meteor.users.findOne(Meteor.userId(), {reactive:false});
         var message = Messages.findOne({dialogId: self.data._id}, {
             sort: {created: -1}
         });
 
         if (message) {
-            var messageOwner = Meteor.users.findOne(message.ownerId);
+            var messageOwner = Meteor.users.findOne(message.ownerId, {reactive:false});
+            var username;
+            var text;
             if (messageOwner) {
                 if(message.removed){
-                    self.lastMessage.set(Utils.getUsername(messageOwner) + "<i> removed message</i>" );
+                    username = Utils.getUsername(messageOwner);
+                    text = "removed message"
+                    self.lastMessage.set(username +  "<i> "+text+"</i>");
                 } else {
-                    self.lastMessage.set(Utils.getUsername(messageOwner) + ": " + message.text);
-                }
-
-                if(message.ownerId !== Meteor.userId()){
-                   /* Notification.requestPermission( function(status) {
-                        console.log(status); // notifications will only be displayed if "granted"
-                        var n = new Notification(Utils.getUsername(messageOwner), {body: message.text}); // this also shows the notification
-                        n.onclick =  function(){
-                            window.focus();
-                        }
-                    });*/
+                    username = Utils.getUsername(messageOwner);
+                    text = message.text
+                    self.lastMessage.set(username + ": " + text);
                 }
             } else {
-                self.lastMessage.set(message.text);
+                username = "System";
+                text = message.text
+                self.lastMessage.set(text);
+            }
+            if(Notification.permission === "granted"){
+                var growlNotifications = currentUser.profile.growlNotifications || {};
+                if(growlNotifications[self.data.type] && message.ownerId !== Meteor.userId()){
+                    var n = new Notification(username, {body: text});
+                    n.onclick =  function(){
+                        window.focus();
+                    }
+                }
             }
         }
         Meteor.call("getUnreadMessagesCountForTimestamp",
             self.data._id,
-            Meteor.user().profile.readTimestamps[self.data._id] || 0,
-            Meteor.userId(), function (er, count) {
+            currentUser.profile.readTimestamps[self.data._id] || 0,
+            currentUser._id, function (er, count) {
                 if(!er){
                     IM.unreadMessagesForDialogsMap[self.data._id] = count;
                     self.unreadMessageCount.set(count);
