@@ -27,6 +27,8 @@ Template.globalLayout.helpers({
 	},
 	contentCSSDisplay: function(){
 		return GlobalUI.isProgressVisible.get() ? "none": "block";
+	},
+	showSettings: function(){
+		return Session.get("global.ui.showSettings");
 	}
-	
 });

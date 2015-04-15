@@ -20,7 +20,7 @@
 
     <paper-action-dialog global-dialog layered backdrop
                          transition="paper-dialog-transition-bottom"
-            class={{#if globalDialogFullOnMobile}}full-on-mobile{{/if}}>
+            class={{#if isDialogFullscreen}}fullscreen{{/if}}>
 
         <paper-progress style="display: {{progressCSSDisplay}}" indeterminate=""></paper-progress>
 
@@ -34,4 +34,7 @@
 	    {{/if}}
 
     </paper-toast>
+    {{#if showSettings}}
+    {{>settings}}
+    {{/if}}
 </template>

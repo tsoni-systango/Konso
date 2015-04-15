@@ -1,0 +1,35 @@
+<template name="settings">
+    <div vertical layout fit id="settings">
+        <h1>Settings</h1>
+        <paper-icon-button title="Close settings" id="close-settings-btn" icon="close"
+                           onclick="GlobalUI.closeSettings()"></paper-icon-button>
+        <div id="settings-content">
+            <h3>Embeddable script</h3>
+            <div class="setting embeddable-script">
+                <div horizontal layout>
+                    <paper-radio-group class="horizontal" selected="right">
+                        <paper-radio-button name="left" label="Left"></paper-radio-button>
+                        <paper-radio-button name="right" label="Right" checked></paper-radio-button>
+                    </paper-radio-group>
+                    <paper-radio-group class="vertical" selected="bottom">
+                        <paper-radio-button name="top" label="Top"></paper-radio-button>
+                        <paper-radio-button name="bottom" label="Bottom" checked></paper-radio-button>
+                    </paper-radio-group>
+                </div>
+                <div center horizontal layout class="sizes">
+                    <div>Width</div>
+                    <paper-slider class="embedded-width" value="256" min="200" max="600" editable="" role="slider" tabindex="0" aria-valuemin="200" aria-valuemax="600" aria-valuenow="256"></paper-slider>
+                    <div>Height</div>
+                    <paper-slider class="embedded-height" value="400" min="300" max="1000" editable="" role="slider" tabindex="0" aria-valuemin="300" aria-valuemax="1000" aria-valuenow="400"></paper-slider>
+                </div>
+
+                   <textarea readonly onClick="this.select();" class="script-content"> {{scriptContent}}</textarea>
+
+            </div>
+            <h3>Notifications</h3>
+            <div class="setting">
+
+            </div>
+        </div>
+    </div>
+</template>

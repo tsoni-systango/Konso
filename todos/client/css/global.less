@@ -228,7 +228,72 @@ div[action-buttons] {
     }
   }
 }
+#settings{
+  z-index: 15;
+  padding: 10px;
+  background-color: @color-white;
+  h1{
+    font-weight: 300;
+  }
+  #close-settings-btn{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  }
+  #settings-content{
+    padding: 20px;
+    h3{
+      font-weight: 100;
+    }
+    .setting{
+      border-bottom: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 20px;
+      position: relative;
+    }
+    .embeddable-script{
+      min-height: 200px;
+      paper-radio-group{
+        position: absolute;
+      }
+      .horizontal{
+        width: 200px;
+        position: absolute;
+        top: 40px;
+        z-index: 2;
+      }
+      .vertical{
+        width: 100px;
+        position: absolute;
+        top: 0px;
+        left: 38px;
+        paper-radio-button{
+          margin: 10px;
+        }
+      }
+      .sizes{
+        margin-top: 120px;
+        paper-slider{
+          margin-right: 20px;
+        }
+      }
+      .script-content{
+        position: absolute;
+        top: 10px;
+        left: 175px;
+        height: 120px;
+        border: 1px solid #ccc;
+        background: #eee;
+        overflow: auto;
+        padding: 10px;
+        width: 450px;
+        font-family: "Lucida Console", Monaco, monospace;
+      }
+    }
+  }
+}
 #main-drawer-panel{
+
   .toggle-main-menu{
     display: none;
   }
@@ -241,6 +306,16 @@ div[action-buttons] {
     background: #262D38;
     .close-menu-btn{
       display: none;
+    }
+    .logout-btn{
+      position: absolute;
+      right: 10px;
+      top: 12px;
+    }
+    .settings-btn{
+      position: absolute;
+      right: 50px;
+      top: 12px;
     }
   }
   #app-menu{

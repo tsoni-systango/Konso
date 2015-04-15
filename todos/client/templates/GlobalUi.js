@@ -29,10 +29,16 @@ this.GlobalUI = (function() {
 			opts.data,
 			$(this.dialog).find('.modal-content')[0]
 	);
-	Session.set("global.ui.dialogFullOnMobile", opts.fullOnMobile != null);
+	Session.set("global.ui.fullscreen", !!opts.fullScreen);
     this.dialog.open();
 	return this.dialog;
   };
+    GlobalUI.openSettings=function(){
+        Session.set("global.ui.showSettings", true);
+    }
+    GlobalUI.closeSettings=function(){
+        Session.set("global.ui.showSettings", false);
+    }
 
   GlobalUI.closeDialog = function() {
       Blaze.remove(this.dialogView);
@@ -80,8 +86,8 @@ this.GlobalUI = (function() {
 })();
 
 Template.globalLayout.helpers({
-  globalDialogFullOnMobile: function() {
-    return Session.get("global.ui.dialogFullOnMobile");
+  isDialogFullscreen: function() {
+    return Session.get("global.ui.fullscreen");
   }
 });
 
