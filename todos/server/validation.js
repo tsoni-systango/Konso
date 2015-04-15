@@ -15,6 +15,7 @@ isUserOwnerOfDialog = function (dialog, userId) {
     return true;
 }
 isUserHasPrivilegesToCreateChannels = function(){
+	console.log("WOWOWOWOWOWOW")
 	if(!PrivilegesUtils.canCreateChannels()){
 		Errors.throw(Errors.PERMISSION_DENIED);
 	}

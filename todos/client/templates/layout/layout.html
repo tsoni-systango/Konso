@@ -7,8 +7,11 @@
                     <div fit>
                         <core-header-panel class="left-menu" navigation fit mode="seamed">
                             <core-toolbar class="left-menu-toolbar">
-                                <paper-icon-button title="Close menu" class=" settings-btn" icon="settings-applications"
-                                                   onclick="GlobalUI.openSettings()"></paper-icon-button>
+				    {{#unless isEmbeddedChat}}
+                                        <paper-icon-button title="Settings" class=" settings-btn"
+                                                           icon="settings-applications"
+                                                           onclick="GlobalUI.openSettings()"></paper-icon-button>
+				    {{/unless}}
                                 <div class="account">{{username}} </div>
                                 <paper-icon-button title="Close menu" class="right close-menu-btn" icon="arrow-back"
                                                    onclick="GlobalUI.closeLeftMenu()"></paper-icon-button>
@@ -22,23 +25,24 @@
                     </div>
                 </div>
                 <div main vertical layout>
-                    {{#unless isEmbeddedChat}}
-                    <core-toolbar id="app-menu">
-                        <paper-icon-button title="Open menu" class="left toggle-main-menu" icon="menu"
-                                           onclick="GlobalUI.toggleLeftMenu()"></paper-icon-button>
-                        <paper-tabs selected="0" layout flex noink>
-                            <paper-tab><a href="{{pathFor route='chat'}}" horizontal center-center layout>Live
-                                Chatting</a></paper-tab>
-                            <paper-tab><a href="{{pathFor route='todos'}}" horizontal center-center layout>To
-                                dos</a></paper-tab>
-                            <paper-tab><a href="{{pathFor route='notes'}}" horizontal center-center layout>Notes</a>
-                            </paper-tab>
-                            <paper-tab><a href="{{pathFor route='scheduler'}}" horizontal center-center
-                                          layout>Sheduler</a>
-                            </paper-tab>
-                        </paper-tabs>
-                    </core-toolbar>
-                    {{/unless}}
+			{{#unless isEmbeddedChat}}
+                            <core-toolbar id="app-menu">
+                                <paper-icon-button title="Open menu" class="left toggle-main-menu" icon="menu"
+                                                   onclick="GlobalUI.toggleLeftMenu()"></paper-icon-button>
+                                <paper-tabs selected="0" layout flex noink>
+                                    <paper-tab><a href="{{pathFor route='chat'}}" horizontal center-center layout>Live
+                                        Chatting</a></paper-tab>
+                                    <paper-tab><a href="{{pathFor route='todos'}}" horizontal center-center layout>To
+                                        dos</a></paper-tab>
+                                    <paper-tab><a href="{{pathFor route='notes'}}" horizontal center-center
+                                                  layout>Notes</a>
+                                    </paper-tab>
+                                    <paper-tab><a href="{{pathFor route='scheduler'}}" horizontal center-center
+                                                  layout>Sheduler</a>
+                                    </paper-tab>
+                                </paper-tabs>
+                            </core-toolbar>
+			{{/unless}}
                     <div style="position: relative;" flex>
 			    {{> yield}}
                     </div>
