@@ -15,26 +15,38 @@
         (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(script);
     }
 })(window, document, function ($, jquery_loaded) {
-    var width = 256;
+    var width = IM_CHAT_WIDGET_EMBEDDED.width;
+    var height = IM_CHAT_WIDGET_EMBEDDED.height;
     var headerOffsetLeft = 40;
-    var height = 400;
 
     var id = "id" + Math.floor(Math.random() * 1000000000000000);
     var wrapper = $("<div id='" + id + "-wrapper'></div>");
     var fader = $("<div id='" + id + "-fader'></div>");
     var header = $("<div id='" + id + "-header'></div>");
-    var iframe = $("<iframe id='" + id + "-iframe' src='http://localhost:3000/embedded' width='"+width+"' height='"+height+"'></iframe>");
+    var iframe = $("<iframe id='" + id + "-iframe' src='"+IM_CHAT_WIDGET_EMBEDDED.url+"' width='"+width+"' height='"+height+"'></iframe>");
 
     wrapper.css({
         "position": "fixed",
-        "top": "0px",
         "z-index": 1000,
         background: "rgb(82, 110, 156)",
         "padding": 0,
         "margin": 0,
         "height": height+"px",
-        "box-shadow": "10px 10px 21px 0px rgba(0,0,0,0.25)"
+        "box-shadow": "rgba(0, 0, 0, 0.4) 7px 8px 10px 0px",
+        "-webkit-box-shadow": "rgba(0, 0, 0, 0.4) 7px 8px 10px 0px",
+        "-moz-box-shadow": "rgba(0, 0, 0, 0.4) 7px 8px 10px 0px"
     });
+    if(IM_CHAT_WIDGET_EMBEDDED.position.hasOwnProperty("right")){
+       var right = IM_CHAT_WIDGET_EMBEDDED.position.right;
+       delete IM_CHAT_WIDGET_EMBEDDED.position.right;
+        IM_CHAT_WIDGET_EMBEDDED.position.left = ($(window).width() - width - right) + "px";
+    }
+    if(IM_CHAT_WIDGET_EMBEDDED.position.hasOwnProperty("bottom")){
+       var bottom = IM_CHAT_WIDGET_EMBEDDED.position.bottom;
+       delete IM_CHAT_WIDGET_EMBEDDED.position.bottom;
+        IM_CHAT_WIDGET_EMBEDDED.position.top = ($(window).height() - height - bottom) + "px";
+    }
+    wrapper.css(IM_CHAT_WIDGET_EMBEDDED.position)
     fader.css({
         "position": "absolute",
         "top": "0px",

@@ -3,18 +3,19 @@
 	    {{> allUserList}}
 
         <div main vertical layout fit class='chat-content'>
+            <div class="dialog-menu">
+                    {{#if isEmbeddedChat}}
+                        <paper-icon-button title="Open menu" class="left toggle-main-menu" icon="menu"
+                                           onclick="GlobalUI.toggleLeftMenu()"></paper-icon-button>
+                    {{/if}}
+                <span class="left name">{{currentDialogName}}</span>
+
+
+                <paper-icon-button icon="supervisor-account" class="right all-users-button"></paper-icon-button>
+            </div>
 		{{#if currentDialog}}
 
-                    <div class="dialog-menu">
-			    {{#if isEmbeddedChat}}
-                                <paper-icon-button title="Open menu" class="left toggle-main-menu" icon="menu"
-                                                   onclick="GlobalUI.toggleLeftMenu()"></paper-icon-button>
-			    {{/if}}
-                        <span class="left name">{{currentDialogName}}</span>
 
-
-                        <paper-icon-button icon="supervisor-account" class="right all-users-button"></paper-icon-button>
-                    </div>
                     <div flex class="relative">
                         <div vertical layout class='messages-container' touch-action="pan-y">
                             <div flex id="space-filler"></div>
