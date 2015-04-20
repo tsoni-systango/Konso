@@ -1,11 +1,11 @@
 <template name="chatLeftMenu">
-    <paper-input-decorator class="filter-dialogs" label="Search dialogs" layout vertical>
+    <paper-input-decorator class="filter-dialogs" label="{{i18nSearchDialogs}}" layout vertical>
         <core-icon icon="search"></core-icon>
         <input placeholder="Search dialogs" aria-label="Search dialogs">
     </paper-input-decorator>
     <div class='chat-left-menu nano'>
         <div class="nano-content">
-        <h3>Dialogs</h3>
+        <h3>{{i18nDialogs}}</h3>
 
         <div>
 		{{#if dialogs.count}}
@@ -23,14 +23,14 @@
                                         <paper-icon-button icon="arrow-drop-up" class="drop-up"></paper-icon-button>
                                     </div>
                                 </div>
-                                <div class="expand-title">Show more..</div>
+                                <div class="expand-title">{{i18nShowMore}}{{i18nDialogs}}</div>
                             </div>
 			{{/if}}
 		{{else}}
-                    <span class="notexists">No dialogs created</span>
+                    <span class="notexists">{{i18nNoMore}}{{i18nDialogs}}</span>
 		{{/if}}
         </div>
-        <h3>Rooms
+        <h3>{{i18nRooms}}
             <paper-icon-button icon="add-box" class="create-room create-conversation"></paper-icon-button>
         </h3>
 
@@ -50,15 +50,15 @@
                                         <paper-icon-button icon="arrow-drop-up" class="drop-up"></paper-icon-button>
                                     </div>
                                 </div>
-                                <div class="expand-title">Show more..</div>
+                                <div class="expand-title">{{i18nShowMore}}{{i18nRooms}}</div>
                             </div>
 			{{/if}}
 		{{else}}
-                    <span class="notexists">No rooms created</span>
+                    <span class="notexists">{{i18nNoMore}}{{i18nRooms}}</span>
 		{{/if}}
         </div>
 
-        <h3>Channels
+        <h3>{{i18nChannels}}
             {{#if canCreateChannels}}
             <paper-icon-button icon="add-box" class="create-channel"></paper-icon-button>
             {{/if}}
@@ -80,11 +80,11 @@
                                     <paper-icon-button icon="arrow-drop-up" class="drop-up"></paper-icon-button>
                                 </div>
                             </div>
-                            <div class="expand-title">Show more..</div>
+                            <div class="expand-title">{{i18nShowMore}}{{i18nRooms}}</div>
                         </div>
                     {{/if}}
 		{{else}}
-                    <span class="notexists">No channels created</span>
+                    <span class="notexists">{{i18nNoMore}}{{i18nChannels}}</span>
 		{{/if}}
         </div>
         </div>

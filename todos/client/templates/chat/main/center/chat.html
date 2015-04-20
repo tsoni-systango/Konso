@@ -43,7 +43,7 @@
                                 </div>
 			    {{/unless}}
                     </div>
-                    <paper-input-decorator class='text-area' label="Type your message" layout vertical>
+                    <paper-input-decorator class='text-area' label='{{i18nTypeYourMessage}}' layout vertical>
                         <paper-autogrow-textarea>
                             <form id="chat-message-form">
                                 <textarea placeholder="" aria-label="with autogrowing text area"></textarea>
@@ -56,7 +56,7 @@
 		{{else}}
                     <paper-button class="welcome-btn">
                     <span>
-                        Choose User to Chat
+                        {{i18nChooseUserToChat}}
                         <core-icon icon="chevron-right"></core-icon>
                     </span>
                     </paper-button>
