@@ -13,3 +13,15 @@ Template.chatAttachmentDraft.helpers({
         return ["image/jpeg","image/jpg","image/png","image/gif"].indexOf(type) !==-1;
     }
 })
+Template.chatAttachmentDraft.events({
+    "click .remove-attachment": function(e){
+        var attachment = $(e.currentTarget).closest(".attachment");
+        var id = attachment.attr("id");
+        Meteor.call("removeAttachment", id, GlobalUI.generalCallback(function(){
+            var attachments = IM.getMessageAttachmentsDraft();
+            IM.updateMessageAttachmentsDraft(_.filter(attachments, function(obj){
+                return obj.id !== id;
+            }));
+        }));
+    }
+})

@@ -81,7 +81,8 @@ Template.chatTextArea.events({
     "keydown #chat-message-form textarea": function (e, t) {
         var $textarea = t.$(e.currentTarget);
         var text = $textarea.val();
-        if (e.keyCode === 13 && text.trim()) {
+        var attachments = IM.getMessageAttachmentsDraft() || [];
+        if (e.keyCode === 13 && (text.trim()  !== "" || attachments.length)) {
             e.preventDefault();
             Template.instance().sendMessage(text);
         }

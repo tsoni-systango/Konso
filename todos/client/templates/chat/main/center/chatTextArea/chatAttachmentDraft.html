@@ -1,18 +1,21 @@
 <template name="chatAttachmentDraft">
-    <div class="attachment">
-	    {{#if Template.subscriptionsReady}}
+	{{#if Template.subscriptionsReady}}
+            <div class="attachment" id="{{data._id}}">
+
                 <div class="picture">
 			{{#if isImage}}
                             <img src="{{data.url}}">
 			{{else}}
                             <core-icon icon="editor:insert-drive-file"></core-icon>
 			{{/if}}
+                    <paper-fab class="remove-attachment" mini icon="highlight-remove"></paper-fab>
                 </div>
                 <div title="{{data.name}}" class="attachment-name ellipsis">
 			{{data.name}}
                 </div>
-	    {{else}}
+            </div>
+	{{else}}
 
-	    {{/if}}
-    </div>
+	{{/if}}
+
 </template>
