@@ -23,6 +23,9 @@ Template.layout.helpers({
     },
     lists: function () {
         return Lists.find();
+    },
+    i18nChat: function () {
+        return '聊天';
     }
 });
 

@@ -112,6 +112,12 @@ Template.chat.helpers({
         if (IM.getCurrentDialog()) {
             return Template.instance().subscription.ready()
         }
+    },
+    i18nTypeYourMessage: function(){
+        return '输入信息';
+    },
+    i18nChooseUserToChat: function(){
+        return '选择聊天伙伴';
     }
 });
 
