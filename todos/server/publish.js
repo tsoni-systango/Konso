@@ -4,6 +4,9 @@ Meteor.publish("userPresences", function () {
 Meteor.publish("allUsers", function () {
     return Meteor.users.find({}, {fields: {username: 1, emails: 1, profile: 1, groups: 1}});
 });
+Meteor.publish("uploads", function (dialogId) {
+    return Uploads.find({dialogId: dialogId});
+});
 Meteor.publish("dialogs", function () {
     if (this.userId) {
         return Dialogs.find({$or: [{userIds: {$in: [this.userId]}}, {type: DialogTypes.CHANNEL}]});
@@ -14,7 +17,7 @@ Meteor.publish("messages", function (dialogId, limit) {
         check(dialogId, String);
         isUserAuthorizedInDialog(Dialogs.findOne(dialogId), this.userId);
         var limit = limit || 50;
-        return Messages.find({dialogId: dialogId}, {sort: {created: -1}, limit: limit, fields: {oldText: false}});
+        return Messages.find({dialogId: dialogId}, {sort: {created: -1}, limit: limit, fields: {removedContent: false}});
     }
 });
 Meteor.publish("lastDialogMessage", function (dialogId) {

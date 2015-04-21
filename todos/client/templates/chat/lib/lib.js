@@ -23,6 +23,25 @@ IM = new function () {
         return Session.get(self.FILTER_DIALOGS_KEY);
     };
 
+    self.updateMessageAttachmentsDraft = function(draft){
+        var keyNamespace = "message-drafts.attachments."
+        Session.set(keyNamespace + IM.getCurrentDialogId(), draft);
+    };
+
+    self.getMessageAttachmentsDraft = function(){
+        var keyNamespace = "message-drafts.attachments."
+        return Session.get(keyNamespace + IM.getCurrentDialogId());
+    }
+    self.updateMessageTextDraft = function(draft){
+        var keyNamespace = "message-drafts.text."
+        Session.set(keyNamespace + IM.getCurrentDialogId(), draft);
+    };
+
+    self.getMessageTextDraft = function(){
+        var keyNamespace = "message-drafts.text."
+        return Session.get(keyNamespace + IM.getCurrentDialogId());
+    }
+
     self.setCurrentDialog = function (dialog) {
         var currDialog = Session.get(self.CURRENT_DIALOG_ID_KEY);
         if (currDialog !== dialog) {
@@ -31,7 +50,6 @@ IM = new function () {
         }
 
     };
-
     self.getCurrentDialog = function () {
         return Session.get(self.CURRENT_DIALOG_ID_KEY);
     };

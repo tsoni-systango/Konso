@@ -16,14 +16,88 @@
     }
   }
   .chat-content {
-    .text-area {
-      background: #eee;
-      border-top: 1px solid white;
+    .chat-input-wrapper {
+      position: relative;
+      .jqDropZone {
+        display: none;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border: 4px dashed #ccc;
+        background: white;
+        color: #ccc;
+        font-size: 24px;
+        font-weight: bold;
+        z-index: 1;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+    .attachments {
+      -webkit-box-shadow: inset 0px 0px 15px 0px rgba(0, 0, 0, 0.25);
+      -moz-box-shadow: inset 0px 0px 15px 0px rgba(0, 0, 0, 0.25);
+      box-shadow: inset 0px 0px 15px 0px rgba(0, 0, 0, 0.25);
+      .attachment {
+        position: relative;
+        width: 70px;
+        margin: 10px;
+        float: left;
+        .picture {
+          overflow: hidden;
+          height: 70px;
+          border-radius: 5px;
+          background: #CCD;
+          color: #CAC;
+          img {
+            width: 70px;
+            height: 70px;
+          }
+          core-icon {
+            top: 22px;
+            left: 22px;
+          }
+        }
+        .attachment-name {
+          font-size: 10px;
+          text-align: center;
+        }
+      }
     }
     .text-area {
-      textarea {
-        width: 100%;
-        padding: 0 10px
+      clear: both;
+      background: #eee;
+      border-top: 1px solid white;
+      #chat-message-form {
+        height: 40px;
+        position: relative;
+        .text-area-wrapper {
+          position: absolute;
+          top: 0px;
+          right: 100px;
+          left: 0px;
+          bottom: 0px;
+          textarea {
+            width: 100%;
+            padding: 0 10px
+          }
+        }
+        .btn-send {
+          position: absolute;
+          right: 10px;
+          top: -5px;
+          color: rgb(161, 161, 161);
+          background: #EEEEEE;
+        }
+        .btn-attach {
+          position: absolute;
+          right: 10px;
+          top: -5px;
+          color: rgb(161, 161, 161);
+          background: #EEEEEE;
+        }
       }
     }
     .messages-container {
@@ -42,6 +116,168 @@
         color: #818181;
         cursor: pointer;
         background: rgb(238, 238, 238);
+      }
+      .chat-message {
+        display: block;
+        width: 100%;
+        padding: 8px 0px;
+        border-top: 1px solid #e9e9e9;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        position: relative;
+        border-top: solid #fff 1px;
+        background: #eee;
+
+        .mention {
+          display: inline-block;
+          background: #f5f5f5;
+          padding: 2px 5px;
+          border: 1px solid #cccccc;
+          border-radius: 3px;
+          line-height: 16px;
+          white-space: nowrap;
+        }
+
+        .unread-indicator {
+          background: #104677;
+          position: absolute;
+          width: 3px;
+          top: 0px;
+          bottom: 0px;
+          left: 0px;
+        }
+
+        .chat-from {
+          float: left;
+          cursor: pointer;
+          color: #707070;
+          width: 20%;
+          text-align: right;
+          vertical-align: top;
+          padding: 0px 10px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        .chat-from .name {
+          vertical-align: top;
+          left: 50px;
+          text-overflow: ellipsis;
+          width: 92px;
+          overflow-x: hidden;
+        }
+
+        .chat-msg-text {
+          float: left;
+          padding: 0 10px;
+          line-height: 20px;
+          width: 80%;
+          word-break: break-all;
+          .attachment {
+            position: relative;
+            width: 70px;
+            margin: 10px;
+            float: right;
+            .picture {
+              overflow: hidden;
+              display: block;
+              height: 70px;
+              border-radius: 5px;
+              background: #98C0D4;
+              color: #CAC;
+              img {
+                width: 70px;
+                height: 70px;
+              }
+              paper-fab {
+                top: 16px;
+                left: 16px;
+                position: absolute;
+                background: #98C0D4;
+              }
+            }
+            .attachment-name {
+              font-size: 10px;
+              text-align: center;
+            }
+          }
+        }
+        .chat-msg-controls {
+          position: absolute;
+          right: 0px;
+          top: 3px;
+          width: 80px;
+        }
+
+        .edit, .undo {
+          opacity: 0.1;
+          -webkit-transition: opacity 300ms, color 1s;
+          -moz-transition: opacity 300ms;
+          -ms-transition: opacity 300ms;
+          -o-transition: opacity 300ms;
+          transition: opacity 300ms, color 1s;
+          position: absolute;
+          top: 0px;
+          right: 20px;
+        }
+        .chat-content-wrapper {
+          margin-right: 80px;
+        }
+
+        .edit-message, .delete-message {
+          width: 40px;
+          float: left;
+          display: none;
+          color: #526E9C;
+          -webkit-animation-duration: 200ms;
+          -o-animation-duration: 200ms;
+          animation-duration: 200ms;
+        }
+
+        .chat-time {
+          font-size: 9px !important;
+          color: #999999;
+          white-space: nowrap;
+          text-align: right;
+          vertical-align: top;
+          float: right;
+          margin-left: 10px;
+          width: 100%;
+        }
+
+        .system-message .chat-time {
+          margin-top: 3px;
+        }
+        &.own {
+          background: #e0eaf3;
+        }
+        .system-message {
+          background: white;
+          font-weight: bold;
+        }
+        .system-message-italic {
+          font-style: italic;
+          font-size: 0.8em;
+          color: #999;
+        }
+        &.edit-mode {
+          .edit {
+            display: none;
+          }
+
+          .delete-message, .edit-message {
+            display: block;
+          }
+
+        }
+        &:hover {
+          .edit, .undo {
+            opacity: 0.4;
+            color: #526E9C;
+          }
+        }
       }
 
     }

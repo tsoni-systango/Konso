@@ -23,7 +23,11 @@ Meteor.startup(function () {
         }
     });
 
-
+    UploadServer.init({
+        tmpDir: process.env.PWD + '/.uploads/tmp',
+        uploadDir: process.env.PWD + '/.uploads/',
+        checkCreateDirectories: true
+    })
 
     if(Meteor.settings.public.defaultAuth === AUTH_TYPES.CROWD) {
         synchronizeWithAtlassianCrowd();

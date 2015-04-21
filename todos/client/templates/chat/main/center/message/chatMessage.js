@@ -42,6 +42,15 @@ Template.chatMessage.helpers({
     },
     canEdit: function () {
         return Meteor.userId() === this.ownerId;
+    },
+    text:function(){
+        var text = this.text;
+        this.suggestions && this.suggestions.forEach(function(s){
+            text = text.replaceAll(s.text,
+                '<span class="mention" mentions="' + s.id + '">' + s.text + '</span>'
+            )
+        });
+        return text;
     }
 });
 Template.chatMessage.events({

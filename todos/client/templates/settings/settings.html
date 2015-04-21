@@ -36,14 +36,11 @@
                         <paper-spinner active class="allowing-progress"></paper-spinner>
 		    {{else}}
 			    {{#if isNotificationsDisabled}}
-                                <span class="error-color">Your browser blocks all notifications on this site</span>
+                                {{> settings_alert colorClass="error-color" text="Your browser blocks all notifications on this site"}}
 			    {{/if}}
 			    {{#if isNotificationsUnknown}}
-                                <paper-button raised class="right allow-notifications-button">Allow</paper-button>
-                                <span class="warning-color">Please, allow notifications by pushing the button:</span>
-			    {{/if}}
-			    {{#if isNotificationsEnabled}}
-                                <span>Your browser allows notifications on this site.</span>
+                                <paper-button raised class="allow-notifications-button">Allow</paper-button>
+                                {{> settings_alert colorClass="warning-color" text="Please, turn notifications on by pushing the 'Allow' button"}}
 			    {{/if}}
 		    {{/if}}
             </h3>

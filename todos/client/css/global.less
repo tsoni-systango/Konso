@@ -71,6 +71,12 @@ ul {
   padding: 9px 0 0 8px;
 }
 
+.ellipsis{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .error {
   color: @color-error;
 }
@@ -169,7 +175,7 @@ div[action-buttons] {
 }
 
 .idle {
-  color: rgb(217, 221, 76);
+  color: #D7B31C;
 }
 
 .left-menu-toolbar {
@@ -253,6 +259,12 @@ div[action-buttons] {
   color: #796F0C;;
 }
 
+body.dragging{
+  .jqDropZone{
+    display: flex !important;
+  }
+}
+
 #settings {
   z-index: 15;
   padding: 10px;
@@ -282,6 +294,12 @@ div[action-buttons] {
       .allowing-progress {
         float: right;
         margin-top: -5px;
+      }
+    }
+    .settings-alert{
+      float: right;
+      core-icon{
+        margin: 0 5px;
       }
     }
     .setting {

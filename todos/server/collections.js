@@ -16,8 +16,15 @@ Dialogs = new Mongo.Collection("dialogs");
  created: Timestamp
  ownerId: Id
  text: String
+ attachments: Id of Upload,
+ mentions: [Object {text, id}]
  dialogId: Id
- isRead: Boolean
- }
+ removed: Boolean
+ removedContent:{
+     text,
+     attachment,
+     mentions
+   }
  */
 Messages = new Mongo.Collection("messages");
+Uploads = new Mongo.Collection("uploads");

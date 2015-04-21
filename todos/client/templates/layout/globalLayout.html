@@ -1,40 +1,42 @@
 <template name="globalLayout">
-    <div id="style-block"></div>
-	{{#unless connected}}
-            <div class="notifications">
-                <div class="notification">
-                    <span class="icon-sync"></span>
+    <div id="application" fit>
+        <div id="style-block"></div>
+	    {{#unless connected}}
+                <div class="notifications">
+                    <div class="notification">
+                        <span class="icon-sync"></span>
 
-                    <div class="meta">
-                        <div class="title-notification">Trying to connect</div>
-                        <div class="description">There seems to be a connection issue</div>
+                        <div class="meta">
+                            <div class="title-notification">Trying to connect</div>
+                            <div class="description">There seems to be a connection issue</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-	{{/unless}}
+	    {{/unless}}
 
 
-	{{> UI.contentBlock}}
+	    {{> UI.contentBlock}}
 
 
 
-    <paper-action-dialog global-dialog layered backdrop
-                         transition="paper-dialog-transition-bottom"
-            class={{#if isDialogFullscreen}}fullscreen{{/if}}>
+        <paper-action-dialog global-dialog layered backdrop
+                             transition="paper-dialog-transition-bottom"
+                class={{#if isDialogFullscreen}}fullscreen{{/if}}>
 
-        <paper-progress style="display: {{progressCSSDisplay}}" indeterminate=""></paper-progress>
+            <paper-progress style="display: {{progressCSSDisplay}}" indeterminate=""></paper-progress>
 
-        <div class="modal-content" style="display: {{contentCSSDisplay}}"></div>
+            <div class="modal-content" style="display: {{contentCSSDisplay}}"></div>
 
-    </paper-action-dialog>
+        </paper-action-dialog>
 
-    <paper-toast global-toast>
-	    {{#if isErrorToast}}
-                <core-icon class="error" icon="error"></core-icon>
+        <paper-toast global-toast>
+		{{#if isErrorToast}}
+                    <core-icon class="error" icon="error"></core-icon>
+		{{/if}}
+
+        </paper-toast>
+	    {{#if showSettings}}
+		    {{>settings}}
 	    {{/if}}
-
-    </paper-toast>
-    {{#if showSettings}}
-    {{>settings}}
-    {{/if}}
+    </div>
 </template>

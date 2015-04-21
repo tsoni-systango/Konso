@@ -21,6 +21,9 @@
                             <span class="system-message-italic">Message removed</span>
 			{{else}}
 				{{{text}}}
+                                {{#each attachmentIds}}
+                                        {{>chatAttachment}}
+                                {{/each}}
 			{{/if}}
                 </div>
             </div>

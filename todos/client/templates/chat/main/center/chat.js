@@ -14,10 +14,12 @@ Template.chat.created = function () {
         });
     });
     self.autorun(function () {
-        self.subscribe("messages", IM.getCurrentDialogId(), self.messagesToShow.get(), function(){
+        var dialogId = IM.getCurrentDialogId();
+        self.subscribe("messages", dialogId, self.messagesToShow.get(), function(){
            GlobalUI.closeLeftMenu();
            $('.chat')[0].closeDrawer();
         });
+        self.subscribe("uploads", dialogId);
     });
 }
 Template.chat.rendered = function () {
@@ -41,23 +43,6 @@ Template.chat.rendered = function () {
     self.$messagesContainer.on('track mousemove scroll click', debouncedTimestampUpdater);
     self.$newMessageForm.on('keyup', debouncedTimestampUpdater);
 //========================
-
-    //this is for @mentions
-    this.autorun(function () {
-        var users = Meteor.users.find({}).fetch();
-        self.suggestionsMap = {};
-        self.suggestions = _.map(users, function (user) {
-            var key = "@" + Utils.getUsername(user);
-            self.suggestionsMap[key] = user;
-            return key;
-        });
-        self.suggestions.push("@all");
-        self.suggestionsMap["@all"] = {_id: "all"};
-        self.suggestions.push("@All");
-        self.suggestionsMap["@All"] = {_id: "all"};
-        self.$newMessageForm.find('textarea').asuggest(self.suggestions);
-    });
-//=========================
 
     var onScrollDebounced = _.debounce(function () {
         var scrollTop = self.$messagesContainer.scrollTop(),
@@ -131,27 +116,6 @@ Template.chat.helpers({
 });
 
 Template.chat.events({
-    "keydown #chat-message-form textarea": function (e, t) {
-        var $textarea = t.$(e.currentTarget);
-        var text = $textarea.val();
-        if (e.keyCode === 13 && text.trim()) {
-            e.preventDefault();
-            $textarea.val('');
-            var suggestions = Template.instance().suggestions;
-            var suggestionsMap = Template.instance().suggestionsMap;
-            suggestions.forEach(function (s) {
-                var mentionSubject = suggestionsMap[s]._id;
-                var regexp = new RegExp(s, "g");
-                text = text.replace(regexp,
-                    '<span class="mention" mentions="' + mentionSubject + '">' + s + '</span>'
-                )
-            })
-            Meteor.call('sendMessage',
-                text,
-                IM.getCurrentDialog()._id,
-                GlobalUI.generalCallback());
-        }
-    },
     "click .welcome-btn, click .all-users-button": function (e) {
         $(".chat")[0].togglePanel();
     },

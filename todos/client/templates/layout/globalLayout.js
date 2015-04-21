@@ -32,3 +32,29 @@ Template.globalLayout.helpers({
 		return Session.get("global.ui.showSettings");
 	}
 });
+
+Template.globalLayout.rendered = function(){
+	var html = $('html'),
+		body = $('body'),
+		showDrag = false,
+		timeout = -1;
+
+	html.bind('dragenter', function () {
+		body.addClass('dragging');
+		showDrag = true;
+	});
+	html.bind('dragover', function(){
+		showDrag = true;
+	});
+	html.bind('drop', function(){
+		body.removeClass('dragging');
+		showDrag = false;
+	});
+	html.bind('dragleave', function (e) {
+		showDrag = false;
+		Meteor.clearTimeout( timeout );
+		timeout = Meteor.setTimeout( function(){
+			if( !showDrag ){ body.removeClass('dragging'); }
+		}, 200 );
+	});
+}

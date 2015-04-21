@@ -1,0 +1,18 @@
+<template name="chatAttachmentDraft">
+    <div class="attachment">
+	    {{#if Template.subscriptionsReady}}
+                <div class="picture">
+			{{#if isImage}}
+                            <img src="{{data.url}}">
+			{{else}}
+                            <core-icon icon="editor:insert-drive-file"></core-icon>
+			{{/if}}
+                </div>
+                <div title="{{data.name}}" class="attachment-name ellipsis">
+			{{data.name}}
+                </div>
+	    {{else}}
+
+	    {{/if}}
+    </div>
+</template>

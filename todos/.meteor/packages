@@ -30,3 +30,7 @@ underscore
 zuzel:atlassian-crowd
 mrt:moment
 percolate:synced-cron
+tomi:upload-server
+tomi:upload-jquery
+reactive-dict
+zuzel:file-upload

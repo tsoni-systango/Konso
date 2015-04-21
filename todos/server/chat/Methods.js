@@ -1,11 +1,13 @@
 Meteor.methods({
-    sendMessage: function (text, dialogId) {
+    sendMessage: function (text, attachmentIds, mentions, dialogId) {
         if (text.trim() === "") {
             Errors.throw("Message is empty");
         }
         var message = {};
         message.ownerId = getCurrentUserOrDie()._id;
         message.text = text;
+        message.attachmentIds = attachmentIds;
+        message.mentions = mentions;
         var dialog = getDialogOrDie(dialogId)
         isUserAuthorizedInDialog(dialog, message.ownerId);
         message.dialogId = dialogId;
@@ -20,7 +22,7 @@ Meteor.methods({
         if(message.ownerId !== getCurrentUserOrDie()._id){
             Errors.throw(Errors.PERMISSION_DENIED);
         }
-        Messages.update(messageId, {$set: {removed: true, text: null, oldText: message.text}});
+        Messages.update(messageId, {$set: {removed: true, text: null, attachmentIds:null, mentions: null, removedContent:{text: message.text, attachmentIds: message.attachmentIds, mentions: message.mentions}}});
     },
     recoverMessage: function(messageId){
         check(messageId, String);
@@ -28,7 +30,7 @@ Meteor.methods({
         if(message.ownerId !== getCurrentUserOrDie()._id || !message.removed){
             Errors.throw(Errors.PERMISSION_DENIED);
         }
-        Messages.update(messageId, {$set: {removed: false, text: message.oldText, oldText: null}});
+        Messages.update(messageId, {$set: {removed: false, text: message.removedContent.text, attachmentIds: message.removedContent.attachmentIds, mentions: message.removedContent.mentions, removedContent: null}});
     },
     getMessageCount: function (dialogId) {
         return Messages.find({dialogId: dialogId}).count();
