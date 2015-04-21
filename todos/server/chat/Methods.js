@@ -1,6 +1,6 @@
 Meteor.methods({
     sendMessage: function (text, attachmentIds, mentions, dialogId) {
-        if (text.trim() === "" || (!attachmentIds && !attachmentIds.length)) {
+        if (text.trim() === "" && !attachmentIds && !attachmentIds.length) {
             Errors.throw("Message is empty");
         }
         var message = {};
