@@ -90,9 +90,8 @@ Template.chatTextArea.events({
     "click .btn-send": function (e, t) {
         var $textarea = t.$('#chat-message-form textarea');
         var text = $textarea.val();
-        if (text.trim()) {
+        if ((text.trim()  !== "" || attachments.length)) {
             e.preventDefault();
-            $textarea.val('');
             Template.instance().sendMessage(text);
         }
     },

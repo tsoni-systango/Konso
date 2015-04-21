@@ -10,7 +10,10 @@
 		    {{/if}}
                 <span class="left name">{{currentDialogName}}</span>
 
-
+                {{#if isEmbeddedChat}}
+                        <paper-icon-button icon="editor:vertical-align-bottom" class="right minify-btn"></paper-icon-button>
+                        <paper-icon-button icon="communication:call-made" class="right maximize-btn hide"></paper-icon-button>
+                {{/if}}
                 <paper-icon-button icon="supervisor-account" class="right all-users-button"></paper-icon-button>
             </div>
 		{{#if currentDialog}}
@@ -43,7 +46,7 @@
                                 </div>
 			    {{/unless}}
                     </div>
-             
+
 
                     {{> chatTextArea}}
 

@@ -50,7 +50,7 @@ Template.chatMessage.helpers({
                 '<span class="mention" mentions="' + s.id + '">' + s.text + '</span>'
             )
         });
-        return Utils.linkify(text);
+        return Utils.linkify(text, true);
     }
 });
 Template.chatMessage.events({

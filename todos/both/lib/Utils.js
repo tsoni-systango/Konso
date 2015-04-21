@@ -11,9 +11,13 @@ Utils.getUsername = function (user) {
     }
     return user.profile && user.profile.displayName ? user.profile.displayName : user.username;
 }
-Utils.linkify = function (text) {
+Utils.linkify = function (text, isBlank) {
     var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
     return text.replace(urlRegex, function (url) {
-        return '<a href="' + url + '">' + url + '</a>';
+        if(isBlank){
+            return '<a target="_blank" href="' + url + '">' + url + '</a>';
+        } else {
+            return '<a href="' + url + '">' + url + '</a>';
+        }
     })
 }

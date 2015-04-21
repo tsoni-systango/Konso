@@ -36,3 +36,4 @@ reactive-dict
 meteorhacks:cluster
 meteorhacks:kadira
 meteorhacks:kadira-profiler
+zuzel:file-upload

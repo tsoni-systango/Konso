@@ -1,12 +1,12 @@
 <template name="chatAttachment">
     <div class="attachment">
 	    {{#if Template.subscriptionsReady}}
-                <a class="picture" href="/download/{{data.name}}" download="{{data.name}}" onClick="window.open('/download/{{data.name}}');return false;">
+                <div class="picture" onClick="window.open('/download/{{data.name}}');return false;">
 			{{#if isImage}}
                             <img src="{{data.url}}">
 			{{/if}}
                     <paper-fab mini class="btn-send" icon="file-download"></paper-fab>
-                </a>
+                </div>
                 <div title="{{data.name}}" class="attachment-name ellipsis">
 			{{data.name}}
                 </div>

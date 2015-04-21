@@ -132,6 +132,21 @@ Template.chat.events({
     },
     "trackend .messages-container": function () {
         console.log("trackend");
+    },
+    "click .minify-btn": function(e, t){
+        postMessageParent("collapse");
+        t.$(".maximize-btn").show();
+        t.$(".minify-btn").hide();
+        t.$(".all-users-button").hide();
+    },
+    "click .maximize-btn": function(e, t){
+        postMessageParent("expand");
+        t.$(".maximize-btn").hide();
+        t.$(".minify-btn").show();
+        t.$(".all-users-button").show();
+    },
+    "mousedown .dialog-menu": function(e, t){
+        postMessageParent("startdrag")
     }
 });
 
