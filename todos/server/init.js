@@ -30,14 +30,21 @@ Meteor.startup(function () {
     })
 
     if(Meteor.settings.public.defaultAuth === AUTH_TYPES.CROWD) {
-        synchronizeWithAtlassianCrowd();
-        SyncedCron.add({
-            name: 'Synchronize Atlassian Crowd Groups',
-            schedule: function (parser) {
-                return parser.text('every 1 hour');
-            },
-            job: synchronizeWithAtlassianCrowd
-        });
+        AtlassianCrowd.instance().ping(Meteor.bindEnvironment(function (err, res) {
+            if(err) {
+                throw new Meteor.Error("Can not connect to Atlassian Crowd, please check if server is running and restart the application")
+            }
+            else {
+                SyncedCron.add({
+                    name: 'Synchronize Atlassian Crowd Groups',
+                    schedule: function (parser) {
+                        return parser.text('every 1 hour');
+                    },
+                    job: synchronizeWithAtlassianCrowd
+                });
+                synchronizeWithAtlassianCrowd();
+            }
+        }));
     }
     SyncedCron.start();
 });
