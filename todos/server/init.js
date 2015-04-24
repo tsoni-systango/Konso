@@ -30,9 +30,9 @@ Meteor.startup(function () {
     })
 
     if(Meteor.settings.public.defaultAuth === AUTH_TYPES.CROWD) {
-        AtlassianCrowd.instance().ping(function (err, res) {
+        AtlassianCrowd.instance().ping(Meteor.bindEnvironment(function (err, res) {
             if(err) {
-                console.error("Can not connect to Atlassian Crowd, please check if server is running and restart the application")
+                throw new Meteor.Error("Can not connect to Atlassian Crowd, please check if server is running and restart the application")
             }
             else {
                 SyncedCron.add({
@@ -43,9 +43,8 @@ Meteor.startup(function () {
                     job: synchronizeWithAtlassianCrowd
                 });
                 synchronizeWithAtlassianCrowd();
-
             }
-        });
+        }));
     }
     SyncedCron.start();
 });
