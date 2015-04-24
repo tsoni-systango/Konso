@@ -1,7 +1,7 @@
 Template.allUserList.helpers({
     roomUsers: function () {
         var dialog = IM.getCurrentDialog();
-        if(dialog && dialog.type === DialogTypes.ROOM && dialog.ownerId === Meteor.userId()){
+        if(dialog && dialog.type === DialogTypes.ROOM){
             if(!(dialog = Dialogs.findOne(dialog._id))){
                 return;
             };
@@ -12,7 +12,7 @@ Template.allUserList.helpers({
     },
     users: function () {
         var dialog = IM.getCurrentDialog();
-        if(dialog && dialog.type === DialogTypes.ROOM && dialog.ownerId === Meteor.userId()){
+        if(dialog && dialog.type === DialogTypes.ROOM){
             if(!(dialog = Dialogs.findOne(dialog._id))){
                 return;
             };
