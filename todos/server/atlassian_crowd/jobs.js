@@ -1,6 +1,12 @@
 synchronizeWithAtlassianCrowd = function () {
-    synchronizeAtlassianCrowdUsers();
-    synchronizeAtlassianCrowdGrops();
+    AtlassianCrowd.instance().ping(Meteor.bindEnvironment(function (err, res) {
+        if(err) {
+            console.error("Can not connect to Atlassian Crowd, please check if server is running.")
+        } else {
+            synchronizeAtlassianCrowdUsers();
+            synchronizeAtlassianCrowdGrops();
+        }
+    }));
 }
 
 var synchronizeAtlassianCrowdUsers = function () {
@@ -17,7 +23,7 @@ var synchronizeAtlassianCrowdUsers = function () {
                 }
             })
         } else {
-            console.error(error);
+            console.error(error.message || error);
         }
     });
 
@@ -30,7 +36,7 @@ var synchronizeAtlassianCrowdUsers = function () {
                 }
             })
         } else {
-            console.error(error);
+            console.error(error.message || error);
         }
     });
 
@@ -46,7 +52,7 @@ var synchronizeAtlassianCrowdGrops = function () {
             if (response) {
                 Meteor.users.update(user._id, {$set: {groups: response}});
             } else {
-                console.error(error);
+                console.error(error.message || error);
             }
         });
 
