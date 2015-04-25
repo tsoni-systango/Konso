@@ -1,5 +1,5 @@
 isUserAuthorizedInDialog = function (dialog, userId) {
-	if (dialog.type !== DialogTypes.CHANNEL){
+	if (dialog && dialog.type !== DialogTypes.CHANNEL){
 		var currentUserId = userId || getCurrentUserOrDie()._id;
 		var allowedUserIds = dialog.userIds || [];
 		if(!_.contains(allowedUserIds, currentUserId) && dialog.ownerId !== currentUserId){
@@ -15,7 +15,6 @@ isUserOwnerOfDialog = function (dialog, userId) {
     return true;
 }
 isUserHasPrivilegesToCreateChannels = function(){
-	console.log("WOWOWOWOWOWOW")
 	if(!PrivilegesUtils.canCreateChannels()){
 		Errors.throw(Errors.PERMISSION_DENIED);
 	}

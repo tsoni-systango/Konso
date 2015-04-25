@@ -2,10 +2,10 @@
     var j, d;
     var loaded = false;
     if (!(j = window.jQuery) || callback(j, loaded)) {
+        console.log("jQuery not found, loading one..")
         var script = document.createElement("script");
-        var p = /^http:/.test(document.location) ? 'http' : 'https';
         script.type = "text/javascript";
-        script.src = p + "://libs.baidu.com/jquery/1.11.1/jquery.min.js";
+        script.src = IM_CHAT_WIDGET_EMBEDDED.url.replace("/embedded", "/widget/jquery-1.11.1.min.js");
         script.onload = script.onreadystatechange = function () {
             if (!loaded && (!(d = this.readyState) || d == "loaded" || d == "complete")) {
                 callback((j = window.jQuery).noConflict(1), loaded = true);
@@ -15,12 +15,12 @@
         (document.getElementsByTagName("head")[0] || document.documentElement).appendChild(script);
     }
 })(window, document, function ($, jquery_loaded) {
-    if (Meteor && Meteor.startup) {
+    if (window.hasOwnProperty("Meteor") && Meteor.startup) {
         Meteor.startup(function () {
-            init();
+            $(function(){init()});
         })
     } else {
-        init();
+        $(function(){init()});
     }
 
     function init() {
@@ -29,7 +29,7 @@
         var headerOffsetLeft = 40;
 
         var id = "id" + Math.floor(Math.random() * 1000000000000000);
-
+        var offset = 20;
         var wrapper = $("<div id='" + id + "-wrapper'></div>");
         var fader = $("<div id='" + id + "-fader'></div>");
         var header = $("<div id='" + id + "-header'></div>");
@@ -50,12 +50,12 @@
         if (IM_CHAT_WIDGET_EMBEDDED.position.hasOwnProperty("right")) {
             var right = IM_CHAT_WIDGET_EMBEDDED.position.right;
             delete IM_CHAT_WIDGET_EMBEDDED.position.right;
-            IM_CHAT_WIDGET_EMBEDDED.position.left = ($(window).width() - width - right) + "px";
+            IM_CHAT_WIDGET_EMBEDDED.position.left = (window.innerWidth - width - right - offset) + "px";
         }
         if (IM_CHAT_WIDGET_EMBEDDED.position.hasOwnProperty("bottom")) {
             var bottom = IM_CHAT_WIDGET_EMBEDDED.position.bottom;
             delete IM_CHAT_WIDGET_EMBEDDED.position.bottom;
-            IM_CHAT_WIDGET_EMBEDDED.position.top = ($(window).height() - height - bottom) + "px";
+            IM_CHAT_WIDGET_EMBEDDED.position.top = (window.innerHeight - height - bottom - offset) + "px";
         }
         wrapper.css(IM_CHAT_WIDGET_EMBEDDED.position)
         fader.css({
@@ -102,8 +102,8 @@
                     x: e.pageX - headerOffset.left + window.scrollX,
                     y: e.pageY - headerOffset.top + window.scrollY
                 };
-                windowHeight = $(window).height();
-                windowWidth = $(window).width();
+                windowHeight = window.innerHeight;
+                windowWidth = window.innerWidth;
             }
         });
         $(document).mousemove(function (e) {
