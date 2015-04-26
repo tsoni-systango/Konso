@@ -1,7 +1,7 @@
 (function (window, document, callback) {
     var j, d;
     var loaded = false;
-    if (!!(j = window.jQuery) || callback(j, loaded)) {
+    if (!(j = window.jQuery) || callback(j, loaded)) {
         console.log("jQuery not found, loading one..")
         var script = document.createElement("script");
         script.type = "text/javascript";
