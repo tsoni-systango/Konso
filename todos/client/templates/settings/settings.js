@@ -9,10 +9,10 @@ Template.settings.created = function () {
 Template.settings.helpers({
     scriptContent: function () {
         return '<script>var IM_CHAT_WIDGET_EMBEDDED = {' +
-            'url: "' + Meteor.absoluteUrl('embedded') + '",width: ' + Template.instance().embeddedWidth.get()
+            'host: "' + window.location.host + '",width: ' + Template.instance().embeddedWidth.get()
             + ',height: ' +
             Template.instance().embeddedHeight.get() + ',position: ' + JSON.stringify(Template.instance().embeddedPosition.get()) + '}' +
-            '</script><script src="' + Meteor.absoluteUrl('widget/chat.embedded.js') + '"></script>'
+            '</script><script src="//' + window.location.host + '/widget/chat.embedded.js"></script>'
     },
     isNotificationsDisabled: function () {
         return Template.instance().userGrowlNotificationStatus.get() === "denied";
