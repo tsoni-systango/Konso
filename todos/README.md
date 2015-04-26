@@ -26,8 +26,10 @@ All possible configurations are:
 }
 ```
 
+##Widget
+Widget is fully supported if the app is running on 80 port by default, not 3000 or whatever. It also requires HTTPS support to be embeddable to SSL-signed web sites.
+
 ## HTTPS Support
-#### Note: supposing your app is running on 80 port by default, not 3000 or whatever ####
 To have full ssl support we need to install nginx.
 http://wiki.nginx.org/Install
 
