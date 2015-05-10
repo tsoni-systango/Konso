@@ -30,10 +30,11 @@ underscore
 zuzel:atlassian-crowd
 mrt:moment
 percolate:synced-cron
-tomi:upload-server
-tomi:upload-jquery
 reactive-dict
 meteorhacks:cluster
 meteorhacks:kadira
 meteorhacks:kadira-profiler
-zuzel:file-upload
+cfs:graphicsmagick
+cfs:standard-packages
+cfs:filesystem
+fortawesome:fontawesome

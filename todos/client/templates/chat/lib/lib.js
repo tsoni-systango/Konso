@@ -28,13 +28,20 @@ IM = new function () {
         Session.set(keyNamespace + IM.getCurrentDialogId(), draft);
     };
 
+    self.addMessageAttachmentsDraft = function(id){
+        var drafts = IM.getMessageAttachmentsDraft();
+        drafts = drafts || [];
+        drafts.push(id);
+        self.updateMessageAttachmentsDraft(drafts);
+    };
     self.getMessageAttachmentsDraft = function(){
-        var keyNamespace = "message-drafts.attachments."
-        return Session.get(keyNamespace + IM.getCurrentDialogId());
-    }
+        var key = "message-drafts.attachments." + IM.getCurrentDialogId();
+        return Session.get(key);
+    };
+
     self.updateMessageTextDraft = function(draft){
-        var keyNamespace = "message-drafts.text."
-        Session.set(keyNamespace + IM.getCurrentDialogId(), draft);
+        var key = "message-drafts.text." + self.getCurrentDialogId();
+        Session.set(key, draft);
     };
 
     self.getMessageTextDraft = function(){

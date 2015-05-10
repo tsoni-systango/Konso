@@ -100,7 +100,7 @@ Template.chatLeftMenu.events({
 
 
         if($tgt.closest(".create-conversation").length) {
-            $('core-scaffold')[0].closeDrawer();
+            GlobalUI.closeLeftMenu();
         }
     },
     "click .chat-left-menu .create-channel": function (e) {

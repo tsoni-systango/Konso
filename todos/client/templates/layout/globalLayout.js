@@ -57,4 +57,12 @@ Template.globalLayout.rendered = function(){
 			if( !showDrag ){ body.removeClass('dragging'); }
 		}, 200 );
 	});
+
+	$(document).on("keyup", function(e){
+		if(e.keyCode === 27){
+			GlobalUI.closeDialog();
+			GlobalUI.closeSettings();
+			GlobalUI.closeAttachmentView();
+		}
+	})
 }

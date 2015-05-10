@@ -40,6 +40,9 @@ img {
   width: 100%;
 }
 
+
+
+
 label {
   .type-caption();
   color: @color-black-light;
@@ -268,11 +271,50 @@ div[action-buttons] {
 }
 
 body.dragging{
-  .jqDropZone{
+  .drop-zone{
     display: flex !important;
   }
 }
-
+.attachment-view{
+  z-index: 14;
+  background-color: @color-black;
+  .control-panel{
+    color: white;
+    border-bottom: @color-white-light 1px solid;
+    background-color: @color-black-lighter;
+    height: 50px;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    paper-fab{
+      background-color: #98C0D4;
+    }
+    .btn-close{
+       position: absolute;
+      right: 0px;
+      top:5px;
+    }
+  }
+  .content{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+    position: absolute;
+    top: 60px;
+    bottom: 10px;
+    left: 10px;
+    right: 10px;
+    img{
+      width: initial;
+      height: initial;
+    }
+  }
+}
 #settings {
   z-index: 15;
   padding: 10px;
@@ -396,4 +438,14 @@ body.dragging{
     background-color: @color-primary;
     color: @color-white;
   }
+}
+
+.w100{
+  width:100%;
+}
+.w80{
+  width:80%;
+}
+.w60{
+  width:60%;
 }

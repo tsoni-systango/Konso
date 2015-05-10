@@ -19,7 +19,7 @@ Template.chat.created = function () {
            GlobalUI.closeLeftMenu();
            $('.chat')[0].closeDrawer();
         });
-        self.subscribe("uploads", dialogId);
+
     });
 }
 Template.chat.rendered = function () {

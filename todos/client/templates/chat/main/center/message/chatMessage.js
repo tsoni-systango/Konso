@@ -1,3 +1,10 @@
+Template.chatMessage.onCreated(function () {
+    var self = this;
+    var attachmentIds = self.data.attachmentIds;
+    if(attachmentIds && attachmentIds.length){
+        self.subscribe("uploads", _.pluck(attachmentIds, "_id"))
+    }
+});
 Template.chatMessage.destroyed = function () {
     $(window).off('mouseup', this.onWindowClick);
 }

@@ -4,12 +4,14 @@ Meteor.publish("userPresences", function () {
 Meteor.publish("allUsers", function () {
     return Meteor.users.find({}, {fields: {username: 1, emails: 1, profile: 1, groups: 1}});
 });
-Meteor.publish("uploads", function (dialogId) {
-    return Uploads.find({dialogId: dialogId});
-});
 Meteor.publish("dialogs", function () {
     if (this.userId) {
         return Dialogs.find({$or: [{userIds: {$in: [this.userId]}}, {type: DialogTypes.CHANNEL}]});
+    }
+});
+Meteor.publish("uploads", function (ids) {
+    if (this.userId && ids) {
+        return Uploads.find({_id: {$in: ids}});
     }
 });
 Meteor.publish("messages", function (dialogId, limit) {

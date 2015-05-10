@@ -1,20 +1,6 @@
 Template.chatTextArea.helpers({
-    callbacks: function () {
-        return {
-            finished: function (index, fileInfo, context) {
-                fileInfo.dialogId = IM.getCurrentDialogId();
-                Meteor.call("saveUploadedFileMeta", fileInfo, GlobalUI.generalCallback(function(id){
-                    var attachmentIds = IM.getMessageAttachmentsDraft();
-                    !attachmentIds && (attachmentIds = []);
-                    attachmentIds.push({id: id});
-                    IM.updateMessageAttachmentsDraft(attachmentIds);
-                }))
-            }
-        }
-    },
-    attachmentIds: function () {
+    attachments: function () {
         return IM.getMessageAttachmentsDraft();
-
     }
 });
 
@@ -45,7 +31,7 @@ Template.chatTextArea.rendered = function () {
         var attachmentIds = IM.getMessageAttachmentsDraft();
         var text = IM.getMessageTextDraft();
         var mentions = [];
-        if(text) {
+        if (text) {
             suggestions.forEach(function (s) {
                 var mentionSubject = suggestionsMap[s]._id;
                 var regexp = new RegExp(s, "g");
@@ -59,18 +45,24 @@ Template.chatTextArea.rendered = function () {
             attachmentIds,
             mentions,
             IM.getCurrentDialog()._id,
-            GlobalUI.generalCallback(function(){
+            GlobalUI.generalCallback(function () {
                 IM.updateMessageTextDraft("");
                 IM.updateMessageAttachmentsDraft([]);
                 self.$textarea.val("")
             }));
     }
     //=========================
-    this.autorun(function () {
-        if(IM.getCurrentDialogId()){
+    self.autorun(function () {
+        if (IM.getCurrentDialogId()) {
             self.$textarea.val(IM.getMessageTextDraft())
         }
     });
+    //=========================File upload==================
+    self.uploadFile = function(file){
+        Uploads.insert(file, GlobalUI.generalCallback(function (fileObjec) {
+            IM.addMessageAttachmentsDraft(_.pick(fileObjec, "_id"));
+        }));
+    }
 }
 Template.chatTextArea.events({
     "input #chat-message-form textarea": function (e, t) {
@@ -78,11 +70,32 @@ Template.chatTextArea.events({
         var text = $textarea.val();
         IM.updateMessageTextDraft(text);
     },
+    "paste #chat-message-form textarea": function (jQueryEvent, t) {
+        var e = jQueryEvent.originalEvent;
+
+        if (e.clipboardData == false) return false; //empty
+        var items = e.clipboardData.items;
+        if (items == undefined) return false;
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].type.indexOf("image") == -1) continue; //not image
+            var blob = items[i].getAsFile();
+            blob.name = "Snapshot-" + _.now();
+            Template.instance().uploadFile(blob);
+        }
+    },
+    "drop .drop-zone": function(jQueryEvent){
+        var e = jQueryEvent.originalEvent;
+        var files = e.dataTransfer.files;
+        for(var i = 0; i < files.length; i++){
+            var file = files[i];
+            Template.instance().uploadFile(file);
+        }
+    },
     "keydown #chat-message-form textarea": function (e, t) {
         var $textarea = t.$(e.currentTarget);
         var text = $textarea.val();
         var attachments = IM.getMessageAttachmentsDraft() || [];
-        if (e.keyCode === 13 && (text.trim()  !== "" || attachments.length)) {
+        if (e.keyCode === 13 && (text.trim() !== "" || attachments.length)) {
             e.preventDefault();
             Template.instance().sendMessage(text);
         }
@@ -90,7 +103,8 @@ Template.chatTextArea.events({
     "click .btn-send": function (e, t) {
         var $textarea = t.$('#chat-message-form textarea');
         var text = $textarea.val();
-        if ((text.trim()  !== "" || attachments.length)) {
+        var attachments = IM.getMessageAttachmentsDraft() || [];
+        if ((text.trim() !== "" || attachments.length)) {
             e.preventDefault();
             Template.instance().sendMessage(text);
         }

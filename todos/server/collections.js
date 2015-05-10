@@ -27,4 +27,23 @@ Dialogs = new Mongo.Collection("dialogs");
    }
  */
 Messages = new Mongo.Collection("messages");
-Uploads = new Mongo.Collection("uploads");
+/*
+Uploads
+ */
+Uploads = new FS.Collection("uploads", {
+ stores: [new FS.Store.FileSystem("uploads", {
+  path: Meteor.settings.public.uploadsDir,
+  transformWrite: function (file, readStream, writeStream) {
+   readStream.pipe(writeStream);
+   var transformer = gm(readStream, file.name());
+   transformer.size({bufferStream: true}, FS.Utility.safeCallback(function (err, size) {
+    if (err) {
+     // handle the error
+    } else {
+     file.update({$set: {'metadata.width': size.width, 'metadata.height': size.height}});
+    }
+   }));
+  }
+
+ })]
+});

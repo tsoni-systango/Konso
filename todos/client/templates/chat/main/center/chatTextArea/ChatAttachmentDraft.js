@@ -1,16 +1,19 @@
 Template.chatAttachmentDraft.created = function(){
     var self = this;
-    self.subscribe("uploads", IM.getCurrentDialogId(), function(){
-        self.attachment = Uploads.findOne(self.data.id);
-    });
+    self.subscribe("uploads", [self.data._id]);
 }
 Template.chatAttachmentDraft.helpers({
-    data: function(){
-        return Template.instance().attachment;
-    },
     isImage: function(){
-        var type = Template.instance().attachment.type;
-        return ["image/jpeg","image/jpg","image/png","image/gif"].indexOf(type) !==-1;
+        var attachment = Uploads.findOne(this._id);
+        if(attachment){
+            return attachment.isImage();
+        }
+    },
+    url: function(){
+        var attachment = Uploads.findOne(this._id);
+        if(attachment){
+            return attachment.url();
+        }
     }
 })
 Template.chatAttachmentDraft.events({
@@ -20,7 +23,7 @@ Template.chatAttachmentDraft.events({
         Meteor.call("removeAttachment", id, GlobalUI.generalCallback(function(){
             var attachments = IM.getMessageAttachmentsDraft();
             IM.updateMessageAttachmentsDraft(_.filter(attachments, function(obj){
-                return obj.id !== id;
+                return obj._id !== id;
             }));
         }));
     }
