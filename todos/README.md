@@ -6,6 +6,7 @@ All possible configurations are:
 {
   "public": {
     "defaultAuth": "crowd",
+    "uploadsDir": "~/uploads",
     "privileges": {
       "createChannels": ["crowd-administrators"],
       "createChatAlerts": ["Admins"]
