@@ -38,3 +38,4 @@ cfs:graphicsmagick
 cfs:standard-packages
 cfs:filesystem
 fortawesome:fontawesome
+tap:i18n

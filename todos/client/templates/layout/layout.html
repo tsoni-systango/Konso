@@ -1,8 +1,6 @@
 <template name="layout">
 	{{#globalLayout}}
-            <core-drawer-panel id="main-drawer-panel" class="{{isEmbeddedChat}}">
-
-
+            <div id="main-drawer-panel" class="{{isEmbeddedChat}}">
                 <div drawer vertical layout>
                     <div fit>
                         <core-header-panel class="left-menu" navigation fit mode="seamed">
@@ -31,15 +29,6 @@
                                                    onclick="GlobalUI.toggleLeftMenu()"></paper-icon-button>
                                 <paper-tabs selected="0" layout flex noink>
                                     <paper-tab><a href="{{pathFor route='chat'}}" horizontal center-center layout>{{i18nChat}}</a></paper-tab>
-                                    <!--<paper-tab><a href="{{pathFor route='todos'}}" horizontal center-center layout>To
-                                        dos</a></paper-tab>
-                                    <paper-tab><a href="{{pathFor route='notes'}}" horizontal center-center
-                                                  layout>Notes</a>
-                                    </paper-tab>
-                                    <paper-tab><a href="{{pathFor route='scheduler'}}" horizontal center-center
-                                                  layout>Sheduler</a>
-                                    </paper-tab>
-                                    -->
                                 </paper-tabs>
                             </core-toolbar>
 			{{/unless}}
@@ -47,6 +36,6 @@
 			    {{> yield}}
                     </div>
                 </div>
-            </core-drawer-panel>
+            </div>
 	{{/globalLayout}}
 </template>

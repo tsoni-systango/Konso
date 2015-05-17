@@ -1,27 +1,19 @@
 <template name="login">
-  {{#globalLayout}}
-
-        <div class="entry" fit layout vertical center center-justified style="overflow: hidden">
-            <div class="entry-body">
-                <di-form data-action="log-in">
-
-                    <paper-input-decorator label="Username" error="We need your username!"
-                                           floatingLabel class="input-light">
-                        <input is="core-input" id="username" type="text" required>
-                    </paper-input-decorator>
-
-                    <paper-input-decorator label="Password" error="Whats your password?"
-                                           floatingLabel class="input-light">
-                        <input is="core-input" id="password" type="password" required>
-                    </paper-input-decorator>
-
-                    <div horizontal layout reverse>
-                        <di-button class="btn btn-accent" type="submit" raised>Log In</di-button>
-                    </div>
-
-                </di-form>
+	{{#globalLayout}}
+            <div class="valign-wrapper" fit>
+                 <div class="row valign">
+                    <form id="login-form" class="col s10 offset-s1 m8 offset-m2 row">
+                        <div class="input-field col s12">
+                            <input id="username" required type="text" class="validate">
+                            <label for="username">Username</label>
+                        </div>
+                        <div class="input-field col s12">
+                            <input id="password" required type="text" class="validate">
+                            <label for="password">Password</label>
+                        </div>
+                        <button type="submit" class="waves-effect waves-light btn right">Login</button>
+                    </form>
+                 </div>
             </div>
-        </div>
-
-  {{/globalLayout}}
+	{{/globalLayout}}
 </template>

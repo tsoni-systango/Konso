@@ -1,6 +1,6 @@
 Router.configure({
-	autoRender: false,
-	autoStart: false,
+	autoRender: true,
+	autoStart: true,
 	// we use the  appBody template to define the layout for the entire app
 	layoutTemplate: 'layout',
 	// the notFound template is used for unknown routes and missing lists
