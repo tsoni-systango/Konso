@@ -17,7 +17,7 @@ Template.chat.created = function () {
         var dialogId = IM.getCurrentDialogId();
         self.subscribe("messages", dialogId, self.messagesToShow.get(), function(){
            GlobalUI.closeLeftMenu();
-           $('.chat')[0].closeDrawer();
+           //$('.chat')[0].closeDrawer();
         });
 
     });

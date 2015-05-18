@@ -1,3 +1,4 @@
+
 Template.login.events({
     "submit #login-form": function (e) {
         e.preventDefault();

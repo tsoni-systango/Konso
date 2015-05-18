@@ -1,22 +1,23 @@
 <template name="chatTextArea">
     <div class="chat-input-wrapper">
 
-            <div class="attachments">
-		    {{#each attachments}}
-			    {{> chatAttachmentDraft}}
-		    {{/each}}
-                <div class="clear"></div>
-            </div>
-            <paper-input-decorator class='text-area' label="{{i18nTypeYourMessage}}" layout vertical>
-                <paper-autogrow-textarea>
-                    <form id="chat-message-form">
-                        <div class="text-area-wrapper">
-                            <textarea placeholder="" aria-label="with autogrowing text area"></textarea>
-                        </div>
-                        <paper-fab mini class="btn-send" icon="send"></paper-fab>
-                    </form>
-                </paper-autogrow-textarea>
-            </paper-input-decorator>
-        {{>dropZone}}
+        <div class="attachments">
+		{{#each attachments}}
+			{{> chatAttachmentDraft}}
+		{{/each}}
+            <div class="clear"></div>
+        </div>
+
+        <form id="chat-message-form">
+
+
+            <textarea id="textarea1" class="materialize-textarea"></textarea>
+            <label for="textarea1">{{i18nTypeYourMessage}}</label>
+                
+
+        </form>
+
+
+	    {{>dropZone}}
     </div>
 </template>

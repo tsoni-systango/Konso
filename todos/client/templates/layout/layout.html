@@ -1,41 +1,49 @@
 <template name="layout">
 	{{#globalLayout}}
-            <div id="main-drawer-panel" class="{{isEmbeddedChat}}">
-                <div drawer vertical layout>
-                    <div fit>
-                        <core-header-panel class="left-menu" navigation fit mode="seamed">
-                            <core-toolbar class="left-menu-toolbar">
-				    {{#unless isEmbeddedChat}}
-                                        <paper-icon-button title="Settings" class=" settings-btn"
-                                                           icon="settings-applications"
-                                                           onclick="GlobalUI.openSettings()"></paper-icon-button>
-				    {{/unless}}
-                                <div class="account">{{username}} </div>
-                                <paper-icon-button title="Close menu" class="right close-menu-btn" icon="arrow-back"
-                                                   onclick="GlobalUI.closeLeftMenu()"></paper-icon-button>
-                                <paper-icon-button title="Log out" class="right logout-btn" icon="exit-to-app"
-                                                   onclick="Meteor.logout()"></paper-icon-button>
-                            </core-toolbar>
-                            <core-menu theme="core-light-theme">
-				    {{>yield "leftMenu"}}
-                            </core-menu>
-                        </core-header-panel>
-                    </div>
-                </div>
-                <div main vertical layout>
+            <nav id="main-drawer-panel">
+                <ul class="right hide-on-med-and-down">
 			{{#unless isEmbeddedChat}}
-                            <core-toolbar id="app-menu">
+                            <div id="app-menu">
                                 <paper-icon-button title="Open menu" class="left toggle-main-menu" icon="menu"
                                                    onclick="GlobalUI.toggleLeftMenu()"></paper-icon-button>
-                                <paper-tabs selected="0" layout flex noink>
-                                    <paper-tab><a href="{{pathFor route='chat'}}" horizontal center-center layout>{{i18nChat}}</a></paper-tab>
-                                </paper-tabs>
-                            </core-toolbar>
+
+                                <div class="row">
+                                    <div class="col s12">
+                                        <ul class="tabs">
+                                            <li class="tab col s3"><a href="{{pathFor route='chat'}}">{{i18nChat}}</a></li>
+                                            <li class="tab col s3"><a href="#test2">Test 2</a></li>
+                                            <li class="tab col s3"><a href="#test3">Test 3</a></li>
+                                            <li class="tab col s3"><a href="#test4">Test 4</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
 			{{/unless}}
-                    <div style="position: relative;" flex>
-			    {{> yield}}
+                </ul>
+                <ul id="slide-out" class="side-nav fixed">
+                    <div class="left-menu" navigation fit mode="seamed">
+                        <div class="left-menu-toolbar">
+				{{#unless isEmbeddedChat}}
+                                    <paper-icon-button title="Settings" class=" settings-btn"
+                                                       icon="settings-applications"
+                                                       onclick="GlobalUI.openSettings()"></paper-icon-button>
+				{{/unless}}
+                            <div class="account">{{username}} </div>
+                            <button title="Close menu" class="right close-menu-btn" icon="arrow-back"
+                                    onclick="GlobalUI.closeLeftMenu()"></button>
+                            <button title="Log out" class="right logout-btn" icon="exit-to-app"
+                                    onclick="Meteor.logout()"></button>
+                        </div>
+                        <div>
+				{{>yield "leftMenu"}}
+                        </div>
                     </div>
-                </div>
+                </ul>
+                <a href="#" data-activates="slide-out" class="button-collapse show-on-large"><i
+                        class="mdi-navigation-menu hide-on-large-only"></i></a>
+            </nav>
+            <div id="application-content">
+                    {{> yield}}
             </div>
 	{{/globalLayout}}
 </template>

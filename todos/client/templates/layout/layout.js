@@ -33,3 +33,8 @@ Template.registerHelper("isEmbeddedChat", function () {
     return Session.get("embedded");
 })
 
+Template.layout.onRendered(function(){
+    $(".button-collapse").sideNav({
+        menuWidth: 280
+    });
+})

@@ -1,11 +1,11 @@
 <template name="chatLeftMenu">
-    <paper-input-decorator class="filter-dialogs" label="{{i18nSearchDialogs}}" layout vertical>
-        <core-icon icon="search"></core-icon>
-        <input placeholder="Search dialogs" aria-label="Search dialogs">
-    </paper-input-decorator>
-    <div class='chat-left-menu nano'>
-        <div class="nano-content">
-        <h3>{{i18nDialogs}}</h3>
+    <div class="input-field col s6 filter-dialogs">
+        <i class="mdi-action-search prefix small"></i>
+        <input placeholder="{{i18nSearchDialogs}}" type="text" class="validate">
+    </div>
+    <div class='chat-left-menu'>
+
+        <h6>{{i18nDialogs}}</h6>
 
         <div>
 		{{#if dialogs.count}}
@@ -30,9 +30,9 @@
                     <span class="notexists">{{i18nNoMore}}{{i18nDialogs}}</span>
 		{{/if}}
         </div>
-        <h3>{{i18nRooms}}
+        <h6>{{i18nRooms}}
             <paper-icon-button icon="add-box" class="create-room create-conversation"></paper-icon-button>
-        </h3>
+        </h6>
 
         <div>
 		{{#if rooms.count}}
@@ -58,11 +58,11 @@
 		{{/if}}
         </div>
 
-        <h3>{{i18nChannels}}
+        <h6>{{i18nChannels}}
             {{#if canCreateChannels}}
             <paper-icon-button icon="add-box" class="create-channel"></paper-icon-button>
             {{/if}}
-        </h3>
+        </h6>
 
         <div>
 		{{#if channels.count}}
@@ -86,7 +86,6 @@
 		{{else}}
                     <span class="notexists">{{i18nNoMore}}{{i18nChannels}}</span>
 		{{/if}}
-        </div>
         </div>
     </div>
 

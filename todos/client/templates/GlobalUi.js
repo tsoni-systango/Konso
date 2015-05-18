@@ -5,10 +5,10 @@ this.GlobalUI = (function () {
     GlobalUI.dialog = {};
 
     GlobalUI.toast = function (text) {
-        Materialize.toast(text.replace(/[<>]/g, "'"), 13000);
+        Materialize.toast(text.replace(/[<>]/g, "'"), 3000);
     };
     GlobalUI.errorToast = function (text) {
-        Materialize.toast('<i class="mdi-alert-error error-color left small"></i>'+text.replace(/[<>]/g, "'"), 213000)
+        Materialize.toast('<i class="mdi-alert-error error-color left small"></i>'+text.replace(/[<>]/g, "'"), 3000)
     };
     GlobalUI.isErrorToast = new ReactiveVar(false);
 
@@ -83,12 +83,12 @@ this.GlobalUI = (function () {
         }
     };
     GlobalUI.toggleLeftMenu = function () {
-        var mainTogglePanel = $("#main-drawer-panel")[0];
-        mainTogglePanel && mainTogglePanel.togglePanel();
+        //var mainTogglePanel = $("#main-drawer-panel")[0];
+        //mainTogglePanel && mainTogglePanel.togglePanel();
     };
     GlobalUI.closeLeftMenu = function () {
-        var mainTogglePanel = $("#main-drawer-panel")[0];
-        mainTogglePanel && mainTogglePanel.closeDrawer();
+        //var mainTogglePanel = $("#main-drawer-panel")[0];
+        //mainTogglePanel && mainTogglePanel.closeDrawer();
     };
     GlobalUI.isProgressVisible = new ReactiveVar(false);
 

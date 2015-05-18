@@ -1,8 +1,6 @@
 <template name="chat">
-    <core-drawer-panel class="chat" drawerWidth='200px' responsiveWidth='940px' main rightDrawer>
-	    {{> allUserList}}
-
-        <div main vertical layout fit class='chat-content'>
+    <div class="chat" fit>
+        <div class='chat-content' fit>
             <div class="dialog-menu">
 		    {{#if isEmbeddedChat}}
                         <paper-icon-button title="Open menu" class="left toggle-main-menu" icon="menu"
@@ -10,45 +8,47 @@
 		    {{/if}}
                 <span class="left name">{{currentDialogName}}</span>
 
-                {{#if isEmbeddedChat}}
-                        <paper-icon-button icon="editor:vertical-align-bottom" class="right minify-btn"></paper-icon-button>
-                        <paper-icon-button icon="communication:call-made" class="right maximize-btn hide"></paper-icon-button>
-                {{/if}}
+		    {{#if isEmbeddedChat}}
+                        <paper-icon-button icon="editor:vertical-align-bottom"
+                                           class="right minify-btn"></paper-icon-button>
+                        <paper-icon-button icon="communication:call-made"
+                                           class="right maximize-btn hide"></paper-icon-button>
+		    {{/if}}
                 <paper-icon-button icon="supervisor-account" class="right all-users-button"></paper-icon-button>
             </div>
 		{{#if currentDialog}}
 
 
-                    <div flex class="relative">
-                        <div vertical layout class='messages-container' touch-action="pan-y">
-                            <div flex id="space-filler"></div>
-                            <div id="messages-content">
-				    {{#if hasMoreMessages}}
-                                        <div class="show-more">
-                                            Show more
-                                        </div>
-				    {{/if}}
-				    {{#each chatMessages}}
-					    {{> chatMessage}}
-				    {{/each}}
-				    {{#if hasUnreadMessages}}
-                                        <div id="unread-separator"></div>
-				    {{/if}}
-				    {{#each chatMessagesUnread}}
-					    {{> chatMessage}}
-				    {{/each}}
-                                <div id="last-message"></div>
-                            </div>
+
+                    <div class='messages-container'>
+                        <div id="space-filler"></div>
+                        <div id="messages-content">
+				{{#if hasMoreMessages}}
+                                    <div class="show-more">
+                                        Show more
+                                    </div>
+				{{/if}}
+				{{#each chatMessages}}
+					{{> chatMessage}}
+				{{/each}}
+				{{#if hasUnreadMessages}}
+                                    <div id="unread-separator"></div>
+				{{/if}}
+				{{#each chatMessagesUnread}}
+					{{> chatMessage}}
+				{{/each}}
+                            <div id="last-message"></div>
                         </div>
-			    {{#unless Template.subscriptionsReady}}
-                                <div class="fader" fit layout>
-                                    <paper-spinner active></paper-spinner>
-                                </div>
-			    {{/unless}}
                     </div>
+			{{#unless Template.subscriptionsReady}}
+                            <div class="fader" fit layout>
+                                <paper-spinner active></paper-spinner>
+                            </div>
+			{{/unless}}
 
 
-                    {{> chatTextArea}}
+
+			{{> chatTextArea}}
 
 		{{else}}
                     <paper-button class="welcome-btn">
@@ -66,7 +66,7 @@
                 color: #fff;
             }
         </style>
-    </core-drawer-panel>
+    </div>
 
 </template>
 

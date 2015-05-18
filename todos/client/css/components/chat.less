@@ -17,7 +17,12 @@
   }
   .chat-content {
     .chat-input-wrapper {
-      position: relative;
+      position: absolute;
+      bottom: 9px;
+      left: 0px;
+      right: 0px;
+      padding: 0 10px;
+
       .drop-zone {
         display: none;
         position: absolute;
@@ -59,7 +64,7 @@
             top: 22px;
             left: 22px;
           }
-          .remove-attachment{
+          .remove-attachment {
             position: absolute;
             top: -7px;
             right: -7px;
@@ -77,24 +82,17 @@
         }
       }
     }
-    .text-area {
-      clear: both;
-      background: #eee;
-      border-top: 1px solid white;
+
       #chat-message-form {
         height: 40px;
         position: relative;
-        .text-area-wrapper {
-          position: absolute;
-          top: 0px;
-          right: 100px;
-          left: 0px;
-          bottom: 0px;
-          textarea {
-            width: 100%;
-            padding: 0 10px
-          }
+
+        textarea {
+          width: 100%;
+          padding: 0;
+          margin: 0;
         }
+
         .btn-send {
           position: absolute;
           right: 10px;
@@ -110,13 +108,13 @@
           background: #EEEEEE;
         }
       }
-    }
+
     .messages-container {
       background: white;
       overflow-y: auto;
       position: absolute;
-      top: 0px;
-      bottom: 0px;
+      top: 50px;
+      bottom: 60px;
       right: 0px;
       left: 0px;
       .show-more {
@@ -186,7 +184,7 @@
           line-height: 20px;
           width: 80%;
           word-break: break-all;
-          a{
+          a {
             color: rgb(0, 129, 255);
             text-decoration: underline;
             font-size: 10px;

@@ -1,6 +1,7 @@
 // Global Styles
 // Global Styles
 @import 'import';
+@import 'vars';
 // Import Roboto Font // -----------------------------------
 //@import url(//fonts.useso.com/css?family=Roboto:300,400,400italic,500,700,700italic);
 
@@ -345,13 +346,213 @@ body.dragging{
 }
 
 #main-drawer-panel {
+  padding-left: 280px;
+}
 
+@media only screen and (max-width : 992px) {
+  #application-content,#main-drawer-panel {
+    padding-left: 0;
+    left: 0px !important;
+  }
+}
+#application-content{
+  position: absolute;
+  top: @header-height;
+  bottom: 0px;
+  left: 280px;
+  right: 0px;
+}
+#main-drawer-panel {
+  height: @header-height;
   .toggle-main-menu {
     display: none;
   }
   .left-menu {
+    ::-webkit-input-placeholder { /* WebKit browsers */
+      color:    #fff;
+      opacity:  0.1;
+    }
+    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+      color:    #fff;
+      opacity:  0.1;
+    }
+    ::-moz-placeholder { /* Mozilla Firefox 19+ */
+      color:    #fff;
+      opacity:  0.1;
+    }
+    :-ms-input-placeholder { /* Internet Explorer 10+ */
+      color:    #fff;
+      opacity:  0.1;
+    }
+    a {
+      height: auto;
+      line-height: normal;
+      padding: 0;
+      color: white;
+    }
     background: rgb(36, 35, 32);
     color: white;
+    .filter-dialogs {
+      width: 100%;
+      padding-top: 0;
+      input {
+        width: 120px;
+        padding: 0px;
+      }
+      i{
+        left: 5px;
+      }
+    }
+    .filter-dialogs[focused] {
+      core-icon {
+        color: white;
+      }
+    }
+
+    .chat-left-menu {
+      line-height: normal;
+      position: absolute;
+      top: 110px;
+      left: 0px;
+      right: 0px;
+      bottom: 0px;
+      overflow-y: auto;
+      overflow-x: visible;
+      padding: 0 24px 20px 0px;
+
+      h6 {
+        margin: 20px 0 7px 13px;
+        font-weight: 100;
+      }
+
+      .notexists {
+        font-size: .8rem;
+        color: #aaa;
+        margin-left: 13px;
+      }
+
+      h3 paper-icon-button {
+        float: right;
+        margin-top: -10px;
+        color: rgb(82, 82, 82);
+        margin-right: -15px;
+      }
+
+    }
+
+    .other-dialogs {
+      .expand-title {
+        display: none;
+      }
+      .expandable {
+        display: none;
+        position: relative;
+        .dialog-item {
+          width: 200px;
+          .name {
+            width: 136px;
+          }
+          .last-message {
+            width: 181px;
+          }
+        }
+        .expandable-toggle {
+          position: absolute;
+          top: 0px;
+          bottom: 0px;
+          right: -15px;
+          width: 29px;
+          cursor: pointer;
+          background: rgba(82, 110, 156, 0.05);
+          .drop-up {
+            display: none;
+          }
+        }
+        .expandable-toggle:hover {
+          background: rgba(82, 110, 156, 0.3);
+          .drop-up {
+            padding: 2px;
+            display: block;
+            color: rgb(155, 156, 158);
+          }
+        }
+      }
+    }
+
+    .other-dialogs.hidden {
+
+      .expandable-toggle {
+        display: none;
+      }
+      .expand-title {
+        display: block;
+        text-align: right;
+        color: #ccc;
+        cursor: pointer;
+        text-decoration: underline;
+        font-size: 0.8em;
+      }
+      .expand-title:hover {
+        color: #eee;
+      }
+    }
+    .dialog-item.selected {
+      background: #2C3645;
+      color: white;
+      box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
+    }
+    .dialog-item {
+      position: relative;
+      margin: 5px 0;
+      padding: 2px 10px 2px 12px;
+      border-radius: 0 3px 3px 0;
+      cursor: pointer;
+      width: 103%;
+
+      .persistence-indicator{
+        float: left;
+        margin: 1px 3px 0 0;
+      }
+
+      core-icon {
+        width: 13px;
+        height: 13px;
+      }
+
+      .name {
+        float: left;
+        width: 165px;
+        font-weight: bold;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: 0.9rem;
+      }
+      .unread {
+        float: right;
+        color: rgb(255, 174, 0);
+        font-weight: bold;
+      }
+      .last-message {
+        color: #aaa;
+        clear: both;
+        width: 210px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        font-size: .8em;
+      }
+    }
+
+    .dialog-item.channel {
+      .name:before {
+        content: "#"
+      }
+
+      .name {
+        font-weight: 400;
+      }
+    }
   }
 
   .left-menu-toolbar {
