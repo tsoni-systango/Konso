@@ -1,12 +1,16 @@
 <template name="chat">
     <div class="chat" fit>
-        <div class='chat-content' fit>
+
+        <div class='chat-content'>
+{{#if Template.subscriptionsReady}}
+
+{{#contentFor "topMenu"}}
             <div class="dialog-menu">
 		    {{#if isEmbeddedChat}}
                         <paper-icon-button title="Open menu" class="left toggle-main-menu" icon="menu"
                                            onclick="GlobalUI.toggleLeftMenu()"></paper-icon-button>
 		    {{/if}}
-                <span class="left name">{{currentDialogName}}</span>
+                        <span class="left name">{{currentDialogName}}</span>
 
 		    {{#if isEmbeddedChat}}
                         <paper-icon-button icon="editor:vertical-align-bottom"
@@ -16,28 +20,28 @@
 		    {{/if}}
                 <paper-icon-button icon="supervisor-account" class="right all-users-button"></paper-icon-button>
             </div>
+{{/contentFor}}
 		{{#if currentDialog}}
-
-
-
                     <div class='messages-container'>
-                        <div id="space-filler"></div>
-                        <div id="messages-content">
-				{{#if hasMoreMessages}}
-                                    <div class="show-more">
-                                        Show more
-                                    </div>
-				{{/if}}
-				{{#each chatMessages}}
-					{{> chatMessage}}
-				{{/each}}
-				{{#if hasUnreadMessages}}
-                                    <div id="unread-separator"></div>
-				{{/if}}
-				{{#each chatMessagesUnread}}
-					{{> chatMessage}}
-				{{/each}}
-                            <div id="last-message"></div>
+                        <div class="messages-container-scroll" fit>
+                                <div id="space-filler"></div>
+                                <div id="messages-content">
+                                        {{#if hasMoreMessages}}
+                                            <div class="show-more">
+                                                Show more
+                                            </div>
+                                        {{/if}}
+                                        {{#each chatMessages}}
+                                                {{> chatMessage}}
+                                        {{/each}}
+                                        {{#if hasUnreadMessages}}
+                                            <div id="unread-separator"></div>
+                                        {{/if}}
+                                        {{#each chatMessagesUnread}}
+                                                {{> chatMessage}}
+                                        {{/each}}
+                                    <div id="last-message"></div>
+                                </div>
                         </div>
                     </div>
 			{{#unless Template.subscriptionsReady}}
@@ -45,11 +49,7 @@
                                 <paper-spinner active></paper-spinner>
                             </div>
 			{{/unless}}
-
-
-
 			{{> chatTextArea}}
-
 		{{else}}
                     <paper-button class="welcome-btn">
                     <span>
@@ -58,6 +58,9 @@
                     </span>
                     </paper-button>
 		{{/if}}
+{{else}}
+        {{>loading}}
+{{/if}}
         </div>
         <style>
             .chat-message [mentions={{currentUser._id}}], .chat-message [mentions=all] {
@@ -66,6 +69,7 @@
                 color: #fff;
             }
         </style>
+
     </div>
 
 </template>

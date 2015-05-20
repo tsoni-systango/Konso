@@ -1,0 +1,56 @@
+#main-drawer-panel {
+  background-color: #526e9c;
+  color: white;
+  #app-menu {
+    padding: 7px 2px;
+    button.menu-btn {
+      padding: 6px;
+      width: 40px;
+      height: 40px;
+      margin: 3px;
+      color: white;
+      i{
+        font-size: 2rem;
+        line-height: normal;
+      }
+    }
+    #app-modules{
+      width: 230px;
+      padding: 0px;
+      overflow: hidden;
+      .app-module-item {
+        float: left;
+        width: 115px;
+        height: 120px;
+        margin: 0px;
+        position: relative;
+        cursor: pointer;
+        .name {
+          line-height: normal;
+          color: white;
+          position: absolute;
+          bottom: 5px;
+          text-align: center;
+          width: 100%;
+          font-weight: bold;
+        }
+        &.module-chat{
+          background-color: rgb(245, 207, 135);
+        }
+        &.module-todos{
+          background-color: rgb(118, 194, 175);
+        }
+        &.module-notes{
+          background-color: rgb(199, 92, 92);
+        }
+        &.module-scheduler{
+          background-color: #77B3D4;
+        }
+        .module-link {
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+}

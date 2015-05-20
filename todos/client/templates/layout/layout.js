@@ -34,7 +34,16 @@ Template.registerHelper("isEmbeddedChat", function () {
 })
 
 Template.layout.onRendered(function(){
-    $(".button-collapse").sideNav({
-        menuWidth: 280
+    $(".left-menu-btn").sideNav({
+        menuWidth: 250
     });
+    $('#app-modules-btn').dropdown({
+            inDuration: 300,
+            outDuration: 225,
+            constrain_width: false, // Does not change width of dropdown to that of the activator
+            gutter: -2, // Spacing from edge
+            bottomOffset: 20,
+            belowOrigin: true // Displays dropdown below the button
+        }
+    );
 })

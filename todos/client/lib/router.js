@@ -69,7 +69,6 @@ Router.map(function () {
 	this.route('uploads', {
 		path: '/cfs/files/uploads',
 		action: function () {
-			Session.set("embedded", "embedded");
 			Router.go('chat');
 		}
 	});
