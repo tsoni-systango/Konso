@@ -1,5 +1,6 @@
 {
   "public": {
+    "defaultLanguage": "zn",
     "defaultAuth": "crowd",
     "uploadsDir": "~/uploads",
     "privileges": {

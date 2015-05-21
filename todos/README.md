@@ -5,6 +5,7 @@ All possible configurations are:
 ```javascript
 {
   "public": {
+    "defaultLanguage": "zn",
     "defaultAuth": "crowd",
     "uploadsDir": "~/uploads",
     "privileges": {
