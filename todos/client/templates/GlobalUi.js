@@ -13,30 +13,34 @@ this.GlobalUI = (function () {
     GlobalUI.isErrorToast = new ReactiveVar(false);
 
     GlobalUI.showDialog = function (opts) {
-        this.dialog = $("[global-dialog]")[0];
-        $(this.dialog).find('.modal-content').html('');
-        this.dialog.heading = opts.heading;
+        this.dialog = $("#main-modal");
+        this.dialog.find('.modal-body').html('');
+        this.dialog.find('.modal-header').html(opts.heading || '') ;
+        this.dialog.css({maxWidth: opts.maxWidth})
+
         this.dialogView = Blaze.renderWithData(
             Template[opts.template],
             opts.data,
-            $(this.dialog).find('.modal-content')[0]
+            this.dialog.find('.modal-body')[0]
         );
         Session.set("global.ui.fullscreen", !!opts.fullScreen);
-        this.dialog.open();
+        this.dialog.openModal();
         return this.dialog;
     };
     GlobalUI.openSettings = function () {
         Session.set("global.ui.showSettings", true);
+        $("#settings-modal").openModal();
     }
     GlobalUI.closeSettings = function () {
         Session.set("global.ui.showSettings", false);
+        $("#settings-modal").closeModal();
     }
 
     GlobalUI.closeDialog = function () {
         if (this.dialogView) {
             Blaze.remove(this.dialogView);
             this.dialogView = null;
-            return this.dialog && this.dialog.close();
+            return this.dialog && this.dialog.closeModal();
         }
     };
 

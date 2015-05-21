@@ -52,8 +52,8 @@ Template.chatMessage.helpers({
     },
     text:function(){
         var text = this.text;
-        this.suggestions && this.suggestions.forEach(function(s){
-            text = text.replaceAll(s.text,
+        this.mentions && this.mentions.forEach(function(s){
+            text = text.replace(new RegExp(s.text, 'g'),
                 '<span class="mention" mentions="' + s.id + '">' + s.text + '</span>'
             )
         });

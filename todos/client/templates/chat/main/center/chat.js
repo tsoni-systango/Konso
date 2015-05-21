@@ -14,10 +14,10 @@ Template.chat.created = function () {
         });
     });
     self.autorun(function () {
+        self.isCurrentlySubscribingToMessages = true;
         var dialogId = IM.getCurrentDialogId();
         self.subscribe("messages", dialogId, self.messagesToShow.get(), function(){
            GlobalUI.closeLeftMenu();
-           //$('.chat')[0].closeDrawer();
         });
 
     });
@@ -89,7 +89,7 @@ Template.chat.helpers({
             return Messages.find({
                 dialogId: currentDialog._id,
                 created: {$lte: IM.getCurrentDialogUnreadTimestamp()}
-            }, {sort: {"created": 1}});
+            }, {sort: {"created": -1}});
         }
     },
     chatMessagesUnread: function () {
@@ -98,7 +98,7 @@ Template.chat.helpers({
             return Messages.find({
                 dialogId: currentDialog._id,
                 created: {$gt: IM.getCurrentDialogUnreadTimestamp()}
-            }, {sort: {"created": 1}});
+            }, {sort: {"created": -1}});
         }
     },
     hasUnreadMessages: function(){
@@ -112,12 +112,6 @@ Template.chat.helpers({
         if (IM.getCurrentDialog()) {
             return Template.instance().subscription.ready()
         }
-    },
-    i18nTypeYourMessage: function(){
-        return '输入信息';
-    },
-    i18nChooseUserToChat: function(){
-        return '选择聊天伙伴';
     }
 });
 

@@ -1,0 +1,22 @@
+{
+  "general":{
+
+  },
+  "chat":{
+    "messageInputPlaceholder": "Type your message",
+    "welcomeMessage": "Choose user to chat",
+    "userList":{
+      "searchUsers": "Search users"
+    },
+    "leftMenu":{
+      "searchDialogs": "Search dialogs",
+      "dialogs": "Dialogs",
+      "noDialogs": "No dialogs created",
+      "rooms": "Rooms",
+      "noRooms": "No rooms created",
+      "channels": "Channels",
+      "noChannels": "No channels created",
+      "showMore": "Show more"
+    }
+  }
+}

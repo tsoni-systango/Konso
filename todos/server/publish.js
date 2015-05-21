@@ -23,15 +23,16 @@ Meteor.publish("messages", function (dialogId, limit) {
     }
 });
 Meteor.publish("lastDialogMessage", function (dialogId) {
-    var self = this;
-    check(dialogId, String);
-    var dialog = getDialogOrDie(dialogId);
-    isUserAuthorizedInDialog(dialog, self.userId)
-    return Messages.find({dialogId: dialogId},
-        {
-            limit: 1,
-            sort: {created: -1}
-        });
+    if (this.userId && dialogId) {
+        var self = this;
+        check(dialogId, String);
+        var dialog = getDialogOrDie(dialogId);
+        isUserAuthorizedInDialog(dialog, self.userId)
+        return Messages.find({dialogId: dialogId},
+            {
+                limit: 1,
+                sort: {created: -1}
+            });
 
-
+    }
 });

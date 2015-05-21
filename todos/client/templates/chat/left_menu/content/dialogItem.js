@@ -1,7 +1,11 @@
 Template.dialogItem.created = function () {
     var self = this;
-    self.subscribe("lastDialogMessage", self.data._id);
-
+    var sendNotification;
+    self.subscribe("lastDialogMessage", self.data._id, function(){
+        Meteor.setTimeout(function(){
+            sendNotification = NotificationsController.emmitNotificationIfNeeded;
+        }, 3000);
+    });
 
     self.lastMessage = new ReactiveVar();
     self.unreadMessageCount = new ReactiveVar();
@@ -12,44 +16,19 @@ Template.dialogItem.created = function () {
         if (!Meteor.userId()) {
             return;
         }
-        var currentUser = Meteor.users.findOne(Meteor.userId(), {reactive:false});
         var message = Messages.findOne({dialogId: self.data._id}, {
             sort: {created: -1}
         });
 
         if (message) {
-            var messageOwner = Meteor.users.findOne(message.ownerId, {reactive:false});
-            var username;
-            var text;
-            if (messageOwner) {
-                if(message.removed){
-                    username = Utils.getUsername(messageOwner);
-                    text = "removed message"
-                    self.lastMessage.set(username +  "<i> "+text+"</i>");
-                } else {
-                    username = Utils.getUsername(messageOwner);
-                    text = message.text
-                    self.lastMessage.set(username + ": " + text);
-                }
-            } else {
-                username = "System";
-                text = message.text
-                self.lastMessage.set(text);
-            }
-            if(Notification.permission === "granted"){
-                var growlNotifications = currentUser.profile.growlNotifications || {};
-                if(growlNotifications[self.data.type] && message.ownerId !== Meteor.userId()){
-                    var n = new Notification(username, {body: text});
-                    n.onclick =  function(){
-                        window.focus();
-                    }
-                }
-            }
+            Utils.normalizeMessage(message);
+            self.lastMessage.set(message.infoText);
+            sendNotification && sendNotification(self.data, message);
         }
         Meteor.call("getUnreadMessagesCountForTimestamp",
             self.data._id,
-            currentUser.profile.readTimestamps[self.data._id] || 0,
-            currentUser._id, function (er, count) {
+            Meteor.user().profile.readTimestamps[self.data._id] || 0,
+            Meteor.user()._id, function (er, count) {
                 if(!er){
                     IM.unreadMessagesForDialogsMap[self.data._id] = count;
                     self.unreadMessageCount.set(count);

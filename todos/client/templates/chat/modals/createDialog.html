@@ -1,17 +1,10 @@
 <template name="createDialog">
-	<di-form id="create-dialog-form" data-action="new-dialog">
-		<paper-input-decorator label="{{label}}" error="Name is required"
-							   floatingLabel class="">
-			<input is="core-input" id="dialogName" type="text" required>
-		</paper-input-decorator>
-
-		<div horizontal layout>
-			<di-button class="btn btn-accent" type="submit" raised>
-				<core-icon icon="check"></core-icon>OK
-			</di-button>
-			<di-button dismissive class="btn btn-accent" type="cancel" raised>
-				<core-icon dismissive icon="clear"></core-icon>Cancel
-			</di-button>
-		</div>
-	</di-form>
+    <form id="create-dialog-form" class="col s12">
+        <div class="row" style="margin-bottom: 0px">
+            <div class="input-field col s12">
+                <input id="dialogName" type="text" class="validate">
+                <label for="dialogName">Name</label>
+            </div>
+        </div>
+    </form>
 </template>

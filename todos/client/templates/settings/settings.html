@@ -1,69 +1,95 @@
 <template name="settings">
-    <div vertical layout fit id="settings">
-        <h1>Settings</h1>
-        <paper-icon-button title="Close settings" id="close-settings-btn" icon="close"
-                           onclick="GlobalUI.closeSettings()"></paper-icon-button>
-        <div id="settings-content">
-            <h3>Embeddable script</h3>
 
-            <div class="setting embeddable-script">
-                <div horizontal layout>
-                    <paper-radio-group class="horizontal" selected="right">
-                        <paper-radio-button name="left" label="Left"></paper-radio-button>
-                        <paper-radio-button name="right" label="Right" checked></paper-radio-button>
-                    </paper-radio-group>
-                    <paper-radio-group class="vertical" selected="bottom">
-                        <paper-radio-button name="top" label="Top"></paper-radio-button>
-                        <paper-radio-button name="bottom" label="Bottom" checked></paper-radio-button>
-                    </paper-radio-group>
+
+    <div id="settings-content">
+        <div class="setting">
+            <h5 class="row col">Localization</h5>
+
+            <div class="row">
+                <div class="input-field col s12 m6 l3">
+                    <select id="language-select">
+			    {{#each allLanguages}}
+                                <option {{isLanguageSelected id}} value="{{id}}">{{name}}</option>
+			    {{/each}}
+                    </select>
+                    <label>Language</label>
                 </div>
-                <div center horizontal layout class="sizes">
-                    <div>Width</div>
-                    <paper-slider class="embedded-width" value="256" min="200" max="600" editable role="slider"
-                                  tabindex="0" aria-valuemin="200" aria-valuemax="600"
-                                  aria-valuenow="256"></paper-slider>
-                    <div>Height</div>
-                    <paper-slider class="embedded-height" value="400" min="300" max="1000" editable role="slider"
-                                  tabindex="0" aria-valuemin="300" aria-valuemax="1000"
-                                  aria-valuenow="400"></paper-slider>
-                </div>
-
-                <textarea readonly onClick="this.select();" class="script-content"> {{scriptContent}}</textarea>
-
             </div>
-            <h3>Growl Notifications
-		    {{#if allowingNotifications}}
-                        <paper-spinner active class="allowing-progress"></paper-spinner>
-		    {{else}}
-			    {{#if isNotificationsDisabled}}
-                                {{> settings_alert colorClass="error-color" text="Your browser blocks all notifications on this site"}}
-			    {{/if}}
-			    {{#if isNotificationsUnknown}}
-                                <paper-button raised class="allow-notifications-button">Allow</paper-button>
-                                {{> settings_alert colorClass="warning-color" text="Please, turn notifications on by pushing the 'Allow' button"}}
-			    {{/if}}
-		    {{/if}}
-            </h3>
-            <div class="setting notifications">
-                <section>
-                    <h4>Chat</h4>
+        </div>
+        <div class="setting embeddable-script">
+            <h5 class="row col">Embeddable script</h5>
 
-                    <core-label center horizontal layout id="n-one-to-one">
-                        <div flex>One-to-one messages</div>
-                        <paper-checkbox class="blue" name="{{getDialogTypes.ONE_TO_ONE}}" {{isNotificationChecked getDialogTypes.ONE_TO_ONE}} for role="checkbox" tabindex="0" aria-checked="true" aria-labelledby="n-one-to-one"></paper-checkbox>
-                    </core-label>
+            <div class="row">
+                <div class="col s6 m5 l4 relative">
+                    <div class="horizontal radio-group">
+                        <input name="horizontal" type="radio" id="left"/>
+                        <label for="left">Left</label>
+                        <input name="horizontal" type="radio" id="right" checked/>
+                        <label for="right" style="margin-left: 13px;">Right</label>
+                    </div>
+                    <div class="vertical radio-group">
+                        <input name="vertical" type="radio" id="top"/>
+                        <label for="top">Top</label>
+                        <input name="vertical" type="radio" id="bottom" checked/>
+                        <label for="bottom" style="margin-top: 50px;">Bottom</label>
+                    </div>
+                </div>
 
-                    <core-label center horizontal layout id="n-room">
-                        <div flex>Room messages</div>
-                        <paper-checkbox class="blue" name="{{getDialogTypes.ROOM}}" {{isNotificationChecked getDialogTypes.ROOM}} for role="checkbox" tabindex="0" aria-checked="false" aria-labelledby="n-room"></paper-checkbox>
-                    </core-label>
+                <div class="col s6 m5 l4 relative">
+                    <div class="sizes">
+                        <div>Width <i>{{widgetWidth}}px</i></div>
+                        <p class="range-field embedded-width">
+                            <input type="range" value="300" min="250" max="1000"/>
+                        </p>
 
-                    <core-label center horizontal layout id="n-channel">
-                        <div flex>Channel messages</div>
-                        <paper-checkbox class="blue" name="{{getDialogTypes.CHANNEL}}" {{isNotificationChecked getDialogTypes.CHANNEL}} for role="checkbox" tabindex="0" aria-checked="false" aria-labelledby="n-channel"></paper-checkbox>
-                    </core-label>
-                </section>
+                        <div>Height <i>{{widgetHeight}}px</i></div>
+                        <p class="range-field embedded-height">
+                            <input type="range" value="400" min="250" max="1000"/>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s7 m6 l5 relative">
+                    <textarea readonly onClick="this.select();" class="script-content"> {{scriptContent}}</textarea>
+                </div>
+            </div>
+        </div>
+        <div class="setting notifications">
+            <div class="row">
+                <h5 class="col s4">Growl Notifications</h5>
+
+                <div class="col s8 warnings">
+			{{#if allowingNotifications}}
+				{{> loading_small fader=true}}
+			{{else}}
+				{{#if isNotificationsDisabled}}
+					{{> settings_alert colorClass="error-color" text="Your browser blocks all notifications on this site"}}
+				{{/if}}
+				{{#if isNotificationsUnknown}}
+                                    <div class="settings-alert">
+                                        <span class="warning-color"><i class="mdi-alert-warning warning-color"></i>Please, turn notifications on by pushing the <button
+                                                type="button"
+                                                class="waves-effect waves-light btn allow-notifications-button">Allow
+                                        </button> button</span>
+                                    </div>
+				{{/if}}
+			{{/if}}
+                </div>
+            </div>
+            <div class="row">
+                <h6>Chat</h6>
+
+                <div class="col s12 m6 l4 a-chat-notifications">
+			{{#each notificationControls}}
+                            <p>
+                                <input type="checkbox" id="{{id}}" {{isNotificationChecked id}}/>
+                                <label for="{{id}}">{{title}}</label>
+                            </p>
+			{{/each}}
+                </div>
             </div>
         </div>
     </div>
+
 </template>

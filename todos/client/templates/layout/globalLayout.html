@@ -29,13 +29,36 @@
 
         </paper-action-dialog>
 
-        <paper-toast global-toast>
-		{{#if isErrorToast}}
-                    <core-icon class="error" icon="error"></core-icon>
-		{{/if}}
-        </paper-toast>
-	    {{#if showSettings}}
-		    {{>settings}}
-	    {{/if}}
+        <!-- Basic modal -->
+        <div id="main-modal" class="modal">
+            <div class="modal-content">
+                <h4 class="modal-header"></h4>
+
+                <div class="modal-body"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="main-dialog-cancel" type="button" href="#!"
+                        class=" modal-action modal-close waves-effect waves-green btn-flat">Cancel
+                </button>
+                <button id="main-dialog-ok" type="button" href="#!"
+                        class=" modal-action modal-close waves-effect waves-green btn-flat">OK
+                </button>
+            </div>
+        </div>
+        <!-- Settings modal -->
+        <div id="settings-modal" class="modal bottom-sheet" style="max-height: 100%;">
+            <div class="modal-content" id="settings">
+                <h4 class="modal-header">Settings
+                    <paper-icon-button title="Close settings" id="close-settings-btn" icon="close"
+                                       onclick="GlobalUI.closeSettings()"></paper-icon-button>
+                </h4>
+
+		    {{#if showSettings}}
+			    {{>settings}}
+		    {{/if}}
+
+            </div>
+        </div>
+
     </div>
 </template>

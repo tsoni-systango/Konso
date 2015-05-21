@@ -1,21 +1,25 @@
-<template name="layout">
+<template name="layout" xmlns="http://www.w3.org/1999/html">
 	{{#globalLayout}}
             <ul id="app-left-menu" class="side-nav fixed">
                 <div class="left-menu">
                     <div class="left-menu-toolbar">
-                            {{#unless isEmbeddedChat}}
-                                <paper-icon-button title="Settings" class=" settings-btn"
-                                                   icon="settings-applications"
-                                                   onclick="GlobalUI.openSettings()"></paper-icon-button>
-                            {{/unless}}
+			    {{#unless isEmbeddedChat}}
+                                <button class="btn-flat btn-small settings-btn ">
+                                    <i title="Settings" class=" mdi-action-settings-applications"
+                                       onclick="GlobalUI.openSettings()"></i>
+                                </button>
+			    {{/unless}}
                         <div class="account">{{username}} </div>
-                        <i title="Close menu" class="right close-menu-btn" icon="arrow-back"
-                           onclick="GlobalUI.closeLeftMenu()"></i>
-                        <i title="Log out" class="right logout-btn" icon="exit-to-app"
-                           onclick="Meteor.logout()"></i>
+                        <button class="btn-flat right close-menu-btn btn-small">
+                            <i title="Close menu" class="mdi-hardware-keyboard-backspace"
+                               onclick="GlobalUI.closeLeftMenu()"></i></button>
+                        <button class="btn-flat right logout-btn btn-small">
+                            <i title="Log out" class="mdi-action-exit-to-app"
+                               onclick="Meteor.logout()"></i>
+                        </button>
                     </div>
                     <div>
-                            {{>yield "leftMenu"}}
+			    {{>yield "leftMenu"}}
                     </div>
                 </div>
             </ul>
@@ -25,41 +29,49 @@
 
 			{{/unless}}
                 </ul>
-                <div id="app-menu" >
+                <div id="app-menu">
 
                     <button class="menu-btn waves-orange waves-effect waves-teal btn-flat right hide-on-large-only"><i
-                            class="mdi-navigation-more-vert" ></i></button>
-                    <button data-activates='app-modules' id='app-modules-btn' class="menu-btn waves-orange waves-effect waves-teal btn-flat right"><i
+                            class="mdi-navigation-more-vert"></i></button>
+                    <button data-activates='app-modules' id='app-modules-btn'
+                            class="menu-btn waves-orange waves-effect waves-teal btn-flat right"><i
                             class="mdi-navigation-apps"></i>
+
                         <div id='app-modules' class='dropdown-content'>
                             <div class="app-module-item module-chat">
                                 <img src="/img/modules/chat.png">
+
                                 <div class="name">Chat</div>
                             </div>
                             <div class="app-module-item module-todos">
                                 <img src="/img/modules/todos.png">
+
                                 <div class="name">To-dos</div>
                             </div>
                             <div class="app-module-item module-notes">
                                 <img src="/img/modules/notes.png">
+
                                 <div class="name">Notes</div>
                             </div>
                             <div class="app-module-item module-scheduler">
                                 <img src="/img/modules/calendar.png">
+
                                 <div class="name">Scheduler</div>
                             </div>
                         </div>
                     </button>
-                    <button data-activates="app-left-menu" class="left-menu-btn menu-btn waves-orange button-collapse waves-effect waves-teal btn-flat left hide-on-large-only"><i
-                            class="mdi-navigation-menu"></i></button>
-                        {{>yield "topMenu"}}
+                    <button data-activates="app-left-menu"
+                            class="left-menu-btn menu-btn waves-orange button-collapse waves-effect waves-teal btn-flat left hide-on-large-only">
+                        <i
+                                class="mdi-navigation-menu"></i></button>
+			{{>yield "topMenu"}}
                     <div class="clear"></div>
 
                 </div>
             </nav>
 
             <div id="application-content">
-                    {{> yield}}
+		    {{> yield}}
             </div>
 
 

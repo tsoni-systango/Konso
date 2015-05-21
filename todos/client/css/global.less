@@ -2,6 +2,7 @@
 // Global Styles
 @import 'import';
 @import 'vars';
+
 // Import Roboto Font // -----------------------------------
 //@import url(//fonts.useso.com/css?family=Roboto:300,400,400italic,500,700,700italic);
 
@@ -29,6 +30,7 @@ a {
 
 h1, h2, h3, h4, h5 {
   margin: 0;
+  font-weight: 300;
 }
 
 h2 {
@@ -38,9 +40,6 @@ h2 {
 img {
   width: 100%;
 }
-
-
-
 
 label {
   color: @color-black-light;
@@ -63,7 +62,7 @@ ul {
   float: right;
 }
 
-.halign{
+.halign {
   margin: 0px auto;
   display: block;
 }
@@ -77,7 +76,7 @@ ul {
   padding: 9px 0 0 8px;
 }
 
-.ellipsis{
+.ellipsis {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -93,6 +92,13 @@ ul {
   bottom: 0px;
   left: 0px;
   right: 0px;
+}
+
+button.btn-small {
+  width: 30px;
+  padding: 0px;
+  height: 30px;
+  line-height: normal;
 }
 
 .relative {
@@ -145,8 +151,8 @@ div[action-buttons] {
   background: rgba(82, 110, 156, 1);
 }
 
-.hide{
- display: none;
+.hide {
+  display: none;
 }
 
 /*main-drawer-panel*/
@@ -171,7 +177,7 @@ div[action-buttons] {
       background-color: @color-primary;
       color: @color-white;
       padding: 0 5px;
-      paper-icon-button{
+      paper-icon-button {
         margin: 3px;
         padding: 5px;
       }
@@ -208,16 +214,16 @@ div[action-buttons] {
   color: #796F0C;;
 }
 
-body.dragging{
-  .drop-zone{
+body.dragging {
+  .drop-zone {
     display: flex !important;
   }
 }
 
-.attachment-view{
+.attachment-view {
   z-index: 14;
   background-color: @color-black;
-  .control-panel{
+  .control-panel {
     color: white;
     border-bottom: @color-white-light 1px solid;
     background-color: @color-black-lighter;
@@ -228,16 +234,16 @@ body.dragging{
     text-align: center;
     justify-content: center;
     align-items: center;
-    paper-fab{
+    paper-fab {
       background-color: #98C0D4;
     }
-    .btn-close{
-       position: absolute;
+    .btn-close {
+      position: absolute;
       right: 0px;
-      top:5px;
+      top: 5px;
     }
   }
-  .content{
+  .content {
     display: flex;
     text-align: center;
     justify-content: center;
@@ -248,19 +254,21 @@ body.dragging{
     bottom: 10px;
     left: 10px;
     right: 10px;
-    img{
+    img {
       width: initial;
       height: initial;
     }
   }
 }
+
 #settings {
-  z-index: 15;
+  z-index: 999;
+  overflow: auto;
   padding: 10px;
   background-color: @color-white;
 
-  h1 {
-    font-weight: 300;
+  h4 {
+    font-weight: 200;
   }
   #close-settings-btn {
     position: absolute;
@@ -269,7 +277,7 @@ body.dragging{
   }
   #settings-content {
     padding: 20px;
-    h3 {
+    h5 {
       font-weight: 100;
       span {
         font-size: 0.7em;
@@ -285,9 +293,9 @@ body.dragging{
         margin-top: -5px;
       }
     }
-    .settings-alert{
+    .settings-alert {
       float: right;
-      core-icon{
+      core-icon {
         margin: 0 5px;
       }
     }
@@ -305,34 +313,55 @@ body.dragging{
         }
       }
     }
+    .settings-alert {
+      span {
+        font-size: 0.9rem;
+        position: relative;
+        i {
+          position: absolute;
+          top: -13px;
+          left: -45px;
+          font-size: 2rem;
+        }
+      }
+    }
+    .col.warnings {
+      margin-top: 14px;
+      min-width: 200px;
+    }
     .embeddable-script {
+      div.col {
+        min-width: 200px;
+        min-height: 100px;
+        margin-bottom: 20px;
+      }
       min-height: 200px;
-      paper-radio-group {
+      .radio-group {
         position: absolute;
       }
       .horizontal {
         width: 200px;
-        position: absolute;
-        top: 40px;
+        top: 39px;
+        left: 1px;
         z-index: 2;
       }
       .vertical {
         width: 100px;
-        position: absolute;
         top: 0px;
         left: 38px;
-        paper-radio-button {
+        .input {
           margin: 10px;
         }
       }
       .sizes {
-        margin-top: 120px;
-        paper-slider {
-          margin-right: 20px;
+        .range-field {
+          .thumb {
+            display: none !important;
+          }
         }
       }
       .script-content {
-        position: absolute;
+
         top: 10px;
         left: 175px;
         height: 120px;
@@ -340,7 +369,8 @@ body.dragging{
         background: #eee;
         overflow: auto;
         padding: 10px;
-        width: 450px;
+        min-width: 200px;
+        font-size: 12px;
         font-family: "Lucida Console", Monaco, monospace;
       }
     }
@@ -351,223 +381,25 @@ body.dragging{
   padding-left: @left-menu-width;
 }
 
-@media only screen and (max-width : 992px) {
-  #application-content,#main-drawer-panel {
+@media only screen and (max-width: 992px) {
+  #application-content, #main-drawer-panel {
     padding-left: 0;
     left: 0px !important;
   }
 }
-#application-content{
+
+#application-content {
   position: absolute;
   top: @header-height;
   bottom: 0px;
   left: @left-menu-width;
   right: 0px;
 }
-#app-left-menu{
-  background: rgb(36, 35, 32);
-  color: white;
-  .left-menu {
-    ::-webkit-input-placeholder { /* WebKit browsers */
-      color:    #fff;
-      opacity:  0.1;
-    }
-    :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-      color:    #fff;
-      opacity:  0.1;
-    }
-    ::-moz-placeholder { /* Mozilla Firefox 19+ */
-      color:    #fff;
-      opacity:  0.1;
-    }
-    :-ms-input-placeholder { /* Internet Explorer 10+ */
-      color:    #fff;
-      opacity:  0.1;
-    }
-    a {
-      height: auto;
-      line-height: normal;
-      padding: 0;
-      color: white;
-    }
 
-    .filter-dialogs {
-      width: 100%;
-      padding-top: 0;
-      margin: 0px;
-      input {
-        width: 120px;
-        padding: 0px;
-      }
-      i{
-        left: 5px;
-        top: 5px;
-      }
-    }
-    .filter-dialogs[focused] {
-      core-icon {
-        color: white;
-      }
-    }
-
-    .chat-left-menu {
-      line-height: normal;
-      position: absolute;
-      top: 110px;
-      left: 0px;
-      right: 0px;
-      bottom: 0px;
-      overflow-y: auto;
-      overflow-x: visible;
-      padding: 0 24px 20px 0px;
-
-      h6 {
-        margin: 20px 0 7px 13px;
-        font-weight: 100;
-      }
-
-      .notexists {
-        font-size: .8rem;
-        color: #aaa;
-        margin-left: 13px;
-      }
-
-      h3 paper-icon-button {
-        float: right;
-        margin-top: -10px;
-        color: rgb(82, 82, 82);
-        margin-right: -15px;
-      }
-
-    }
-
-    .other-dialogs {
-      .expand-title {
-        display: none;
-      }
-      .expandable {
-        display: none;
-        position: relative;
-        .dialog-item {
-          width: 200px;
-          .name {
-            width: 136px;
-          }
-          .last-message {
-            width: 181px;
-          }
-        }
-        .expandable-toggle {
-          position: absolute;
-          top: 0px;
-          bottom: 0px;
-          right: -15px;
-          width: 29px;
-          cursor: pointer;
-          background: rgba(82, 110, 156, 0.05);
-          .drop-up {
-            display: none;
-          }
-        }
-        .expandable-toggle:hover {
-          background: rgba(82, 110, 156, 0.3);
-          .drop-up {
-            padding: 2px;
-            display: block;
-            color: rgb(155, 156, 158);
-          }
-        }
-      }
-    }
-
-    .other-dialogs.hidden {
-
-      .expandable-toggle {
-        display: none;
-      }
-      .expand-title {
-        display: block;
-        text-align: right;
-        color: #ccc;
-        cursor: pointer;
-        text-decoration: underline;
-        font-size: 0.8em;
-      }
-      .expand-title:hover {
-        color: #eee;
-      }
-    }
-    .dialog-item.selected {
-      background: #2C3645;
-      color: white;
-      box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.37);
-    }
-    .dialog-item {
-      position: relative;
-      margin: 5px 0;
-      padding: 2px 10px 2px 12px;
-      border-radius: 0 3px 3px 0;
-      cursor: pointer;
-      width: 103%;
-
-      .persistence-indicator{
-        float: left;
-        margin: 1px 3px 0 0;
-      }
-
-      .name {
-        float: left;
-        width: 165px;
-        font-weight: bold;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        font-size: 0.9rem;
-      }
-      .unread {
-        float: right;
-        color: rgb(255, 174, 0);
-        font-weight: bold;
-      }
-      .last-message {
-        color: #aaa;
-        clear: both;
-        width: 210px;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        font-size: .8em;
-      }
-    }
-
-    .dialog-item.channel {
-      .name:before {
-        content: "#"
-      }
-
-      .name {
-        font-weight: 400;
-      }
-    }
-    .left-menu-toolbar {
-      height: @header-height;
-      background: #262D38;
-      .close-menu-btn {
-        display: none;
-      }
-      .logout-btn {
-        position: absolute;
-        right: 10px;
-        top: 12px;
-      }
-      .settings-btn {
-        position: absolute;
-        right: 50px;
-        top: 12px;
-      }
-    }
-  }
+.left-menu-toolbar {
+  height: @header-height;
 }
+
 #main-drawer-panel {
   position: absolute;
   z-index: 1;
@@ -576,8 +408,6 @@ body.dragging{
     display: none;
   }
 
-
-
   #app-menu {
     height: @header-height;
     background-color: @color-primary;
@@ -585,12 +415,14 @@ body.dragging{
   }
 }
 
-.w100{
-  width:100%;
+.w100 {
+  width: 100%;
 }
-.w80{
-  width:80%;
+
+.w80 {
+  width: 80%;
 }
-.w60{
-  width:60%;
+
+.w60 {
+  width: 60%;
 }

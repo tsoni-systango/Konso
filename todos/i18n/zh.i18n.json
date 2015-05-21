@@ -1,0 +1,23 @@
+{
+  "general":{
+
+  },
+  "chat":{
+    "messageInputPlaceholder": "输入信息",
+    "welcomeMessage": "选择聊天伙伴",
+    "userList":{
+      "searchUsers": "搜索用户"
+    },
+    "leftMenu":{
+      "searchDialogs": "搜索聊天",
+      "dialogs": "私聊",
+      "noDialogs": "没有任何私聊",
+      "rooms": "群聊",
+      "noRooms": "没有任何群聊",
+      "channels": "广播",
+      "noChannels": "没有任何广播",
+      "showMore": "演示更多"
+    }
+
+  }
+}

@@ -11,6 +11,15 @@ var CONNECTION_ISSUE_TIMEOUT = 5000;
 
 
 
+Template.globalLayout.events({
+	"click #main-dialog-ok": function(e, t){
+		t.$("#main-modal").find("form").submit();
+	},
+	"click #main-dialog-cancel": function(e, t){
+		GlobalUI.closeDialog();
+	}
+
+})
 Template.globalLayout.helpers({
     connected: function () {
         if (!Session.get(SHOW_CONNECTION_ISSUE_KEY)) {
@@ -33,7 +42,7 @@ Template.globalLayout.helpers({
 	}
 });
 
-Template.globalLayout.rendered = function(){
+Template.globalLayout.onRendered(function(){
 	var html = $('html'),
 		body = $('body'),
 		showDrag = false,
@@ -65,4 +74,4 @@ Template.globalLayout.rendered = function(){
 			GlobalUI.closeAttachmentView();
 		}
 	})
-}
+});

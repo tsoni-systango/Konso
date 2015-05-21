@@ -9,15 +9,8 @@
         </div>
 
         <form id="chat-message-form">
-
-
-            <textarea id="textarea1" class="materialize-textarea"></textarea>
-            <label for="textarea1">{{i18nTypeYourMessage}}</label>
-                
-
+            <textarea id="textarea1" placeholder="{{_ "chat.messageInputPlaceholder"}}" class="materialize-textarea"></textarea>
         </form>
-
-
-	    {{>dropZone}}
+        {{>dropZone}}
     </div>
 </template>

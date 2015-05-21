@@ -24,8 +24,8 @@
 		{{#if currentDialog}}
                     <div class='messages-container'>
                         <div class="messages-container-scroll" fit>
-                                <div id="space-filler"></div>
-                                <div id="messages-content">
+
+
                                         {{#if hasMoreMessages}}
                                             <div class="show-more">
                                                 Show more
@@ -40,8 +40,8 @@
                                         {{#each chatMessagesUnread}}
                                                 {{> chatMessage}}
                                         {{/each}}
-                                    <div id="last-message"></div>
-                                </div>
+
+
                         </div>
                     </div>
 			{{#unless Template.subscriptionsReady}}
@@ -53,7 +53,7 @@
 		{{else}}
                     <paper-button class="welcome-btn">
                     <span>
-                        {{i18nChooseUserToChat}}
+                        {{_ "chat.welcomeMessage"}}
                         <core-icon icon="chevron-right"></core-icon>
                     </span>
                     </paper-button>
@@ -62,14 +62,7 @@
         {{>loading}}
 {{/if}}
         </div>
-        <style>
-            .chat-message [mentions={{currentUser._id}}], .chat-message [mentions=all] {
-                background: #3b73af;
-                border: 1px solid #3b73af;
-                color: #fff;
-            }
-        </style>
-
+        {{> mentions_styles}}
     </div>
 
 </template>

@@ -108,6 +108,8 @@ Template.chatLeftMenu.events({
             data: {
                 type: DialogTypes.CHANNEL
             },
+            maxWidth: 400,
+            heading: "New Channel",
             template: 'createDialog'
         })
     },
@@ -116,6 +118,8 @@ Template.chatLeftMenu.events({
             data: {
                 type: DialogTypes.ROOM
             },
+            heading: "New Room",
+            maxWidth: 400,
             template: 'createDialog'
         })
     },

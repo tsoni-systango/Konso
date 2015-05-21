@@ -1,11 +1,11 @@
 <template name="chatLeftMenu">
     <div class="input-field col s6 filter-dialogs">
         <i class="mdi-action-search prefix small"></i>
-        <input placeholder="{{i18nSearchDialogs}}" type="text" class="validate">
+        <input placeholder="{{_ "chat.leftMenu.searchDialogs"}}" type="text" class="validate">
     </div>
     <div class='chat-left-menu'>
 
-        <h6>{{i18nDialogs}}</h6>
+        <h6>{{_ "chat.leftMenu.dialogs"}}</h6>
 
         <div>
 		{{#if dialogs.count}}
@@ -23,15 +23,15 @@
                                         <paper-icon-button icon="arrow-drop-up" class="drop-up"></paper-icon-button>
                                     </div>
                                 </div>
-                                <div class="expand-title">{{i18nShowMore}}{{i18nDialogs}}</div>
+                                <div class="expand-title">{{_ "chat.leftMenu.showMore"}}</div>
                             </div>
 			{{/if}}
 		{{else}}
-                    <span class="notexists">{{i18nNoMore}}{{i18nDialogs}}</span>
+                    <span class="notexists">{{_ "chat.leftMenu.noDialogs"}}</span>
 		{{/if}}
         </div>
-        <h6>{{i18nRooms}}
-            <paper-icon-button icon="add-box" class="create-room create-conversation"></paper-icon-button>
+        <h6>{{_ "chat.leftMenu.rooms"}}
+            <a class="btn-floating btn-flat right create-room waves-circle"><i class="mdi-content-add"></i></a>
         </h6>
 
         <div>
@@ -50,17 +50,17 @@
                                         <paper-icon-button icon="arrow-drop-up" class="drop-up"></paper-icon-button>
                                     </div>
                                 </div>
-                                <div class="expand-title">{{i18nShowMore}}{{i18nRooms}}</div>
+                                <div class="expand-title">{{_ "chat.leftMenu.showMore"}}</div>
                             </div>
 			{{/if}}
 		{{else}}
-                    <span class="notexists">{{i18nNoMore}}{{i18nRooms}}</span>
+                    <span class="notexists">{{_ "chat.leftMenu.noRooms"}}</span>
 		{{/if}}
         </div>
 
-        <h6>{{i18nChannels}}
+        <h6>{{_ "chat.leftMenu.channels"}}
             {{#if canCreateChannels}}
-            <paper-icon-button icon="add-box" class="create-channel"></paper-icon-button>
+                <a class="btn-floating btn-flat right create-channel"><i class="mdi-content-add"></i></a>
             {{/if}}
         </h6>
 
@@ -80,11 +80,11 @@
                                     <paper-icon-button icon="arrow-drop-up" class="drop-up"></paper-icon-button>
                                 </div>
                             </div>
-                            <div class="expand-title">{{i18nShowMore}}{{i18nRooms}}</div>
+                            <div class="expand-title">{{_ "chat.leftMenu.showMore"}}</div>
                         </div>
                     {{/if}}
 		{{else}}
-                    <span class="notexists">{{i18nNoMore}}{{i18nChannels}}</span>
+                    <span class="notexists">{{_ "chat.leftMenu.noChannels"}}</span>
 		{{/if}}
         </div>
     </div>

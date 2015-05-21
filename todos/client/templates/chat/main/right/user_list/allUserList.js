@@ -22,9 +22,6 @@ Template.allUserList.helpers({
         }
         return Meteor.users.find({_id: {$ne: Meteor.userId()}},
             {sort: {"profile.sortName": 1} });
-    },
-    i18nSearchUsers : function () {
-        return '搜索用户';
     }
 })  
 

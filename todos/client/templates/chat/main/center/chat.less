@@ -24,7 +24,7 @@
 
     .chat-input-wrapper {
       flex-grow: 0;
-      padding: 0 10px;
+      padding: 5px 10px 0 10px;
       position: relative;
       .drop-zone {
         display: none;
@@ -114,7 +114,9 @@
       position: relative;
       flex-grow: 1;
       .messages-container-scroll {
-        overflow: auto;
+        display: flex;
+        flex-direction: column-reverse;
+        overflow-y: auto;
         .show-more {
           text-align: center;
           text-transform: uppercase;
@@ -125,6 +127,7 @@
           background: rgb(238, 238, 238);
         }
         .chat-message {
+          flex-shrink: 0;
           display: block;
           width: 100%;
           padding: 8px 0px;
