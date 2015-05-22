@@ -34,7 +34,11 @@ Template.registerHelper("isEmbeddedChat", function () {
 })
 
 Template.layout.onRendered(function(){
-    $(".left-menu-btn").sideNav({
+    $(".a-right-menu-btn").sideNav({
+        menuWidth: 180,
+        edge: 'right'
+    });
+    $(".a-left-menu-btn").sideNav({
         menuWidth: 250
     });
     $('#app-modules-btn').dropdown({

@@ -5151,13 +5151,13 @@ html {
   color: rgba(0, 0, 0, 0.87); }
   @media only screen and (min-width: 0) {
     html {
-      font-size: 14px; } }
+      font-size: 12px; } }
   @media only screen and (min-width: 992px) {
     html {
-      font-size: 14px; } }
+      font-size: 12px; } }
   @media only screen and (min-width: 1200px) {
     html {
-      font-size: 14px; } }
+      font-size: 12px; } }
 
 h1, h2, h3, h4, h5, h6 {
   font-weight: 300; }
@@ -5597,7 +5597,9 @@ small {
 
 .btn i, .btn-large i, .btn-floating i, .btn-large i, .btn-flat i {
   font-size: 1.3rem;
-  line-height: inherit; }
+  line-height: normal;
+  display: inline;
+}
 
 .btn, .btn-large {
   text-decoration: none;
@@ -5631,11 +5633,11 @@ small {
   vertical-align: middle; }
   .btn-floating i {
     width: inherit;
-    display: inline-block;
+    display: inline;
     text-align: center;
     color: #FFF;
-    font-size: 1.6rem;
-    line-height: 37px; }
+    font-size: 1.2rem;
+    line-height: normal; }
   .btn-floating:before {
     border-radius: 0; }
   .btn-floating.btn-large {
@@ -6750,9 +6752,6 @@ select {
   top: 0;
   margin: 0;
   height: 100%;
-  height: calc(100% + 60px);
-  height: -moz-calc(100%);
-  padding-bottom: 60px;
   background-color: #FFF;
   z-index: 999;
   overflow-y: auto;

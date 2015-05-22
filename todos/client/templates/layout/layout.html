@@ -23,6 +23,11 @@
                     </div>
                 </div>
             </ul>
+            <ul id="app-right-menu" edge="right" class="side-nav fixed right-aligned">
+                <div class="right-menu">
+                        {{>yield "rightMenu"}}
+                </div>
+            </ul>
             <nav id="main-drawer-panel">
                 <ul class="right hide-on-med-and-down">
 			{{#unless isEmbeddedChat}}
@@ -31,7 +36,7 @@
                 </ul>
                 <div id="app-menu">
 
-                    <button class="menu-btn waves-orange waves-effect waves-teal btn-flat right hide-on-large-only"><i
+                    <button data-activates="app-right-menu" class="a-right-menu-btn menu-btn waves-orange waves-effect waves-teal btn-flat right hide-on-large-only"><i
                             class="mdi-navigation-more-vert"></i></button>
                     <button data-activates='app-modules' id='app-modules-btn'
                             class="menu-btn waves-orange waves-effect waves-teal btn-flat right"><i
@@ -61,7 +66,7 @@
                         </div>
                     </button>
                     <button data-activates="app-left-menu"
-                            class="left-menu-btn menu-btn waves-orange button-collapse waves-effect waves-teal btn-flat left hide-on-large-only">
+                            class="a-left-menu-btn menu-btn waves-orange button-collapse waves-effect waves-teal btn-flat left hide-on-large-only">
                         <i
                                 class="mdi-navigation-menu"></i></button>
 			{{>yield "topMenu"}}

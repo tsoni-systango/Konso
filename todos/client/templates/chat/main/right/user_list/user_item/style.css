@@ -2,11 +2,13 @@
 	padding: 5px 10px;
 	position: relative;
 	cursor: pointer;
+    width: 100%;
     border-bottom: 1px solid #eee;
 }
 
 .general-user-item .presence-indicator {
     float: left;
+    margin-top: 3px;
 }
 
 .general-user-item .presence-indicator core-icon {
@@ -16,10 +18,7 @@
 	color: rgb(87, 150, 28);
 	width: 15px;
 }
-.general-user-item .user-avatar img{
-	width:40px;
-	height: 40px;
-}
+
 .general-user-item .username{
 	float: left;
     margin: 3px;
@@ -28,19 +27,20 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+.general-user-item .loader{
+	width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
 
 .general-user-item .user-to-dialog-btn {
     position: absolute;
     top: 1px;
     right: 0px;
     padding: 5px;
-    color: #ccc;
 }
-
-.general-user-item .add-to-dialog:hover {
-    color: green;;
-}
-
-.general-user-item .remove-from-dialog:hover {
-    color: #A93D34;
+.general-user-item .user-to-dialog-btn i{
+    color: #ccc !important;
 }

@@ -1,20 +1,21 @@
 <template name='generalUserItem'>
     {{#if isVisible}}
-        <div class="general-user-item">
+        <div class="general-user-item waves-effect">
             <div class="presence-indicator">
                 {{>persistenceIndicator userId=this._id}}
             </div>
             <div class='username'>{{username}}</div>
-            <paper-ripple fit></paper-ripple>
-            {{#if isUserCouldBeAdded}}
-                <paper-icon-button class=" user-to-dialog-btn add-to-dialog" icon="add-circle-outline"
-                                   title="Add to current dialog">
-                </paper-icon-button>
-            {{/if}}
-            {{#if isUserCouldBeRemoved}}
-                <paper-icon-button class=" user-to-dialog-btn remove-from-dialog" icon="highlight-remove"
-                                   title="Remove from current dialog">
-                </paper-icon-button>
+            {{#if isProcessingUser}}
+                <div class="loader">
+                    {{>loading_small fit=true}}
+                </div>
+            {{else}}
+                {{#if isUserCouldBeAdded}}
+                    <button class="user-to-dialog-btn add-to-dialog btn-flat btn-floating waves-effect waves-light btn-small"><i class="mdi-content-add"></i></button>
+                {{/if}}
+                {{#if isUserCouldBeRemoved}}
+                    <button class="user-to-dialog-btn remove-from-dialog btn-flat btn-floating waves-effect waves-light btn-small"><i class="mdi-action-highlight-remove"></i></button>
+                {{/if}}
             {{/if}}
             <div class="clear"></div>
         </div>

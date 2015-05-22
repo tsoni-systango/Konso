@@ -379,12 +379,15 @@ body.dragging {
 
 #main-drawer-panel {
   padding-left: @left-menu-width;
+  padding-right: @right-menu-width;
 }
 
 @media only screen and (max-width: 992px) {
   #application-content, #main-drawer-panel {
     padding-left: 0;
+    padding-right: 0;
     left: 0px !important;
+    right: 0px !important;
   }
 }
 
@@ -393,7 +396,7 @@ body.dragging {
   top: @header-height;
   bottom: 0px;
   left: @left-menu-width;
-  right: 0px;
+  right: @right-menu-width;
 }
 
 .left-menu-toolbar {

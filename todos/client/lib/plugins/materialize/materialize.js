@@ -3606,6 +3606,7 @@ Materialize.toast = function (message, displayLength, className, completeCallbac
 
     var methods = {
         init: function (options) {
+
             var defaults = {
                 menuWidth: 240,
                 edge: 'left',
@@ -3639,7 +3640,11 @@ Materialize.toast = function (message, displayLength, className, completeCallbac
                 // If fixed sidenav, bring menu out
                 if (menu_id.hasClass('fixed')) {
                     if ($(window).width() > 992) {
-                        menu_id.css('left', 0);
+                        if (options.edge == 'left') {
+                            menu_id.css('left', 0);
+                        } else{
+                            menu_id.css('right', 0);
+                        }
                     }
                 }
 

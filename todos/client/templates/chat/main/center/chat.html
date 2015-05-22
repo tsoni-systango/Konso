@@ -1,68 +1,71 @@
 <template name="chat">
     <div class="chat" fit>
-
+            {{#contentFor "rightMenu"}}
+                    {{>allUserList}}
+            {{/contentFor}}
         <div class='chat-content'>
-{{#if Template.subscriptionsReady}}
+		{{#if Template.subscriptionsReady}}
 
-{{#contentFor "topMenu"}}
-            <div class="dialog-menu">
-		    {{#if isEmbeddedChat}}
-                        <paper-icon-button title="Open menu" class="left toggle-main-menu" icon="menu"
-                                           onclick="GlobalUI.toggleLeftMenu()"></paper-icon-button>
-		    {{/if}}
-                        <span class="left name">{{currentDialogName}}</span>
+			{{#contentFor "topMenu"}}
+                            <div class="dialog-menu">
+				    {{#if isEmbeddedChat}}
+                                        <paper-icon-button title="Open menu" class="left toggle-main-menu" icon="menu"
+                                                           onclick="GlobalUI.toggleLeftMenu()"></paper-icon-button>
+				    {{/if}}
+                                <span class="left name">{{currentDialogName}}</span>
 
-		    {{#if isEmbeddedChat}}
-                        <paper-icon-button icon="editor:vertical-align-bottom"
-                                           class="right minify-btn"></paper-icon-button>
-                        <paper-icon-button icon="communication:call-made"
-                                           class="right maximize-btn hide"></paper-icon-button>
-		    {{/if}}
-                <paper-icon-button icon="supervisor-account" class="right all-users-button"></paper-icon-button>
-            </div>
-{{/contentFor}}
-		{{#if currentDialog}}
-                    <div class='messages-container'>
-                        <div class="messages-container-scroll" fit>
+				    {{#if isEmbeddedChat}}
+                                        <paper-icon-button icon="editor:vertical-align-bottom"
+                                                           class="right minify-btn"></paper-icon-button>
+                                        <paper-icon-button icon="communication:call-made"
+                                                           class="right maximize-btn hide"></paper-icon-button>
+				    {{/if}}
+                                <paper-icon-button icon="supervisor-account"
+                                                   class="right all-users-button"></paper-icon-button>
+                            </div>
+			{{/contentFor}}
+			{{#if currentDialog}}
+                            <div class='messages-container'>
+                                <div class="messages-container-scroll" fit>
 
 
-                                        {{#if hasMoreMessages}}
+					{{#if hasMoreMessages}}
                                             <div class="show-more">
                                                 Show more
                                             </div>
-                                        {{/if}}
-                                        {{#each chatMessages}}
-                                                {{> chatMessage}}
-                                        {{/each}}
-                                        {{#if hasUnreadMessages}}
+					{{/if}}
+					{{#each chatMessages}}
+						{{> chatMessage}}
+					{{/each}}
+					{{#if hasUnreadMessages}}
                                             <div id="unread-separator"></div>
-                                        {{/if}}
-                                        {{#each chatMessagesUnread}}
-                                                {{> chatMessage}}
-                                        {{/each}}
+					{{/if}}
+					{{#each chatMessagesUnread}}
+						{{> chatMessage}}
+					{{/each}}
 
 
-                        </div>
-                    </div>
-			{{#unless Template.subscriptionsReady}}
-                            <div class="fader" fit layout>
-                                <paper-spinner active></paper-spinner>
+                                </div>
                             </div>
-			{{/unless}}
-			{{> chatTextArea}}
-		{{else}}
-                    <paper-button class="welcome-btn">
+				{{#unless Template.subscriptionsReady}}
+                                    <div class="fader" fit layout>
+                                        <paper-spinner active></paper-spinner>
+                                    </div>
+				{{/unless}}
+				{{> chatTextArea}}
+			{{else}}
+                            <paper-button class="welcome-btn">
                     <span>
                         {{_ "chat.welcomeMessage"}}
                         <core-icon icon="chevron-right"></core-icon>
                     </span>
-                    </paper-button>
+                            </paper-button>
+			{{/if}}
+		{{else}}
+			{{>loading}}
 		{{/if}}
-{{else}}
-        {{>loading}}
-{{/if}}
         </div>
-        {{> mentions_styles}}
+	    {{> mentions_styles}}
     </div>
 
 </template>

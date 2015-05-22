@@ -1,12 +1,16 @@
-Template.generalUserItem.created = function () {
+Template.generalUserItem.onCreated(function () {
     this.name = Utils.getUsername(this.data);
-}
+    this.isProcessingUser = new ReactiveVar(false);
+});
 Template.generalUserItem.helpers({
     avatarUrl: function () {
         return '/icon/user/rand_1.png';
     },
     username: function () {
         return Template.instance().name;
+    },
+    isProcessingUser: function () {
+        return Template.instance().isProcessingUser.get();
     },
     isVisible: function () {
         var filterString = IM.getFilterUsersString();
@@ -32,17 +36,25 @@ Template.generalUserItem.helpers({
     }
 })
 Template.generalUserItem.events({
-    "click .general-user-item": function (e) {
+    "click .general-user-item": function (e, t) {
+        if(t.isProcessingUser.get()){
+            return false;
+        }
         var $tgt = $(e.target);
         var dialog = IM.getCurrentDialog();
-        if ($tgt.is(".add-to-dialog")) {
-            Meteor.call('addUserToDialog', dialog._id, this._id, GlobalUI.generalCallback());
-        } else if ($tgt.is(".remove-from-dialog")) {
-            Meteor.call('removeUserFromDialog', dialog._id, this._id, GlobalUI.generalCallback());
+        if ($tgt.closest(".add-to-dialog").length) {
+            t.isProcessingUser.set(true);
+            Meteor.call('addUserToDialog', dialog._id, this._id, GlobalUI.generalCallback(onProcessingComplete));
+        } else if ($tgt.closest(".remove-from-dialog").length) {
+            t.isProcessingUser.set(true);
+            Meteor.call('removeUserFromDialog', dialog._id, this._id, GlobalUI.generalCallback(onProcessingComplete));
         } else {
             Meteor.call('initOneToOneDialog', this._id, GlobalUI.generalCallback(function (dialogId) {
                 Router.go("chat", {id: dialogId});
             }));
+        }
+        function onProcessingComplete(){
+            t.isProcessingUser.set(false);
         }
     }
 })
