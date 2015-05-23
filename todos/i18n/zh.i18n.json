@@ -1,5 +1,6 @@
 {
   "connection":{
+    "online": "You are now online",
     "connecting":{
       "title": "Trying to connect",
       "text": "There seems to be a connection issue"
