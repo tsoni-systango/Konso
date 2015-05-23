@@ -36,7 +36,6 @@ Template.globalLayout.onRendered(function () {
     var wasConnected = true;
     Meteor.setTimeout(function () {
         self.autorun(function () {
-            console.log(Meteor.status().status)
             if (Meteor.status().connected && !wasConnected) {
                 GlobalUI.htmlToast('<i class="light-green-text text-darken-1 mdi-hardware-cast-connected left small"></i> '+ TAPi18n.__("connection.online"))
             }

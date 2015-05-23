@@ -1,8 +1,8 @@
 <template name="chat">
     <div class="chat" fit>
-            {{#contentFor "rightMenu"}}
-                    {{>allUserList}}
-            {{/contentFor}}
+	    {{#contentFor "rightMenu"}}
+		    {{>allUserList}}
+	    {{/contentFor}}
         <div class='chat-content'>
 		{{#if Template.subscriptionsReady}}
 
@@ -27,31 +27,22 @@
 			{{#if currentDialog}}
                             <div class='messages-container'>
                                 <div class="messages-container-scroll" fit>
-
-
 					{{#if hasMoreMessages}}
                                             <div class="show-more">
                                                 Show more
                                             </div>
 					{{/if}}
-					{{#each chatMessages}}
+					{{#each chatMessagesUnread}}
 						{{> chatMessage}}
 					{{/each}}
 					{{#if hasUnreadMessages}}
                                             <div id="unread-separator"></div>
 					{{/if}}
-					{{#each chatMessagesUnread}}
+					{{#each chatMessages}}
 						{{> chatMessage}}
 					{{/each}}
-
-
                                 </div>
                             </div>
-				{{#unless Template.subscriptionsReady}}
-                                    <div class="fader" fit layout>
-                                        <paper-spinner active></paper-spinner>
-                                    </div>
-				{{/unless}}
 				{{> chatTextArea}}
 			{{else}}
                             <paper-button class="welcome-btn">

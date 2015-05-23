@@ -1,14 +1,18 @@
 <template name="chatAttachment">
     <div class="attachment">
 	    {{#if Template.subscriptionsReady}}
-                <div class="picture" >
+                <div class="picture">
 			{{#if isImage}}
                             <img src="{{url}}">
-                            <paper-fab mini class="btn-send" icon="search" download onClick="GlobalUI.openAttachmentView('{{_id}}')"></paper-fab>
-                                {{else}}
-                            <paper-fab mini class="btn-send" icon="file-download" download onClick="window.open('{{url}}&download');return false;"></paper-fab>
+                            <button class="btn-view btn-floating" onClick="GlobalUI.openAttachmentView('{{_id}}')">
+                                <i class="mdi-action-pageview"></i>
+                            </button>
+			{{else}}
+                            <button class="btn-download btn-floating"
+                                    onClick="window.open('{{url}}&download');return false;">
+                                <i class="mdi-file-file-download"></i>
+                            </button>
 			{{/if}}
-
                 </div>
                 <div title="{{name}}" class="attachment-name ellipsis">
 			{{name}}
