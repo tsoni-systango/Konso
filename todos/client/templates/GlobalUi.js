@@ -7,6 +7,9 @@ this.GlobalUI = (function () {
     GlobalUI.toast = function (text) {
         Materialize.toast(text.replace(/[<>]/g, "'"), 3000);
     };
+    GlobalUI.htmlToast = function (text) {
+        Materialize.toast(text, 3000);
+    };
     GlobalUI.errorToast = function (text) {
         Materialize.toast('<i class="mdi-alert-error error-color left small"></i>'+text.replace(/[<>]/g, "'"), 3000)
     };

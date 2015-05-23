@@ -1,33 +1,47 @@
 <template name="globalLayout">
     <div id="application" fit>
         <div id="style-block"></div>
-	    {{#unless connected}}
-                <div class="notifications">
-                    <div class="notification">
-                        <span class="icon-sync"></span>
-
-                        <div class="meta">
-                            <div class="title-notification">Trying to connect</div>
-                            <div class="description">There seems to be a connection issue</div>
+	    {{#unless isStatus "connected"}}
+                <div class="connection-issue row">
+                    <div class="warning left  center-align">
+                        <div class="progress-container">
+                        {{#if isStatus "connecting"}}
+                            {{> loading_small fit=true}}
+                        {{/if}}
+                            {{#if isStatus "failed"}}
+                                <i class="red-text text-darken-4 mdi-alert-error"></i>
+                        {{/if}}
+                            {{#if isStatus "waiting"}}
+                                {{> loading_small fit=true}}
+                        {{/if}}
+                            {{#if isStatus "offline"}}
+                                <i class="red-text text-darken-4 mdi-alert-error"></i>
+                            {{/if}}
                         </div>
+                    </div>
+                    <div class="description left">
+                        {{#if isStatus "connecting"}}
+                            <h5>{{ _ "connection.connecting.title"}}</h5>
+                            <span>{{ _ "connection.connecting.text"}}</span>
+                        {{/if}}
+                        {{#if isStatus "failed"}}
+                            <h5>{{ _ "connection.failed.title"}}</h5>
+                            <span>{{ _ "connection.failed.text"}}</span>
+                        {{/if}}
+                        {{#if isStatus "waiting"}}
+                            <h5>{{ _ "connection.connecting.title"}}</h5>
+                            <span>{{ _ "connection.connecting.text"}}</span>
+                        {{/if}}
+                        {{#if isStatus "offline"}}
+                            <h5>{{ _ "connection.offline.title"}}</h5>
+                            <span>{{ _ "connection.offline.text"}}</span>
+                        {{/if}}
                     </div>
                 </div>
 	    {{/unless}}
 
 
 	    {{> UI.contentBlock}}
-
-
-
-        <paper-action-dialog global-dialog layered backdrop
-                             transition="paper-dialog-transition-bottom"
-                class={{#if isDialogFullscreen}}fullscreen{{/if}}>
-
-            <paper-progress style="display: {{progressCSSDisplay}}" indeterminate=""></paper-progress>
-
-            <div class="modal-content" style="display: {{contentCSSDisplay}}"></div>
-
-        </paper-action-dialog>
 
         <!-- Basic modal -->
         <div id="main-modal" class="modal">
@@ -49,7 +63,9 @@
         <div id="settings-modal" class="modal bottom-sheet" style="max-height: 100%;">
             <div class="modal-content" id="settings">
                 <h4 class="modal-header">Settings
-                    <button id="close-settings-btn" class="btn-flat btn-floating waves-effect waves-light btn-large" onclick="GlobalUI.closeSettings()"><i class="mdi-navigation-close teal-text text-darken-4"></i></button>
+                    <button id="close-settings-btn" class="btn-flat btn-floating waves-effect waves-light btn-large"
+                            onclick="GlobalUI.closeSettings()"><i
+                            class="mdi-navigation-close teal-text text-darken-4"></i></button>
                 </h4>
 
 		    {{#if showSettings}}

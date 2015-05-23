@@ -82,6 +82,33 @@ ul {
   text-overflow: ellipsis;
 }
 
+.connection-issue{
+  position: fixed;
+  background: rgba(0,0,0,0.8);
+  padding: 10px;
+  z-index: 1100;
+  color: white;
+  right: 10%;
+  top: 5%;
+  .warning{
+    margin: 10px;
+    width: 37px;
+    i{
+      font-size: 25px;
+      margin: auto;
+    }
+    .progress-container{
+      margin-top: 5px;
+      position: relative;
+      width: 30px;
+      height: 30px;
+    }
+  }
+  .description{
+    width: 210px;
+  }
+}
+
 .error {
   color: @color-error;
 }

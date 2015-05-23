@@ -1,4 +1,18 @@
 {
+  "connection":{
+    "connecting":{
+      "title": "Trying to connect",
+      "text": "There seems to be a connection issue"
+    },
+    "failed":{
+      "title": "Failed to connect",
+      "text": "The client and server support different versions of DDP"
+    },
+    "offline":{
+      "title": "You are offline",
+      "text": "User has disconnected the connection"
+    }
+  },
   "general":{
 
   },
