@@ -3624,17 +3624,18 @@ Materialize.toast = function (message, displayLength, className, completeCallbac
                 }
 
                 // Add Touch Area
-                $('body').append($('<div class="drag-target"></div>'));
+                var dragTarget = $('<div class="drag-target"></div>');
+                $('body').append(dragTarget);
 
                 if (options.edge == 'left') {
                     menu_id.css('left', -1 * (options.menuWidth + 10));
-                    $('.drag-target').css({'left': 0}); // Add Touch Area
+                    dragTarget.css({'left': 0}); // Add Touch Area
                 }
                 else {
                     menu_id.addClass('right-aligned') // Change text-alignment to right
                         .css('right', -1 * (options.menuWidth + 10))
                         .css('left', '');
-                    $('.drag-target').css({'right': 0}); // Add Touch Area
+                    dragTarget.css({'right': 0}); // Add Touch Area
                 }
 
                 // If fixed sidenav, bring menu out
@@ -3689,7 +3690,7 @@ Materialize.toast = function (message, displayLength, className, completeCallbac
                     });
                     if (options.edge === 'left') {
                         // Reset phantom div
-                        $('.drag-target').css({width: '', right: '', left: '0'});
+                        dragTarget.css({width: '', right: '', left: '0'});
                         menu_id.velocity(
                             {left: -1 * (options.menuWidth + 10)},
                             {
@@ -3708,7 +3709,7 @@ Materialize.toast = function (message, displayLength, className, completeCallbac
                     }
                     else {
                         // Reset phantom div
-                        $('.drag-target').css({width: '', right: '0', left: ''});
+                        dragTarget.css({width: '', right: '0', left: ''});
                         menu_id.velocity(
                             {right: -1 * (options.menuWidth + 10)},
                             {
@@ -3731,14 +3732,13 @@ Materialize.toast = function (message, displayLength, className, completeCallbac
                 var panning = false;
                 var menuOut = false;
 
-                $('.drag-target').on('click', function () {
+                dragTarget.on('click', function () {
                     removeMenu();
                 })
 
-                $('.drag-target').hammer({
+                dragTarget.hammer({
                     prevent_default: false
                 }).bind('pan', function (e) {
-
                     if (e.gesture.pointerType == "touch") {
 
                         var direction = e.gesture.direction;
@@ -3827,7 +3827,7 @@ Materialize.toast = function (message, displayLength, className, completeCallbac
                                     queue: false,
                                     easing: 'easeOutQuad'
                                 });
-                                $('.drag-target').css({width: '50%', right: 0, left: ''});
+                                dragTarget.css({width: '50%', right: 0, left: ''});
                             }
                             else if (!menuOut || velocityX > 0.3) {
                                 menu_id.velocity({left: -1 * (options.menuWidth + 10)}, {
@@ -3841,7 +3841,7 @@ Materialize.toast = function (message, displayLength, className, completeCallbac
                                         $(this).remove();
                                     }
                                 });
-                                $('.drag-target').css({width: '10px', right: '', left: 0});
+                                dragTarget.css({width: '10px', right: '', left: 0});
                             }
                         }
                         else {
@@ -3852,7 +3852,7 @@ Materialize.toast = function (message, displayLength, className, completeCallbac
                                     queue: false,
                                     easing: 'easeOutQuad'
                                 });
-                                $('.drag-target').css({width: '50%', right: '', left: 0});
+                                dragTarget.css({width: '50%', right: '', left: 0});
                             }
                             else if (!menuOut || velocityX < -0.3) {
                                 menu_id.velocity({right: -1 * (options.menuWidth + 10)}, {
@@ -3866,7 +3866,7 @@ Materialize.toast = function (message, displayLength, className, completeCallbac
                                         $(this).remove();
                                     }
                                 });
-                                $('.drag-target').css({width: '10px', right: 0, left: ''});
+                                dragTarget.css({width: '10px', right: 0, left: ''});
                             }
                         }
 
@@ -3880,13 +3880,13 @@ Materialize.toast = function (message, displayLength, className, completeCallbac
                         removeMenu();
                     }
                     else {
-
+                        $("body").append(dragTarget)
                         if (options.edge === 'left') {
-                            $('.drag-target').css({width: '50%', right: 0, left: ''});
+                            dragTarget.css({width: '50%', right: 0, left: ''});
                             menu_id.velocity({left: 0}, {duration: 300, queue: false, easing: 'easeOutQuad'});
                         }
                         else {
-                            $('.drag-target').css({width: '50%', right: '', left: 0});
+                            dragTarget.css({width: '50%', right: '', left: 0});
                             menu_id.velocity({right: 0}, {duration: 300, queue: false, easing: 'easeOutQuad'});
                             menu_id.css('left', '');
                         }
