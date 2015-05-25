@@ -65,14 +65,29 @@ IM = new function () {
         return d ? d._id : null;
     };
 
-    self.getCurrentDialogUnreadTimestamp = function () {
-        var dialog = self.getCurrentDialog();
-        if (!dialog || !Meteor.user()) {
+    self.getDialogUnreadTimestamp = function (dialogId) {
+        var dialogId = dialogId || self.getCurrentDialogId();
+        if (!dialogId || !Meteor.user()) {
             return null;
         }
-        return Meteor.user().profile.readTimestamps[dialog._id] || 0;
+        var t = UserReadTimestamps.findOne({dialogId: dialogId});
+        return t ? t.timestamp : 0;
     };
-
+    self.setDialogUnreadTimestamp = function (timestamp, dialogId) {
+        var dialogId = dialogId || self.getCurrentDialogId();
+        if (!dialogId || !Meteor.user()) {
+            return null;
+        }
+        var t = UserReadTimestamps.findOne({dialogId: dialogId});
+        if(t){
+            UserReadTimestamps.update(t._id, {$set: {timestamp: timestamp}});
+        } else {
+            UserReadTimestamps.insert({dialogId: dialogId, timestamp: timestamp, userId: Meteor.userId()});
+        }
+    };
+    self.getCurrentDialogUnreadMessageCount = function(){
+        return self.unreadMessagesForDialogsMap[self.getCurrentDialogId()];
+    };
     self.getChatName = function (dialog) {
         if (!dialog) {
             return null;
@@ -91,39 +106,6 @@ IM = new function () {
             return _.reduce(dialogUsers, function (m, el) {
                 return m + " " + Utils.getUsername(el);
             }, "");
-        }
-    };
-    self.getCurrentDialogUnreadMessageCount = function(){
-        return self.unreadMessagesForDialogsMap[self.getCurrentDialogId()];
-    };
-    self.updateReadTimestamp = function (value) {
-        var profile = Meteor.user().profile;
-        var currentTimestamp = self.getCurrentDialogUnreadTimestamp();
-        var newValue = value || _.now();
-        if (newValue < currentTimestamp) {
-            return;
-        }
-        profile.readTimestamps[self.getCurrentDialog()._id] = value || _.now();
-        Meteor.users.update(Meteor.userId(),
-            {
-                $set: {
-                    profile: profile
-                }
-            });
-    };
-    self.evaluateAndUpdateReadTimestamp = function () {
-        if(!self.getCurrentDialogUnreadMessageCount()){
-            return;
-        }
-        var $messagesContainer = $('.messages-container');
-        var y = $messagesContainer.offset().top + $messagesContainer.height() - 10;
-        var x = $messagesContainer.offset().left + 5;
-        var el = $(document.elementFromPoint(x, y)).closest(".chat-message");
-        var created = Number(el.attr("created"));
-
-        if (created) {
-            console.log("updated read timestamp")
-            self.updateReadTimestamp(created);
         }
     };
 };

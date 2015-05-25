@@ -27,7 +27,7 @@ Template.dialogItem.created = function () {
         }
         Meteor.call("getUnreadMessagesCountForTimestamp",
             self.data._id,
-            Meteor.user().profile.readTimestamps[self.data._id] || 0,
+            IM.getDialogUnreadTimestamp(self.data._id),
             Meteor.user()._id, function (er, count) {
                 if(!er){
                     IM.unreadMessagesForDialogsMap[self.data._id] = count;

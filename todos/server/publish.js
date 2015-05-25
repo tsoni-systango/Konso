@@ -9,6 +9,11 @@ Meteor.publish("dialogs", function () {
         return Dialogs.find({$or: [{userIds: {$in: [this.userId]}}, {type: DialogTypes.CHANNEL}]});
     }
 });
+Meteor.publish("readTimestamps", function () {
+    if (this.userId) {
+        return UserReadTimestamps.find({userId: this.userId});
+    }
+});
 Meteor.publish("uploads", function (ids) {
     if (this.userId && ids) {
         return Uploads.find({_id: {$in: ids}});

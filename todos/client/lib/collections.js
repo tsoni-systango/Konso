@@ -3,3 +3,4 @@ Uploads = new FS.Collection("uploads", {
 });
 Messages = new Mongo.Collection('messages');
 Dialogs = new Mongo.Collection('dialogs');
+UserReadTimestamps = new Mongo.Collection("userReadTimestamps");

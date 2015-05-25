@@ -1,6 +1,7 @@
 Template.chatLeftMenu.created = function () {
     var self = this;
-    self.subscribe("dialogs")
+    self.subscribe("dialogs");
+    self.subscribe("readTimestamps");
     self.autorun(function () {
         $(".filter-dialogs input").val(IM.getFilterDialogsString());
     });

@@ -19,7 +19,6 @@ Template.chat.created = function () {
         self.subscribe("messages", dialogId, self.messagesToShow.get(), function(){
            GlobalUI.closeLeftMenu();
         });
-
     });
 }
 Template.chat.rendered = function () {
@@ -29,19 +28,8 @@ Template.chat.rendered = function () {
     self.$newMessageForm = self.$('#chat-message-form');
     self.$dialogMenu = self.$('.dialog-menu');
 
-//this is to mark messages read
-    var actionHappened;
-    self.intervalId = Meteor.setInterval(function () {
-        if (actionHappened) {
-            IM.evaluateAndUpdateReadTimestamp();
-            actionHappened = false;
-        }
-    }, 3000);
-    var debouncedTimestampUpdater = function () {
-        actionHappened = true;
-    }
-    self.$messagesContainer.on('track mousemove scroll click', debouncedTimestampUpdater);
-    self.$newMessageForm.on('keyup', debouncedTimestampUpdater);
+    self.readController = new ReadMessageController();
+
 //========================
 
     var onScrollDebounced = _.debounce(function () {
@@ -71,7 +59,7 @@ Template.chat.rendered = function () {
 }
 Template.chat.destroyed = function () {
     var self = this;
-    Meteor.clearInterval(self.intervalId);
+    self.readController.destroy();
     self.$messagesContainer.off()
     self.$newMessageForm.off()
 }
@@ -87,23 +75,9 @@ Template.chat.helpers({
         var currentDialog = IM.getCurrentDialog();
         if (currentDialog) {
             return Messages.find({
-                dialogId: currentDialog._id,
-                created: {$lte: IM.getCurrentDialogUnreadTimestamp()}
+                dialogId: currentDialog._id
             }, {sort: {"created": -1}});
         }
-    },
-    chatMessagesUnread: function () {
-        var currentDialog = IM.getCurrentDialog();
-        if (currentDialog) {
-            return Messages.find({
-                dialogId: currentDialog._id,
-                created: {$gt: IM.getCurrentDialogUnreadTimestamp()}
-            }, {sort: {"created": -1}});
-        }
-    },
-    hasUnreadMessages: function(){
-        var count = Messages.find({ownerId: {$ne: Meteor.userId()}, dialogId: IM.getCurrentDialogId(), created: {$gt: IM.getCurrentDialogUnreadTimestamp()}}).count();
-        return !!count;
     },
     currentDialogName: function () {
         return IM.getChatName(IM.getCurrentDialog());

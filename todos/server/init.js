@@ -15,9 +15,6 @@ Meteor.startup(function () {
         if (!user.profile.sortName) {
             Meteor.users.update(user._id, {$set: {"profile.sortName": user.profile.displayName.toLowerCase()}});
         }
-        if (!user.profile.readTimestamps) {
-            Meteor.users.update(user._id, {$set: {"profile.readTimestamps": {}}});
-        }
     });
 
     if(Meteor.settings.public.defaultAuth === AUTH_TYPES.CROWD) {
@@ -45,7 +42,6 @@ Accounts.onCreateUser(function (options, user) {
         user.profile.displayName = user.username;
     }
     user.profile.sortName = user.profile.displayName.toLowerCase();
-    user.profile.readTimestamps = {};
     user.type =
     console.log("Created new user", user.profile.displayName);
     return user;

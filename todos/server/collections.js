@@ -11,6 +11,15 @@
  */
 Dialogs = new Mongo.Collection("dialogs");
 /*
+ Read timestamps for dialogs
+ {
+ userId: Id of user
+ dialogId: Id of the dialog
+ timestamp: Timestamp
+ }
+ */
+UserReadTimestamps = new Mongo.Collection("userReadTimestamps");
+/*
  Messages Schema
  {
  created: Timestamp

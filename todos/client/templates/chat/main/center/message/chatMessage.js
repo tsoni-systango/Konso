@@ -41,7 +41,7 @@ Template.chatMessage.helpers({
         }
     },
     isUnread: function () {
-        var timestamp = IM.getCurrentDialogUnreadTimestamp();
+        var timestamp = IM.getDialogUnreadTimestamp();
         return this.created > timestamp && this.ownerId !== Meteor.userId();
     },
     time: function () {

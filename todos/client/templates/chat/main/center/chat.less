@@ -140,6 +140,11 @@
           cursor: pointer;
           background: rgb(238, 238, 238);
         }
+        .chat-message.unread {
+          .unread-indicator{
+            display: block;
+          }
+        }
         .chat-message {
           flex-shrink: 0;
           display: block;
@@ -170,6 +175,7 @@
             top: 0px;
             bottom: 0px;
             left: 0px;
+            display: none;
           }
 
           .chat-from {

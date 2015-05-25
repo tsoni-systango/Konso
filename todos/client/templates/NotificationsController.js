@@ -4,6 +4,7 @@
 NotificationsController = new function () {
     var self = this;
     this.emmitNotificationIfNeeded = function (dialog, message) {
+        console.log("checking")
         if (Meteor.userId() && isPossible()) {
             notifications.forEach(function (n) {
                 if (self.isNotificationActive(n.id) && n.show(dialog, message)) {
