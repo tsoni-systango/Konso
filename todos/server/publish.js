@@ -19,12 +19,25 @@ Meteor.publish("uploads", function (ids) {
         return Uploads.find({_id: {$in: ids}});
     }
 });
-Meteor.publish("messages", function (dialogId, limit) {
-    if (this.userId && dialogId) {
+Meteor.publish("messages", function (dialogId, opts) {
+    if (this.userId && dialogId && opts && opts.limit) {
         check(dialogId, String);
         isUserAuthorizedInDialog(Dialogs.findOne(dialogId), this.userId);
-        var limit = limit || 50;
-        return Messages.find({dialogId: dialogId}, {sort: {created: -1}, limit: limit, fields: {removedContent: false}});
+        console.log(opts)
+        if(opts.hasOwnProperty("fromDate")){
+            var fromDate = opts.fromDate;
+            var limit = opts.limit;
+            return Messages.find({dialogId: dialogId, created: {$gte: fromDate}}, {sort: {created: 1}, limit: limit, fields: {removedContent: false}});
+        } else{
+            var limit = opts.limit;
+            var skip =  opts.skip || 0;
+            if(opts.inverted){
+                return Messages.find({dialogId: dialogId}, {sort: {created: 1}, limit: limit, skip:skip,  fields: {removedContent: false}});
+            } else {
+                return Messages.find({dialogId: dialogId}, {sort: {created: -1}, limit: limit, skip:skip,  fields: {removedContent: false}});
+            }
+        }
+
     }
 });
 Meteor.publish("lastDialogMessage", function (dialogId) {

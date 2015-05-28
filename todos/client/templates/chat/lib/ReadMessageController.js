@@ -1,11 +1,12 @@
 ReadMessageController = function () {
     var chat = $("#chat");
+
     chat.idleTimer({
         timeout: 500,
         idle: true
     });
 
-    //we need this var to make sure activity was performed on one dialog. so user did not switch between
+    //we need this var to make sure activity was performed and dialog was not switched to another
     var dialogId;
     chat.on("active.idleTimer", onActivity);
     function onActivity(){
@@ -28,7 +29,12 @@ ReadMessageController = function () {
             }
         }
     }
-
+    this.pause = function(){
+        chat.idleTimer("pause");
+    }
+    this.resume = function(){
+        chat.idleTimer("resume");
+    }
     this.destroy = function () {
         chat.off();
         chat.idleTimer("destroy");

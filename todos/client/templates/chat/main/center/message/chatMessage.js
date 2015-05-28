@@ -8,7 +8,7 @@ Template.chatMessage.onCreated(function () {
 Template.chatMessage.destroyed = function () {
     $(window).off('mouseup', this.onWindowClick);
 }
-Template.chatMessage.rendered = function () {
+Template.chatMessage.onRendered(function () {
     var self = this;
     this.onWindowClick = function(e) {
         var tgt = $(e.target);
@@ -18,8 +18,7 @@ Template.chatMessage.rendered = function () {
         }
     };
     $(window).on('mouseup', this.onWindowClick);
-    $(this.firstNode).trigger("message-added");
-}
+})
 Template.chatMessage.helpers({
     ownerClass: function () {
         if (Meteor.userId() === this.ownerId) {

@@ -24,31 +24,43 @@
                                                    class="right all-users-button"></paper-icon-button>
                             </div>
 			{{/contentFor}}
-			{{#if currentDialog}}
-                            <div id="messages-container" class='messages-container'>
-                                <div class="messages-container-scroll" fit>
-					{{#if hasMoreMessages}}
-                                            <div class="show-more">
-                                                Show more
-                                            </div>
-					{{/if}}
-					{{#each chatMessages}}
-						{{> chatMessage}}
-					{{/each}}
-                                </div>
-                            </div>
-				{{> chatTextArea}}
-			{{else}}
-                            <paper-button class="welcome-btn">
-                    <span>
-                        {{_ "chat.welcomeMessage"}}
-                        <core-icon icon="chevron-right"></core-icon>
-                    </span>
-                            </paper-button>
-			{{/if}}
-		{{else}}
-			{{>loading}}
 		{{/if}}
+		{{#if currentDialog}}
+                    <div id="messages-container" class='messages-container'>
+                        <div class="messages-container-scroll" fit>
+				{{#unless isMessagesReady}}
+					{{>loading }}
+				{{else}}
+                                    <div class="messages">
+
+
+					    {{#each chatMessages}}
+
+						    {{> chatMessage}}
+
+					    {{/each}}
+
+                                        <script>
+                                            $("#chat").trigger(MESSAGES_READY_EVENT);
+                                        </script>
+
+                                    </div>
+				{{/unless}}
+                        </div>
+                    </div>
+
+
+
+		{{else}}
+
+                    <span>
+			    {{_ "chat.welcomeMessage"}}
+
+                    </span>
+
+		{{/if}}
+
+		{{> chatTextArea}}
         </div>
 	    {{> mentions_styles}}
     </div>

@@ -14,26 +14,51 @@ Meteor.methods({
         message.created = _.now();
         message._id = Messages.insert(message);
         Dialogs.update(dialogId, {$set: {updated: message.created}});
+        if (UserReadTimestamps.findOne({dialogId: dialogId, userId: Meteor.userId()})) {
+            UserReadTimestamps.update({
+                dialogId: dialogId,
+                userId: Meteor.userId()
+            }, {$set: {timestamp: message.created}});
+        } else {
+            UserReadTimestamps.insert({
+                dialogId: dialogId,
+                timestamp: message.created,
+                userId: Meteor.userId()
+            })
+        }
         return message;
     },
-    removeMessage: function(messageId){
+    removeMessage: function (messageId) {
         check(messageId, String);
         var message = Messages.findOne(messageId);
-        if(message.ownerId !== getCurrentUserOrDie()._id){
+        if (message.ownerId !== getCurrentUserOrDie()._id) {
             Errors.throw(Errors.PERMISSION_DENIED);
         }
-        Messages.update(messageId, {$set: {removed: true, text: null, attachmentIds:null, mentions: null, removedContent:{text: message.text, attachmentIds: message.attachmentIds, mentions: message.mentions}}});
+        Messages.update(messageId, {
+            $set: {
+                removed: true,
+                text: null,
+                attachmentIds: null,
+                mentions: null,
+                removedContent: {text: message.text, attachmentIds: message.attachmentIds, mentions: message.mentions}
+            }
+        });
     },
-    recoverMessage: function(messageId){
+    recoverMessage: function (messageId) {
         check(messageId, String);
         var message = Messages.findOne(messageId);
-        if(message.ownerId !== getCurrentUserOrDie()._id || !message.removed){
+        if (message.ownerId !== getCurrentUserOrDie()._id || !message.removed) {
             Errors.throw(Errors.PERMISSION_DENIED);
         }
-        Messages.update(messageId, {$set: {removed: false, text: message.removedContent.text, attachmentIds: message.removedContent.attachmentIds, mentions: message.removedContent.mentions, removedContent: null}});
-    },
-    getMessageCount: function (dialogId) {
-        return Messages.find({dialogId: dialogId}).count();
+        Messages.update(messageId, {
+            $set: {
+                removed: false,
+                text: message.removedContent.text,
+                attachmentIds: message.removedContent.attachmentIds,
+                mentions: message.removedContent.mentions,
+                removedContent: null
+            }
+        });
     },
     initOneToOneDialog: function (userId) {
         var currentUser = getCurrentUserOrDie();
@@ -62,14 +87,17 @@ Meteor.methods({
         }
         return dialog._id;
     },
+    getMessageCount: function (dialogId) {
+        return Messages.find({dialogId: dialogId}).count();
+    },
     getUnreadMessagesCountForTimestamp: function (dialogId, timestamp, excludeUserId) {
+        console.log(dialogId)
+        console.log(timestamp)
         check(dialogId, String);
         check(timestamp, Number);
-        check(excludeUserId, String);
         var count = Messages.find({
             dialogId: dialogId,
-            created: {$gt: timestamp},
-            ownerId: {$ne: excludeUserId}
+            created: {$gt: timestamp}
         }).count();
         return count;
     },
