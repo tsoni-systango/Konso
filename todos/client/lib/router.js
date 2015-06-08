@@ -28,13 +28,11 @@ Router.map(function () {
             "chatLeftMenu": {to: "leftMenu"}
 		},
 		waitOn: function () {
-			console.log("SUBSCRIBING")
-			var subs = [
+			return [
 				Meteor.subscribe('allUsers'),
 				Meteor.subscribe('dialogs'),
 				Meteor.subscribe('userPresences')
-			]
-			return subs;
+			];
 		},
 		onBeforeAction: function () {
 			if(this.params.id) {
