@@ -1,65 +1,57 @@
 <template name="chat">
     <div id="chat" class="chat" fit>
-	    {{#contentFor "rightMenu"}}
-		    {{>allUserList}}
-	    {{/contentFor}}
+        {{#contentFor "rightMenu"}}
+            {{>allUserList}}
+        {{/contentFor}}
         <div id="chat-content" class='chat-content'>
-		{{#if Template.subscriptionsReady}}
+            {{#if Template.subscriptionsReady}}
 
-			{{#contentFor "topMenu"}}
-                            <div class="dialog-menu">
+                {{#contentFor "topMenu"}}
+                    <div class="dialog-menu">
 
-                                <span class="left name">{{currentDialogName}}</span>
+                        <span class="left name">{{currentDialogName}}</span>
 
-				    {{#if isEmbeddedChat}}
-                                        <paper-icon-button icon="editor:vertical-align-bottom"
-                                                           class="right minify-btn"></paper-icon-button>
-                                        <paper-icon-button icon="communication:call-made"
-                                                           class="right maximize-btn hide"></paper-icon-button>
-				    {{/if}}
-                                <paper-icon-button icon="supervisor-account"
-                                                   class="right all-users-button"></paper-icon-button>
+                        {{#if isEmbeddedChat}}
+                            <paper-icon-button icon="editor:vertical-align-bottom"
+                                               class="right minify-btn"></paper-icon-button>
+                            <paper-icon-button icon="communication:call-made"
+                                               class="right maximize-btn hide"></paper-icon-button>
+                        {{/if}}
+                        <paper-icon-button icon="supervisor-account"
+                                           class="right all-users-button"></paper-icon-button>
+                    </div>
+                {{/contentFor}}
+            {{/if}}
+            <div id="messages-container" class='messages-container'>
+                {{#if currentDialog}}
+                    <div class="messages-container-scroll" fit>
+                        {{#unless isMessagesReady}}
+                            {{>loading }}
+                        {{else}}
+                            <div class="messages">
+                                {{#each chatMessages}}
+                                    {{> chatMessage}}
+                                {{/each}}
+                                <script>
+                                    $("#chat").trigger(MESSAGES_READY_EVENT);
+                                </script>
+
                             </div>
-			{{/contentFor}}
-		{{/if}}
-		{{#if currentDialog}}
-                    <div id="messages-container" class='messages-container'>
-                        <div class="messages-container-scroll" fit>
-				{{#unless isMessagesReady}}
-					{{>loading }}
-				{{else}}
-                                    <div class="messages">
+                        {{/unless}}
+                    </div>
+                {{else}}
+                    <div class="welcome-message">
+                        {{_ "chat.welcomeMessage"}}
 
-
-					    {{#each chatMessages}}
-
-						    {{> chatMessage}}
-
-					    {{/each}}
-
-                                        <script>
-                                            $("#chat").trigger(MESSAGES_READY_EVENT);
-                                        </script>
-
-                                    </div>
-				{{/unless}}
-                        </div>
                     </div>
 
-
-
-		{{else}}
-
-                    <span>
-			    {{_ "chat.welcomeMessage"}}
-
-                    </span>
-
-		{{/if}}
-
-		{{> chatTextArea}}
+                {{/if}}
+            </div>
+            {{#if currentDialog}}
+                {{> chatTextArea}}
+            {{/if}}
         </div>
-	    {{> mentions_styles}}
+        {{> mentions_styles}}
     </div>
 
 </template>

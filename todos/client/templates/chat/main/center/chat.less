@@ -127,6 +127,14 @@
       overflow: hidden;
       position: relative;
       flex-grow: 1;
+      .welcome-message{
+        position: absolute;
+        top: 45%;
+        font-size: 200%;
+        display: block;
+        width: 100%;
+        text-align: center;
+      }
       .messages-container-scroll {
         display: flex;
         flex-direction: column-reverse;
@@ -324,14 +332,6 @@
 
     }
   }
-  .welcome-btn {
-    text-align: center;
-    font-weight: bold;
-    font-size: 2em;
-    color: #dfdfdf;
-    margin: auto 0;
-    text-transform: initial;
-  }
   .fader {
     text-align: center;
     paper-spinner {
@@ -346,9 +346,5 @@
     .all-users-button {
       display: block;
     }
-  }
-
-  .welcome-btn {
-    color: #ccc;
   }
 }
