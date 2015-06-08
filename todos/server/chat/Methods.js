@@ -115,9 +115,9 @@ Meteor.methods({
             type: type,
             userIds: [currentUser._id]
         };
-        dialog._id = Dialogs.insert(dialog);
-        console.log("created dialog: ", dialog._id);
-        return dialog;
+        var id = Dialogs.insert(dialog);
+        console.log("created dialog: ", id);
+        return id;
     },
     addUserToDialog: function (dialogId, userId) {
         check(dialogId, String);

@@ -3,9 +3,8 @@
  */
 NotificationsController = new function () {
     var self = this;
-    this.emmitNotificationIfNeeded = function (dialog, message) {
-        console.log("checking")
-        if (Meteor.userId() && isPossible()) {
+    this.emmitMessageNotificationIfNeeded = function (dialog, message) {
+        if (Meteor.userId() && isPossible() && Meteor.userId() !== message.ownerId) {
             notifications.forEach(function (n) {
                 if (self.isNotificationActive(n.id) && n.show(dialog, message)) {
                     emit();
@@ -16,6 +15,7 @@ NotificationsController = new function () {
             var messageOwner = Meteor.users.findOne(message.ownerId, {reactive: false});
             var n = new Notification(Utils.getUsername(messageOwner), {body: message.text});
             n.onclick = function () {
+                Router.go("chat", {id: dialog._id});
                 window.focus();
             }
         }

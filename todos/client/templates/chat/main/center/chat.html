@@ -8,10 +8,7 @@
 
 			{{#contentFor "topMenu"}}
                             <div class="dialog-menu">
-				    {{#if isEmbeddedChat}}
-                                        <paper-icon-button title="Open menu" class="left toggle-main-menu" icon="menu"
-                                                           onclick="GlobalUI.toggleLeftMenu()"></paper-icon-button>
-				    {{/if}}
+
                                 <span class="left name">{{currentDialogName}}</span>
 
 				    {{#if isEmbeddedChat}}

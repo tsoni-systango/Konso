@@ -34,14 +34,14 @@ Template.registerHelper("isEmbeddedChat", function () {
 })
 
 Template.layout.onRendered(function(){
-    $(".a-right-menu-btn").sideNav({
+    this.$("#right-menu-btn").sideNav({
         menuWidth: 180,
         edge: 'right'
     });
-    $(".a-left-menu-btn").sideNav({
+    this.$("#left-menu-btn").sideNav({
         menuWidth: 250
     });
-    $('#app-modules-btn').dropdown({
+    this.$('#app-modules-btn').dropdown({
             inDuration: 300,
             outDuration: 225,
             constrain_width: false, // Does not change width of dropdown to that of the activator

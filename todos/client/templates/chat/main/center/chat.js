@@ -81,10 +81,10 @@ Template.chat.onRendered(function () {
                 var computationNumber = 0;
                 var $messages = self.$(".messages");
                 var total = self.getMessages().count();
-                var intervalId = Meteor.setInterval(function () {
+                self.intervalId = Meteor.setInterval(function () {
                     var totalNodes = $messages.children().length;
                     if (computationNumber++ >= 10 || total <= totalNodes) {
-                        Meteor.clearInterval(intervalId);
+                        Meteor.clearInterval(self.intervalId);
                         if (self.doAfterMessagesReady) {
                             self.doAfterMessagesReady();
                             self.doAfterMessagesReady = null;
@@ -104,7 +104,9 @@ Template.chat.onRendered(function () {
 });
 Template.chat.onDestroyed(function () {
     var self = this;
-    self.readController.destroy();
+    Meteor.clearInterval(self.intervalId);
+    self.readController && self.readController.destroy();
+    self.scrollController && self.scrollController.destroy();
     self.chat.off();
 });
 

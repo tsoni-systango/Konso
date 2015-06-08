@@ -17,15 +17,6 @@ Template.globalLayout.helpers({
          */
         return Meteor.status().status === val;
     },
-    isErrorToast: function () {
-        return GlobalUI.isErrorToast.get();
-    },
-    progressCSSDisplay: function () {
-        return GlobalUI.isProgressVisible.get() ? "block" : "none";
-    },
-    contentCSSDisplay: function () {
-        return GlobalUI.isProgressVisible.get() ? "none" : "block";
-    },
     showSettings: function () {
         return Session.get("global.ui.showSettings");
     }

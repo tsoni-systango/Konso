@@ -52,7 +52,7 @@ IM = new function () {
     self.setCurrentDialog = function (dialog) {
         var currDialog = Session.get(self.CURRENT_DIALOG_ID_KEY);
         if (currDialog !== dialog) {
-            Session.setAuth(self.CURRENT_DIALOG_ID_KEY, dialog);
+            Session.set(self.CURRENT_DIALOG_ID_KEY, dialog);
             self.setDialogsFilterString(null);
         }
 

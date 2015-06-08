@@ -10,7 +10,7 @@ Router.configure({
 });
 
 Router.onBeforeAction(function(){
-	if(!Meteor.user()){
+	if(!Meteor.userId()){
 		this.layout(null);
 		this.render('login');
 	} else {
@@ -28,10 +28,13 @@ Router.map(function () {
             "chatLeftMenu": {to: "leftMenu"}
 		},
 		waitOn: function () {
-			return [
-                Meteor.subscribe('allUsers'),
+			console.log("SUBSCRIBING")
+			var subs = [
+				Meteor.subscribe('allUsers'),
+				Meteor.subscribe('dialogs'),
 				Meteor.subscribe('userPresences')
-			];
+			]
+			return subs;
 		},
 		onBeforeAction: function () {
 			if(this.params.id) {

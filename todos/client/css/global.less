@@ -287,12 +287,17 @@ body.dragging {
     }
   }
 }
-
+#app-right-menu{
+  overflow-x: hidden;
+}
+#settings-modal{
+  background: none;
+}
 #settings {
   z-index: 999;
   overflow: auto;
   padding: 10px;
-  background-color: @color-white;
+  background-color: rgba(255, 255, 255, 0.95);
 
   h4 {
     font-weight: 200;
@@ -301,6 +306,14 @@ body.dragging {
     position: absolute;
     top: 5px;
     right: 5px;
+    i{
+     color: @color-primary;
+    }
+    &:hover, &:active{
+      i{
+        color: @color-white;
+      }
+    }
   }
   #settings-content {
     padding: 20px;
@@ -455,4 +468,17 @@ body.dragging {
 
 .w60 {
   width: 60%;
+}
+
+@gradient_1: @color-bg-grey;
+@gradient_2: @color-bg-grey-darkest;
+#login-wrapper{
+  background: @gradient_1; /* Old browsers */
+  background: -moz-radial-gradient(center, ellipse cover,  @gradient_1 0%, @gradient_2 100%); /* FF3.6+ */
+  background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,@gradient_1), color-stop(100%,@gradient_2)); /* Chrome,Safari4+ */
+  background: -webkit-radial-gradient(center, ellipse cover,  @gradient_1 0%,@gradient_2 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-radial-gradient(center, ellipse cover,  @gradient_1 0%,@gradient_2 100%); /* Opera 12+ */
+  background: -ms-radial-gradient(center, ellipse cover,  @gradient_1 0%,@gradient_2 100%); /* IE10+ */
+  background: radial-gradient(ellipse at center,  @gradient_1 0%,@gradient_2 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@gradient_1', endColorstr='@gradient_2',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }

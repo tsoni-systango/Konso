@@ -1,35 +1,39 @@
 Template.dialogItem.created = function () {
     var self = this;
     var sendNotification;
-    self.subscribe("lastDialogMessage", self.data._id, function(){
-        Meteor.setTimeout(function(){
-            sendNotification = NotificationsController.emmitNotificationIfNeeded;
+    self.subscribe("lastDialogMessage", self.data._id, GlobalUI.generalCallback(function () {
+        Meteor.setTimeout(function () {
+            sendNotification = NotificationsController.emmitMessageNotificationIfNeeded;
         }, 3000);
-    });
+    }));
 
     self.lastMessage = new ReactiveVar();
     self.unreadMessageCount = new ReactiveVar();
     self.onlineUsers = new ReactiveVar();
     self.offlineUsers = new ReactiveVar();
 
+    this.autorun(function (c) {
+        var message = self.lastMessage.get()
+        if (message && !c.firstRun && sendNotification) {
+            sendNotification(self.data, message);
+        }
+    })
     this.autorun(function () {
-        if (!Meteor.userId()) {
+        if (!Tracker.nonreactive(Meteor.userId)) {
             return;
         }
         var message = Messages.findOne({dialogId: self.data._id}, {
             sort: {created: -1}
         });
-
         if (message) {
             Utils.normalizeMessage(message);
-            self.lastMessage.set(message.infoText);
-            sendNotification && sendNotification(self.data, message);
+            self.lastMessage.set(message);
         }
         Meteor.call("getUnreadMessagesCountForTimestamp",
             self.data._id,
             IM.getDialogUnreadTimestamp(self.data._id),
-            Meteor.user()._id, function (er, count) {
-                if(!er){
+            Tracker.nonreactive(Meteor.userId), function (er, count) {
+                if (!er) {
                     IM.unreadMessagesForDialogsMap[self.data._id] = count;
                     self.unreadMessageCount.set(count);
                 }
@@ -91,7 +95,8 @@ Template.dialogItem.helpers({
         return Template.instance().unreadMessageCount.get();
     },
     lastMessage: function () {
-        return Template.instance().lastMessage.get();
+        var lastMessage = Template.instance().lastMessage.get();
+        return lastMessage ? lastMessage.infoText : "";
     },
     onlineCount: function () {
         return Template.instance().onlineUsers.get();
@@ -99,8 +104,8 @@ Template.dialogItem.helpers({
     offlineCount: function () {
         return Template.instance().offlineUsers.get();
     },
-    opponentId: function(){
-        if(this.type === DialogTypes.ONE_TO_ONE){
+    opponentId: function () {
+        if (this.type === DialogTypes.ONE_TO_ONE) {
             return _.without(this.userIds, Meteor.userId())[0];
         }
     }

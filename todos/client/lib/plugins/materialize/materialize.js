@@ -3606,7 +3606,7 @@ Materialize.toast = function (message, displayLength, className, completeCallbac
 
     var methods = {
         init: function (options) {
-
+            var responsiveWidth = 992;
             var defaults = {
                 menuWidth: 240,
                 edge: 'left',
@@ -3640,7 +3640,7 @@ Materialize.toast = function (message, displayLength, className, completeCallbac
 
                 // If fixed sidenav, bring menu out
                 if (menu_id.hasClass('fixed')) {
-                    if ($(window).width() > 992) {
+                    if ($(window).width() > responsiveWidth) {
                         if (options.edge == 'left') {
                             menu_id.css('left', 0);
                         } else{
@@ -3649,11 +3649,19 @@ Materialize.toast = function (message, displayLength, className, completeCallbac
                     }
                 }
 
+                function checkNarrow(){
+                    if (window.innerWidth > responsiveWidth) {
+                        menu_id.removeClass('narrow');
+                    } else {
+                        menu_id.addClass('narrow');
+                    }
+                }
+                checkNarrow();
                 // Window resize to reset on large screens fixed
                 if (menu_id.hasClass('fixed')) {
                     $(window).resize(function () {
-                        if (window.innerWidth > 992) {
-                            // Close menu if window is resized bigger than 992 and user has fixed sidenav
+                        if (window.innerWidth > responsiveWidth) {
+                            // Close menu if window is resized bigger than responsiveWidth and user has fixed sidenav
                             if ($('#sidenav-overlay').css('opacity') != 0 && menuOut) {
                                 removeMenu(true);
                             }
@@ -3668,8 +3676,9 @@ Materialize.toast = function (message, displayLength, className, completeCallbac
                             else
                                 menu_id.css('right', -1 * (options.menuWidth + 10));
                         }
-
+                        checkNarrow();
                     });
+
                 }
 
                 // if closeOnClick, then add close event for all a tags in side sideNav

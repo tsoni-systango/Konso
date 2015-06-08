@@ -8,22 +8,24 @@ Meteor.publish("dialogs", function () {
     if (this.userId) {
         return Dialogs.find({$or: [{userIds: {$in: [this.userId]}}, {type: DialogTypes.CHANNEL}]});
     }
+    return this.ready();
 });
 Meteor.publish("readTimestamps", function () {
     if (this.userId) {
         return UserReadTimestamps.find({userId: this.userId});
     }
+    return this.ready();
 });
 Meteor.publish("uploads", function (ids) {
     if (this.userId && ids) {
         return Uploads.find({_id: {$in: ids}});
     }
+    return this.ready();
 });
 Meteor.publish("messages", function (dialogId, opts) {
     if (this.userId && dialogId && opts && opts.limit) {
         check(dialogId, String);
         isUserAuthorizedInDialog(Dialogs.findOne(dialogId), this.userId);
-        console.log(opts)
         if(opts.hasOwnProperty("fromDate")){
             var fromDate = opts.fromDate;
             var limit = opts.limit;
@@ -39,6 +41,7 @@ Meteor.publish("messages", function (dialogId, opts) {
         }
 
     }
+    return this.ready();
 });
 Meteor.publish("lastDialogMessage", function (dialogId) {
     if (this.userId && dialogId) {
@@ -53,4 +56,5 @@ Meteor.publish("lastDialogMessage", function (dialogId) {
             });
 
     }
+    return this.ready();
 });

@@ -1,84 +1,82 @@
 <template name="layout" xmlns="http://www.w3.org/1999/html">
-	{{#globalLayout}}
-            <ul id="app-left-menu" class="side-nav fixed">
-                <div class="left-menu">
-                    <div class="left-menu-toolbar">
-			    {{#unless isEmbeddedChat}}
-                                <button class="btn-flat btn-small settings-btn ">
-                                    <i title="Settings" class=" mdi-action-settings-applications"
-                                       onclick="GlobalUI.openSettings()"></i>
-                                </button>
-			    {{/unless}}
-                        <div class="account">{{username}} </div>
-                        <button class="btn-flat right close-menu-btn btn-small">
-                            <i title="Close menu" class="mdi-hardware-keyboard-backspace"
-                               onclick="GlobalUI.closeLeftMenu()"></i></button>
-                        <button class="btn-flat right logout-btn btn-small">
-                            <i title="Log out" class="mdi-action-exit-to-app"
-                               onclick="Meteor.logout()"></i>
+    {{#globalLayout}}
+        <ul id="app-left-menu" class="side-nav fixed">
+            <div class="left-menu">
+                <div class="left-menu-toolbar">
+                    {{#unless isEmbeddedChat}}
+                        <button class="btn-flat btn-small settings-btn " onclick="GlobalUI.openSettings()">
+                            <i title="Settings" class=" mdi-action-settings-applications"></i>
                         </button>
-                    </div>
-                    <div>
-			    {{>yield "leftMenu"}}
-                    </div>
-                </div>
-            </ul>
-            <ul id="app-right-menu" edge="right" class="side-nav fixed right-aligned">
-                <div class="right-menu">
-                        {{>yield "rightMenu"}}
-                </div>
-            </ul>
-            <nav id="main-drawer-panel">
-                <ul class="right hide-on-med-and-down">
-			{{#unless isEmbeddedChat}}
-
-			{{/unless}}
-                </ul>
-                <div id="app-menu">
-
-                    <button data-activates="app-right-menu" class="a-right-menu-btn menu-btn waves-orange waves-effect waves-teal btn-flat right hide-on-large-only"><i
-                            class="mdi-navigation-more-vert"></i></button>
-                    <button data-activates='app-modules' id='app-modules-btn'
-                            class="menu-btn waves-orange waves-effect waves-teal btn-flat right"><i
-                            class="mdi-navigation-apps"></i>
-
-                        <div id='app-modules' class='dropdown-content'>
-                            <div class="app-module-item module-chat">
-                                <img src="/img/modules/chat.png">
-
-                                <div class="name">Chat</div>
-                            </div>
-                            <div class="app-module-item module-todos">
-                                <img src="/img/modules/todos.png">
-
-                                <div class="name">To-dos</div>
-                            </div>
-                            <div class="app-module-item module-notes">
-                                <img src="/img/modules/notes.png">
-
-                                <div class="name">Notes</div>
-                            </div>
-                            <div class="app-module-item module-scheduler">
-                                <img src="/img/modules/calendar.png">
-
-                                <div class="name">Scheduler</div>
-                            </div>
-                        </div>
+                    {{/unless}}
+                    <div class="account">{{username}} </div>
+                    <button class="btn-flat right close-menu-btn btn-small" onclick="GlobalUI.closeLeftMenu()">
+                        <i title="Close menu" class="mdi-hardware-keyboard-backspace"></i>
                     </button>
-                    <button data-activates="app-left-menu"
-                            class="a-left-menu-btn menu-btn waves-orange button-collapse waves-effect waves-teal btn-flat left hide-on-large-only">
-                        <i
-                                class="mdi-navigation-menu"></i></button>
-			{{>yield "topMenu"}}
-                    <div class="clear"></div>
-
+                    <button class="btn-flat right logout-btn btn-small" onclick="(function(){GlobalUI.closeLeftMenu();Meteor.logout()})()">
+                        <i title="Log out" class="mdi-action-exit-to-app"></i>
+                    </button>
                 </div>
-            </nav>
-
-            <div id="application-content">
-		    {{> yield}}
+                <div>
+                    {{>yield "leftMenu"}}
+                </div>
             </div>
+        </ul>
+        <ul id="app-right-menu" edge="right" class="side-nav fixed right-aligned">
+            <div class="right-menu">
+                {{>yield "rightMenu"}}
+            </div>
+        </ul>
+        <nav id="main-drawer-panel">
+            <ul class="right hide-on-med-and-down">
+                {{#unless isEmbeddedChat}}
+
+                {{/unless}}
+            </ul>
+            <div id="app-menu">
+
+                <button id="right-menu-btn" data-activates="app-right-menu"
+                        class="menu-btn waves-orange waves-effect waves-teal btn-flat right hide-on-large-only">
+                    <i class="mdi-navigation-more-vert"></i></button>
+                <button data-activates='app-modules' id='app-modules-btn'
+                        class="menu-btn waves-orange waves-effect waves-teal btn-flat right"><i
+                        class="mdi-navigation-apps"></i>
+
+                    <div id='app-modules' class='dropdown-content'>
+                        <div class="app-module-item module-chat">
+                            <img src="/img/modules/chat.png">
+
+                            <div class="name">Chat</div>
+                        </div>
+                        <div class="app-module-item module-todos">
+                            <img src="/img/modules/todos.png">
+
+                            <div class="name">To-dos</div>
+                        </div>
+                        <div class="app-module-item module-notes">
+                            <img src="/img/modules/notes.png">
+
+                            <div class="name">Notes</div>
+                        </div>
+                        <div class="app-module-item module-scheduler">
+                            <img src="/img/modules/calendar.png">
+
+                            <div class="name">Scheduler</div>
+                        </div>
+                    </div>
+                </button>
+                <button id="left-menu-btn" data-activates="app-left-menu"
+                        class="menu-btn waves-orange button-collapse waves-effect waves-teal btn-flat left hide-on-large-only">
+                    <i class="mdi-navigation-menu"></i></button>
+                {{>yield "topMenu"}}
+                <div class="clear"></div>
+
+            </div>
+        </nav>
+
+        <div id="application-content">
+            {{> yield}}
+        </div>
 
 
-	{{/globalLayout}}
+    {{/globalLayout}}
 </template>

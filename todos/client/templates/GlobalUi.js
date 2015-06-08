@@ -13,7 +13,6 @@ this.GlobalUI = (function () {
     GlobalUI.errorToast = function (text) {
         Materialize.toast('<i class="mdi-alert-error error-color left small"></i>'+text.replace(/[<>]/g, "'"), 3000)
     };
-    GlobalUI.isErrorToast = new ReactiveVar(false);
 
     GlobalUI.showDialog = function (opts) {
         this.dialog = $("#main-modal");
@@ -62,7 +61,7 @@ this.GlobalUI = (function () {
         }
     };
 
-
+    GlobalUI.isProgressVisible = new ReactiveVar(false);
     GlobalUI.generalModalCallback = function (onSuccess, onError) {
         GlobalUI.isProgressVisible.set(true);
         return function (error, result) {
@@ -89,22 +88,22 @@ this.GlobalUI = (function () {
             }
         }
     };
-    GlobalUI.toggleLeftMenu = function () {
-        //var mainTogglePanel = $("#main-drawer-panel")[0];
-        //mainTogglePanel && mainTogglePanel.togglePanel();
-    };
     GlobalUI.closeLeftMenu = function () {
-        //var mainTogglePanel = $("#main-drawer-panel")[0];
-        //mainTogglePanel && mainTogglePanel.closeDrawer();
+        var menu = $("#app-left-menu");
+        var btn = $("#left-menu-btn");
+        if(menu.is(".narrow")){
+            btn.sideNav("hide")
+        }
     };
-    GlobalUI.isProgressVisible = new ReactiveVar(false);
+    GlobalUI.closeRightMenu = function () {
+        var menu = $("#app-right-menu");
+        var btn = $("#right-menu-btn");
+        if(menu.is(".narrow")){
+            btn.sideNav("hide")
+        }
+    };
+
 
     return GlobalUI;
 
 })();
-
-Template.globalLayout.helpers({
-    isDialogFullscreen: function () {
-        return Session.get("global.ui.fullscreen");
-    }
-});
