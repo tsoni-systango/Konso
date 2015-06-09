@@ -1,0 +1,3 @@
+[submodule "todos/todos/packages/zuzel-atlassian-crowd"]
+	path = todos/todos/packages/zuzel-atlassian-crowd
+	url = https://github.com/iSuslov/zuzel-atlassian-crowd.git
