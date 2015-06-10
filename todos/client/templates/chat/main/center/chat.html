@@ -24,21 +24,46 @@
             {{/if}}
             <div id="messages-container" class='messages-container'>
                 {{#if currentDialog}}
-                    <div class="messages-container-scroll" fit>
-                        {{#unless isMessagesReady}}
-                            {{>loading }}
-                        {{else}}
-                            <div class="messages">
+
+                    <div id="messages-container-scroll" class="messages-container-scroll" fit>
+                        <div class="messages">
+                            {{#unless isNewDialogReady}}
+                                {{>loading }}
+                            {{else}}
+
                                 {{#each chatMessages}}
                                     {{> chatMessage}}
+                                    <script>
+                                        $("#chat").trigger(MESSAGE_READY_EVENT);
+                                    </script>
                                 {{/each}}
-                                <script>
-                                    $("#chat").trigger(MESSAGES_READY_EVENT);
-                                </script>
 
-                            </div>
-                        {{/unless}}
+
+                                {{#if isMessagesReady}}
+
+
+                                    <script>
+                                        $("#chat").trigger(MESSAGES_READY_EVENT);
+                                    </script>
+
+                                {{/if}}
+                            {{/unless}}
+                        </div>
                     </div>
+                    {{#if loadingOld}}
+                        <div class="loading-old-progress loading-progress">
+                            <div class="progress">
+                                <div class="indeterminate"></div>
+                            </div>
+                        </div>
+                    {{/if}}
+                    {{#if loadingNew}}
+                        <div class="loading-new-progress loading-progress">
+                            <div class="progress">
+                                <div class="indeterminate"></div>
+                            </div>
+                        </div>
+                    {{/if}}
                 {{else}}
                     <div class="welcome-message">
                         {{_ "chat.welcomeMessage"}}
@@ -53,6 +78,8 @@
         </div>
         {{> mentions_styles}}
     </div>
-
+<!--script>$(function(){
+    (function(F,i,r,e,b,u,g,L,I,T,E){if(F.getElementById(b))return;E=F[i+'NS']&&F.documentElement.namespaceURI;E=E?F[i+'NS'](E,'script'):F[i]('script');E[r]('id',b);E[r]('src',I+g+T);E[r](b,u);(F[e]('head')[0]||F[e]('body')[0]).appendChild(E);E=new Image;E[r]('src',I+L);})(document,'createElement','setAttribute','getElementsByTagName','FirebugLite','4','firebug-lite.js','releases/lite/latest/skin/xp/sprite.png','https://getfirebug.com/','#startOpened');
+})</script-->
 </template>
 

@@ -12,6 +12,9 @@ Meteor.methods({
         isUserAuthorizedInDialog(dialog, message.ownerId);
         message.dialogId = dialogId;
         message.created = _.now();
+        message.number = Messages.find({
+            dialogId: dialogId
+        }).count() + 1;
         message._id = Messages.insert(message);
         Dialogs.update(dialogId, {$set: {updated: message.created}});
         if (UserReadTimestamps.findOne({dialogId: dialogId, userId: Meteor.userId()})) {

@@ -1,10 +1,13 @@
 MESSAGES_READY_EVENT = "MESSAGES_READY_EVENT";
+MESSAGE_READY_EVENT = "MESSAGE_READY_EVENT";
 Template.chat.onCreated(function () {
     var self = this;
     self.messagesOnPage = new ReactiveVar(50);
     self.messagesSkipped = new ReactiveVar(0);
     self.inverted = false;
     self.isReady = new ReactiveVar(false);
+    self.loadingNew = new ReactiveVar(false);
+    self.loadingOld = new ReactiveVar(false);
     self.autorun(function () {
         if (IM.getCurrentDialogId() !== self.dialogId) {
             self.messagesSkipped.set(0);
@@ -69,15 +72,24 @@ Template.chat.onRendered(function () {
     self.autorun(function () {
         self.doAfterMessagesReady = function () {
             if (self.$(".chat-message.unread").first().length) {
-                self.$(".messages-container-scroll").scrollTop(self.$(".chat-message.unread").first().position().top + 1);
+                self.$("#messages-container-scroll").scrollTop(self.$(".chat-message.unread").first().position().top + 1);
             }
         }
+        self.doAfterMessageReady = null;
         IM.getCurrentDialogId();
         Tracker.nonreactive(function () {
             self.chat.off(MESSAGES_READY_EVENT)
+            self.chat.off(MESSAGE_READY_EVENT)
+            self.chat.on(MESSAGE_READY_EVENT, function () {
+                if (self.doAfterMessageReady) {
+                    self.doAfterMessageReady();
+                }
+            })
             self.chat.on(MESSAGES_READY_EVENT, function () {
                 self.scrollController && self.scrollController.destroy();
                 self.scrollController = null;
+                self.loadingNew.set(false);
+                self.loadingOld.set(false);
                 var computationNumber = 0;
                 var $messages = self.$(".messages");
                 var total = self.getMessages().count();
@@ -123,6 +135,21 @@ Template.chat.helpers({
     isMessagesReady: function () {
         if (IM.getCurrentDialog()) {
             return Template.instance().isReady.get() && Template.instance().subscription.ready();
+        }
+    },
+    isNewDialogReady: function () {
+        if (IM.getCurrentDialog()) {
+            return Template.instance().isReady.get();
+        }
+    },
+    loadingNew: function () {
+        if (IM.getCurrentDialog()) {
+            return Template.instance().loadingNew.get();
+        }
+    },
+    loadingOld: function () {
+        if (IM.getCurrentDialog()) {
+            return Template.instance().loadingOld.get();
         }
     }
 });

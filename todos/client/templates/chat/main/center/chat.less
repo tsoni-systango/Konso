@@ -135,15 +135,27 @@
         width: 100%;
         text-align: center;
       }
+      .loading-old-progress{
+        top: 0px;
+      }
+      .loading-new-progress{
+        bottom: 0px;
+      }
+      .loading-progress{
+        position: absolute;
+        width: 100%;
+        left: 0px;
+        right: 0px;
+        .progress{
+          margin: 0px;
+        }
+      }
       .messages-container-scroll {
         display: flex;
         flex-direction: column-reverse;
         overflow-y: auto;
         .messages, .messages-read, .messages-unread, .show-more {
           flex-shrink: 0;
-        }
-        .messages{
-          position: relative;
         }
         .show-more {
           text-align: center;

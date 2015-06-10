@@ -6,50 +6,48 @@ ScrollingController = function (scrollingArea, chat) {
     var self = this;
 
     function loadFresh() {
-console.log("loadingFresh")
-        Meteor.call('getMessageCount', IM.getCurrentDialogId(), GlobalUI.generalCallback(function (count) {
-            var count = count || 0;
-            var skip = currentOffset.get();
-            var limit = messagesToShow.get();
-            var offset;
-            if (chat.inverted) {
-                offset = skip + limit / 2;
-                if (offset + limit >= count) {
-                    offset = 0;
-                    chat.inverted = false;
-                }
-                var currentMessagesHeight = chat.$(".messages-container-scroll .messages").height();
-                var lastMessageId = chat.$(".messages-container-scroll .messages .chat-message").last().attr("id");
-                chat.doAfterMessagesReady = function () {
-                    chat.$(".messages-container-scroll")
-                        .scrollTop(-chat.$(".messages-container-scroll").height() + $("#" + lastMessageId).position().top + $("#" + lastMessageId).height());
-                }
-                self.destroy()
-                currentOffset.set(offset);
+        var count = IM.messagesCountForDialogMap[IM.getCurrentDialogId()] || 0;
+        var skip = currentOffset.get();
+        var limit = messagesToShow.get();
+        var offset;
+        if (chat.inverted) {
+            chat.loadingNew.set(true);
+            offset = skip + limit / 2;
+            if (offset + limit >= count) {
+                offset = 0;
+                chat.inverted = false;
             }
-        }));
+            var currentMessagesHeight = chat.$(".messages-container-scroll .messages").height();
+            var lastMessageId = chat.$(".messages-container-scroll .messages .chat-message").last().attr("id");
+            chat.doAfterMessageReady = function () {
+                var scrollContainer = chat.$("#messages-container-scroll");
+                var scrollTo = scrollContainer.scrollTop() - scrollContainer.height() + $("#" + lastMessageId).position().top + $("#" + lastMessageId).height();
+                scrollContainer.scrollTop(scrollTo);
+            }
+            self.destroy()
+            currentOffset.set(offset);
+        }
     }
 
     function loadOld() {
-        console.log("loadingOld")
-        Meteor.call('getMessageCount', IM.getCurrentDialogId(), GlobalUI.generalCallback(function (count) {
-            var count = count || 0;
-            var skip = currentOffset.get();
-            var limit = messagesToShow.get();
+        var count = IM.messagesCountForDialogMap[IM.getCurrentDialogId()] || 0;
+        var skip = currentOffset.get();
+        var limit = messagesToShow.get();
 
-            var offset = chat.inverted ? Math.max(skip - limit / 2, 0) : Math.max(count - limit - limit / 2, 0);
-            if (offset !== skip) {
+        var offset = chat.inverted ? Math.max(skip - limit / 2, 0) : Math.max(count - limit - limit / 2, 0);
+        if (offset !== skip) {
+            chat.loadingOld.set(true);
+            chat.inverted = true;
 
-                chat.inverted = true;
-
-                var firstMessageId = chat.$(".messages-container-scroll .messages .chat-message").first().attr("id");
-                chat.doAfterMessagesReady = function () {
-                    chat.$(".messages-container-scroll").scrollTop(chat.$("#" + firstMessageId).position().top);
-                }
-                self.destroy()
-                currentOffset.set(offset);
+            var firstMessageId = chat.$(".messages-container-scroll .messages .chat-message").first().attr("id");
+            chat.doAfterMessageReady = function () {
+                var scrollContainer = chat.$("#messages-container-scroll");
+                scrollContainer.scrollTop(chat.$("#" + firstMessageId).position().top + scrollContainer.scrollTop());
             }
-        }));
+            self.destroy()
+            currentOffset.set(offset);
+        }
+
     }
 
 

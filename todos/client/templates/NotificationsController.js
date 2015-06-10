@@ -86,5 +86,5 @@ var getUserOptions = function () {
 }
 
 var isPossible = function () {
-    return Notification.permission === "granted" && !!document.hasFocus && !document.hasFocus();
+    return window.hasOwnProperty("Notification") && Notification.permission === "granted" && !!document.hasFocus && !document.hasFocus();
 }

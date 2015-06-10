@@ -6,6 +6,7 @@ IM = new function () {
     self.FILTER_USERS_KEY = "FILTER_USERS_KEY";
 
     self.unreadMessagesForDialogsMap = {};
+    self.messagesCountForDialogMap = {};
 
     self.setUsersFilterString = function (value) {
         Session.set(self.FILTER_USERS_KEY, value);

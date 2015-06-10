@@ -14,7 +14,7 @@ Template.settings.onCreated(function () {
     this.embeddedHeight = new ReactiveVar(400);
     this.embeddedWidth = new ReactiveVar(300);
     //notification
-    this.userGrowlNotificationStatus = new ReactiveVar(Notification.permission);
+    this.userGrowlNotificationStatus = new ReactiveVar(window.hasOwnProperty("Notification")? Notification.permission : null);
     this.allowingNotifications = new ReactiveVar(false);
 })
 Template.settings.helpers({

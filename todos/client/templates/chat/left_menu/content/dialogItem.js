@@ -28,17 +28,28 @@ Template.dialogItem.created = function () {
         if (message) {
             Utils.normalizeMessage(message);
             self.lastMessage.set(message);
-        }
-        Meteor.call("getUnreadMessagesCountForTimestamp",
-            self.data._id,
-            IM.getDialogUnreadTimestamp(self.data._id),
-            Tracker.nonreactive(Meteor.userId), function (er, count) {
-                if (!er) {
-                    IM.unreadMessagesForDialogsMap[self.data._id] = count;
-                    self.unreadMessageCount.set(count);
-                }
-            });
 
+            if (message.hasOwnProperty("number")) {
+                IM.messagesCountForDialogMap[self.data._id] = message.number;
+            } else {
+                Meteor.call("getMessageCount",
+                    self.data._id,
+                    function (er, count) {
+                        if (!er) {
+                            IM.messagesCountForDialogMap[self.data._id] = count;
+                        }
+                    });
+            }
+            Meteor.call("getUnreadMessagesCountForTimestamp",
+                self.data._id,
+                IM.getDialogUnreadTimestamp(self.data._id),
+                Tracker.nonreactive(Meteor.userId), function (er, count) {
+                    if (!er) {
+                        IM.unreadMessagesForDialogsMap[self.data._id] = count;
+                        self.unreadMessageCount.set(count);
+                    }
+                });
+        }
     });
 
     this.autorun(function () {

@@ -1,8 +1,10 @@
 <template name="chatLeftMenu">
-    <div class="input-field col s6 filter-dialogs">
+    <div class="input-field filter-dialogs">
         <i class="mdi-action-search prefix small"></i>
-        <input placeholder="{{_ "chat.leftMenu.searchDialogs"}}" type="text" class="validate">
+        <input id="filter-dialogs" type="text" class="validate">
+        <label for="filter-dialogs">{{_ "chat.leftMenu.searchDialogs"}}</label>
     </div>
+
     <div class='chat-left-menu'>
 
         <h6>{{_ "chat.leftMenu.dialogs"}}</h6>
