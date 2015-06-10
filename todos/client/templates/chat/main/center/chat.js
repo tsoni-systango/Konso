@@ -90,6 +90,7 @@ Template.chat.onRendered(function () {
                 self.scrollController = null;
                 self.loadingNew.set(false);
                 self.loadingOld.set(false);
+                self.doAfterMessageReady = null;
                 var computationNumber = 0;
                 var $messages = self.$(".messages");
                 var total = self.getMessages().count();
