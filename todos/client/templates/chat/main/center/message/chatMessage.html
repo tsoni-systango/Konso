@@ -1,50 +1,51 @@
 <template name='chatMessage'>
     {{#if Template.subscriptionsReady}}
-    <div id="{{_id}}" created="{{created}}" class="{{ownerClass}} {{systemClass}} chat-message {{#if isUnread}}unread{{/if}}">
-        <div class="chat-content-wrapper">
-            <div class="chat-from">
+        <div id="{{_id}}" created="{{created}}"
+             class="{{ownerClass}} {{systemClass}} chat-message {{#if isUnread}}unread{{/if}}">
+            <div class="chat-content-wrapper">
+                <div class="chat-from">
 
-                        <div class="unread-indicator">
-                        </div>
+                    <div class="unread-indicator">
+                    </div>
 
 
                 <span class="name" title="{{ownerName}}">
-			{{ownerName}}
+                    {{ownerName}}
                 </span>
 
-                <div class="chat-time" title="{{time}}">
-			{{time}}
+                    <div class="chat-time" title="{{time}}">
+                        {{time}}
+                    </div>
                 </div>
-            </div>
-            <div class="chat-msg-text">
-                <div>
-			{{#if isRemoved}}
-                            <span class="system-message-italic">Message removed</span>
-			{{else}}
-				{{{text}}}
-                                {{#each attachmentIds}}
-                                        {{>chatAttachment}}
-                                {{/each}}
-			{{/if}}
+                <div class="chat-msg-text">
+                    {{#if isRemoved}}
+                        <div><span class="system-message-italic">Message removed</span></div>
+                    {{else}}
+                        <div>
+                            {{{text}}}
+                        </div>
+                        {{#each attachmentIds}}
+                            {{>chatAttachment}}
+                        {{/each}}
+                    {{/if}}
                 </div>
+                <div class="clear"></div>
             </div>
+
+            <div class="chat-msg-controls">
+                {{#if canEdit}}
+                    {{#if isRemoved}}
+                        <paper-icon-button icon="undo" class="undo"></paper-icon-button>
+                    {{else}}
+                        <paper-icon-button icon="more-horiz" class="edit"></paper-icon-button>
+                        <paper-icon-button icon="editor:mode-edit"
+                                           class="animated zoomIn edit-message"></paper-icon-button>
+                        <paper-icon-button icon="delete" class="animated zoomIn delete-message"></paper-icon-button>
+                    {{/if}}
+                {{/if}}
+            </div>
+
             <div class="clear"></div>
         </div>
-
-                <div class="chat-msg-controls">
-			{{#if canEdit}}
-                                {{#if isRemoved}}
-                                    <paper-icon-button icon="undo" class="undo"></paper-icon-button>
-                                        {{else}}
-                            <paper-icon-button icon="more-horiz" class="edit"></paper-icon-button>
-                            <paper-icon-button icon="editor:mode-edit"
-                                               class="animated zoomIn edit-message"></paper-icon-button>
-                            <paper-icon-button icon="delete" class="animated zoomIn delete-message"></paper-icon-button>
-			{{/if}}
-			{{/if}}
-                </div>
-
-        <div class="clear"></div>
-    </div>
     {{/if}}
 </template>

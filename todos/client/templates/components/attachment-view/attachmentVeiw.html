@@ -1,10 +1,12 @@
 <template name="attachmentView">
     <div class="attachment-view" vertical layout fit>
         <div class="control-panel">
-            <paper-fab mini class="btn-download" icon="file-download" download onClick="window.open('{{url}}&download');return false;"></paper-fab>
-            <paper-button class="btn-close" role="button" tabindex="0">
-                <core-icon icon="clear" aria-label="clear" role="img"></core-icon>
-            </paper-button>
+            <button mini class="btn-download  btn-floating waves-effect waves-light " download onClick="window.open('{{url}}&download');return false;">
+                <i class="mdi-file-file-download"></i>
+            </button>
+            <button class="btn-close  btn-floating waves-effect waves-light " role="button" tabindex="0">
+                <i class="mdi-navigation-close"></i>
+            </button>
         </div>
         <div class="content">
             {{#if Template.subscriptionsReady}}

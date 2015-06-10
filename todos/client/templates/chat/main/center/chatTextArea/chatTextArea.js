@@ -58,7 +58,7 @@ Template.chatTextArea.rendered = function () {
         }
     });
     //=========================File upload==================
-    self.uploadFile = function(file){
+    self.uploadFile = function (file) {
         Uploads.insert(file, GlobalUI.generalCallback(function (fileObjec) {
             IM.addMessageAttachmentsDraft(_.pick(fileObjec, "_id"));
         }));
@@ -77,16 +77,17 @@ Template.chatTextArea.events({
         var items = e.clipboardData.items;
         if (items == undefined) return false;
         for (var i = 0; i < items.length; i++) {
-            if (items[i].type.indexOf("image") == -1) continue; //not image
-            var blob = items[i].getAsFile();
-            blob.name = "Snapshot-" + _.now();
-            Template.instance().uploadFile(blob);
+            var type = items[i].type;
+            if (type.indexOf("image") == -1) continue; //not image
+            var fileObj = new FS.File(items[i].getAsFile());
+            fileObj.name("Snapshot-" + _.now() + "." + type.replace("image/", ""));
+            Template.instance().uploadFile(fileObj);
         }
     },
-    "drop .drop-zone": function(jQueryEvent){
+    "drop .drop-zone": function (jQueryEvent) {
         var e = jQueryEvent.originalEvent;
         var files = e.dataTransfer.files;
-        for(var i = 0; i < files.length; i++){
+        for (var i = 0; i < files.length; i++) {
             var file = files[i];
             Template.instance().uploadFile(file);
         }
