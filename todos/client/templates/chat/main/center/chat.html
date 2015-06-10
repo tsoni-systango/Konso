@@ -50,20 +50,8 @@
                             {{/unless}}
                         </div>
                     </div>
-                    {{#if loadingOld}}
-                        <div class="loading-old-progress loading-progress">
-                            <div class="progress">
-                                <div class="indeterminate"></div>
-                            </div>
-                        </div>
-                    {{/if}}
-                    {{#if loadingNew}}
-                        <div class="loading-new-progress loading-progress">
-                            <div class="progress">
-                                <div class="indeterminate"></div>
-                            </div>
-                        </div>
-                    {{/if}}
+
+
                 {{else}}
                     <div class="welcome-message">
                         {{_ "chat.welcomeMessage"}}
@@ -71,10 +59,17 @@
                     </div>
 
                 {{/if}}
+
+
             </div>
             {{#if currentDialog}}
                 {{> chatTextArea}}
             {{/if}}
+            <div class="uploading-messages-progress" style="opacity: {{uploadingMessages}}">
+                <div class="progress">
+                    <div class="indeterminate"></div>
+                </div>
+            </div>
         </div>
         {{> mentions_styles}}
     </div>

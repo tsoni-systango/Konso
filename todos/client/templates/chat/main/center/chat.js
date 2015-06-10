@@ -142,15 +142,13 @@ Template.chat.helpers({
             return Template.instance().isReady.get();
         }
     },
-    loadingNew: function () {
+    uploadingMessages: function () {
         if (IM.getCurrentDialog()) {
-            return Template.instance().loadingNew.get();
+            if(Template.instance().loadingOld.get() || Template.instance().loadingNew.get()){
+                return "1";
+            }
         }
-    },
-    loadingOld: function () {
-        if (IM.getCurrentDialog()) {
-            return Template.instance().loadingOld.get();
-        }
+        return "0"
     }
 });
 
@@ -161,9 +159,6 @@ Template.chat.events({
     "click .show-more": function () {
         var current = Template.instance().messagesOnPage.get();
         Template.instance().messagesOnPage.set(current + 50);
-    },
-    "trackend .messages-container": function () {
-        console.log("trackend");
     },
     "click .minify-btn": function (e, t) {
         postMessageParent("collapse");

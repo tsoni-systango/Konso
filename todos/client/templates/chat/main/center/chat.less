@@ -121,7 +121,18 @@
         background: #EEEEEE;
       }
     }
-
+    .uploading-messages-progress{
+      top: 0px;
+      position: absolute;
+      width: 100%;
+      left: 0px;
+      right: 0px;
+      z-index: 1;
+      .progress{
+        margin: 0px;
+        background-color: rgba(238, 238, 238, 0.1);
+      }
+    }
     .messages-container {
       background: white;
       overflow: hidden;
@@ -134,21 +145,6 @@
         display: block;
         width: 100%;
         text-align: center;
-      }
-      .loading-old-progress{
-        top: 0px;
-      }
-      .loading-new-progress{
-        bottom: 0px;
-      }
-      .loading-progress{
-        position: absolute;
-        width: 100%;
-        left: 0px;
-        right: 0px;
-        .progress{
-          margin: 0px;
-        }
       }
       .messages-container-scroll {
         display: flex;
