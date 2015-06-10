@@ -5,12 +5,9 @@
         {{/contentFor}}
         <div id="chat-content" class='chat-content'>
             {{#if Template.subscriptionsReady}}
-
                 {{#contentFor "topMenu"}}
                     <div class="dialog-menu">
-
                         <span class="left name">{{currentDialogName}}</span>
-
                         {{#if isEmbeddedChat}}
                             <paper-icon-button icon="editor:vertical-align-bottom"
                                                class="right minify-btn"></paper-icon-button>
@@ -24,43 +21,30 @@
             {{/if}}
             <div id="messages-container" class='messages-container'>
                 {{#if currentDialog}}
-
                     <div id="messages-container-scroll" class="messages-container-scroll" fit>
                         <div class="messages">
                             {{#unless isNewDialogReady}}
                                 {{>loading }}
                             {{else}}
-
                                 {{#each chatMessages}}
                                     {{> chatMessage}}
                                     <script>
                                         $("#chat").trigger(MESSAGE_READY_EVENT);
                                     </script>
                                 {{/each}}
-
-
                                 {{#if isMessagesReady}}
-
-
                                     <script>
                                         $("#chat").trigger(MESSAGES_READY_EVENT);
                                     </script>
-
                                 {{/if}}
                             {{/unless}}
                         </div>
                     </div>
-
-
                 {{else}}
                     <div class="welcome-message">
                         {{_ "chat.welcomeMessage"}}
-
                     </div>
-
                 {{/if}}
-
-
             </div>
             {{#if currentDialog}}
                 {{> chatTextArea}}
@@ -73,8 +57,8 @@
         </div>
         {{> mentions_styles}}
     </div>
-<!--script>$(function(){
-    (function(F,i,r,e,b,u,g,L,I,T,E){if(F.getElementById(b))return;E=F[i+'NS']&&F.documentElement.namespaceURI;E=E?F[i+'NS'](E,'script'):F[i]('script');E[r]('id',b);E[r]('src',I+g+T);E[r](b,u);(F[e]('head')[0]||F[e]('body')[0]).appendChild(E);E=new Image;E[r]('src',I+L);})(document,'createElement','setAttribute','getElementsByTagName','FirebugLite','4','firebug-lite.js','releases/lite/latest/skin/xp/sprite.png','https://getfirebug.com/','#startOpened');
-})</script-->
+    <!--script>$(function(){
+        (function(F,i,r,e,b,u,g,L,I,T,E){if(F.getElementById(b))return;E=F[i+'NS']&&F.documentElement.namespaceURI;E=E?F[i+'NS'](E,'script'):F[i]('script');E[r]('id',b);E[r]('src',I+g+T);E[r](b,u);(F[e]('head')[0]||F[e]('body')[0]).appendChild(E);E=new Image;E[r]('src',I+L);})(document,'createElement','setAttribute','getElementsByTagName','FirebugLite','4','firebug-lite.js','releases/lite/latest/skin/xp/sprite.png','https://getfirebug.com/','#startOpened');
+    })</script-->
 </template>
 

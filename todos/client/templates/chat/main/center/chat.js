@@ -84,13 +84,12 @@ Template.chat.onRendered(function () {
                 if (self.doAfterMessageReady) {
                     self.doAfterMessageReady();
                 }
-            })
+            });
             self.chat.on(MESSAGES_READY_EVENT, function () {
                 self.scrollController && self.scrollController.destroy();
                 self.scrollController = null;
                 self.loadingNew.set(false);
                 self.loadingOld.set(false);
-                self.doAfterMessageReady = null;
                 var computationNumber = 0;
                 var $messages = self.$(".messages");
                 var total = self.getMessages().count();
@@ -108,6 +107,7 @@ Template.chat.onRendered(function () {
                             self.readController = new ReadMessageController();
                         }
                         self.scrollController = new ScrollingController(self.$('#chat-content .messages-container-scroll'), self);
+                        self.doAfterMessageReady = null;
                     }
                 }, 100);
             });
