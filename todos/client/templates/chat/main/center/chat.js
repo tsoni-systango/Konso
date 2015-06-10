@@ -15,44 +15,30 @@ Template.chat.onCreated(function () {
             self.isReady.set(false);
             self.inverted = false;
             self.dialogId = IM.getCurrentDialogId();
+            self.readController && self.readController.pause();
             if (self.dialogId) {
                 self.scrollController && self.scrollController.destroy();
-                Meteor.call('getUnreadMessagesCountForTimestamp', self.dialogId, IM.getDialogUnreadTimestamp(), null, GlobalUI.generalCallback(function (count) {
-                    var unreadCount = count || 0;
-
-                    if (unreadCount && unreadCount > self.messagesOnPage.get()) {
-                        Meteor.call('getMessageCount', self.dialogId, GlobalUI.generalCallback(function (total) {
-                            var total = count || 0;
-                            self.inverted = true;
-                            var a = Math.max(total - unreadCount, 0);
-                            if (a && (a - self.messagesOnPage.get() / 2 > 0)) {
-                                self.messagesSkipped(a - self.messagesOnPage.get() / 2)
-                            }
-                            self.isReady.set(true);
-                        }));
-                    } else {
-                        self.isReady.set(true);
+                var unreadCount = IM.unreadMessagesForDialogsMap[self.dialogId] || 0;
+                if (unreadCount && unreadCount > self.messagesOnPage.get()) {
+                    var total = IM.messagesCountForDialogMap[self.dialogId] || 0;
+                    self.inverted = true;
+                    var a = Math.max(total - unreadCount, 0);
+                    if (a && (a - self.messagesOnPage.get() / 2 > 0)) {
+                        self.messagesSkipped(a - self.messagesOnPage.get() / 2)
                     }
-                }));
-            }
-            self.readController && self.readController.pause();
 
+                }
+            }
+        }
+        var opts = {
+            inverted: self.inverted,
+            limit: self.messagesOnPage.get(),
+            skip: self.messagesSkipped.get()
         }
 
-    });
-    self.autorun(function () {
-        if (self.isReady.get()) {
-            var dialogId = IM.getCurrentDialogId();
-            var opts = {
-                inverted: self.inverted,
-                limit: self.messagesOnPage.get(),
-                skip: self.messagesSkipped.get()
-            }
-
-            self.subscription = self.subscribe("messages", dialogId, opts, function () {
-                GlobalUI.closeLeftMenu();
-            });
-        }
+        self.subscription = self.subscribe("messages", self.dialogId, opts, function () {
+            GlobalUI.closeLeftMenu();
+        });
     });
 
     self.getMessages = function (limit, offset) {
@@ -90,6 +76,7 @@ Template.chat.onRendered(function () {
                 self.scrollController = null;
                 self.loadingNew.set(false);
                 self.loadingOld.set(false);
+                self.isReady.set(true);
                 var computationNumber = 0;
                 var $messages = self.$(".messages");
                 var total = self.getMessages().count();
@@ -133,11 +120,6 @@ Template.chat.helpers({
     currentDialogName: function () {
         return IM.getChatName(IM.getCurrentDialog());
     },
-    isMessagesReady: function () {
-        if (IM.getCurrentDialog()) {
-            return Template.instance().isReady.get() && Template.instance().subscription.ready();
-        }
-    },
     isNewDialogReady: function () {
         if (IM.getCurrentDialog()) {
             return Template.instance().isReady.get();
@@ -145,7 +127,7 @@ Template.chat.helpers({
     },
     uploadingMessages: function () {
         if (IM.getCurrentDialog()) {
-            if(Template.instance().loadingOld.get() || Template.instance().loadingNew.get()){
+            if (Template.instance().loadingOld.get() || Template.instance().loadingNew.get()) {
                 return "1";
             }
         }

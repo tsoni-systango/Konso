@@ -120,14 +120,14 @@
         background: #EEEEEE;
       }
     }
-    .uploading-messages-progress{
+    .uploading-messages-progress {
       top: 0px;
       position: absolute;
       width: 100%;
       left: 0px;
       right: 0px;
       z-index: 1;
-      .progress{
+      .progress {
         margin: 0px;
         background-color: rgba(238, 238, 238, 0.1);
       }
@@ -137,7 +137,7 @@
       position: relative;
       flex-grow: 1;
       background-color: #fff;
-      .welcome-message{
+      .welcome-message {
         position: absolute;
         top: 45%;
         font-size: 200%;
@@ -192,8 +192,8 @@
           .chat-from {
             float: left;
             cursor: pointer;
-            color: rgba(0, 62, 94, 0.5);
-            font-weight: 500;
+            color: #6D7478;
+            font-weight: 400;
             width: 20%;
             text-align: right;
             vertical-align: top;
@@ -293,7 +293,10 @@
             margin-top: 3px;
           }
           &.own {
-            background-color: rgba(0, 99, 150, 0.05);
+            background-color: rgb(247, 250, 251);
+            .chat-from {
+              font-weight: 500;
+            }
           }
           .system-message {
             background: white;

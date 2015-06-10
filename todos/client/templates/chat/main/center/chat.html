@@ -23,23 +23,23 @@
                 {{#if currentDialog}}
                     <div id="messages-container-scroll" class="messages-container-scroll" fit>
                         <div class="messages">
-                            {{#unless isNewDialogReady}}
-                                {{>loading }}
-                            {{else}}
-                                {{#each chatMessages}}
-                                    {{> chatMessage}}
-                                    <script>
-                                        $("#chat").trigger(MESSAGE_READY_EVENT);
-                                    </script>
-                                {{/each}}
-                                {{#if isMessagesReady}}
-                                    <script>
-                                        $("#chat").trigger(MESSAGES_READY_EVENT);
-                                    </script>
-                                {{/if}}
-                            {{/unless}}
+
+                            {{#each chatMessages}}
+                                {{> chatMessage}}
+                                <script>
+                                    $("#chat").trigger(MESSAGE_READY_EVENT);
+                                </script>
+                            {{/each}}
+                            {{#if Template.subscriptionsReady}}
+                                <script>
+                                    $("#chat").trigger(MESSAGES_READY_EVENT);
+                                </script>
+                            {{/if}}
                         </div>
                     </div>
+                    {{#unless isNewDialogReady}}
+                        {{>loading }}
+                    {{/unless}}
                 {{else}}
                     <div class="welcome-message">
                         {{_ "chat.welcomeMessage"}}
