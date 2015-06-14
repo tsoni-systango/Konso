@@ -94,8 +94,6 @@ Meteor.methods({
         return Messages.find({dialogId: dialogId}).count();
     },
     getUnreadMessagesCountForTimestamp: function (dialogId, timestamp, excludeUserId) {
-        console.log(dialogId)
-        console.log(timestamp)
         check(dialogId, String);
         check(timestamp, Number);
         var count = Messages.find({
