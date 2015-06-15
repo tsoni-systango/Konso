@@ -10,7 +10,13 @@ synchronizeWithAtlassianCrowd = function () {
 }
 
 var synchronizeAtlassianCrowdUsers = function () {
-    var meteorUsers = Meteor.users.find({}, {fields: {username: 1}}).fetch();
+    var meteorUsers = Meteor.users.find({/*authType: AUTH_TYPES.CROWD*/}, {fields: {username: 1}}).fetch();
+    var meteorUsersMapByName = {};
+    var meteorUsernames = [];
+    meteorUsers.forEach(function(user){
+        meteorUsernames.push(user.username);
+        meteorUsersMapByName[user.username] = user._id;
+    });
     meteorUsers = _.pluck(meteorUsers, "username");
     var findCrowdUserCallback = Meteor.bindEnvironment(function (error, user) {
         if (user) {
@@ -29,12 +35,21 @@ var synchronizeAtlassianCrowdUsers = function () {
 
     var findCrowdUsersCallback = Meteor.bindEnvironment(function (error, response) {
         if (response) {
-            var crowdUsers = _.pluck(response.users, "name");
-            _.each(crowdUsers, function (crowdUser) {
-                if (!_.contains(meteorUsers, crowdUser)) {
-                    AtlassianCrowd.instance().user.find(crowdUser, findCrowdUserCallback);
+            var crowdUsernames = _.pluck(response.users, "name");
+            //to add if not exists on Meteor Server
+            _.each(crowdUsernames, function (crowdUsername) {
+                if (!_.contains(meteorUsernames, crowdUsername)) {
+                    AtlassianCrowd.instance().user.find(crowdUsername, findCrowdUserCallback);
                 }
             })
+            //to delete if not exists on Crowd Server
+            _.each(meteorUsernames, function (meteorUsername) {
+                if (!_.contains(crowdUsernames, meteorUsername)) {
+                    Meteor.users.remove(meteorUsersMapByName[meteorUsername]);
+                    console.log("removed user: ", meteorUsername);
+                }
+            });
+
         } else {
             console.error(error.message || error);
         }

@@ -21,7 +21,7 @@ Meteor.startup(function () {
         SyncedCron.add({
             name: 'Synchronize Atlassian Crowd Groups',
             schedule: function (parser) {
-                return parser.text('every 1 hour');
+                return parser.text('every 1 minute');
             },
             job: synchronizeWithAtlassianCrowd
         });
@@ -29,20 +29,40 @@ Meteor.startup(function () {
     }
 
     SyncedCron.start();
+
+    //TODO remove it next version
+    //this code turns all growl notifications on, by default
+    _.each(allUsers, function (user) {
+        var growlNotificationsConfig = Utils.getByKey(user, GrowlNotificationsNamespace);
+        if(!growlNotificationsConfig){
+            growlNotificationsConfig = {};
+        }
+        for(var key in GrowlNotificationTypes){
+            var id = GrowlNotificationTypes[key];
+            if(!growlNotificationsConfig.hasOwnProperty(id)){
+                growlNotificationsConfig[id] = true;
+            }
+        }
+        var updateData = {};
+        updateData[GrowlNotificationsNamespace] = growlNotificationsConfig;
+        Meteor.users.update(user._id, {$set: updateData});
+    });
 });
 
 Accounts.onCreateUser(function (options, user) {
     if (options.profile) {
         user.profile = options.profile;
     }
-    if (!user.profile) {
-        user.profile = {};
+    Utils.setByKey("profile.displayName", user, user.username, true);
+    Utils.setByKey("profile.sortName", user, user.profile.displayName.toLowerCase());
+
+    var growlNotificationsDefaults = {}
+    for(var key in GrowlNotificationTypes){
+        var id = GrowlNotificationTypes[key];
+        growlNotificationsDefaults[id] = true;
     }
-    if (!user.profile.displayName) {
-        user.profile.displayName = user.username;
-    }
-    user.profile.sortName = user.profile.displayName.toLowerCase();
-    user.type =
+    Utils.setByKey(GrowlNotificationsNamespace, user, growlNotificationsDefaults);
+    user.authType = Meteor.settings.public.defaultAuth;
     console.log("Created new user", user.profile.displayName);
     return user;
 });
@@ -63,12 +83,8 @@ var initConfig = function(){
                 "password": Meteor.settings.authentication.crowd.appPassword
             };
         }
-        if(!Meteor.settings.public){
-            Meteor.settings.public = {};
-        }
-        if(!Meteor.settings.public.defaultAuth){
-            Meteor.settings.public.defaultAuth = AUTH_TYPES.CROWD;
-        }
+
+        Utils.setByKey("public.defaultAuth", Meteor.settings, AUTH_TYPES.CROWD, true);
 
     } catch (e) {
         throw new Meteor.Error("Can not parse authentication config. Use 'meteor --settings config.json'")

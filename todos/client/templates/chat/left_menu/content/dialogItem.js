@@ -19,40 +19,46 @@ Template.dialogItem.created = function () {
         }
     })
     this.autorun(function () {
-        if (!Tracker.nonreactive(Meteor.userId)) {
+        if (!Meteor.userId()) {
             return;
         }
         var message = Messages.findOne({dialogId: self.data._id}, {
             sort: {created: -1}
         });
-        Tracker.nonreactive(function () {
-                if (message) {
-                    Utils.normalizeMessage(message);
-                    self.lastMessage.set(message);
 
-                    if (message.hasOwnProperty("number")) {
-                        IM.messagesCountForDialogMap[self.data._id] = message.number;
-                    } else {
-                        Meteor.call("getMessageCount",
-                            self.data._id,
-                            function (er, count) {
-                                if (!er) {
-                                    IM.messagesCountForDialogMap[self.data._id] = count;
-                                }
-                            });
-                    }
-                    Meteor.call("getUnreadMessagesCountForTimestamp",
-                        self.data._id,
-                        IM.getDialogUnreadTimestamp(self.data._id),
-                        Tracker.nonreactive(Meteor.userId), function (er, count) {
-                            if (!er) {
-                                IM.unreadMessagesForDialogsMap[self.data._id] = count;
-                                self.unreadMessageCount.set(count);
-                            }
-                        });
-                }
+        if (message) {
+            Utils.normalizeMessage(message);
+            self.lastMessage.set(message);
+
+
+            if (message.hasOwnProperty("number")) {
+                IM.messagesCountForDialogMap[self.data._id] = message.number;
+            } else {
+                Meteor.call("getMessageCount",
+                    self.data._id,
+                    function (er, count) {
+                        if (!er) {
+                            IM.messagesCountForDialogMap[self.data._id] = count;
+                        }
+                    });
             }
-        )
+        }
+    });
+
+    this.autorun(function(){
+        if (!Meteor.userId()) {
+            return;
+        }
+        Messages.findOne({dialogId: self.data._id}, { sort: {created: -1} });
+        Meteor.call("getUnreadMessagesCountForTimestamp",
+            self.data._id,
+            IM.getDialogUnreadTimestamp(self.data._id),
+            Tracker.nonreactive(Meteor.userId), function (er, count) {
+                if (!er) {
+                    IM.unreadMessagesForDialogsMap[self.data._id] = count;
+                    self.unreadMessageCount.set(count);
+                }
+            });
     });
 
     this.autorun(function () {

@@ -27,38 +27,37 @@ NotificationsController = new function () {
         return getUserOptions()[id];
     }
     this.setNotification = function (id, value) {
-        var key = notificationsNamespace + "." + id;
+        var key = GrowlNotificationsNamespace + "." + id;
         var obj = {};
         obj[key] = value;
         Meteor.users.update(Meteor.userId(), {$set: obj});
     }
 }
-var notificationsNamespace = "profile.growlNotifications";
 
 var notifications = [
     {
-        id: "channels",
+        id: GrowlNotificationTypes.ALL_CHANNELS,
         title: "All channel messages",
         show: function (dialog, message) {
             return dialog.type === DialogTypes.CHANNEL;
         }
     },
     {
-        id: "rooms",
+        id:  GrowlNotificationTypes.ALL_ROOMS,
         title: "All room messages",
         show: function (dialog, message) {
             return dialog.type === DialogTypes.ROOM;
         }
     },
     {
-        id: "one-to-one",
+        id:  GrowlNotificationTypes.ALL_ONE_TO_ONE,
         title: "All one-to-one messages",
         show: function (dialog, message) {
             return dialog.type === DialogTypes.ONE_TO_ONE;
         }
     },
     {
-        id: "mention_you",
+        id:  GrowlNotificationTypes.MENTION_YOU,
         title: "When @you mentioned",
         show: function (dialog, message) {
             return message.mentions && _.find(message.mentions, function (o) {
@@ -67,7 +66,7 @@ var notifications = [
         }
     },
     {
-        id: "mentions_all",
+        id:  GrowlNotificationTypes.MENTION_ALL,
         title: "When @all mentioned",
         show: function (dialog, message) {
             return message.mentions && !!_.find(message.mentions, function (o) {
@@ -80,7 +79,7 @@ var notifications = [
 var getUserOptions = function () {
     var u;
     if (u = Meteor.user()) {
-        return Utils.getByKey(u, notificationsNamespace) || {}
+        return Utils.getByKey(u, GrowlNotificationsNamespace) || {}
     }
     return {};
 }

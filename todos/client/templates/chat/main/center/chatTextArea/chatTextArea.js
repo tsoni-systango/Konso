@@ -80,7 +80,7 @@ Template.chatTextArea.events({
             var type = items[i].type;
             if (type.indexOf("image") == -1) continue; //not image
             var fileObj = new FS.File(items[i].getAsFile());
-            fileObj.name("Snapshot-" + _.now() + "." + type.replace("image/", ""));
+            fileObj.name("Snapshot-" + _now() + "." + type.replace("image/", ""));
             Template.instance().uploadFile(fileObj);
         }
     },

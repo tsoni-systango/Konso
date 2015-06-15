@@ -8,6 +8,7 @@ Template.chat.onCreated(function () {
     self.isReady = new ReactiveVar(false);
     self.loadingNew = new ReactiveVar(false);
     self.loadingOld = new ReactiveVar(false);
+
     self.autorun(function () {
         if (IM.getCurrentDialogId() !== self.dialogId) {
             self.messagesSkipped.set(0);

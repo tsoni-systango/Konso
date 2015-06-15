@@ -67,16 +67,16 @@ IM = new function () {
     };
 
     self.getDialogUnreadTimestamp = function (dialogId) {
-        var dialogId = dialogId || self.getCurrentDialogId();
-        if (!dialogId || !Meteor.user()) {
+        var dialogId = dialogId || Tracker.nonreactive(self.getCurrentDialogId);
+        if (!dialogId || !Tracker.nonreactive(Meteor.userId)) {
             return null;
         }
         var t = UserReadTimestamps.findOne({dialogId: dialogId});
         return t ? t.timestamp : 0;
     };
     self.setDialogUnreadTimestamp = function (timestamp, dialogId) {
-        var dialogId = dialogId || self.getCurrentDialogId();
-        if (!dialogId || !Meteor.user()) {
+        var dialogId = dialogId || Tracker.nonreactive(self.getCurrentDialogId);
+        if (!dialogId || !Tracker.nonreactive(Meteor.userId)) {
             return null;
         }
         var t = UserReadTimestamps.findOne({dialogId: dialogId});

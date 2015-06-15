@@ -11,7 +11,7 @@ Meteor.methods({
         var dialog = getDialogOrDie(dialogId)
         isUserAuthorizedInDialog(dialog, message.ownerId);
         message.dialogId = dialogId;
-        message.created = _.now();
+        message.created = _now();
         message.number = Messages.find({
             dialogId: dialogId
         }).count() + 1;
@@ -79,7 +79,7 @@ Meteor.methods({
 
         if (!dialog) {
             dialog = {
-                created: _.now(),
+                created: _now(),
                 ownerId: currentUser._id,
                 updated: null,
                 type: DialogTypes.ONE_TO_ONE,
@@ -110,7 +110,7 @@ Meteor.methods({
         var currentUser = getCurrentUserOrDie();
         var dialog = {
             ownerId: currentUser._id,
-            created: _.now(),
+            created: _now(),
             updated: null,
             name: name,
             type: type,
@@ -160,6 +160,6 @@ addSystemMessage = function (dialogId, text) {
     message.ownerId = null;
     message.text = text;
     message.dialogId = dialogId;
-    message.created = _.now();
+    message.created = _now();
     message._id = Messages.insert(message);
 }

@@ -1,8 +1,7 @@
-_.mixin({
-    now: function () {
-        return new Date().getTime()
-    }
-});
+_now = function () {
+    return new Date().getTime();
+}
+
 
 Utils = {};
 Utils.getUsername = function (user) {
@@ -12,15 +11,16 @@ Utils.getUsername = function (user) {
     return user.profile && user.profile.displayName ? user.profile.displayName : user.username;
 };
 Utils.normalizeMessage = function (message) {
-    var messageOwner = Meteor.users.findOne(message.ownerId, {reactive: false});
-    message.ownerName = messageOwner ? Utils.getUsername(messageOwner) : "System";
-    if (message.removed) {
-        message.plainText = "removed message"
-        message.infoText = message.ownerName + "<i> " + message.plainText + "</i>";
-    }
-    message.plainText = message.text
-    message.infoText = message.ownerName + ": " + message.plainText;
-
+    Tracker.nonreactive(function () {
+        var messageOwner = Meteor.users.findOne(message.ownerId, {reactive: false});
+        message.ownerName = messageOwner ? Utils.getUsername(messageOwner) : "System";
+        if (message.removed) {
+            message.plainText = "removed message"
+            message.infoText = message.ownerName + "<i> " + message.plainText + "</i>";
+        }
+        message.plainText = message.text
+        message.infoText = message.ownerName + ": " + message.plainText;
+    })
 }
 Utils.linkify = function (text, isBlank) {
     var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
@@ -32,8 +32,28 @@ Utils.linkify = function (text, isBlank) {
         }
     })
 }
-Utils.getByKey = function(obj, key){
-    if(!obj) return null;
-    function _index(obj,i) {return obj[i]};
+Utils.getByKey = function (obj, key) {
+    if (!obj) return null;
+    function _index(obj, i) {
+        return obj[i]
+    };
     return key.split('.').reduce(_index, obj);
+}
+Utils.setByKey = function (key, object, value, ifNotExists) {
+    var keys = key.split('.');
+    var currentObject = object;
+    for (var i = 0; i < keys.length; i++) {
+        var _key = keys[i];
+        if (i === keys.length - 1) {
+            if (ifNotExists && currentObject.hasOwnProperty(_key)) {
+                return;
+            }
+            currentObject[_key] = value;
+        } else {
+            if (!currentObject[_key]) {
+                currentObject[_key] = {};
+            }
+            currentObject = currentObject[_key];
+        }
+    }
 }

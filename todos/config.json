@@ -2,10 +2,10 @@
   "public": {
     "defaultLanguage": "zn",
     "defaultAuth": "crowd",
-    "uploadsDir": "~/uploads",
+    "uploadsDir": "C:/Users/ZuzEL/Documents/uploads",
     "privileges": {
-      "createChannels": ["crowd-administrators"],
-      "createChatAlerts": ["Admins"]
+    "createChannels": ["crowd-administrators"],
+    "createChatAlerts": ["Admins"]
     }
   },
   "authentication": {
