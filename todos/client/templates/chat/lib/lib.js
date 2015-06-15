@@ -94,7 +94,7 @@ IM = new function () {
             return null;
         }
         if (dialog.name) {
-            return dialog.name;
+            return (dialog.type === DialogTypes.CHANNEL? "#": "") + dialog.name;
         } else {
             var dialogUsers = Meteor.users.find({
                 _id: {
