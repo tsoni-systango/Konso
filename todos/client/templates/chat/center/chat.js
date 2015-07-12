@@ -129,10 +129,10 @@ Template.chat.helpers({
     uploadingMessages: function () {
         if (IM.getCurrentDialog()) {
             if (Template.instance().loadingOld.get() || Template.instance().loadingNew.get()) {
-                return "1";
+                return 1;
             }
         }
-        return "0"
+        return 0
     }
 });
 

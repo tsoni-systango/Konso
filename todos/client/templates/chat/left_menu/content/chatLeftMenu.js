@@ -66,24 +66,6 @@ Template.chatLeftMenu.helpers({
     },
     canCreateChannels: function () {
         return PrivilegesUtils.canCreateChannels();
-    },
-    i18nDialogs: function () {
-        return '私聊';
-    },
-    i18nRooms: function () {
-        return '群聊';
-    },
-    i18nChannels: function () {
-        return '广播';
-    },
-    i18nShowMore: function () {
-        return '演示更多';
-    },
-    i18nNoMore: function () {
-        return '没有任何';
-    },
-    i18nSearchDialogs: function () {
-        return '搜索聊天';
     }
 });
 Template.chatLeftMenu.events({

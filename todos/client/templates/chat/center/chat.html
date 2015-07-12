@@ -47,11 +47,13 @@
             {{#if currentDialog}}
                 {{> chatTextArea}}
             {{/if}}
-            <div class="uploading-messages-progress" style="opacity: {{uploadingMessages}}">
-                <div class="progress">
-                    <div class="indeterminate"></div>
+            {{#if uploadingMessages}}
+                <div class="uploading-messages-progress">
+                    <div class="progress">
+                        <div class="indeterminate"></div>
+                    </div>
                 </div>
-            </div>
+            {{/if}}
         </div>
         {{> mentions_styles}}
     </div>

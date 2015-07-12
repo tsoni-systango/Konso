@@ -1,9 +1,6 @@
 Meteor.startup(function () {
     initConfig();
-    //Messages.remove({});
-    //Dialogs.remove({});
-    //Meteor.users.remove({});
-
+    
     var allUsers = Meteor.users.find({}).fetch();
     _.each(allUsers, function (user) {
         if (!user.profile.displayName) {
@@ -17,7 +14,7 @@ Meteor.startup(function () {
         }
     });
 
-    if(Meteor.settings.public.defaultAuth === AUTH_TYPES.CROWD) {
+    if (Meteor.settings.public.defaultAuth === AUTH_TYPES.CROWD) {
         SyncedCron.add({
             name: 'Synchronize Atlassian Crowd Groups',
             schedule: function (parser) {
@@ -34,12 +31,12 @@ Meteor.startup(function () {
     //this code turns all growl notifications on, by default
     _.each(allUsers, function (user) {
         var growlNotificationsConfig = Utils.getByKey(user, GrowlNotificationsNamespace);
-        if(!growlNotificationsConfig){
+        if (!growlNotificationsConfig) {
             growlNotificationsConfig = {};
         }
-        for(var key in GrowlNotificationTypes){
+        for (var key in GrowlNotificationTypes) {
             var id = GrowlNotificationTypes[key];
-            if(!growlNotificationsConfig.hasOwnProperty(id)){
+            if (!growlNotificationsConfig.hasOwnProperty(id)) {
                 growlNotificationsConfig[id] = true;
             }
         }
@@ -57,7 +54,7 @@ Accounts.onCreateUser(function (options, user) {
     Utils.setByKey("profile.sortName", user, user.profile.displayName.toLowerCase());
 
     var growlNotificationsDefaults = {}
-    for(var key in GrowlNotificationTypes){
+    for (var key in GrowlNotificationTypes) {
         var id = GrowlNotificationTypes[key];
         growlNotificationsDefaults[id] = true;
     }
@@ -67,7 +64,7 @@ Accounts.onCreateUser(function (options, user) {
     return user;
 });
 
-var initConfig = function(){
+var initConfig = function () {
     try {
         LDAP_DEFAULTS.url = Meteor.settings.authentication.ldap.baseUrl;
         LDAP_DEFAULTS.dn = Meteor.settings.authentication.ldap.dn;

@@ -20,12 +20,6 @@ Template.layout.helpers({
     },
     userMenuOpen: function () {
         return Session.get(USER_MENU_KEY);
-    },
-    lists: function () {
-        return Lists.find();
-    },
-    i18nChat: function () {
-        return '聊天';
     }
 });
 

@@ -1,7 +1,7 @@
 {
   "public": {
     "defaultLanguage": "zn",
-    "defaultAuth": "crowd",
+    "defaultAuth": "ldap",
     "uploadsDir": "C:/Users/ZuzEL/Documents/uploads",
     "privileges": {
     "createChannels": ["crowd-administrators"],
