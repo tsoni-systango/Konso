@@ -12,7 +12,7 @@ IM = new function () {
         Session.set(self.FILTER_USERS_KEY, value);
     };
 
-    self.getFilterUsersString = function () {
+    self.getUsersFilterString = function () {
         return Session.get(self.FILTER_USERS_KEY);
     };
 
@@ -51,7 +51,10 @@ IM = new function () {
     }
 
     self.setCurrentDialog = function (dialog) {
-        var currDialog = Session.get(self.CURRENT_DIALOG_ID_KEY);
+        var currDialog
+        Tracker.nonreactive(function(){
+            currDialog = Session.get(self.CURRENT_DIALOG_ID_KEY);
+        })
         if (currDialog !== dialog) {
             Session.set(self.CURRENT_DIALOG_ID_KEY, dialog);
             self.setDialogsFilterString(null);

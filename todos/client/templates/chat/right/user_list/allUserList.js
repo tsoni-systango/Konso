@@ -1,3 +1,18 @@
+Template.allUserList.onCreated(function(){
+    var self = this;
+    self.autorun(function() {
+        var filterString = IM.getUsersFilterString();
+        var opts = {limit: 100};
+        if(typeof filterString != "undefined" && filterString.toString().length > 1){
+            opts.searchString = filterString;
+        }
+        self.subscribe('users', opts);
+    });
+
+    self.onSearchInput = _.debounce(function(val){
+        IM.setUsersFilterString(val);
+    },  1000);
+})
 Template.allUserList.helpers({
     roomUsers: function () {
         var dialog = IM.getCurrentDialog();
@@ -26,7 +41,7 @@ Template.allUserList.helpers({
 })  
 
 Template.allUserList.events({
-    "input .filter-users": function (e) {
-        IM.setUsersFilterString($(e.target).val());
+    "input .filter-users": function (e,t) {
+        t.onSearchInput($(e.target).val());
     }
 })

@@ -35,3 +35,4 @@ cfs:standard-packages
 cfs:filesystem
 tap:i18n
 flemay:less-autoprefixer
+kadira:debug

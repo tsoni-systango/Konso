@@ -39,6 +39,7 @@ Template.chat.onCreated(function () {
 
         self.subscription = self.subscribe("messages", self.dialogId, opts, function () {
             GlobalUI.closeLeftMenu();
+            self.isReady.set(true);
         });
     });
 
@@ -64,6 +65,7 @@ Template.chat.onRendered(function () {
         }
         self.doAfterMessageReady = null;
         IM.getCurrentDialogId();
+
         Tracker.nonreactive(function () {
             self.chat.off(MESSAGES_READY_EVENT)
             self.chat.off(MESSAGE_READY_EVENT)
@@ -72,12 +74,12 @@ Template.chat.onRendered(function () {
                     self.doAfterMessageReady();
                 }
             });
+
             self.chat.on(MESSAGES_READY_EVENT, function () {
                 self.scrollController && self.scrollController.destroy();
                 self.scrollController = null;
                 self.loadingNew.set(false);
                 self.loadingOld.set(false);
-                self.isReady.set(true);
                 var computationNumber = 0;
                 var $messages = self.$(".messages");
                 var total = self.getMessages().count();

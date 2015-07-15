@@ -1,6 +1,21 @@
 Meteor.startup(function () {
     initConfig();
-    
+    //Messages.remove({});
+    //Dialogs.remove({});
+    //Meteor.users.remove({});
+
+
+    /*var i = Meteor.users.find({}).count();
+    var limit = i + 950;
+    for (i; i < limit; i++) {
+        Accounts.createUser({
+            username: "auser" + i,
+            email: "user"+i+"@mail.ru",
+            password: i+"pass"
+        })
+    }*/
+
+
     var allUsers = Meteor.users.find({}).fetch();
     _.each(allUsers, function (user) {
         if (!user.profile.displayName) {
@@ -27,23 +42,6 @@ Meteor.startup(function () {
 
     SyncedCron.start();
 
-    //TODO remove it next version
-    //this code turns all growl notifications on, by default
-    _.each(allUsers, function (user) {
-        var growlNotificationsConfig = Utils.getByKey(user, GrowlNotificationsNamespace);
-        if (!growlNotificationsConfig) {
-            growlNotificationsConfig = {};
-        }
-        for (var key in GrowlNotificationTypes) {
-            var id = GrowlNotificationTypes[key];
-            if (!growlNotificationsConfig.hasOwnProperty(id)) {
-                growlNotificationsConfig[id] = true;
-            }
-        }
-        var updateData = {};
-        updateData[GrowlNotificationsNamespace] = growlNotificationsConfig;
-        Meteor.users.update(user._id, {$set: updateData});
-    });
 });
 
 Accounts.onCreateUser(function (options, user) {

@@ -7,14 +7,18 @@
         </div>
 
         <div class="scrollable-list">
-            <div class="room-users">
-		    {{#each roomUsers}}
-			    {{>generalUserItem}}
-		    {{/each}}
-            </div>
-		{{#each users}}
-			{{>generalUserItem}}
-		{{/each}}
+            {{#if Template.subscriptionsReady}}
+                <div class="room-users">
+                    {{#each roomUsers}}
+                        {{>generalUserItem}}
+                    {{/each}}
+                </div>
+                {{#each users}}
+                    {{>generalUserItem}}
+                {{/each}}
+            {{else}}
+                {{>loading}}
+            {{/if}}
         </div>
     </div>
 </template>

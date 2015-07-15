@@ -12,14 +12,6 @@ Template.generalUserItem.helpers({
     isProcessingUser: function () {
         return Template.instance().isProcessingUser.get();
     },
-    isVisible: function () {
-        var filterString = IM.getFilterUsersString();
-        if (!filterString) {
-            return true;
-        }
-        var name = Template.instance().name;
-        return name.toLowerCase().indexOf(filterString.toLowerCase()) > -1;
-    },
     isUserCouldBeAdded: function () {
         var curDialog = Dialogs.findOne(IM.getCurrentDialogId());
         return curDialog
