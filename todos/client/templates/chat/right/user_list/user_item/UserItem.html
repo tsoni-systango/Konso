@@ -1,0 +1,47 @@
+<template name="UserItem">
+    {{#if Template.subscriptionsReady}}
+        {{#with data}}
+            <div fit id="user-properties">
+                <button class="close-user-menu white btn-floating btn-flat waves-effect waves-light "><i class="material-icons">arrow_forward</i></button>
+
+                {{>persistenceIndicator userId=_id class="user-indicator"}}
+                <h5>
+                    <span>
+                        {{profile.displayName}}
+                    </span>
+                </h5>
+                {{> userProperty name="email" value=email}}
+                {{> userProperty name="phone" value=profile.phone}}
+                <a class="conversation usr-menu-btn waves-effect waves-light btn"><i class="material-icons left">chat</i>Conversation</a>
+                <div class="row">
+                    <div class="col s4" style="padding-right: 8px">
+                        <a class="usr-menu-btn waves-effect waves-light btn"><i class="material-icons left">videocam</i></a>
+                    </div>
+                    <div class="col s8">
+                        <a class="usr-menu-btn waves-effect waves-light btn"><i class="material-icons left">call</i>Call</a>
+                    </div>
+                </div>
+
+                {{#if isUserCouldBeAdded}}
+                    <a class="add dialog-action usr-menu-btn waves-effect waves-light btn"><i class="material-icons left">add</i>Add to the Room</a>
+                {{/if}}
+                {{#if isUserCouldBeRemoved}}
+                    <a class="remove dialog-action usr-menu-btn waves-effect waves-light btn"><i class="material-icons left">remove</i>Remove from Room</a>
+                {{/if}}
+            </div>
+        {{/with}}
+    {{/if}}
+</template>
+
+<template name="userProperty">
+    <div class="row user-property">
+        <div class="col s3 name">{{name}}</div>
+        <div class="col s9 value">
+            {{#if value}}
+                {{value}}
+            {{else}}
+                <div class="not-defined">-</div>
+            {{/if}}
+        </div>
+    </div>
+</template>

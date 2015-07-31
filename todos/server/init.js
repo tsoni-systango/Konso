@@ -17,9 +17,13 @@ Meteor.startup(function () {
 
 
     var allUsers = Meteor.users.find({}).fetch();
+
     _.each(allUsers, function (user) {
         if (!user.profile.displayName) {
             Meteor.users.update(user._id, {$set: {"profile.displayName": user.username}});
+        }
+        if (!user.profile.presence) {
+            Meteor.users.update(user._id, {$set: {"profile.presence": 0}});
         }
     })
     allUsers = Meteor.users.find({}).fetch();
@@ -28,6 +32,7 @@ Meteor.startup(function () {
             Meteor.users.update(user._id, {$set: {"profile.sortName": user.profile.displayName.toLowerCase()}});
         }
     });
+    recalculateSortIndexesForUsers();
 
     if (Meteor.settings.public.defaultAuth === AUTH_TYPES.CROWD) {
         SyncedCron.add({
@@ -58,6 +63,7 @@ Accounts.onCreateUser(function (options, user) {
     }
     Utils.setByKey(GrowlNotificationsNamespace, user, growlNotificationsDefaults);
     user.authType = Meteor.settings.public.defaultAuth;
+    recalculateSortIndexesForUsers();
     console.log("Created new user", user.profile.displayName);
     return user;
 });
@@ -84,4 +90,13 @@ var initConfig = function () {
     } catch (e) {
         throw new Meteor.Error("Can not parse authentication config. Use 'meteor --settings config.json'")
     }
+}
+
+var recalculateSortIndexesForUsers = function(){
+    var allUsers = Meteor.users.find({}, {
+        sort: {"profile.displayName": 1}
+    }).fetch();
+    _.each(allUsers, function (user, i) {
+        Meteor.users.update(user._id, {$set: {"profile.sortName": i, "profile.presence": 0}});
+    });
 }

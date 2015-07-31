@@ -1,7 +1,7 @@
 .all-user-list {
   padding: 0px;
 
-  .room-users {
+  .room-user {
     font-weight: bold;
   }
 
@@ -10,13 +10,107 @@
     margin: 20px 10px;
     input {
       width: 80% !important;
-      margin-left: 30px  !important;
+      margin-left: 30px !important;
     }
-    label{
-      margin-left: 30px  !important;
+    label {
+      margin-left: 30px !important;
     }
-    i{
+    i {
       top: 4px !important;
+    }
+  }
+  .user-menu {
+    position: absolute;
+    top: 0px;
+    right: -300px;
+    width: 100%;
+    bottom: 0px;
+    background-color: rgba(255, 255, 255, 0.98);
+    z-index: 1;
+    animation-duration: 500ms;
+    & > div{
+      padding: 10px;
+    }
+    &.fadeInRight{
+      right: 0px;
+    }
+    .close-user-menu{
+      i{
+        color: #006396;
+      }
+      line-height: normal;
+      position: absolute;
+      top: 5px;
+      left: 5px;
+    }
+    .user-indicator{
+      font-size: 80px;
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+    .row .col{
+      padding: 0;
+      .usr-menu-btn{
+        margin: 0;
+      }
+    }
+    .usr-menu-btn{
+      height: 40px;
+      margin: 10px 0;
+      line-height: 40px;
+      .material-icons{
+        line-height: 40px;
+        margin-right: 5px;
+      }
+      color: white;
+      &.dialog-action{
+        margin-top: 25px;
+        font-size: 10px;
+        &.add{
+          background-color: rgba(0, 150, 40, 0.65);
+        }
+        &.remove{
+          background-color: rgba(150, 0, 0, 0.68);
+        }
+      }
+    }
+    h5{
+      text-align: center;
+      margin-bottom: 20px;
+      margin-top: -10px;
+      span{
+        position: relative;
+      }
+      .persistence-indicator{
+        position: absolute;
+        bottom: 0px;
+        left: 0px;
+      }
+    }
+    .user-property{
+      margin-bottom: 5px;
+      .col{
+       padding: 0px;
+      }
+      .name{
+        padding-right: 5px;
+        text-align: right;
+        text-transform: capitalize;
+        color: #908E8E;
+        font-size: 10px;
+        &:after{
+          content: ":";
+        }
+      }
+      .value{
+        font-size: 11px;
+        color: #686666;
+        & .not-defined{
+          font-style: italic;
+          color: #908E8E;
+        }
+      }
     }
   }
   .scrollable-list {
@@ -26,5 +120,19 @@
     left: 0px;
     bottom: 0px;
     overflow-y: auto;
+
   }
+  .buttons-next-prev-container {
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    .btn-load-more {
+      width: 50%;
+      float: left;
+      height: 30px;
+      text-align: center;
+    }
+  }
+
 }

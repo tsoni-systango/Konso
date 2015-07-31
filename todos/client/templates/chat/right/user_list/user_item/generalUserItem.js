@@ -29,6 +29,7 @@ Template.generalUserItem.helpers({
 })
 Template.generalUserItem.events({
     "click .general-user-item": function (e, t) {
+        return
         if(t.isProcessingUser.get()){
             return false;
         }

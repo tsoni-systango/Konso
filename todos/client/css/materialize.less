@@ -1,6 +1,25 @@
 @import 'import';
 
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Material Icons'), local('MaterialIcons-Regular'), url('/font/material-design-icons/2fcrYFNaTjcS6g4U3t-Y5UEw0lE80llgEseQY3FEmqw.woff2') format('woff2');
+}
 
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  word-wrap: normal;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
 
 /*** Colors ***/
 /*** Badges ***/
@@ -3896,7 +3915,7 @@ small {
     letter-spacing: .8px;
     width: 15%; }
     .tabs .tab a {
-      color: #ee6e73;
+      color: @color-primary;
       display: block;
       width: 100%;
       height: 100%;
@@ -3906,12 +3925,12 @@ small {
       -ms-transition: color .28s ease;
       transition: color .28s ease; }
       .tabs .tab a:hover {
-        color: #f9c9cb; }
+        color: @color-primary-light; }
   .tabs .indicator {
     position: absolute;
     bottom: 0;
     height: 2px;
-    background-color: #f6b2b5;
+    background-color: @color-primary-light;
     will-change: left, right; }
 
 .tabs .tab {
@@ -5145,7 +5164,7 @@ select {
     float: none;
     padding: 0 15px; }
     .side-nav li:hover, .side-nav li.active {
-      background-color: #ddd; }
+      background-color: #fafafa; }
   .side-nav a {
     color: #444;
     display: block;
@@ -5161,10 +5180,7 @@ select {
   top: 0;
   z-index: 998; }
 
-.side-nav.fixed a {
-  display: block;
-  padding: 0 15px;
-  color: #444; }
+
 
 .side-nav.fixed {
   left: 0;

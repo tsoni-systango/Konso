@@ -92,7 +92,7 @@ IM = new function () {
     self.getCurrentDialogUnreadMessageCount = function(){
         return self.unreadMessagesForDialogsMap[self.getCurrentDialogId()];
     };
-    self.getChatName = function (dialog) {
+    self.getChatName = function (dialog, template) {
         if (!dialog) {
             return null;
         }

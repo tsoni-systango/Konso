@@ -1,5 +1,5 @@
 <template name='generalUserItem'>
-        <div class="general-user-item waves-effect">
+        <div _id="{{_id}}" class="general-user-item waves-effect">
             <div class="presence-indicator">
                 {{>persistenceIndicator userId=this._id}}
             </div>
@@ -10,10 +10,10 @@
                 </div>
             {{else}}
                 {{#if isUserCouldBeAdded}}
-                    <button class="user-to-dialog-btn add-to-dialog btn-flat btn-floating waves-effect waves-light btn-small"><i class="mdi-content-add"></i></button>
+                    <button class="animated jello user-to-dialog-btn add-to-dialog btn-flat btn-floating waves-effect waves-light btn-small"><i class="mdi-content-add"></i></button>
                 {{/if}}
                 {{#if isUserCouldBeRemoved}}
-                    <button class="user-to-dialog-btn remove-from-dialog btn-flat btn-floating waves-effect waves-light btn-small"><i class="mdi-action-highlight-remove"></i></button>
+                    <button class="animated jello user-to-dialog-btn remove-from-dialog btn-flat btn-floating waves-effect waves-light btn-small"><i class="mdi-action-highlight-remove"></i></button>
                 {{/if}}
             {{/if}}
             <div class="clear"></div>

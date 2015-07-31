@@ -30,7 +30,6 @@
                             {{/each}}
                             {{#if Template.subscriptionsReady}}
                                 <script>
-                                    console.log("MESSAGES_READY_EVENT")
                                     $("#chat").trigger(MESSAGES_READY_EVENT);
                                 </script>
                             {{/if}}

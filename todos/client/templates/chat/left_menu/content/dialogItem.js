@@ -1,3 +1,4 @@
+
 Template.dialogItem.created = function () {
     var self = this;
     var sendNotification;
@@ -76,12 +77,10 @@ Template.dialogItem.created = function () {
         self.offlineUsers.set(reactiveDialog.userIds.length - 1 - onlineCount);
         self.onlineUsers.set(onlineCount);
     });
-
-    self.title = IM.getChatName(self.data);
 }
 Template.dialogItem.helpers({
     title: function () {
-        return Template.instance().title;
+        return IM.getChatName(this);
     },
     isVisible: function () {
         var filterString = IM.getFilterDialogsString();
@@ -90,7 +89,7 @@ Template.dialogItem.helpers({
         if (!filterString || currentDialogId === this._id) {
             return true;
         }
-        var title = Template.instance().title;
+        var title = IM.getChatName(this);
         return title.toLowerCase().indexOf(filterString.toLowerCase()) > -1;
     },
     selected: function () {

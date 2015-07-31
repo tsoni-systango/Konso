@@ -152,6 +152,9 @@ Meteor.methods({
             + " removed  "
             + Utils.getUsername(user)
             + " from conversation")
+    },
+    getUserCount: function(){
+        return Meteor.users.find({}).count();
     }
 });
 

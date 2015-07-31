@@ -20,7 +20,6 @@ accounts-password
 typ:accounts-ldap
 differential:vulcanize
 reactive-var
-dpid:user-presence
 u2622:persistent-session
 tsega:mentions
 underscore
@@ -36,3 +35,6 @@ cfs:filesystem
 tap:i18n
 flemay:less-autoprefixer
 kadira:debug
+tmeasday:publish-counts
+fortawesome:fontawesome
+zuzel:user-presence

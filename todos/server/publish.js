@@ -1,16 +1,20 @@
 Meteor.publish("userPresences", function () {
     return UserPresences.find();
 });
-Meteor.publish("allUsers", function () {
-    return Meteor.users.find({}, {fields: {username: 1, emails: 1, profile: 1, groups: 1}});
+
+Meteor.publish("user", function(id){
+    return Meteor.users.find({_id: id}, {
+        fields: {"email": 1, "username": 1, "profile.displayName": 1, "profile.presence": 1},
+    })
+})
+
+Meteor.publish("usersList", function () {
+    return Meteor.users.find({}, {
+        fields: {"profile.displayName": 1, "profile.presence": 1},
+        sort: {"profile.sortName": 1}
+    })
 });
-Meteor.publish("users", function (opts) {
-    var query ={}
-    if(opts.hasOwnProperty("searchString") && typeof opts.searchString != "undefined"){
-        query.profile.sortName = new RegExp(opts.searchString.toLowerCase());
-    }
-    return Meteor.users.find(query, {limit: opts.limit, fields: {username: 1, emails: 1, profile: 1, groups: 1}});
-});
+
 Meteor.publish("dialogs", function () {
     if (this.userId) {
         return Dialogs.find({$or: [{userIds: {$in: [this.userId]}}, {type: DialogTypes.CHANNEL}]});
