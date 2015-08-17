@@ -42,11 +42,11 @@
                         class="mdi-navigation-apps"></i>
 
                     <div id='app-modules' class='dropdown-content'>
-                        <div class="app-module-item module-chat">
+                        <a href="{{pathFor route="chat"}}" class="app-module-item module-chat">
                             <img src="/img/modules/chat.png">
 
                             <div class="name">Chat</div>
-                        </div>
+                        </a>
                         <div class="app-module-item module-todos">
                             <img src="/img/modules/todos.png">
 
@@ -57,11 +57,11 @@
 
                             <div class="name">Notes</div>
                         </div>
-                        <div class="app-module-item module-scheduler">
+                        <a href="{{pathFor route="checkIn"}}" class="app-module-item module-scheduler">
                             <img src="/img/modules/calendar.png">
 
                             <div class="name">Scheduler</div>
-                        </div>
+                        </a>
                     </div>
                 </button>
                 <button id="left-menu-btn" data-activates="app-left-menu"

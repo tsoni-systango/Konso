@@ -37,6 +37,27 @@ Meteor.startup(function () {
      }
      */
     Messages = new Mongo.Collection("messages");
+    /**
+     * _id
+     *  userId
+     *  date
+     *  checkedIn
+     *  places: {
+     *      HK: false,
+     *      PRC: false,
+     *      OC: false/true
+     *  }
+     *
+     * @type {Mongo.Collection}
+     */
+    Checkins = new Mongo.Collection("checkins");
+    /**
+     * _id
+     * startDate
+     * endDate
+     * @type {Mongo.Collection}
+     */
+    CheckinRules = new Mongo.Collection("checkin-rules");
     /*
      Uploads
      */

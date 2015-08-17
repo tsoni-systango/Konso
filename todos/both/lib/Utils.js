@@ -57,3 +57,28 @@ Utils.setByKey = function (key, object, value, ifNotExists) {
         }
     }
 }
+Utils.isUserInGroup = function(user, groupName){
+    if(!groupName || !user || !user.groups){
+        return false;
+    }
+    if(_.isArray(user.groups)){
+        var inGroup = false;
+        user.groups.forEach(function(g){
+            if(_.isArray(groupName)){
+                if(groupName.indexOf(g) >= 0){
+                    inGroup = true;
+                }
+            } else {
+                if(g === groupName){
+                    inGroup = true;
+                }
+            }
+        });
+        return inGroup;
+    } else {
+        if(_.isArray(groupName)){
+            return groupName.indexOf(user.groups) >= 0 ;
+        }
+        return user.groups === groupName;
+    }
+}

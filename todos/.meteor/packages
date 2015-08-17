@@ -20,7 +20,6 @@ accounts-password
 typ:accounts-ldap
 differential:vulcanize
 reactive-var
-u2622:persistent-session
 tsega:mentions
 underscore
 zuzel:atlassian-crowd
@@ -38,3 +37,5 @@ kadira:debug
 tmeasday:publish-counts
 fortawesome:fontawesome
 zuzel:user-presence
+mquandalle:jade
+coffeescript

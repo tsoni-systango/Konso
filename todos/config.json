@@ -1,16 +1,17 @@
 {
   "public": {
     "defaultLanguage": "zn",
-    "defaultAuth": "ldap",
+    "defaultAuth": "crowd",
     "uploadsDir": "C:/Users/ZuzEL/Documents/uploads",
     "privileges": {
     "createChannels": ["crowd-administrators"],
+    "addCheckins": ["hr"],
     "createChatAlerts": ["Admins"]
     }
   },
   "authentication": {
     "crowd": {
-      "baseUrl": "http://localhost:8095/crowd/",
+      "baseUrl": "http://192.168.1.133:8095/crowd/",
       "appName": "im",
       "appPassword": "123qwe"
     },

@@ -4,13 +4,21 @@ Meteor.publish("userPresences", function () {
 
 Meteor.publish("user", function(id){
     return Meteor.users.find({_id: id}, {
-        fields: {"email": 1, "username": 1, "profile.displayName": 1, "profile.presence": 1},
+        fields: {"emails": 1, "username": 1, "profile.displayName": 1, "profile.presence": 1},
     })
+})
+
+Meteor.publish(null, function(){
+    if(this.userId){
+        return Meteor.users.find({_id: this.userId}, {
+            fields: {"emails": 1, "username": 1, "profile": 1, groups: 1},
+        })
+    }
 })
 
 Meteor.publish("usersList", function () {
     return Meteor.users.find({}, {
-        fields: {"profile.displayName": 1, "profile.presence": 1},
+        fields: {"profile.displayName": 1, "profile.presence": 1, "emails": 1},
         sort: {"profile.sortName": 1}
     })
 });
@@ -33,6 +41,17 @@ Meteor.publish("uploads", function (ids) {
     }
     return this.ready();
 });
+
+Meteor.publish("checkinRules", function () {
+    return CheckinRules.find();
+});
+Meteor.publish("checkinRequired", function () {
+    if(this.userId){
+        return CheckinRules.find({userId: this.userId});
+    }
+});
+
+
 Meteor.publish("messages", function (dialogId, opts) {
     if (this.userId && dialogId && opts && opts.limit) {
         check(dialogId, String);

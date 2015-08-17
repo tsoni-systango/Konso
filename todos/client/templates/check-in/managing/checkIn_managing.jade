@@ -1,0 +1,37 @@
+template(name="checkIn_managing")
+	.checkIn_managing-template
+		table.centered
+			thead
+				tr
+					th User
+					th E-mail
+					th Start Date
+					th End Date
+			tbody
+				if userId
+					with(addingUser)
+						tr
+							td #{profile.displayName}
+							td #{emails}
+							td
+								input(type="date" id="startDate" class="datepicker")
+							td
+								input(type="date" id="endDate" class="datepicker")
+
+
+				else
+					each rules
+						tr.checkinRule(_id='#{_id}')
+							td #{name}
+							td #{email}
+							td {{date startDate}}
+							td {{date endDate}}
+							td(style='width: 30px;')
+								a.remove.waves-effect.waves-teal.btn-flat(style='padding-top: 5px;')
+									i.material-icons.left(style="font-size: 24px; margin: 0") delete
+
+		if userId
+			a.add.usr-menu-btn.waves-effect.waves-light.btn.right
+				i.material-icons.left(style="margin-top: 10px") turned_in_not
+				span Add
+

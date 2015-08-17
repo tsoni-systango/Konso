@@ -41,7 +41,6 @@ Template.allUserList.onCreated(function () {
     }
     self.users = function () {
 
-        console.log("start")
         var query = {};
         var t = new Date().getTime();
 
@@ -51,7 +50,6 @@ Template.allUserList.onCreated(function () {
         }
 
 
-        console.log("stop1 ", (new Date().getTime() - t))
         query._id = {$ne: Meteor.userId()};
         query["profile.presence"] = {$ne: 0};
         var online = Meteor.users.find(query,
@@ -61,7 +59,6 @@ Template.allUserList.onCreated(function () {
             }).fetch();
         query._id = {$ne: Meteor.userId()};
         query["profile.presence"] = 0;
-        console.log("stop2 ", (new Date().getTime() - t))
         var offline = [];
         if(online.length <= self.opts.get().limit) {
             offline= Meteor.users.find(query,
@@ -79,37 +76,38 @@ Template.allUserList.onCreated(function () {
 })
 
 Template.allUserList.onDestroyed(function () {
-    self.list.off("scroll");
+    self.list && self.list.off("scroll");
 });
+
 Template.allUserList.onRendered(function () {
     var self = this;
 
-    var list = self.list = self.$(".scrollable-list");
+    self.list = self.$(".scrollable-list");
     var onScroll = function(e){
-        var maxScroll = list.find("#users-scrollable-wrapper").height();
-        var scrollPos = list.scrollTop();
+        var maxScroll = self.list.find("#users-scrollable-wrapper").height();
+        var scrollPos = self.list.scrollTop();
         var d = 7/10;
         var opts = self.opts.get();
         if(scrollPos >= maxScroll * d ){
             opts.offset = Math.round(opts.limit * (1- d) + opts.offset);
-            list.off("scroll")
+            self.list.off("scroll")
             self.doAfterFetch = function(){
-                list.scrollTop(scrollPos - maxScroll * (1 - d));
-                list.on("scroll", onScroll);
+                self.list.scrollTop(scrollPos - maxScroll * (1 - d));
+                self.list.on("scroll", onScroll);
             }
             self.opts.set(opts);
         } else if(scrollPos <= maxScroll * (1 - d) && opts.offset > 0 ){
             opts.offset = Math.round(opts.offset - opts.limit * (1- d));
-            list.off("scroll");
+            self.list.off("scroll");
             self.doAfterFetch = function(){
-                list.scrollTop(scrollPos + maxScroll * (1 - d));
-                list.on("scroll", onScroll);
+                self.list.scrollTop(scrollPos + maxScroll * (1 - d));
+                self.list.on("scroll", onScroll);
             }
             self.opts.set(opts);
         }
 
     };
-    list.on("scroll", onScroll);
+    self.list.on("scroll", onScroll);
 });
 
 Template.allUserList.helpers({
@@ -144,6 +142,7 @@ Template.allUserList.events({
             t.$(".user-menu").addClass("fadeInRight")
         } else if($(e.target).closest(".close-user-menu").length){
             t.$(".user-menu").addClass("fadeOutRight");
+            t.selectedId.set(null);
             Meteor.setTimeout(function(){
                 t.$(".user-menu").removeClass("fadeOutRight").removeClass("fadeInRight");
             }, 500);

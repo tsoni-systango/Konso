@@ -3,7 +3,7 @@ Template.UserItem.onCreated(function(){
 });
 Template.UserItem.helpers({
     "data": function(){
-        return Meteor.users.findOne({_id: this._id});;
+        return Meteor.users.findOne(this._id);
     },
     isUserCouldBeAdded: function () {
         var curDialog = Dialogs.findOne(IM.getCurrentDialogId());

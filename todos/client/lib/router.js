@@ -19,11 +19,11 @@ Router.onBeforeAction(function(){
 });
 
 Router.map(function () {
-	this.route('login', {
-		path: "/login/"
+	this.route('/login', {
+		name: "login"
 	});
-	this.route('chat', {
-		path: '/chat/:id?',
+	this.route('/chat/:id?', {
+		name: 'chat',
 		yieldTemplates: {
             "chatLeftMenu": {to: "leftMenu"}
 		},
@@ -39,29 +39,30 @@ Router.map(function () {
 				var dialog = Dialogs.findOne(this.params.id);
 				IM.setCurrentDialog(dialog);
 			}
-			Session.setAuth('route', 'chat');
+
 			this.next();
 		}
 	});
-	this.route('todos', {
-		path: '/todos/',
+	this.route('/todos', {
+		name: 'todos',
 		yieldTemplates: {
 			"todosLeftMenu": {to: "leftMenu"}
 		},
 		onBeforeAction: function () {
-			Session.setAuth('route', 'todos');
+
 			this.next();
 		}
 	});
 
-	this.route('home', {
-		path: '/',
+	this.route('/', {
+		name: 'home',
 		action: function () {
-			Router.go(Session.get('route') || 'chat');
+			Router.go('chat');
 		}
 	});
-	this.route('embedded', {
-		path: '/embedded',
+
+	this.route('/embedded', {
+		name: 'embedded',
 		action: function () {
 			Session.set("embedded", "embedded");
 			Router.go('chat');
@@ -74,4 +75,56 @@ Router.map(function () {
 		}
 	});
 
+	/*
+	 * Checkin
+	 */
+
+	this.route('/check-in', {
+		name: 'checkIn',
+		yieldTemplates: {
+			"left_menu_checkin": {to: "leftMenu"},
+			"allUserList": {to: "rightMenu"}
+		},
+		waitOn: function(){
+			return [Meteor.subscribe("usersList"), Meteor.subscribe("checkinRules")]
+		},
+		onBeforeAction: function () {
+			this.next();
+		}
+	});
+	this.route('/check-in/required', {
+		name: 'checkInRequired',
+		template: "checkIn_required",
+		yieldTemplates: {
+			"left_menu_checkin": {to: "leftMenu"},
+			"allUserList": {to: "rightMenu"}
+		},
+		waitOn: function(){
+			return [Meteor.subscribe("usersList"), Meteor.subscribe("checkinRequired")]
+		},
+		onBeforeAction: function () {
+			this.next();
+		}
+	});
+	this.route('/check-in/managing/:id?', {
+		name: 'checkIn-managing',
+		template: "checkIn_managing",
+		yieldTemplates: {
+			"todosLeftMenu": {to: "leftMenu"},
+			"allUserList": {to: "rightMenu"}
+		},
+		waitOn: function(){
+			return [Meteor.subscribe("usersList"), Meteor.subscribe("checkinRules")]
+		},
+		onBeforeAction: function () {
+			this.next();
+		},
+		data: function(){
+			if(this.params.id){
+				return {
+					userId: this.params.id
+				}
+			}
+		}
+	});
 });

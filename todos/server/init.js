@@ -26,12 +26,7 @@ Meteor.startup(function () {
             Meteor.users.update(user._id, {$set: {"profile.presence": 0}});
         }
     })
-    allUsers = Meteor.users.find({}).fetch();
-    _.each(allUsers, function (user) {
-        if (!user.profile.sortName) {
-            Meteor.users.update(user._id, {$set: {"profile.sortName": user.profile.displayName.toLowerCase()}});
-        }
-    });
+
     recalculateSortIndexesForUsers();
 
     if (Meteor.settings.public.defaultAuth === AUTH_TYPES.CROWD) {

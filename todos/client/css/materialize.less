@@ -593,7 +593,11 @@ table {
     table.hoverable tbody tr:hover {
       background-color: #f2f2f2; }
   table.centered thead tr th, table.centered tbody tr td {
-    text-align: center; }
+    text-align: center;
+    input{
+      text-align: center;
+    }
+  }
 
 thead {
   border-bottom: 1px solid #d0d0d0; }
@@ -6116,10 +6120,10 @@ select {
 .picker__nav--prev:hover, .picker__nav--next:hover {
   cursor: pointer;
   color: #000000;
-  background: #a1ded8; }
+  background: @color-primary-super-light; }
 
 .picker__weekday-display {
-  background-color: #1f897f;
+  background-color: @color-primary-dark;
   padding: 10px;
   font-weight: 200;
   letter-spacing: .5;
@@ -6153,7 +6157,7 @@ select {
 .picker__day--infocus {
   color: #595959;
   letter-spacing: -.3;
-  padding: .75rem 0;
+  padding: 1rem 0;
   font-weight: 400;
   border: 1px solid transparent; }
 
@@ -6176,7 +6180,7 @@ select {
   background-color: @color-primary;
   color: #ffffff; }
   .picker__day--selected.picker__day--outfocus, .picker__day--selected:hover.picker__day--outfocus, .picker--focused .picker__day--selected.picker__day--outfocus {
-    background-color: #a1ded8; }
+    background-color: @color-primary-super-light; }
 
 .picker__footer {
   text-align: right;
@@ -6202,7 +6206,7 @@ select {
   border-left: 0.75em solid #676767; }
 
 button.picker__today:focus, button.picker__clear:focus, button.picker__close:focus {
-  background-color: #a1ded8; }
+  background-color: @color-primary-super-light; }
 
 /* ==========================================================================
    $BASE-TIME-PICKER

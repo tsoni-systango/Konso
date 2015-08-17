@@ -2,7 +2,8 @@
     {{#if Template.subscriptionsReady}}
         {{#with data}}
             <div fit id="user-properties">
-                <button class="close-user-menu white btn-floating btn-flat waves-effect waves-light "><i class="material-icons">arrow_forward</i></button>
+                <button class="close-user-menu white btn-floating btn-flat waves-effect waves-light "><i
+                        class="material-icons">arrow_forward</i></button>
 
                 {{>persistenceIndicator userId=_id class="user-indicator"}}
                 <h5>
@@ -10,23 +11,34 @@
                         {{profile.displayName}}
                     </span>
                 </h5>
-                {{> userProperty name="email" value=email}}
-                {{> userProperty name="phone" value=profile.phone}}
-                <a class="conversation usr-menu-btn waves-effect waves-light btn"><i class="material-icons left">chat</i>Conversation</a>
-                <div class="row">
+                {{> userProperty name="user" value=username}}
+                {{> userProperty name="email" value=emails}}
+                <a class="conversation usr-menu-btn waves-effect waves-light btn"><i
+                        class="material-icons left">chat</i>Conversation</a>
+
+                <hr>
+                {{#if canAddCheckin}}
+                <a href="{{pathFor route="checkIn-managing" id=_id}}" class=" usr-menu-btn waves-effect waves-light
+                btn"><i
+                        class="material-icons
+                left">turned_in_not</i>Add to Check-in</a>
+                {{/if}}
+                <!--div class="row">
                     <div class="col s4" style="padding-right: 8px">
                         <a class="usr-menu-btn waves-effect waves-light btn"><i class="material-icons left">videocam</i></a>
                     </div>
                     <div class="col s8">
                         <a class="usr-menu-btn waves-effect waves-light btn"><i class="material-icons left">call</i>Call</a>
                     </div>
-                </div>
+                </div-->
 
                 {{#if isUserCouldBeAdded}}
-                    <a class="add dialog-action usr-menu-btn waves-effect waves-light btn"><i class="material-icons left">add</i>Add to the Room</a>
+                    <a class="add dialog-action usr-menu-btn waves-effect waves-light btn"><i
+                            class="material-icons left">add</i>Add to the Room</a>
                 {{/if}}
                 {{#if isUserCouldBeRemoved}}
-                    <a class="remove dialog-action usr-menu-btn waves-effect waves-light btn"><i class="material-icons left">remove</i>Remove from Room</a>
+                    <a class="remove dialog-action usr-menu-btn waves-effect waves-light btn"><i
+                            class="material-icons left">remove</i>Remove from Room</a>
                 {{/if}}
             </div>
         {{/with}}
@@ -36,9 +48,9 @@
 <template name="userProperty">
     <div class="row user-property">
         <div class="col s3 name">{{name}}</div>
-        <div class="col s9 value">
+        <div class="col s9 value truncate">
             {{#if value}}
-                {{value}}
+                <span title="{{value}}">{{value}}</span>
             {{else}}
                 <div class="not-defined">-</div>
             {{/if}}

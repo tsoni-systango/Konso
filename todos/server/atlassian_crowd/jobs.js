@@ -19,15 +19,35 @@ var synchronizeAtlassianCrowdUsers = function () {
     });
     meteorUsers = _.pluck(meteorUsers, "username");
     var findCrowdUserCallback = Meteor.bindEnvironment(function (error, user) {
+
         if (user) {
-            Accounts.createUser({
-                username: user.name,
-                email: user.email,
-                password: "password",
-                profile: {
-                    displayName: user['display-name']
+            var userId = meteorUsersMapByName[user.name];
+            if(userId){
+                var u = Meteor.users.findOne(userId);
+                if(u.authType !== AUTH_TYPES.CROWD
+                    || u.profile.displayName !== user['display-name']
+                    || (!u.emails || u.emails[0].address !== user.email)){
+                    Meteor.users.update({_id: userId}, {$set: {
+                        emails: user.email,
+                        password: "password",
+                        authType: AUTH_TYPES.CROWD,
+                        "profile.displayName": user['display-name']
+                        }
+                    })
                 }
-            })
+
+            } else {
+                console.log("CREATING USER: ", user.name);
+                Accounts.createUser({
+                    username: user.name,
+                    emails: user.email,
+                    password: "password",
+                    authType: AUTH_TYPES.CROWD,
+                    profile: {
+                        displayName: user['display-name']
+                    }
+                })
+            }
         } else {
             console.error(error.message || error);
         }
@@ -38,9 +58,7 @@ var synchronizeAtlassianCrowdUsers = function () {
             var crowdUsernames = _.pluck(response.users, "name");
             //to add if not exists on Meteor Server
             _.each(crowdUsernames, function (crowdUsername) {
-                if (!_.contains(meteorUsernames, crowdUsername)) {
-                    AtlassianCrowd.instance().user.find(crowdUsername, findCrowdUserCallback);
-                }
+                AtlassianCrowd.instance().user.find(crowdUsername, findCrowdUserCallback);
             })
             //to delete if not exists on Crowd Server
             _.each(meteorUsernames, function (meteorUsername) {
@@ -64,9 +82,9 @@ var synchronizeAtlassianCrowdGrops = function () {
     _.each(users, function (user) {
 
         var findCrowdUserGroupsCallback = Meteor.bindEnvironment(function (error, response) {
-            if (response) {
+            if (response && user.groups !== response) {
                 Meteor.users.update(user._id, {$set: {groups: response}});
-            } else {
+            } else if(error) {
                 console.error(error.message || error);
             }
         });

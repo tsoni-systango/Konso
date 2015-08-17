@@ -1,0 +1,15 @@
+template(name="generalUserItem")
+	.generalUserItem-template.general-user-item.waves-effect(_id="#{_id}")
+		span.presence-indicator
+			+persistenceIndicator(userId=this._id)
+		.username #{username}
+		if isProcessingUser
+			.loader
+				+loading_small(fit=true)
+		else if isUserCouldBeAdded
+			button.user-to-dialog-btn.add-to-dialog.btn-flat.btn-floating.waves-effect.waves-light.btn-small
+				i.mdi-content-add
+		else if isUserCouldBeRemoved
+			button.user-to-dialog-btn.remove-to-dialog.btn-flat.btn-floating.waves-effect.waves-light.btn-small
+				i.mdi-action-highlight-remove
+		.clear

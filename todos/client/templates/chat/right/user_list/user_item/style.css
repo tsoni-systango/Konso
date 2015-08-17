@@ -40,6 +40,7 @@
     top: 1px;
     right: 0px;
     padding: 5px;
+    display: none;
 }
 .general-user-item .user-to-dialog-btn i{
     color: #ccc !important;

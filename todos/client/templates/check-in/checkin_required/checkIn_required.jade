@@ -1,0 +1,17 @@
+template(name="checkIn_required")
+	.checkIn_required-template
+		table.centered
+			thead
+				tr
+					th User
+					th Start Date
+					th End Date
+			tbody
+				with(addingUser)
+					tr
+						td #{profile.displayName}
+						td #{emails}
+						td
+							input(type="date" id="startDate" class="datepicker")
+						td
+							input(type="date" id="endDate" class="datepicker")
