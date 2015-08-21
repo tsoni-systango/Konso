@@ -21,9 +21,10 @@ var synchronizeAtlassianCrowdUsers = function () {
     var findCrowdUserCallback = Meteor.bindEnvironment(function (error, user) {
 
         if (user) {
-            var userId = meteorUsersMapByName[user.name];
-            if(userId){
-                var u = Meteor.users.findOne(userId);
+            var u = Meteor.users.findOne({username: user.name});
+
+            if(u){
+                var userId = u._id;
                 if(u.authType !== AUTH_TYPES.CROWD
                     || u.profile.displayName !== user['display-name']
                     || (!u.emails || u.emails[0].address !== user.email)){
@@ -37,7 +38,6 @@ var synchronizeAtlassianCrowdUsers = function () {
                 }
 
             } else {
-                console.log("CREATING USER: ", user.name);
                 Accounts.createUser({
                     username: user.name,
                     emails: user.email,

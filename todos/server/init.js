@@ -33,7 +33,7 @@ Meteor.startup(function () {
         SyncedCron.add({
             name: 'Synchronize Atlassian Crowd Groups',
             schedule: function (parser) {
-                return parser.text('every 1 minute');
+                return parser.text('every 20 minutes');
             },
             job: synchronizeWithAtlassianCrowd
         });

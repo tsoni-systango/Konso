@@ -4,9 +4,9 @@
     "defaultAuth": "crowd",
     "uploadsDir": "C:/Users/ZuzEL/Documents/uploads",
     "privileges": {
-    "createChannels": ["crowd-administrators"],
-    "addCheckins": ["hr"],
-    "createChatAlerts": ["Admins"]
+      "createChannels": ["crowd-administrators"],
+      "addCheckins": ["fic-hk-hrd"],
+      "createChatAlerts": ["Admins"]
     }
   },
   "authentication": {
