@@ -39,9 +39,9 @@ Meteor.startup(function () {
     Messages = new Mongo.Collection("messages");
     /**
      * _id
-     *  userId
      *  date
      *  checkedIn
+     *  ruleId
      *  places: {
      *      HK: false,
      *      PRC: false,
@@ -53,6 +53,7 @@ Meteor.startup(function () {
     Checkins = new Mongo.Collection("checkins");
     /**
      * _id
+     * userId
      * startDate
      * endDate
      * @type {Mongo.Collection}

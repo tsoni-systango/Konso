@@ -1,17 +1,41 @@
 template(name="checkIn_required")
 	.checkIn_required-template
-		table.centered
+		.top-menu
+			a.week-back.waves-effect.waves-light.btn.btn-flat.left.white
+				i.material-icons.left chevron_left
+			span.date #{week}
+			a.week-forward.waves-effect.waves-light.btn.btn-flat.right.white
+				i.material-icons.left chevron_right
+
+		table.centered.responsive-table
 			thead
 				tr
-					th User
-					th Start Date
-					th End Date
+					th Date
+					th.checkbox HK
+					th.checkbox PRC
+					th.checkbox Other Country
+					th Remark
 			tbody
-				with(addingUser)
+				each checkins
 					tr
-						td #{profile.displayName}
-						td #{emails}
+						td #{date}
 						td
-							input(type="date" id="startDate" class="datepicker")
+							p
+								input.filled-in(type="checkbox" id="HK-#{_id}")
+								label(for="HK-#{_id}")
 						td
-							input(type="date" id="endDate" class="datepicker")
+							p
+								input.filled-in(type="checkbox" id="PRC-#{_id}")
+								label(for="PRC-#{_id}")
+						td
+							p
+								input.filled-in(type="checkbox" id="OC-#{_id}")
+								label(for="OC-#{_id}")
+						td
+							p
+								input.validate(type="text")
+
+
+		if canSubmit
+			a.submit.waves-effect.waves-light.btn.right
+				span Submit

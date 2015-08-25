@@ -79,20 +79,7 @@ Router.map(function () {
 	 * Checkin
 	 */
 
-	this.route('/check-in', {
-		name: 'checkIn',
-		yieldTemplates: {
-			"left_menu_checkin": {to: "leftMenu"},
-			"allUserList": {to: "rightMenu"}
-		},
-		waitOn: function(){
-			return [Meteor.subscribe("usersList"), Meteor.subscribe("checkinRules")]
-		},
-		onBeforeAction: function () {
-			this.next();
-		}
-	});
-	this.route('/check-in/required', {
+	this.route('/checkin/required/:ruleId?', {
 		name: 'checkInRequired',
 		template: "checkIn_required",
 		yieldTemplates: {
@@ -104,13 +91,20 @@ Router.map(function () {
 		},
 		onBeforeAction: function () {
 			this.next();
+		},
+		data: function(){
+			if(this.params.ruleId){
+				return {
+					ruleId: this.params.ruleId
+				}
+			}
 		}
 	});
-	this.route('/check-in/managing/:id?', {
+	this.route('/checkin/managing/:id?', {
 		name: 'checkIn-managing',
 		template: "checkIn_managing",
 		yieldTemplates: {
-			"todosLeftMenu": {to: "leftMenu"},
+			"left_menu_checkin": {to: "leftMenu"},
 			"allUserList": {to: "rightMenu"}
 		},
 		waitOn: function(){

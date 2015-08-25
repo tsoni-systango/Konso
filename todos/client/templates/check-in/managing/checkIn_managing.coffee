@@ -21,8 +21,8 @@ Template.checkIn_managing.events
 	'click .add': (e, t) ->
 		obj =
 			userId: this.userId
-			startDate: new Date($('#startDate').val()).getTime()
-			endDate: new Date($('#endDate').val()).getTime()
+			startDate: new Date($('#startDate').val()).setHours(0,0,0,0)
+			endDate: new Date($('#endDate').val()).setHours(0,0,0,0)
 
 		Meteor.call "newCheckinRule", obj, GlobalUI.generalCallback((id) ->
 			GlobalUI.toast "Added new checkin rule"

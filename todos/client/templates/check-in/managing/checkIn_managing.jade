@@ -26,7 +26,10 @@ template(name="checkIn_managing")
 							td #{email}
 							td {{date startDate}}
 							td {{date endDate}}
-							td(style='width: 30px;')
+							td.controls
+								a.view.waves-effect.waves-teal.btn-flat(style='padding-top: 5px;'
+								href='{{pathFor route="checkInRequired" ruleId=_id}}')
+									i.material-icons.left(style="font-size: 24px; margin: 0") remove_red_eye
 								a.remove.waves-effect.waves-teal.btn-flat(style='padding-top: 5px;')
 									i.material-icons.left(style="font-size: 24px; margin: 0") delete
 

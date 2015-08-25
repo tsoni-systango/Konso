@@ -5,8 +5,8 @@ Template.checkIn.onRendered ->
 
 
 Template.checkIn.helpers
-	'data': ->
-		this
+	'checkins': ->
+		Checkins.find({})
 
 Template.checkIn.events
 	'click .someclass': (e, t) ->
