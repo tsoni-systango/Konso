@@ -7,7 +7,7 @@ Meteor.publish "checkIns", (ruleId, weekOffset)->
 		else if m.toDate().getTime() < r.startDate
 			m = moment(r.startDate+1);
 		m.add(weekOffset, "week")
-		v = Checkins.find(
+		Checkins.find(
 			{
 				ruleId: ruleId
 				$and:[
@@ -16,8 +16,6 @@ Meteor.publish "checkIns", (ruleId, weekOffset)->
 				]
 			}
 		)
-		console.log(v.fetch())
-		v
 	else
 		@ready()
 
