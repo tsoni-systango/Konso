@@ -1,8 +1,9 @@
 template(name="checkin")
-	+contentFor("topMenu")
-		.dialog-menu
-			if Template.subscriptionsReady
-				span.left.name Check-ins of #{name}
+	if ruleId
+		+contentFor("topMenu")
+			.dialog-menu
+				if Template.subscriptionsReady
+					span.left.name Check-ins of #{name}
 	.checkIn_required-template
 		.card
 			.top-menu

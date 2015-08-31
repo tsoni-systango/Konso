@@ -1,0 +1,22 @@
+template(name="checkin_reports")
+	.checkin_reports-template
+		.card
+			.top-menu
+				if Template.subscriptionsReady
+					span.date Check-in Reports
+
+			if Template.subscriptionsReady
+				table.centered.responsive-table
+					thead
+						tr
+							th.checkIn_item_date_head Name
+							th.checkbox HK
+							th.checkbox PRC
+							th.checkbox Other Country
+							th.checkbox Days Unchecked
+							th From Date
+							th To Date
+							th
+					tbody.animated.fadeIn
+						each checkins
+							+checkin_report_item

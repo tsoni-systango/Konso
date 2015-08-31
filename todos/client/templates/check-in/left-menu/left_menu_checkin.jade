@@ -1,9 +1,9 @@
 template(name="left_menu_checkin")
 	.left_menu_checkin-template
-		a.waves-effect.waves-teal.btn-flat
+		a.waves-effect.waves-teal.btn-flat(href="{{pathFor route='checkin_reports'}}")
 			i.material-icons.left view_list
 			span Reports
-		a.waves-effect.waves-teal.btn-flat(href="{{pathFor route='checkins'}}")
+		a.waves-effect.waves-teal.btn-flat(href="{{pathFor route='checkins' userId=''}}")
 			i.material-icons.left snooze
 			span Required Check-in
 

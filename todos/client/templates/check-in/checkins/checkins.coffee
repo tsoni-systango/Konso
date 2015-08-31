@@ -26,7 +26,7 @@ Template.checkins.events
 
 		Meteor.call "newCheckinRule", obj, GlobalUI.generalCallback((id) ->
 			GlobalUI.toast "Added new checkin rule"
-			Router.go "checkIn-managing"
+			Router.go "checkins"
 		)
 	'click .remove': (e, t) ->
 		if confirm("Are you sure? User reports also will be removed")

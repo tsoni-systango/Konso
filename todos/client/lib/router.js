@@ -119,4 +119,18 @@ Router.map(function () {
 			}
 		}
 	});
+	this.route('/checkin-reports', {
+		name: 'checkin_reports',
+		template: "checkin_reports",
+		yieldTemplates: {
+			"left_menu_checkin": {to: "leftMenu"},
+			"allUserList": {to: "rightMenu"}
+		},
+		waitOn: function () {
+			return [Meteor.subscribe("usersList"), Meteor.subscribe("checkinRules")]
+		},
+		onBeforeAction: function () {
+			this.next();
+		}
+	});
 });

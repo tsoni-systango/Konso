@@ -1,4 +1,4 @@
-Meteor.startup(function () {
+
     /*
      Dialogs Schema
      {
@@ -79,4 +79,3 @@ Meteor.startup(function () {
 
         })]
     });
-})

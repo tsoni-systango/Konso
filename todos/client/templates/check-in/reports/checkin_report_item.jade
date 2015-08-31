@@ -1,0 +1,19 @@
+template(name="checkin_report_item")
+	tr.checkin_report_item-template(_id="#{_id}")
+		td #{name}
+		td
+			p #{report.hk}
+		td
+			p #{report.prc}
+		td
+			p #{report.oc}
+		td
+			p #{uncheckedCount}
+		td
+			p {{formatDate startDate "DD MMMM, YYYY"}}
+		td
+			p {{formatDate endDate "DD MMMM, YYYY"}}
+		td
+			a.view.waves-effect.waves-teal.btn-flat(style='padding-top: 5px;'
+			href='{{pathFor route="checkin" ruleId=_id}}')
+				i.material-icons.left(style="font-size: 24px; margin: 0") remove_red_eye

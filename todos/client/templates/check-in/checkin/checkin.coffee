@@ -11,11 +11,10 @@ Template.checkin.onRendered ->
 
 Template.checkin.helpers
 	name: ->
-		rule = CheckinRules.findOne @ruleId
-		user = Meteor.users.findOne(rule.userId);
-		n = Utils.getUsername(user);
-		console.log n
-		n
+		if @ruleId
+			rule = CheckinRules.findOne @ruleId
+			user = Meteor.users.findOne(rule.userId);
+			Utils.getUsername(user);
 	checkins: ->
 		Checkins.find {ruleId: @ruleId}, {limit: 7, sort: {date: 1}}
 	week: ->

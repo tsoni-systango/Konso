@@ -11,4 +11,5 @@
 
 		i++
 
+	CheckinRules.update checkinRuleId, {$set: {uncheckedCount: i, checkedCount: 0}}
 	#Checkins.insert()
