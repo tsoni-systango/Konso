@@ -10,7 +10,6 @@ Template.checkIn_item.onRendered ->
 	manage = (key, selector)->
 		if self.data.data and self.data.data[key] then self.$(selector).attr("checked", "checked");
 		if self.isDisabled then self.$(selector).attr("disabled", "disabled");
-	console.log(565765765)
 	manage "hk", ".HK"
 	manage "prc", ".PRC"
 	manage "oc", ".OC"

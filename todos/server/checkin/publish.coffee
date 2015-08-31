@@ -1,14 +1,23 @@
 Meteor.publish "checkIns", (ruleId, weekOffset)->
 	if @userId
-		Checkins.find(
+		r = CheckinRules.findOne(ruleId);
+		m = moment();
+		if m.toDate().getTime() > r.endDate
+			m = moment(r.endDate-1);
+		else if m.toDate().getTime() < r.startDate
+			m = moment(r.startDate+1);
+		m.add(weekOffset, "week")
+		v = Checkins.find(
 			{
 				ruleId: ruleId
 				$and:[
-					{date: $lt: moment().endOf("isoweek").add(weekOffset, "week").toDate().getTime()}
-					{date: $gte: moment().startOf("isoweek").add(weekOffset, "week").toDate().getTime()}
+					{date: $lt: m.endOf("isoweek").toDate().getTime()}
+					{date: $gte: m.startOf("isoweek").toDate().getTime()}
 				]
 			}
 		)
+		console.log(v.fetch())
+		v
 	else
 		@ready()
 
