@@ -87,7 +87,7 @@ Router.map(function () {
 			"allUserList": {to: "rightMenu"}
 		},
 		waitOn: function () {
-			return [Meteor.subscribe("usersList")]
+			return [Meteor.subscribe("usersList"), Meteor.subscribe('userPresences')]
 		},
 		onBeforeAction: function () {
 			this.next();
@@ -108,7 +108,7 @@ Router.map(function () {
 			"allUserList": {to: "rightMenu"}
 		},
 		waitOn: function () {
-			return [Meteor.subscribe("usersList"), Meteor.subscribe("checkinRules")]
+			return [Meteor.subscribe("usersList"),Meteor.subscribe("checkinRules"), Meteor.subscribe('userPresences')]
 		},
 		onBeforeAction: function () {
 			this.next();
@@ -127,7 +127,7 @@ Router.map(function () {
 			"allUserList": {to: "rightMenu"}
 		},
 		waitOn: function () {
-			return [Meteor.subscribe("usersList"), Meteor.subscribe("checkinRules")]
+			return [Meteor.subscribe("usersList"), Meteor.subscribe("checkinRules"), Meteor.subscribe('userPresences')]
 		},
 		onBeforeAction: function () {
 			this.next();

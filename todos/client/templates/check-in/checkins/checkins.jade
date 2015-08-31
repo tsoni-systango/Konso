@@ -43,7 +43,7 @@ template(name="checkins")
 
 				if userId
 					script
-						$('.datepicker').pickadate();
+						$('.datepicker').pickadate({container: 'body'});
 					.card-action
 						a.add.usr-menu-btn.waves-effect.waves-light.btn.btn-flat.blue-grey-text.white
 							span Add

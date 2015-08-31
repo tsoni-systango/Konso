@@ -23,6 +23,12 @@ Template.checkins.events
 			userId: this.userId
 			startDate: new Date($('#startDate').val()).setHours(0,0,0,0)
 			endDate: new Date($('#endDate').val()).setHours(0,0,0,0)
+		if !obj.startDate or !obj.endDate
+			GlobalUI.errorToast("Start Date and End Date is required")
+			return
+		if obj.startDate >= obj.endDate
+			GlobalUI.errorToast("Start Date should be earlier then End Date")
+			return
 
 		Meteor.call "newCheckinRule", obj, GlobalUI.generalCallback((id) ->
 			GlobalUI.toast "Added new checkin rule"
