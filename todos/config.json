@@ -7,6 +7,9 @@
       "createChannels": ["crowd-administrators"],
       "addCheckins": ["fic-hk-hrd"],
       "createChatAlerts": ["Admins"]
+    },
+    "checkinsConfig":{
+      "daysAfterWeekCanEdit": 7
     }
   },
   "authentication": {

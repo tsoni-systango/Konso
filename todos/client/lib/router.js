@@ -9,8 +9,8 @@ Router.configure({
 	loadingTemplate: 'loading'
 });
 
-Router.onBeforeAction(function(){
-	if(!Meteor.userId()){
+Router.onBeforeAction(function () {
+	if (!Meteor.userId()) {
 		this.layout(null);
 		this.render('login');
 	} else {
@@ -25,7 +25,7 @@ Router.map(function () {
 	this.route('/chat/:id?', {
 		name: 'chat',
 		yieldTemplates: {
-            "chatLeftMenu": {to: "leftMenu"}
+			"chatLeftMenu": {to: "leftMenu"}
 		},
 		waitOn: function () {
 			return [
@@ -35,7 +35,7 @@ Router.map(function () {
 			];
 		},
 		onBeforeAction: function () {
-			if(this.params.id) {
+			if (this.params.id) {
 				var dialog = Dialogs.findOne(this.params.id);
 				IM.setCurrentDialog(dialog);
 			}
@@ -79,45 +79,43 @@ Router.map(function () {
 	 * Checkin
 	 */
 
-	this.route('/checkin/required/:ruleId?', {
-		name: 'checkInRequired',
-		template: "checkIn_required",
+	this.route('/checkin/:ruleId', {
+		name: 'checkin',
+		template: "checkin",
 		yieldTemplates: {
 			"left_menu_checkin": {to: "leftMenu"},
 			"allUserList": {to: "rightMenu"}
 		},
-		waitOn: function(){
-			return [Meteor.subscribe("usersList"), Meteor.subscribe("checkinRequired")]
+		waitOn: function () {
+			return [Meteor.subscribe("usersList")]
 		},
 		onBeforeAction: function () {
 			this.next();
 		},
-		data: function(){
-			if(this.params.ruleId){
+		data: function () {
+			if (this.params.ruleId) {
 				return {
 					ruleId: this.params.ruleId
 				}
 			}
 		}
 	});
-	this.route('/checkin/managing/:id?', {
-		name: 'checkIn-managing',
-		template: "checkIn_managing",
+	this.route('/checkins/:userId?', {
+		name: 'checkins',
+		template: "checkins",
 		yieldTemplates: {
 			"left_menu_checkin": {to: "leftMenu"},
 			"allUserList": {to: "rightMenu"}
 		},
-		waitOn: function(){
+		waitOn: function () {
 			return [Meteor.subscribe("usersList"), Meteor.subscribe("checkinRules")]
 		},
 		onBeforeAction: function () {
 			this.next();
 		},
-		data: function(){
-			if(this.params.id){
-				return {
-					userId: this.params.id
-				}
+		data: function () {
+			return {
+				userId: this.params.userId
 			}
 		}
 	});

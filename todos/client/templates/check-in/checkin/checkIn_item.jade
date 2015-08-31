@@ -1,0 +1,27 @@
+template(name="checkIn_item")
+	tr.checkIn_item-template(_id="#{_id}")
+		td.checkIn_item_date #{date}
+		td
+			p
+				input.HK(type="checkbox" id="HK#{_id}")
+				label(for="HK#{_id}")
+		td
+			p
+				input.PRC(type="checkbox" id="PRC#{_id}")
+				label(for="PRC#{_id}")
+		td
+			p
+				input.OC(type="checkbox" id="OC#{_id}")
+				label(for="OC#{_id}")
+		td
+			p
+				input.remark.validate(type="text" value='#{data.remark}')
+		td
+			p.checkIn_item_indicator
+				if isSaving
+					+loading_small(fit=true)
+				else if isError
+					i.animated.fadeOut.material-icons.error-color error
+				else if isSuccess
+					i.animated.fadeOut.material-icons.success-color done_all
+

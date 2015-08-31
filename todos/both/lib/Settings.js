@@ -8,4 +8,7 @@ SETTINGS = new function () {
                 navigator.language;
         }
     };
+    this.checkinsEditableDaysAfter = function () {
+        return Utils.getByKey(Meteor.settings, "public.checkinsConfig.daysAfterWeekCanEdit") || 7;
+    };
 }

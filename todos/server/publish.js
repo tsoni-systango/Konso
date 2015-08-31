@@ -42,16 +42,6 @@ Meteor.publish("uploads", function (ids) {
     return this.ready();
 });
 
-Meteor.publish("checkinRules", function () {
-    return CheckinRules.find();
-});
-Meteor.publish("checkinRequired", function () {
-    if(this.userId){
-        return CheckinRules.find({userId: this.userId});
-    }
-});
-
-
 Meteor.publish("messages", function (dialogId, opts) {
     if (this.userId && dialogId && opts && opts.limit) {
         check(dialogId, String);

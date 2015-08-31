@@ -608,6 +608,9 @@ td, th {
   text-align: left;
   vertical-align: middle;
   border-radius: 2px; }
+th{
+  color: #999;
+}
 
 @media only screen and (max-width : 992px) {
   table.responsive-table {
@@ -3749,9 +3752,9 @@ small {
 
 .card {
   position: relative;
-  overflow: hidden;
   margin: 0.5rem 0 1rem 0;
   background-color: #fff;
+  z-index: 11;
   border-radius: 2px; }
   .card .card-title {
     color: #fff;
@@ -3812,8 +3815,9 @@ small {
     .card .card-content .card-title {
       line-height: 48px; }
   .card .card-action {
+    text-align: right;
     border-top: 1px solid rgba(160, 160, 160, 0.2);
-    padding: 20px; }
+    padding: 10px; }
     .card .card-action a {
       color: #ffab40;
       margin-right: 20px;

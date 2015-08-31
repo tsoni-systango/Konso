@@ -77,7 +77,7 @@ Utils.isUserInGroup = function(user, groupName){
         return inGroup;
     } else {
         if(_.isArray(groupName)){
-            return groupName.indexOf(user.groups) >= 0 ;
+            return groupName.indexOf(user.groups) >= 0;
         }
         return user.groups === groupName;
     }

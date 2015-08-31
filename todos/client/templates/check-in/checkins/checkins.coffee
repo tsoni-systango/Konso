@@ -1,10 +1,10 @@
-Template.checkIn_managing.onCreated ->
+Template.checkins.onCreated ->
+	@subscribe "checkinRules"
 
-
-Template.checkIn_managing.onRendered ->
+Template.checkins.onRendered ->
 	$('.datepicker').pickadate();
 
-Template.checkIn_managing.helpers
+Template.checkins.helpers
 	'addingUser': ->
 		Meteor.users.findOne(this.userId);
 	'rules': ->
@@ -17,7 +17,7 @@ Template.checkIn_managing.helpers
 		moment(v).format("DD MMMM, YYYY")
 
 
-Template.checkIn_managing.events
+Template.checkins.events
 	'click .add': (e, t) ->
 		obj =
 			userId: this.userId

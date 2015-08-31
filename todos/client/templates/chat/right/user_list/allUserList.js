@@ -76,6 +76,8 @@ Template.allUserList.onCreated(function () {
 })
 
 Template.allUserList.onDestroyed(function () {
+    var self = this;
+    self.destroyed = true;
     self.list && self.list.off("scroll");
 });
 
@@ -144,7 +146,7 @@ Template.allUserList.events({
             t.$(".user-menu").addClass("fadeOutRight");
             t.selectedId.set(null);
             Meteor.setTimeout(function(){
-                t.$(".user-menu").removeClass("fadeOutRight").removeClass("fadeInRight");
+                !t.destroyed && t.$(".user-menu").removeClass("fadeOutRight").removeClass("fadeInRight");
             }, 500);
         }
 

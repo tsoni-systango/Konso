@@ -1,0 +1,28 @@
+template(name="checkin")
+	+contentFor("topMenu")
+		.dialog-menu
+			if Template.subscriptionsReady
+				span.left.name Check-ins of #{name}
+	.checkIn_required-template
+		.card
+			.top-menu
+				if Template.subscriptionsReady
+					span.date #{week}
+					a.week-forward.waves-effect.waves-light.btn.btn-flat.right.white(class="#{nextClass}")
+						i.material-icons.left chevron_right
+
+					a.week-back.waves-effect.waves-light.btn.btn-flat.right.white(class="#{prevClass}")
+						i.material-icons.left chevron_left
+			if Template.subscriptionsReady
+				table.centered.responsive-table
+					thead
+						tr
+							th.checkIn_item_date_head Date
+							th.checkbox HK
+							th.checkbox PRC
+							th.checkbox Other Country
+							th Remark
+							th.checkIn_item_indicator_head
+					tbody.animated.fadeIn
+						each checkins
+							+checkIn_item

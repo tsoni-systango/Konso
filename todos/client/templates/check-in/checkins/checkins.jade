@@ -1,0 +1,50 @@
+template(name="checkins")
+	.checkIn_managing-template
+		if Template.subscriptionsReady
+			.card.animated.fadeIn
+				.card-content
+					.card-title.blue-grey-text
+						if userId
+							span New Checkin rule
+						else
+							span Checkins
+					table.centered.responsive-table
+						thead
+							tr
+								th User
+								th E-mail
+								th Start Date
+								th End Date
+						tbody
+							if userId
+								with(addingUser)
+									tr
+										td #{profile.displayName}
+										td #{emails}
+										td
+											input(type="date" id="startDate" class="datepicker")
+										td
+											input(type="date" id="endDate" class="datepicker")
+
+
+							else
+								each rules
+									tr.checkinRule(_id='#{_id}')
+										td #{name}
+										td #{email}
+										td {{date startDate}}
+										td {{date endDate}}
+										td.controls
+											a.view.waves-effect.waves-teal.btn-flat(style='padding-top: 5px;'
+											href='{{pathFor route="checkin" ruleId=_id}}')
+												i.material-icons.left(style="font-size: 24px; margin: 0") remove_red_eye
+											a.remove.waves-effect.waves-teal.btn-flat(style='padding-top: 5px;')
+												i.material-icons.left(style="font-size: 24px; margin: 0") delete
+
+				if userId
+					script
+						$('.datepicker').pickadate();
+					.card-action
+						a.add.usr-menu-btn.waves-effect.waves-light.btn.btn-flat.blue-grey-text.white
+							span Add
+
