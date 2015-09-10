@@ -9,24 +9,28 @@ Template.checkin_report_item.helpers
 		u = Meteor.users.findOne(@userId)
 		Utils.getUsername u
 	'hk': ->
-		if !Session.get("REPORT_FILTER")
-			return this.report.hk
-		Checkins.find({"data.hk": true}).count();
+		getCount(this, "hk")
 	'prc': ->
-		if !Session.get("REPORT_FILTER")
-			return this.report.prc
-		Checkins.find({"data.prc": true}).count();
+		getCount(this, "prc")
 	'oc': ->
-		if !Session.get("REPORT_FILTER")
-			return this.report.oc
-		Checkins.find({"data.oc": true}).count();
+		getCount(this, "oc")
 	'uncheckedCount': ->
 		if !Session.get("REPORT_FILTER")
 			return this.uncheckedCount
-		Checkins.find({
+		Checkins.find(
+			ruleId: this._id
 			$or: [{"data": {$exists: false}}, {"data.oc": false, "data.prc": false, "data.hk": false}]
-		}).count();
+		).count();
 
 Template.checkin_report_item.events
 	'click .someclass': (e, t) ->
 		false
+
+getCount = (context, key)->
+	if !Session.get("REPORT_FILTER")
+		if !context.report
+			return 0
+		return context.report[key]
+	q = {ruleId: context._id}
+	q["data." + key] = true
+	Checkins.find(q).count();
