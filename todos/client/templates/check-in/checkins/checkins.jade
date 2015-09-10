@@ -35,7 +35,7 @@ template(name="checkins")
 										td #{name}
 										td #{email}
 										td {{formatDate startDate "DD MMMM, YYYY"}}
-										td {{formatDate endtDate "DD MMMM, YYYY"}}
+										td {{formatDate endDate "DD MMMM, YYYY"}}
 										td.controls
 											a.view.waves-effect.waves-teal.btn-flat(style='padding-top: 5px;'
 											href='{{pathFor route="checkin" ruleId=_id}}')
