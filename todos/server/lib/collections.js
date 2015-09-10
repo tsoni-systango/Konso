@@ -40,12 +40,11 @@
     /**
      * _id
      *  date
-     *  checkedIn
      *  ruleId
      *  places: {
      *      HK: false,
      *      PRC: false,
-     *      OC: false/true
+     *      OC: false,
      *  }
      *
      * @type {Mongo.Collection}

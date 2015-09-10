@@ -1,0 +1,15 @@
+template(name="userSelect")
+	.userSelect-template
+		.row
+			.input-field.col.s12
+				.material-icons.prefix search
+				input(type="text")
+		.row
+			.col.s6.all-users
+				each users
+					.user.waves-effect(_id='#{_id}')
+						p #{profile.displayName}
+			.col.s6.selected-users
+				each selectedUsers
+					.user.waves-effect(_id='#{_id}')
+						p #{profile.displayName}

@@ -1,15 +1,9 @@
-@.generateCheckins = (checkinRuleId)->
-	checkinRule = CheckinRules.findOne checkinRuleId
-	nextDay = checkinRule.startDate
-	i = 0
-	while nextDay < checkinRule.endDate
-		nextDay = moment(checkinRule.startDate).add(i, "day").toDate().getTime()
-		Checkins.insert
-			ruleId: checkinRuleId
-			date: nextDay
-			checkedIn: false
-
-		i++
-
-	CheckinRules.update checkinRuleId, {$set: {uncheckedCount: i, checkedCount: 0}}
-	#Checkins.insert()
+Meteor.startup ->
+	SyncedCron.add
+		name: 'Generate new Checkins',
+		schedule: (parser) ->
+			return parser.text('every 10 minutes')
+		,
+		job: ->
+			CheckinUtils.generateWeeklyCheckins()
+			

@@ -2,7 +2,7 @@
   "public": {
     "defaultLanguage": "zn",
     "defaultAuth": "crowd",
-    "uploadsDir": "C:/Users/ZuzEL/Documents/uploads",
+    "uploadsDir": "/Users/iSuslov/uploads",
     "privileges": {
       "createChannels": ["crowd-administrators"],
       "addCheckins": ["fic-hk-hrd"],

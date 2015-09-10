@@ -8,6 +8,8 @@ template(name="checkins")
 							span New Checkin rule
 						else
 							span Checkins
+
+
 					table.centered.responsive-table
 						thead
 							tr
@@ -32,8 +34,8 @@ template(name="checkins")
 									tr.checkinRule(_id='#{_id}')
 										td #{name}
 										td #{email}
-										td {{date startDate}}
-										td {{date endDate}}
+										td {{formatDate startDate "DD MMMM, YYYY"}}
+										td {{formatDate endtDate "DD MMMM, YYYY"}}
 										td.controls
 											a.view.waves-effect.waves-teal.btn-flat(style='padding-top: 5px;'
 											href='{{pathFor route="checkin" ruleId=_id}}')
@@ -42,8 +44,7 @@ template(name="checkins")
 												i.material-icons.left(style="font-size: 24px; margin: 0") delete
 
 				if userId
-					script
-						$('.datepicker').pickadate({container: 'body'});
+					script $('.datepicker').pickadate({container: 'body'});
 					.card-action
 						a.add.usr-menu-btn.waves-effect.waves-light.btn.btn-flat.blue-grey-text.white
 							span Add

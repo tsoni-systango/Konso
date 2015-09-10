@@ -25,7 +25,7 @@ Template.checkin.helpers
 	nextClass: ->
 		end = Checkins.findOne {ruleId: @ruleId}, {sort: {date: -1}, limit: 1}
 		rule = CheckinRules.findOne @ruleId
-		if rule.endDate > end.date then "" else "disabled"
+		if rule.lastDayGenerated > end.date then "" else "disabled"
 	prevClass: ->
 		start = Checkins.findOne {ruleId: @ruleId}, {sort: {date: 1}, limit: 1}
 		rule = CheckinRules.findOne @ruleId

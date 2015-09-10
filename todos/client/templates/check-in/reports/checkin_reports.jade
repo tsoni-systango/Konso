@@ -1,22 +1,36 @@
 template(name="checkin_reports")
+	+contentFor("topMenu")
+		button.filter-reports.menu-btn.waves-effect.waves-teal.btn-flat.right
+			i.material-icons filter_list
 	.checkin_reports-template
+		+checkin_filter
 		.card
 			.top-menu
-				if Template.subscriptionsReady
 					span.date Check-in Reports
 
 			if Template.subscriptionsReady
-				table.centered.responsive-table
-					thead
-						tr
-							th.checkIn_item_date_head Name
-							th.checkbox HK
-							th.checkbox PRC
-							th.checkbox Other Country
-							th.checkbox Days Unchecked
-							th From Date
-							th To Date
-							th
-					tbody.animated.fadeIn
-						each checkins
-							+checkin_report_item
+				if checkins.count
+
+					table.centered.responsive-table
+						thead
+							tr
+								th.checkIn_item_date_head Name
+								th.checkbox HK
+								th.checkbox PRC
+								th.checkbox Other Country
+								th.checkbox Days Unchecked
+								th From Date
+								th To Date
+								th
+						tbody.animated.fadeIn
+							each checkins
+								+checkin_report_item
+				else
+					.valign-wrapper(style='height: 200px; color: #ccc')
+						.valign(style='width: 100%')
+							h3.center Nothing to report
+			else
+				.valign-wrapper(style='height: 200px; color: #ccc')
+					.valign(style='width: 100%')
+						.center.progress(style='max-width: 300px;margin: 0 auto;margin-top: -40px;')
+							.indeterminate

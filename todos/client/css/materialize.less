@@ -3593,7 +3593,7 @@ h4 {
 h5 {
   font-size: 1.64rem;
   line-height: 1.804rem;
-  margin: 0.82rem 0 0.656rem 0; }
+  margin: 10px 0 15px 0; }
 
 h6 {
   font-size: 1rem;
@@ -3752,7 +3752,6 @@ small {
 
 .card {
   position: relative;
-  overflow: hidden;
   margin: 0.5rem 0 1rem 0;
   background-color: #fff;
   border-radius: 2px; }
@@ -4001,10 +4000,20 @@ small {
     background-color: #DFDFDF;
     color: #9F9F9F; }
 
-.btn i, .btn-large i, .btn-floating i, .btn-large i, .btn-flat i {
-  font-size: 1.3rem;
-  line-height: normal;
-  display: inline;
+.card-title {
+  .btn-flat {
+    padding: 5px 10px;
+    &:active, &:focus, &:hover {
+      background-color: #DDD;
+    }
+  }
+}
+.icon-only{
+  padding: 5px 10px;
+  margin: 0 5px;
+  &:active, &:focus, &:hover {
+    background-color: #DDD;
+  }
 }
 
 .btn, .btn-large {
@@ -4241,11 +4250,21 @@ a.waves-effect .waves-ripple {
   will-change: top, opacity; }
   @media only screen and (max-width : 992px) {
     .modal {
-      width: 80%; } }
+      width: 80%;
+    }
+  }
+  @media only screen and (max-width: 600px) {
+    .modal {
+      width: 95%;
+    }
+  }
   .modal h1, .modal h2, .modal h3, .modal h4 {
     margin-top: 0; }
   .modal .modal-content {
     padding: 24px; }
+  .modal-body{
+    position: relative;
+  }
   .modal .modal-footer {
     border-radius: 0 0 2px 2px;
     background-color: #fafafa;
@@ -5176,7 +5195,7 @@ select {
   .side-nav a {
     color: #444;
     display: block;
-    font-size: 1rem;
+    font-size: 11px;
     height: 64px;
     line-height: 64px;
     padding: 0 15px; }

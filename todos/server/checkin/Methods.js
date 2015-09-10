@@ -4,10 +4,10 @@ Meteor.methods({
 			Errors.throw(Errors.PERMISSION_DENIED);
 		}
 		check(checkinRule.startDate, Number);
-		check(checkinRule.endDate, Number);
-
+		checkinRule.generatedAll = false;
+		checkinRule.lastDayGenerated = checkinRule.startDate;
 		var id = CheckinRules.insert(checkinRule);
-		generateCheckins(id);
+		CheckinUtils.generateCheckins(id);
 		return id;
 	},
 	removeCheckinRule: function(id){

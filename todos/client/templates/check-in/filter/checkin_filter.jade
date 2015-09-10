@@ -1,0 +1,19 @@
+template(name="checkin_filter")
+	.checkin_filter-template.card.animated(class="#{class}")
+		.card-content
+			h5 Date range
+			.row
+				.col.s12.m5.l4
+					label(for="startDate") Start Date
+					input#startDate.datepicker.startDate(type="date")
+				.col.s12.m5.l4
+					label(for="endDate") End Date
+					input#endDate.datepicker.endDate(type="date")
+			h5 Users
+				a.clear.waves-effect.waves-light.btn-flat.right.icon-only
+					i.material-icons close
+			.row
+				.col.s12
+					select.usersSelect(multiple="true", style="width: 100%")
+						each users
+							option(value="#{_id}") #{profile.displayName}
