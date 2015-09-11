@@ -60,7 +60,7 @@ Meteor.publish "customReports", (opts)->
 				q.$and = [
 					{
 						date:
-							$lte: new Date(opts.toDate).getTime()
+							$lte: moment(opts.toDate).endOf("day").toDate().getTime()
 					}
 					{
 						date:

@@ -3,6 +3,7 @@ Errors = {
 	USER_NOT_EXISTS: "User does not exist",
 	DIALOG_NOT_EXISTS: "Dialog does not exist",
 	CHECKIN_NOT_FOUND: "Checkin rule not exist",
+	START_DATE_REQUIRED: "Start date for checkin rule required",
 	CHANNEL_NOT_EXISTS: "Channel does not exist",
     PERMISSION_DENIED: "Permission denied",
     CONVERSATION_IS_PRIVATE: "You are not authorized to write to this conversation",

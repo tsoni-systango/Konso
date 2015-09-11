@@ -19,8 +19,8 @@ Template.checkins.events
 	'click .add': (e, t) ->
 		obj =
 			userId: this.userId
-			startDate: new Date($('#startDate').val()).setHours(0,0,0,0)
-			endDate: new Date($('#endDate').val()).setHours(0,0,0,0)
+			startDate: $('#startDate').val()
+			endDate: $('#endDate').val()
 		if !obj.startDate
 			GlobalUI.errorToast("Start Date and End Date is required")
 			return
