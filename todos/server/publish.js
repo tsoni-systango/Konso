@@ -18,8 +18,8 @@ Meteor.publish(null, function(){
 
 Meteor.publish("usersList", function () {
     return Meteor.users.find({}, {
-        fields: {"profile.displayName": 1, "profile.presence": 1, "emails": 1},
-        sort: {"profile.sortName": 1}
+        fields: {"profile.displayName": 1, "profile.presence": 1, "emails": 1, "profile.sortIndex": 1},
+        sort: {"profile.sortIndex": 1}
     })
 });
 

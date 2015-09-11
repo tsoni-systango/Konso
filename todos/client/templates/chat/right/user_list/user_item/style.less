@@ -1,0 +1,50 @@
+.dialog-users{
+    .general-user-item {
+        .username {
+            font-weight: bold;
+        }
+    }
+}
+
+.general-user-item {
+    padding: 5px 10px;
+    position: relative;
+    cursor: pointer;
+    width: 100%;
+    border-bottom: 1px solid #eee;
+
+    .presence-indicator {
+        float: left;
+        margin-top: 3px;
+        .online {
+            color: rgb(87, 150, 28);
+            width: 15px;
+        }
+    }
+    .username {
+        float: left;
+        margin: 3px;
+        width: 120px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .loader {
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        top: 5px;
+        right: 5px;
+    }
+
+    .user-to-dialog-btn {
+        position: absolute;
+        top: 1px;
+        right: 0px;
+        padding: 5px;
+        display: none;
+    }
+    .user-to-dialog-btn i {
+        color: #ccc !important;
+    }
+}

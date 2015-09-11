@@ -5,7 +5,7 @@ Meteor.startup(function () {
     //Meteor.users.remove({});
 
 
-    /*var i = Meteor.users.find({}).count();
+   /* var i = Meteor.users.find({}).count();
     var limit = i + 950;
     for (i; i < limit; i++) {
         Accounts.createUser({
@@ -13,19 +13,16 @@ Meteor.startup(function () {
             email: "user"+i+"@mail.ru",
             password: i+"pass"
         })
-    }*/
+    }
+*/
 
-
-    var allUsers = Meteor.users.find({}).fetch();
-
-    _.each(allUsers, function (user) {
-        if (!user.profile.displayName) {
-            Meteor.users.update(user._id, {$set: {"profile.displayName": user.username}});
-        }
-        if (!user.profile.presence) {
-            Meteor.users.update(user._id, {$set: {"profile.presence": 0}});
-        }
-    })
+    Meteor.users.find({}, {fields: {"profile.displayName": 1}})
+        .forEach(function (user) {
+            if (!user.profile.displayName) {
+                Meteor.users.update(user._id, {$set: {"profile.displayName": user.username}});
+            }
+        });
+    Meteor.users.update({}, {$set: {"profile.presence": 0}});
 
     recalculateSortIndexesForUsers();
 
@@ -89,9 +86,15 @@ var initConfig = function () {
 
 var recalculateSortIndexesForUsers = function(){
     var allUsers = Meteor.users.find({}, {
-        sort: {"profile.displayName": 1}
+        fields: {"profile.displayName": 1}
     }).fetch();
     _.each(allUsers, function (user, i) {
-        Meteor.users.update(user._id, {$set: {"profile.sortName": i, "profile.presence": 0}});
+        Meteor.users.update(user._id, {$set: {"profile.sortName": user.profile.displayName.toLowerCase()}});
+    });
+    allUsers = Meteor.users.find({}, {
+        sort: {"profile.sortName": 1}, fields: {"profile.sortName": 1}
+    }).fetch();
+    _.each(allUsers, function (user, i) {
+        Meteor.users.update(user._id, {$set: {"profile.sortIndex": i}});
     });
 }

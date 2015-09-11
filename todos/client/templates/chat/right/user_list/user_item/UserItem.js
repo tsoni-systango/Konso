@@ -1,5 +1,5 @@
 Template.UserItem.onCreated(function(){
-    this.subscribe("user", this.data._id);
+
 });
 Template.UserItem.helpers({
     "data": function(){

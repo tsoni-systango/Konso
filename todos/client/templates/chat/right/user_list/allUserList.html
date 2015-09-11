@@ -8,6 +8,11 @@
         <div class="scrollable-list">
             {{#if Template.subscriptionsReady}}
                 <div id="users-scrollable-wrapper" class="scrollable-wrapper">
+                    <div class="dialog-users">
+                        {{#each dialogUsers}}
+                            {{>generalUserItem}}
+                        {{/each}}
+                    </div>
                     {{#each users}}
                         {{>generalUserItem}}
                     {{/each}}

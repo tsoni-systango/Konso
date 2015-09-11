@@ -4,5 +4,6 @@ Meteor.startup(function () {
     Messages._ensureIndex({"dialogId": 1, "created": 1});
     Meteor.users._ensureIndex({"authType": 1});
     Meteor.users._ensureIndex({"profile.sortName": 1});
+    Meteor.users._ensureIndex({"profile.sortIndex": 1});
     Meteor.users._ensureIndex({"profile.presence": -1});
 });

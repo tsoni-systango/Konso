@@ -1,5 +1,5 @@
 template(name="generalUserItem")
-	.generalUserItem-template.general-user-item.waves-effect(_id="#{_id}")
+	.generalUserItem-template.general-user-item(_id="#{_id}")
 		span.presence-indicator
 			+persistenceIndicator(userId=this._id)
 		.username #{username}
