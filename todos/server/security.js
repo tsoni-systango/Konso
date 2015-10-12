@@ -8,13 +8,6 @@ Meteor.startup(function () {
         return true;
     }
 
-    Uploads.allow({
-        insert: trueFunc,
-        update: trueFunc,
-        remove: trueFunc,
-        download: trueFunc
-    });
-
     UserReadTimestamps.allow({
         insert: function (userId, doc) {
             return userId && doc.userId === userId;

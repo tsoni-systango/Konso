@@ -1,7 +1,7 @@
 {
   "public": {
-    "defaultLanguage": "zn",
-    "defaultAuth": "crowd",
+    "defaultLanguage": "zh",
+    "defaultAuth": "ldap",
     "uploadsDir": "/Users/iSuslov/uploads",
     "privileges": {
       "createChannels": ["crowd-administrators"],

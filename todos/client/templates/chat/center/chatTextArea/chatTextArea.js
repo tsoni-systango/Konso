@@ -59,12 +59,16 @@ Template.chatTextArea.rendered = function () {
     });
     //=========================File upload==================
     self.uploadFile = function (file) {
-        Uploads.insert(file, GlobalUI.generalCallback(function (fileObjec) {
-            IM.addMessageAttachmentsDraft(fileObjec._id, {
-                stored: fileObjec.isStored(),
+        Uploads.insert({file: file, onUploaded: function(e, fileObj){
+           if(e){
+console.log(e)
+           }else {
+               IM.addMessageAttachmentsDraft(fileObjec._id, {
+                   stored: fileObjec.isStored(),
 
-            });
-        }));
+               });
+           }
+        }});
     }
 }
 Template.chatTextArea.events({
@@ -82,8 +86,8 @@ Template.chatTextArea.events({
         for (var i = 0; i < items.length; i++) {
             var type = items[i].type;
             if (type.indexOf("image") == -1) continue; //not image
-            var fileObj = new FS.File(items[i].getAsFile());
-            fileObj.name("Snapshot-" + _now() + "." + type.replace("image/", ""));
+            var fileObj = items[i].getAsFile();
+            //fileObj.name("Snapshot-" + _now() + "." + type.replace("image/", ""));
             Template.instance().uploadFile(fileObj);
         }
     },

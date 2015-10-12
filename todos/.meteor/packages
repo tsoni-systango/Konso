@@ -4,10 +4,9 @@
 # 'meteor add' and 'meteor remove' will edit this file for you,
 # but you can also edit it by hand.
 
-meteor-platform
 iron:router
 accounts-password
-
+ostrio:files
 
 
 
@@ -28,9 +27,6 @@ percolate:synced-cron
 meteorhacks:cluster
 meteorhacks:kadira
 meteorhacks:kadira-profiler
-cfs:graphicsmagick
-cfs:standard-packages
-cfs:filesystem
 tap:i18n
 flemay:less-autoprefixer
 kadira:debug
@@ -40,3 +36,17 @@ zuzel:user-presence
 mquandalle:jade
 coffeescript
 rzymek:moment-locale-zh-cn
+standard-minifiers
+meteor-base
+mobile-experience
+mongo
+blaze-html-templates
+session
+jquery
+tracker
+logging
+reload
+random
+ejson
+spacebars
+check
