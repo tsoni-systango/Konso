@@ -76,7 +76,7 @@ this.GlobalUI = (function () {
             }
         }
     };
-    GlobalUI.generalCallback = function (onSuccess) {
+    GlobalUI.generalCallback = function (onSuccess, onComplete) {
         return function (error, result) {
 
             if (!error) {
@@ -86,6 +86,7 @@ this.GlobalUI = (function () {
                 var msg = error.reason ? error.reason : error.message;
                 GlobalUI.errorToast(msg);
             }
+            onComplete && onComplete(error, result);
         }
     };
     GlobalUI.closeLeftMenu = function () {

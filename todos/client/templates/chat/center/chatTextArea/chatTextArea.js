@@ -60,7 +60,10 @@ Template.chatTextArea.rendered = function () {
     //=========================File upload==================
     self.uploadFile = function (file) {
         Uploads.insert(file, GlobalUI.generalCallback(function (fileObjec) {
-            IM.addMessageAttachmentsDraft(_.pick(fileObjec, "_id"));
+            IM.addMessageAttachmentsDraft(fileObjec._id, {
+                stored: fileObjec.isStored(),
+
+            });
         }));
     }
 }

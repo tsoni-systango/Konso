@@ -29,10 +29,10 @@ IM = new function () {
         Session.set(keyNamespace + IM.getCurrentDialogId(), draft);
     };
 
-    self.addMessageAttachmentsDraft = function(id){
+    self.addMessageAttachmentsDraft = function(value){
         var drafts = IM.getMessageAttachmentsDraft();
-        drafts = drafts || [];
-        drafts.push(id);
+        var key = Object.keys(value)[0];
+        drafts[key] = value[key];
         self.updateMessageAttachmentsDraft(drafts);
     };
     self.getMessageAttachmentsDraft = function(){

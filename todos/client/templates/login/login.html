@@ -1,8 +1,11 @@
 <template name="login">
-	{{#globalLayout}}
-            <div id="login-wrapper" class="valign-wrapper" fit>
-                 <div class="row valign">
-                    <form id="login-form" class="col s10 offset-s1 m8 offset-m2 row">
+    {{#globalLayout}}
+        <div id="login-wrapper" class="valign-wrapper" fit>
+            <div class="row valign">
+                <form id="login-form" class="col s10 offset-s1 m8 offset-m2 row">
+                    {{#if isBusy}}
+                        {{>loading}}
+                    {{else}}
                         <div class="input-field col s12">
                             <input id="username" required type="text" class="validate">
                             <label for="username">Username</label>
@@ -12,8 +15,9 @@
                             <label for="password">Password</label>
                         </div>
                         <button type="submit" class="waves-effect waves-light btn right">Login</button>
-                    </form>
-                 </div>
+                    {{/if}}
+                </form>
             </div>
-	{{/globalLayout}}
+        </div>
+    {{/globalLayout}}
 </template>

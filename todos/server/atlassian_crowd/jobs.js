@@ -63,7 +63,7 @@ var synchronizeAtlassianCrowdUsers = function () {
             //to delete if not exists on Crowd Server
             _.each(meteorUsernames, function (meteorUsername) {
                 if (!_.contains(crowdUsernames, meteorUsername)) {
-                    Meteor.users.remove(meteorUsersMapByName[meteorUsername]);
+                   // Meteor.users.remove(meteorUsersMapByName[meteorUsername]);
                     console.log("removed user: ", meteorUsername);
                 }
             });
