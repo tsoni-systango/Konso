@@ -1,21 +1,25 @@
 <template name="chatAttachmentDraft">
-	{{#if Template.subscriptionsReady}}
-            <div class="attachment" id="{{_id}}">
+    {{#if Template.subscriptionsReady}}
+        <div class="attachment animated bounceIn" id="{{_id}}">
 
-                <div class="picture">
-			{{#if isImage}}
-                            <img src="{{url}}">
-			{{else}}
-                            <i class="download-icon mdi-content-save"></i>
-			{{/if}}
-                    <button class="remove-attachment mdi-action-highlight-remove btn-floating btn-small"></button>
-                </div>
-                <div title="{{name}}" class="attachment-name ellipsis">
-			{{name}}
-                </div>
+            <div class="picture">
+                {{#unless isInProgress}}
+
+
+                    {{#if isImage}}
+                        <img src="{{url}}">
+                    {{else}}
+                        <i class="download-icon mdi-content-save"></i>
+                    {{/if}}
+                {{/unless}}
+                <button class="remove-attachment mdi-action-highlight-remove btn-floating btn-small"></button>
             </div>
-	{{else}}
+            <div title="{{name}}" class="attachment-name ellipsis">
+                {{name}}
+            </div>
+        </div>
+    {{else}}
 
-	{{/if}}
+    {{/if}}
 
 </template>

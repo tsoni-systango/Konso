@@ -1,7 +1,14 @@
-Template.chatAttachmentDraft.created = function(){
+Template.chatAttachmentDraft.onCreated(function(){
     var self = this;
-    self.subscribe("uploads", [self.data._id]);
-}
+    console.log(this)
+   // self.subscribe("uploads", [self.data._id]);
+});
+Template.chatAttachmentDraft.onRendered(function(){
+    var self = this;
+    var remove = self.$(".remove-attachment");
+
+    circle.animate(0.7);
+});
 Template.chatAttachmentDraft.helpers({
     isImage: function(){
         var attachment = Uploads.findOne(this._id);
@@ -14,6 +21,9 @@ Template.chatAttachmentDraft.helpers({
         if(attachment){
             return attachment.url();
         }
+    },
+    isInProgress: function(){
+      return this.false
     }
 })
 Template.chatAttachmentDraft.events({

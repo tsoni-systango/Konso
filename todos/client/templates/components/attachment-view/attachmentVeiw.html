@@ -1,9 +1,21 @@
 <template name="attachmentView">
+    <script>
+        function print() {
+            popup = window.open('{{url}}');
+            popup.focus(); //required for IE
+            popup.print();
+            //popup.close();
+        }
+    </script>
     <div class="attachment-view animated fadeIn" vertical layout fit>
         <div class="control-panel">
             <button mini class="btn-download  btn-floating waves-effect waves-light "
                     download onClick="window.open('{{url}}?download=true');return false;">
                 <i class="mdi-file-file-download"></i>
+            </button>
+            <button mini class="btn-print  btn-floating waves-effect waves-light "
+                    download onClick="print()">
+                <i class="material-icons">print</i>
             </button>
             <button class="btn-close  btn-floating waves-effect waves-light " role="button" tabindex="0">
                 <i class="mdi-navigation-close"></i>
