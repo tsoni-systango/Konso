@@ -1,7 +1,8 @@
 <template name="attachmentView">
-    <div class="attachment-view" vertical layout fit>
+    <div class="attachment-view animated fadeIn" vertical layout fit>
         <div class="control-panel">
-            <button mini class="btn-download  btn-floating waves-effect waves-light " download onClick="window.open('{{url}}&download');return false;">
+            <button mini class="btn-download  btn-floating waves-effect waves-light "
+                    download onClick="window.open('{{url}}?download=true');return false;">
                 <i class="mdi-file-file-download"></i>
             </button>
             <button class="btn-close  btn-floating waves-effect waves-light " role="button" tabindex="0">

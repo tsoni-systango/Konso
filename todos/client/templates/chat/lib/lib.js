@@ -7,6 +7,7 @@ IM = new function () {
 
     self.unreadMessagesForDialogsMap = {};
     self.messagesCountForDialogMap = {};
+    var attachments = {};
 
     self.setUsersFilterString = function (value) {
         Session.set(self.FILTER_USERS_KEY, value);
@@ -24,21 +25,26 @@ IM = new function () {
         return Session.get(self.FILTER_DIALOGS_KEY);
     };
 
+    //-----attachments-----
+    function getAttachmentsForDialog() {
+        var dialogId = IM.getCurrentDialogId();
+        if (!attachments[dialogId]) {
+            attachments[dialogId] = new ReactiveVar([]);
+        }
+        return attachments[dialogId];
+    }
     self.updateMessageAttachmentsDraft = function(draft){
-        var keyNamespace = "message-drafts.attachments."
-        Session.set(keyNamespace + IM.getCurrentDialogId(), draft);
+        getAttachmentsForDialog().set(draft);
     };
-
-    self.addMessageAttachmentsDraft = function(value){
-        var drafts = IM.getMessageAttachmentsDraft();
-        var key = Object.keys(value)[0];
-        drafts[key] = value[key];
+    self.addMessageAttachmentsDraft = function(draft){
+        var drafts = getAttachmentsForDialog().get();
+        drafts.push(draft)
         self.updateMessageAttachmentsDraft(drafts);
     };
     self.getMessageAttachmentsDraft = function(){
-        var key = "message-drafts.attachments." + IM.getCurrentDialogId();
-        return Session.get(key);
+        return getAttachmentsForDialog().get();
     };
+    //---------------------
 
     self.updateMessageTextDraft = function(draft){
         var key = "message-drafts.text." + self.getCurrentDialogId();

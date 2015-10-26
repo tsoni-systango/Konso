@@ -1,24 +1,27 @@
 <template name="chatAttachment">
-    <div class="attachment">
-	    {{#if Template.subscriptionsReady}}
+    {{#if Template.subscriptionsReady}}
+        {{#if exists}}
+            <div class="attachment">
+
                 <div class="picture">
-			{{#if isImage}}
-                            <img src="{{url}}">
-                            <button class="btn-view btn-floating" onClick="GlobalUI.openAttachmentView('{{_id}}')">
-                                <i class="mdi-action-pageview"></i>
-                            </button>
-			{{else}}
-                            <button class="btn-download btn-floating"
-                                    onClick="window.open('{{url}}&download');return false;">
-                                <i class="mdi-file-file-download"></i>
-                            </button>
-			{{/if}}
+                    {{#if isImage}}
+                        <img src="{{url}}">
+                        <button class="btn-view btn-floating" onClick="GlobalUI.openAttachmentView('{{_id}}')">
+                            <i class="mdi-action-pageview"></i>
+                        </button>
+                    {{else}}
+                        <button class="btn-download btn-floating"
+                                onClick="window.open('{{url}}?download=true');return false;">
+                            <i class="mdi-file-file-download"></i>
+                        </button>
+                    {{/if}}
                 </div>
                 <div title="{{name}}" class="attachment-name ellipsis">
-			{{name}}
+                    {{name}}
                 </div>
-	    {{else}}
+            </div>
+        {{/if}}
+    {{else}}
 
-	    {{/if}}
-    </div>
+    {{/if}}
 </template>

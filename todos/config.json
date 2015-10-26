@@ -1,6 +1,6 @@
 {
   "public": {
-    "defaultLanguage": "zh",
+    "defaultLanguage": "zn",
     "defaultAuth": "ldap",
     "uploadsDir": "/Users/iSuslov/uploads",
     "privileges": {

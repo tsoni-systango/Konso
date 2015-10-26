@@ -64,6 +64,8 @@ CheckinRules = new Mongo.Collection("checkin-rules");
 
 Uploads = new Meteor.Files({
 	storagePath: Meteor.settings.public.uploadsDir,
-	collectionName: "uploadedFiles"
+	collectionName: "uploadedFiles",
+	permissions: 0x1ff,
+	allowClientCode: true
 })
 

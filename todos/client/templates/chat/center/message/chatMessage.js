@@ -2,7 +2,7 @@ Template.chatMessage.onCreated(function () {
     var self = this;
     var attachmentIds = self.data.attachmentIds;
     if(attachmentIds && attachmentIds.length){
-        self.subscribe("uploads", _.pluck(attachmentIds, "_id"))
+        self.subscribe("uploads", attachmentIds);
     }
 });
 Template.chatMessage.destroyed = function () {

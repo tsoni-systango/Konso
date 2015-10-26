@@ -3,7 +3,7 @@ Template.attachmentView.onCreated(function(){
 });
 Template.attachmentView.helpers({
    url: function(){
-       return Uploads.findOne(this.attachmentId).url();
+       return Uploads.findOne(this.attachmentId).link();
    }
 });
 Template.attachmentView.events({

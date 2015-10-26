@@ -29,6 +29,13 @@ Template.chatTextArea.rendered = function () {
         var suggestions = self.suggestions;
         var suggestionsMap = self.suggestionsMap;
         var attachmentIds = IM.getMessageAttachmentsDraft();
+        attachmentIds = _.filter(attachmentIds, function(el){
+           var uploaded = el.uploaded.get();
+           return uploaded && !uploaded.e && uploaded.r
+        });
+        attachmentIds = _.map(attachmentIds, function(el){
+            return el.uploaded.get().r._id;
+        });
         var text = IM.getMessageTextDraft();
         var mentions = [];
         if (text) {
@@ -39,6 +46,7 @@ Template.chatTextArea.rendered = function () {
                     mentions.push({text: s, id: mentionSubject})
                 }
             });
+            text = text.replace(/(?:\r\n|\r|\n)/g, '<br />');
         }
         Meteor.call('sendMessage',
             text,
@@ -58,18 +66,12 @@ Template.chatTextArea.rendered = function () {
         }
     });
     //=========================File upload==================
-    self.uploadFile = function (file) {
-        Uploads.insert({file: file, onUploaded: function(e, fileObj){
-           if(e){
-console.log(e)
-           }else {
-               IM.addMessageAttachmentsDraft(fileObjec._id, {
-                   stored: fileObjec.isStored(),
 
-               });
-           }
-        }});
-    }
+    self.uploadFile = function (file, name) {
+        var re = FileUtils.uploadMessageAttachment(file, name);
+        console.log(re)
+        IM.addMessageAttachmentsDraft(re);
+    };
 }
 Template.chatTextArea.events({
     "input #chat-message-form textarea": function (e, t) {
@@ -79,17 +81,23 @@ Template.chatTextArea.events({
     },
     "paste #chat-message-form textarea": function (jQueryEvent, t) {
         var e = jQueryEvent.originalEvent;
-
-        if (e.clipboardData == false) return false; //empty
+        if (!e.clipboardData || !e.clipboardData.items) return; //empty
         var items = e.clipboardData.items;
-        if (items == undefined) return false;
         for (var i = 0; i < items.length; i++) {
-            var type = items[i].type;
-            if (type.indexOf("image") == -1) continue; //not image
-            var fileObj = items[i].getAsFile();
-            //fileObj.name("Snapshot-" + _now() + "." + type.replace("image/", ""));
-            Template.instance().uploadFile(fileObj);
+            var name = items[i-1];
+            var file = items[i];
+            if(file.kind === "file") {
+                var blob = file.getAsFile();
+                if(name && file && name.kind === "string"){
+                    name.getAsString(function (_name) {
+                        t.uploadFile(blob, _name);
+                    });
+                } else {
+                    t.uploadFile(blob);
+                }
+            }
         }
+        return false;
     },
     "drop .drop-zone": function (jQueryEvent) {
         var e = jQueryEvent.originalEvent;
@@ -103,9 +111,10 @@ Template.chatTextArea.events({
         var $textarea = t.$(e.currentTarget);
         var text = $textarea.val();
         var attachments = IM.getMessageAttachmentsDraft() || [];
-        if (e.keyCode === 13 && (text.trim() !== "" || attachments.length)) {
+        if (e.keyCode === 13 && !e.shiftKey && (text.trim() !== "" || attachments.length)) {
+            console.log(e)
             e.preventDefault();
-            Template.instance().sendMessage(text);
+            t.sendMessage();
         }
     },
     "click .btn-send": function (e, t) {
@@ -114,7 +123,7 @@ Template.chatTextArea.events({
         var attachments = IM.getMessageAttachmentsDraft() || [];
         if ((text.trim() !== "" || attachments.length)) {
             e.preventDefault();
-            Template.instance().sendMessage(text);
+            t.sendMessage();
         }
     },
     "click .btn-attach": function (e, t) {

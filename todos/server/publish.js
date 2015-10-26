@@ -37,7 +37,7 @@ Meteor.publish("readTimestamps", function () {
 });
 Meteor.publish("uploads", function (ids) {
     if (this.userId && ids) {
-        return Uploads.find({_id: {$in: ids}});
+        return Uploads.collection.find({_id: {$in: ids}});
     }
     return this.ready();
 });

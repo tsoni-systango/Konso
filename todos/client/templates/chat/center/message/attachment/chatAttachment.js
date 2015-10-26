@@ -1,11 +1,14 @@
 Template.chatAttachment.helpers({
+	exists: function () {
+		return !!Uploads.findOne(this._id).get();
+	},
 	url: function () {
-		var a = Uploads.findOne(this._id);
-		console.log(a)
-		return a ? a.link() : "";
+		return Uploads.findOne(this._id).link();
 	},
 	isImage: function () {
-		var a = Uploads.findOne(this._id);
-		return false && a && a.isImage();
+		return Uploads.findOne(this._id).get().isImage;
+	},
+	name: function(){
+		return Uploads.findOne(this._id).get().name;
 	}
 })

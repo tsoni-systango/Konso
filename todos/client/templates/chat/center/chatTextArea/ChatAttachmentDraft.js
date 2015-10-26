@@ -6,7 +6,7 @@ Template.chatAttachmentDraft.helpers({
     isImage: function(){
         var attachment = Uploads.findOne(this._id);
         if(attachment){
-            return attachment.isImage();
+            //return attachment.isImage();
         }
     },
     url: function(){
