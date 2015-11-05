@@ -8,7 +8,7 @@ PrivilegesUtils = new function () {
         return Meteor.user() && _.intersection(privileges.createChatAlerts, Meteor.user().groups || []).length !== 0;
     }
     this.canAddCheckins = function(user){
-        return true//Utils.isUserInGroup(user || Meteor.user(), privileges.addCheckins);
+        return Utils.isUserInGroup(user || Meteor.user(), privileges.addCheckins);
     }
     this.canEditCheckins = function(ruleId, userId){
         var rule = CheckinRules.find(ruleId);
