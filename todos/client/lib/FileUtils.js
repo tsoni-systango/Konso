@@ -33,6 +33,7 @@ FileUtils = new function(){
 				return true;
 			},
 			onProgress: function(p){
+				console.log(p)
 				info.progress.set(p);
 			},
 			onUploaded: GlobalUI.generalCallback(null, function(e, r){

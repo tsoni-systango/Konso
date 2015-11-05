@@ -40,6 +40,9 @@ template(name="checkins")
 											a.view.waves-effect.waves-teal.btn-flat(style='padding-top: 5px;'
 											href='{{pathFor route="checkin" ruleId=_id}}')
 												i.material-icons.left(style="font-size: 24px; margin: 0") remove_red_eye
+											a.view.waves-effect.waves-teal.btn-flat(style='padding-top: 5px;'
+											href='/download-report/{{_id}}' target='_blank')
+												i.material-icons.left(style="font-size: 24px; margin: 0") file_download
 											a.remove.waves-effect.waves-teal.btn-flat(style='padding-top: 5px;')
 												i.material-icons.left(style="font-size: 24px; margin: 0") delete
 
