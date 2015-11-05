@@ -1,13 +1,11 @@
 Template.chatAttachmentDraft.onCreated(function(){
     var self = this;
-    console.log(this)
+    //console.log(this)
    // self.subscribe("uploads", [self.data._id]);
 });
 Template.chatAttachmentDraft.onRendered(function(){
     var self = this;
     var remove = self.$(".remove-attachment");
-
-    circle.animate(0.7);
 });
 Template.chatAttachmentDraft.helpers({
     isImage: function(){

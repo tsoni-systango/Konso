@@ -81,12 +81,13 @@ Template.chatTextArea.events({
     },
     "paste #chat-message-form textarea": function (jQueryEvent, t) {
         var e = jQueryEvent.originalEvent;
-        if (!e.clipboardData || !e.clipboardData.items) return; //empty
+        var wasFile = false;
         var items = e.clipboardData.items;
         for (var i = 0; i < items.length; i++) {
             var name = items[i-1];
             var file = items[i];
             if(file.kind === "file") {
+                wasFile = true;
                 var blob = file.getAsFile();
                 if(name && file && name.kind === "string"){
                     name.getAsString(function (_name) {
@@ -97,7 +98,9 @@ Template.chatTextArea.events({
                 }
             }
         }
-        return false;
+        if(wasFile){
+            return false;
+        }
     },
     "drop .drop-zone": function (jQueryEvent) {
         var e = jQueryEvent.originalEvent;
