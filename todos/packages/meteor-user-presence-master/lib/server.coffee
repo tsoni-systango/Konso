@@ -27,7 +27,7 @@ tick = (id) ->
 
 Meteor.startup ->
   UserPresences.remove({})
-  Meteor.users.update {}, {$set: {"profile.presence": UserPresence.offline}}
+  Meteor.users.update {}, {$set: {"profile.presence": UserPresence.offline}}, {multi: true}
 
 
 Meteor.onConnection (connection) ->

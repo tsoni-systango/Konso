@@ -20,3 +20,13 @@ Meteor.methods
       Meteor.users.update {_id: update.userId}, {$set: {"profile.presence": UserPresence[update.state]}}
 
     UserPresences.update connectionId, $set: update
+
+  logoutUserPresence : (user) ->
+
+    if UserPresences.find({userId: user}).count() == 1
+      Meteor.users.update {_id: user}, {$set: {"profile.presence": UserPresence.offline}}
+
+    connectionId = if @.isSimulation then Meteor.connection._lastSessionId else @.connection.id
+
+    if not connectionId then return
+    UserPresences.update connectionId, $set: {userId: undefined }

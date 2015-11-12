@@ -14,3 +14,12 @@ Meteor.startup ->
   , 5000
 
   $(window).focus -> Meteor.call 'updateUserPresence'
+
+  previousUser = null;
+  Tracker.autorun ->
+
+   if(!Meteor.userId() && previousUser)
+
+     Meteor.call 'logoutUserPresence', previousUser
+
+   previousUser = Meteor.userId()
