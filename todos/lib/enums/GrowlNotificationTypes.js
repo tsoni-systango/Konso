@@ -1,4 +1,5 @@
 GrowlNotificationsNamespace = "profile.growlNotifications"
+GrowlLastNotificationTimestampNamespace = "profile.growlLastNotificationTimestamp"
 GrowlNotificationTypes = {
     ALL_CHANNELS: "channels",
     ALL_ROOMS: "rooms",

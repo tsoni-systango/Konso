@@ -64,7 +64,7 @@ Template.allUserList.onCreated(function () {
 		var dialogUsersIds = dialog && dialog.type === DialogTypes.ROOM ? dialog.userIds: null
 
 		var all = Meteor.users.find({}).fetch();
-		for(var i=0; i< all.length; i++){
+		for(var i=0; i < all.length; i++){
 			var user = all[i];
 			if(user._id === Meteor.userId() || (searchString && !user.profile.displayName.match(searchString))){
 				continue;

@@ -39,7 +39,6 @@ Router.map(function () {
 				var dialog = Dialogs.findOne(this.params.id);
 				IM.setCurrentDialog(dialog);
 			}
-
 			this.next();
 		}
 	});

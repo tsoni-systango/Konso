@@ -57,6 +57,27 @@ Utils = new function () {
 			}
 		}
 	}
+	this.multikeyVal = function (obj, keys, delimer) {
+		var subKeys;
+		if (_.isArray(keys)) {
+			subKeys = keys;
+		} else {
+			delimer = delimer || ".";
+			subKeys = keys.split(delimer);
+		}
+		for (var i = 0; i < subKeys.length; i++) {
+			if (!obj) return null;
+			obj = obj[subKeys[i]];
+			if (subKeys.length === i + 1) {
+				if (typeof obj === "undefined") {
+					return null;
+				} else {
+					return obj;
+				}
+			}
+		}
+		return null;
+	}
 	this.isUserInGroup = function (user, groupName) {
 		if (!groupName || !user || !user.groups) {
 			return false;
