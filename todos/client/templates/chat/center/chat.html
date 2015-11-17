@@ -23,12 +23,8 @@
                 {{#if currentDialog}}
                     <div id="messages-container-scroll" class="messages-container-scroll" fit>
                         <div class="messages">
-
                             {{#each chatMessages}}
                                 {{> chatMessage}}
-                                <script>
-                                    $("#chat").trigger(MESSAGE_READY_EVENT);
-                                </script>
                             {{/each}}
                             {{#if Template.subscriptionsReady}}
                                 <script>
@@ -36,6 +32,10 @@
                                 </script>
                             {{/if}}
                         </div>
+                    </div>
+                    <div id="messages-container-clone" class="messages-container-scroll" fit
+                         style="display: none;overflow: hidden;">
+
                     </div>
                     {{#unless isNewDialogReady}}
                         {{>loading }}

@@ -1,6 +1,6 @@
 <template name='chatMessage'>
     {{#if Template.subscriptionsReady}}
-        <div id="{{_id}}" created="{{created}}"
+        <div id="m-{{_id}}" created="{{created}}"
              class="{{ownerClass}} {{systemClass}} chat-message {{#if isUnread}}unread{{/if}}">
             <div class="chat-content-wrapper">
                 <div class="chat-from">

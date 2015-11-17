@@ -35,11 +35,31 @@ Router.map(function () {
 			];
 		},
 		onBeforeAction: function () {
-			if (this.params.id) {
-				var dialog = Dialogs.findOne(this.params.id);
+			var next = this.next;
+			var dialogId = this.params.id;
+			if (dialogId) {
+				var dialog = Dialogs.findOne(dialogId);
 				IM.setCurrentDialog(dialog);
+				//ensure unread counts and message counts ready for dialog
+				function isCountsReady() {
+					return typeof IM.unreadMessagesForDialogsMap[dialogId] !== "undefined" &&
+							typeof IM.messagesCountForDialogMap[dialogId] !== "undefined";
+				}
+				if (isCountsReady()) {
+					next();
+					return;
+				}
+				var intervalId = Meteor.setInterval(function () {
+					if (isCountsReady()) {
+						Meteor.clearInterval(intervalId);
+						next();
+						return;
+					}
+				}, 50);
+			} else {
+				next();
+				return;
 			}
-			this.next();
 		}
 	});
 	this.route('/todos', {

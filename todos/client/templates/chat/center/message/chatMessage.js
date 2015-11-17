@@ -13,7 +13,7 @@ Template.chatMessage.onRendered(function () {
     this.onWindowClick = function(e) {
         var tgt = $(e.target);
         var message = $(e.target).closest(".chat-message");
-        if(!tgt.is("#"+self.data._id+" .delete-message") && !tgt.is("#"+self.data._id+" .edit-message")){
+        if(!tgt.is("#m-"+self.data._id+" .delete-message") && !tgt.is("#m-"+self.data._id+" .edit-message")){
             $(self.firstNode).removeClass("edit-mode");
         }
     };
