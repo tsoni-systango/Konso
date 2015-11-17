@@ -29,4 +29,4 @@ Meteor.methods
     connectionId = if @.isSimulation then Meteor.connection._lastSessionId else @.connection.id
 
     if not connectionId then return
-    UserPresences.update connectionId, $set: {userId: undefined }
+    UserPresences.update connectionId, $set: {userId: null }

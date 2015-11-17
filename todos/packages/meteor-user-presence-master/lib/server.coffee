@@ -12,14 +12,16 @@ UserPresenceSettings = (params={}) ->
 expire = (id) ->
   onDisconnect?(UserPresences.findOne id)
   p = UserPresences.findOne(id)
-  Meteor.users.update {_id: p.userId}, {$set: {"profile.presence": UserPresence.offline}}
+  if p.userId
+    Meteor.users.update {_id: p.userId}, {$set: {"profile.presence": UserPresence.offline}}
   UserPresences.remove id
   delete connections[id]
 
 idle = (id) ->
   UserPresences.update id, $set: state:"idle"
   p = UserPresences.findOne id
-  Meteor.users.update {_id: p.userId}, {$set: {"profile.presence": UserPresence.idle}}
+  if p.userId
+    Meteor.users.update {_id: p.userId}, {$set: {"profile.presence": UserPresence.idle}}
 
 
 tick = (id) ->
