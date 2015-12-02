@@ -8,7 +8,7 @@ Meteor.methods({
         message.text = text;
         message.attachmentIds = attachmentIds;
         message.mentions = mentions;
-        var dialog = getDialogOrDie(dialogId)
+        var dialog = getDialogOrDie(dialogId);
         isUserAuthorizedInDialog(dialog, message.ownerId);
         message.dialogId = dialogId;
         message.created = _now();
@@ -29,6 +29,10 @@ Meteor.methods({
                 userId: Meteor.userId()
             })
         }
+        /**
+         * If user's offline -> calling email
+         */
+
         return message;
     },
     removeMessage: function (messageId) {

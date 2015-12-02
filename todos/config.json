@@ -12,6 +12,13 @@
       "daysAfterWeekCanEdit": 7
     }
   },
+  "mailer": {
+    "email": "postmaster@sandboxc5399f0ba5e5466485831311fde4da6b.mailgun.org",
+    "password": "0d93d05a1959404e843207f6b51c5fba",
+    "server":   "smtp.mailgun.org",
+    "port": 587,
+    "name": "Konso Robot"
+  },
   "authentication": {
     "crowd": {
       "baseUrl": "http://192.168.1.134:8095/crowd/",
