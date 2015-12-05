@@ -29,6 +29,8 @@ Template.registerHelper("isEmbeddedChat", function () {
 
 Template.layout.onRendered(function(){
     this.$("#right-menu-btn").sideNav({
+        //In addition to @right-menu-width
+        //menuWidth: 300,
         menuWidth: 180,
         edge: 'right'
     });

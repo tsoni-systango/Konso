@@ -65,7 +65,8 @@ Router.map(function () {
 	this.route('/todos', {
 		name: 'todos',
 		yieldTemplates: {
-			"todosLeftMenu": {to: "leftMenu"}
+			"todosLeftMenu": {to: "leftMenu"},
+			"todos":{to: "rightMenu"}
 		},
 		onBeforeAction: function () {
 

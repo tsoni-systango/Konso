@@ -67,5 +67,12 @@ Uploads = new Meteor.Files({
 	collectionName: "uploadedFiles",
 	permissions: 0x1ff,
 	allowClientCode: true
-})
+});
+/**
+ * _id
+ * userId
+ * text
+ * dueDate
+ */
+Tasks = new Mongo.Collection("tasks");
 
