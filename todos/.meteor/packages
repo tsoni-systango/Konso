@@ -51,5 +51,10 @@ ejson
 spacebars
 check
 nicolaslopezj:excel-export
+<<<<<<< HEAD
 react
 react-template-helper
+=======
+email
+meteorhacks:ssr
+>>>>>>> 537c6f0edc90616cfc3f3eca368066a6e1c53c02
