@@ -87,6 +87,26 @@
                 </div>
             </div>
         </div>
+        <div class="setting">
+            <h5 class="row col">Email Notifications</h5>
+
+            <div class="row">
+                <div class="input-field col s12 m6 l3 email-notifications">
+                    <p>
+                    <input type="checkbox" id="IS_EMAIL_NOTIFICATIONS_DIALOG" {{isEmail "IS_EMAIL_NOTIFICATIONS_DIALOG"}}/>
+                    <label for="IS_EMAIL_NOTIFICATIONS_DIALOG">Send Dialog Notifications</label>
+                    </p>
+                    <p>
+                    <input type="checkbox" id="IS_EMAIL_NOTIFICATIONS_ROOM" {{isEmail "IS_EMAIL_NOTIFICATIONS_ROOM"}}/>
+                    <label for="IS_EMAIL_NOTIFICATIONS_ROOM">Send Room Notifications</label>
+                    </p>
+                    <p>
+                    <input type="checkbox" id="IS_EMAIL_NOTIFICATIONS_CHANNEL" {{isEmail "IS_EMAIL_NOTIFICATIONS_CHANNEL"}}/>
+                    <label for="IS_EMAIL_NOTIFICATIONS_CHANNEL">Send Channel Notifications</label>
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
 
 </template>

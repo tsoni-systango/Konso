@@ -33,7 +33,7 @@ Template.allUserList.onCreated(function () {
 	}, 1000);
 
 	self.getUserCount = function () {
-		return Meteor.users.find({_id: {$ne: Meteor.userId()}}).count();
+		return Meteor.users.find({_id: {$ne: Meteor.userId()}}, {fields: {"profile.preferences": 0}}).count();
 	}
 	self.dialogUsers = function () {
 		var query = {};
@@ -41,7 +41,7 @@ Template.allUserList.onCreated(function () {
 		if (dialog && dialog.type === DialogTypes.ROOM) {
 			var usersIds = dialog.userIds.concat(Meteor.userId());
 			return Meteor.users.find({_id: {$in: usersIds}},
-				{sort: {"profile.sortIndex": 1}}).fetch();
+				{sort: {"profile.sortIndex": 1}, fields: {"profile.preferences": 0}}).fetch();
 		}
 		return []
 	}
@@ -63,7 +63,7 @@ Template.allUserList.onCreated(function () {
 		var dialog = IM.getCurrentDialog();
 		var dialogUsersIds = dialog && dialog.type === DialogTypes.ROOM ? dialog.userIds: null
 
-		var all = Meteor.users.find({}).fetch();
+		var all = Meteor.users.find({}, {fields: {"profile.preferences": 0}}).fetch();
 		for(var i=0; i < all.length; i++){
 			var user = all[i];
 			if(user._id === Meteor.userId() || (searchString && !user.profile.displayName.match(searchString))){
