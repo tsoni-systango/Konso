@@ -39,7 +39,7 @@ Meteor.startup(function () {
 	SyncedCron.add({
 		name: 'Checking for unread messages and sending emails.',
 		schedule: function (parser) {
-			return parser.text('every 10 minutes');
+			return parser.text('every 1 minute');
 		},
 		job: findAndSendUnreadMessagesToEmails
 	});

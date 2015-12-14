@@ -24,7 +24,7 @@ Template.chat.onCreated(function () {
 					self.inverted = true;
 					var a = Math.max(total - unreadCount, 0);
 					if (a && (a - self.messagesOnPage.get() / 2 > 0)) {
-						self.messagesSkipped(a - self.messagesOnPage.get() / 2)
+						self.messagesSkipped.set(a - self.messagesOnPage.get() / 2)
 					}
 
 				}
