@@ -78,3 +78,10 @@ Meteor.publish("lastDialogMessage", function (dialogId) {
     }
     return this.ready();
 });
+
+Meteor.publish("dialogUploads", function (id) {
+    if (this.userId && id) {
+        return Uploads.collection.find({"meta.dialogId": id});
+    }
+    return this.ready();
+});

@@ -9,15 +9,17 @@ Router.configure({
 	loadingTemplate: 'loading'
 });
 
-Router.onBeforeAction(function () {
-	if (!Meteor.userId()) {
-		this.layout(null);
-		this.render('login');
-	} else {
-		this.next();
-	}
-});
-
+// we can't use Meteor.userId for server-side routes
+if (Meteor.isClient){
+	Router.onBeforeAction(function () {
+		if (!Meteor.userId()) {
+			this.layout(null);
+			this.render('login');
+		} else {
+			this.next();
+		}
+	});
+}
 Router.map(function () {
 	this.route('/login', {
 		name: "login"

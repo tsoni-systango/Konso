@@ -1,7 +1,8 @@
 <template name="chat">
     <div id="chat" class="chat" fit>
         {{#contentFor "rightMenu"}}
-            {{>allUserList}}
+            {{>dynamicRightMenu}}
+            <!--{ {>allUserList}}-->
         {{/contentFor}}
         <div id="chat-content" class='chat-content'>
             {{#if Template.subscriptionsReady}}
