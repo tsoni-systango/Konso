@@ -1,11 +1,6 @@
 Meteor.startup(function () {
     function trueFunc(userId) {
-        if (!userId) {
-            // must be logged in
-            return false;
-        }
-
-        return true;
+        return userId;
     }
 
     UserReadTimestamps.allow({

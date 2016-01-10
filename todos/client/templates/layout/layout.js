@@ -30,8 +30,8 @@ Template.registerHelper("isEmbeddedChat", function () {
 Template.layout.onRendered(function(){
     this.$("#right-menu-btn").sideNav({
         //In addition to @right-menu-width
-        //menuWidth: 300,
-        menuWidth: 180,
+        menuWidth: 300,
+        //menuWidth: 180,
         edge: 'right'
     });
     this.$("#left-menu-btn").sideNav({
@@ -41,9 +41,10 @@ Template.layout.onRendered(function(){
             inDuration: 300,
             outDuration: 225,
             constrain_width: false, // Does not change width of dropdown to that of the activator
-            gutter: -2, // Spacing from edge
+            alignment: 'right',
+            gutter: -230, // Spacing from edge
             bottomOffset: 20,
             belowOrigin: true // Displays dropdown below the button
         }
     );
-})
+});

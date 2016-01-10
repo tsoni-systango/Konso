@@ -2,7 +2,7 @@
   "public": {
     "defaultLanguage": "zn",
     "defaultAuth": "ldap",
-    "uploadsDir": "/Users/iSuslov/uploads",
+    "uploadsDir": "/home/art4ride/konsouploads",
     "privileges": {
       "createChannels": ["crowd-administrators"],
       "addCheckins": ["fic-hk-hrd"],
@@ -14,7 +14,7 @@
   },
   "mailer": {
     "email": "postmaster@sandboxc5399f0ba5e5466485831311fde4da6b.mailgun.org",
-    "password": "0d93d05a1959404e843207f6b51c5fba",
+    "password": "hidden",
     "server":   "smtp.mailgun.org",
     "port": 587,
     "name": "Konso Robot"

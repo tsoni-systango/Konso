@@ -1,30 +1,29 @@
-
 Meteor.methods({
-  addTask: function (text, responsible, dueDate) {
+  addTask: function (text, dialogId, assignee, dueDate) {
     // Make sure the user is logged in before inserting a task
     if (! Meteor.userId()) {
       throw new Meteor.Error("not-authorized");
     }
     var hash = {
       text: text,
+      dialogId: dialogId,
       createdAt: new Date(),
-      creator: Meteor.userId(),
-      username: Meteor.user().username
+      creatorId: Meteor.userId(),
+      status: ISSUE_STATUS.OPENED
     };
-    if (responsible){
-      hash['responsible'] = responsible
+    if (assignee){
+      hash['assignieId'] = assignee
     }
     if (dueDate){
       hash['dueDate'] = dueDate
     }
-
     Tasks.insert(hash);
   },
 
   removeTask: function (taskId) {
     const task = Tasks.findOne(taskId);
     // TODO: Make sure only the owner or admin can delete it
-    if (task.creator !== Meteor.userId()) {
+    if (task.creatorId !== Meteor.userId()) {
       throw new Meteor.Error("not-authorized");
     }
 
@@ -34,26 +33,33 @@ Meteor.methods({
   setChecked: function (taskId, setChecked) {
     const task = Tasks.findOne(taskId);
     //TODO: check if user is admin or responsible
-
-    Tasks.update(taskId, { $set: { checked: setChecked} });
+    if (!((task.creatorId == Meteor.userId())||(task.assignieId == Meteor.userId))) {
+      throw new Meteor.Error("not-authorized");
+    }
+    if (setChecked){
+      Tasks.update(taskId, { $set: { status: ISSUE_STATUS.COMPLETED} });
+    }else{
+      Tasks.update(taskId, { $set: { status: ISSUE_STATUS.REOPENED} });
+    }
   },
 
   setDueDate: function (taskId, date) {
     const task = Tasks.findOne(taskId);
 
     // TODO: Make sure only the task creator or admin can set due date
-
-    Tasks.update(taskId, { $set: { dueDate: date } });
+    var dateFromStr = new Date(date);
+    //console.log(dateFromStr);
+    Tasks.update(taskId, { $set: { dueDate: dateFromStr } });
   },
 
-  setResponsible: function (taskId, responsibleUserId){
+  setAssiginie: function (taskId, assignieId){
     const task = Tasks.findOne(taskId);
     // TODO: Make sure only the task creator or admin can set due date
 
-    if (responsibleUserId){
-      Tasks.update(taskId, { $set: { responsible: responsibleUserId } });
+    if (assignieId){
+      Tasks.update(taskId, { $set: { assignieId: assignieId } });
     }else{
-      Tasks.update(taskId,{ $unset: { responsible: "" } })
+      Tasks.update(taskId,{ $unset: { assignieId: "" } })
     }
   }
 });

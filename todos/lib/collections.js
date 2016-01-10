@@ -68,11 +68,23 @@ Uploads = new Meteor.Files({
 	permissions: 0x1ff,
 	allowClientCode: true
 });
+
+/**
+ * _id
+ * dialogId: _id
+ * assigneeId: _id
+ * creatorId: _id
+ * text: str
+ * createdAt: datetime
+ * dueDate: datetime
+ * status: Enum
+ * @type {Mongo.Collection}
+ */
+Tasks = new Mongo.Collection("tasks");
+
 /**
  * _id
  * userId
  * text
- * dueDate
  */
-Tasks = new Mongo.Collection("tasks");
-
+Notes = new Mongo.Collection("notes");

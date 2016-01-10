@@ -24,7 +24,9 @@ FileUtils = new function(){
 			progress: new ReactiveVar(0),
 			uploaded: new ReactiveVar(false),
 			aborted: new ReactiveVar(true)
-		}
+		};
+		var meta = (IM.getCurrentDialogId()&&Meteor.userId()) ? {
+			dialogId: IM.getCurrentDialogId(), userId: Meteor.userId()} : {};
 		var result = _upload(file, name, {
 			onBeforeUpload:function(){
 				if(this.size > 24 * 1024 * 1024){
@@ -45,7 +47,7 @@ FileUtils = new function(){
 			onAbort: function(){
 				info.aborted.set(true);
 			}
-		});
+		},meta);
 		if(!result){
 			return info;
 		}

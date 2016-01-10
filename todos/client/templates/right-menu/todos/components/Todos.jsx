@@ -16,12 +16,14 @@ Todos = React.createClass({
 
     if (this.state.hideCompleted) {
       // If hide completed is checked, filter tasks
-      query = {checked: {$ne: true}};
+      query = {
+        status: {$ne: ISSUE_STATUS.COMPLETED}
+      };
     }
 
     return {
       tasks: Tasks.find(query, {sort: {createdAt: -1}}).fetch(),
-      incompleteCount: Tasks.find({checked: {$ne: true}}).count(),
+      incompleteCount: Tasks.find({status: {$ne: ISSUE_STATUS.COMPLETED}}).count(),
       currentUser: Meteor.user()
     };
   },
@@ -45,7 +47,7 @@ Todos = React.createClass({
     // Find the text field via the React ref
     var text = React.findDOMNode(this.refs.textInput).value.trim();
 
-    Meteor.call("addTask", text);
+    Meteor.call("addTask", text, IM.getCurrentDialogId());
 
     // Clear form
     React.findDOMNode(this.refs.textInput).value = "";
@@ -62,8 +64,7 @@ Todos = React.createClass({
     return (
       <div className="todos-container">
         <header>
-          <h4>Todo List ({this.data.incompleteCount})</h4>
-
+          <h5>Incomplete: {this.data.incompleteCount}</h5>
           <input
               type="checkbox"
               readOnly={true}

@@ -1,12 +1,12 @@
 //separate route for detailed to do view
-Todo = React.createClass({
+NoteItem = React.createClass({
     propTypes: {
         task: React.PropTypes.object.isRequired
     },
     render() {
         return (
             <div>
-                That's a todo item;
+                That's a note details
             </div>
         )
     }
