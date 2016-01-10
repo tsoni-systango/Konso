@@ -46,6 +46,9 @@ Template.settings.helpers({
     getDialogTypes: function () {
         return DialogTypes;
     },
+    isEmail: function (key) {
+        return Preferences.get(key) ? "checked" : "";
+    },
     widgetWidth: function () {
         return Template.instance().embeddedWidth.get();
     },
@@ -107,6 +110,11 @@ Template.settings.events({
         var id = $(e.currentTarget).attr('id');
         var val = e.currentTarget.checked;
         NotificationsController.setNotification(id, val);
+    },
+    "change .email-notifications input": function (e) {
+        var id = $(e.currentTarget).attr('id');
+        var val = e.currentTarget.checked;
+        Preferences.set(id, val);
     },
     "change #language-select": function (e) {
         SETTINGS.language($(e.currentTarget).val())
