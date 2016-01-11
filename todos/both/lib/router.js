@@ -28,7 +28,7 @@ Router.map(function () {
 			"chatLeftMenu": {to: "leftMenu"}
 		},
 		waitOn: function () {
-			return [
+			return [React.
 				Meteor.subscribe("usersList"),
 				Meteor.subscribe('dialogs'),
 				Meteor.subscribe('userPresences')
@@ -152,5 +152,12 @@ Router.map(function () {
 			this.next();
 		}
 	});
+	this.route('/mes',{
+		name:'mes',
+		template:"mes_first",
+		yieldTemplates: {
+			"shopFloorMenu": {to: "leftMenu"},
+			"allUserList": {to: "rightMenu"}
+		},
+	})
 });
-

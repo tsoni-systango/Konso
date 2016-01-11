@@ -69,3 +69,4 @@ Uploads = new Meteor.Files({
 	allowClientCode: true
 })
 
+ShopFloor = new Mongo.Collection("shopfloor");
