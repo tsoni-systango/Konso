@@ -72,7 +72,6 @@ Router.map(function () {
 			"todos":{to: "rightMenu"}
 		},
 		onBeforeAction: function () {
-
 			this.next();
 		}
 	});

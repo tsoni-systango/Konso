@@ -1,7 +1,8 @@
 Template.dynamicRightMenu.onCreated( function() {
     //TODO: select tab based on data
     this.currentTab = new ReactiveVar( "allUserList" );
-    
+
+
 });
 
 Template.dynamicRightMenu.helpers({

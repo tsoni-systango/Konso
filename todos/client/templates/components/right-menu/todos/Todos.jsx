@@ -22,7 +22,7 @@ Todos = React.createClass({
     }
 
     return {
-      tasks: Tasks.find(query, {sort: {createdAt: -1}}).fetch(),
+      tasks: Tasks.find(query, {sort: {status: -1, dueDate: 1, createdAt: -1}}).fetch(),
       incompleteCount: Tasks.find({status: {$ne: ISSUE_STATUS.COMPLETED}}).count(),
       currentUser: Meteor.user()
     };

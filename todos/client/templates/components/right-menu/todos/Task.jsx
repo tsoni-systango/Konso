@@ -67,6 +67,16 @@ Task = React.createClass({
     });
     return userlist;
   },
+  openDetails(){
+    return GlobalUI.showDialog({
+      data: {
+        type: DialogTypes.CHANNEL
+      },
+      maxWidth: 400,
+      heading: "Task details",
+      template: 'todo'
+    })
+  },
 
   render() {
     // Give tasks a different className when they are checked off,
@@ -110,49 +120,64 @@ Task = React.createClass({
     const currentAssignie = getUserName(this.props.task.assignieId);
 
     const dropdownId = 'dropdown-'+this.props.task._id;
+    var now = new Date();
+    var overdue = this.props.task.dueDate && (now.getTime() > this.props.task.dueDate.getTime());
+    var overdue_class = overdue ? "pointer red-text text-darken-4":"pointer text";
 
     return (
       <li className={taskClassName}>
-
-        <input
-          type="checkbox"
-          readOnly={true}
-          checked={checked}
-          onClick={this.toggleChecked}
-          id={this.props.task._id}/>
-        <label htmlFor={this.props.task._id}
-               onClick={this.toggleChecked}>
-          <span className="text">
-            <strong>{this.props.task.username}</strong>: {this.props.task.text}
+        <h5>
+          <span className={overdue_class} /*onClick={this.openDetails}*/>
+            {this.props.task.text}
           </span>
-        </label>
-        <form className="set-due-date" onSubmit={this.setDueDate}>
+        </h5>
+        <div className="row">
           <input
-              className="datepicker"
-              type="date"
-              ref="dueDate"
-              placeholder="Choose the due date" value={taskDueDate}/>
-          <input className="btn" type="submit" value="Add due date" />
-        </form>
-        {/*
-        <form className="set-assignie" onSubmit={this.setAssiginie}>
-          <input
-              type="text"
-              ref="dueDate"
-              placeholder="Set assignie for todo"
-              className="dropdown-button" data-activates={dropdownId}
-              />
-          <input className="btn" type="submit" value="Assign" />
-        </form>
-        */}
+            type="checkbox"
+            readOnly={true}
+            checked={checked}
+            onClick={this.toggleChecked}
+            id={this.props.task._id}/>
+          <label htmlFor={this.props.task._id}
+                 onClick={this.toggleChecked}>
+            <span>done
+              {/*<strong>{this.props.task.username}</strong>:*/}
+              {/*this.props.task.text*/}
+            </span>
+          </label>
+          <button className="delete btn-flat btn-small" onClick={this.deleteThisTask}>
+            <i className="mdi-content-clear"></i>
+          </button>
+          <form className="set-due-date" onSubmit={this.setDueDate}>
+            <div className="row">
+              <div className="col s6">
+                <input
+                  className="datepicker"
+                  type="date"
+                  ref="dueDate"
+                  placeholder="Choose the due date" value={taskDueDate}/>
+              </div>
+              <div className="col s5">
+                <input className="btn" type="submit" value="Add due date" />
+              </div>
+            </div>
+          </form>
+          {/*
+          <form className="set-assignie" onSubmit={this.setAssiginie}>
+            <input
+                type="text"
+                ref="dueDate"
+                placeholder="Set assignie for todo"
+                className="dropdown-button" data-activates={dropdownId}
+                />
+            <input className="btn" type="submit" value="Assign" />
+          </form>
+          */}
 
-        <ul id={dropdownId} className='dropdown-content'>
-          {this.renderUsers()}
-        </ul>
-
-        <button className="delete btn-flat btn-small" onClick={this.deleteThisTask}>
-          <i className="mdi-content-clear"></i>
-        </button>
+          {/*<ul id={dropdownId} className='dropdown-content'>
+            {this.renderUsers()}
+          </ul>*/}
+        </div>
       </li>
     );
   }
