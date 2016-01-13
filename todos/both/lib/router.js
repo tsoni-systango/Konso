@@ -155,5 +155,19 @@ Router.map(function () {
 			this.next();
 		}
 	});
+	this.route('/mes', {
+		name: 'MES',
+		template: "mes_display_area",
+		yieldTemplates: {
+			"shop_floor_group_list": {to: "leftMenu"},
+			"allUserList": {to: "rightMenu"}
+		},
+		waitOn: function () {
+			return [Meteor.subscribe("usersList"), Meteor.subscribe("checkinRules"), Meteor.subscribe('userPresences')]
+		},
+		onBeforeAction: function () {
+			this.next();
+		}
+	});
 });
 
