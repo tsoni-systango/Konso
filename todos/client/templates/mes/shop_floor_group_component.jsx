@@ -10,7 +10,6 @@ ShopFloorGroupComponent = React.createClass ({
 	render() {
 		var rows = [];
 		if (this.state.showShopFloor) {
-      console.log("showing elelements");
 			this.props.shopfloorGroup.shopfloor.forEach(function(shopFloor) {
 				rows.push(<ShopFloorRow shopfloor={shopFloor}/>);
 			});
