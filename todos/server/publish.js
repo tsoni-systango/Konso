@@ -85,3 +85,8 @@ Meteor.publish("dialogUploads", function (id) {
     }
     return this.ready();
 });
+
+Meteor.publish("fetchShopFloorList",function () {
+    var list =  ShopFloor.find();
+    return list
+});
