@@ -68,7 +68,6 @@ Uploads = new Meteor.Files({
 	permissions: 0x1ff,
 	allowClientCode: true
 });
-
 /**
  * _id
  * dialogId: _id
@@ -88,3 +87,21 @@ Tasks = new Mongo.Collection("tasks");
  * text
  */
 Notes = new Mongo.Collection("notes");
+
+
+ShopFloor = new Meteor.Collection("shopfloor");
+/*
+	{
+	"shopfloorGroup": String,
+	"shopfloorGroupName": String,
+	"shopfloor": [{
+		"shopfloorCode": String,
+		"shopfloorName": String,
+		"workcenter": [{
+			"workcenterCode": String,
+			"workcenterName": String
+			}]
+		}]
+	}
+*/	
+
