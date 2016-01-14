@@ -1,12 +1,30 @@
 DisplayArea = React.createClass({
 
-render(){
-	return(
-			<h1>
-				Display ShopfloorArea
-			</h1>	
-	      )
-}
+  mixins: [ReactMeteorData],
+
+  getMeteorData : function(){
+  	return{
+  		work_centers : DashBoardWorkCenters.find({}).fetch()
+  	}
+  },
+  displayWorkCenters : function(work_centers){
+  	if (work_centers){
+  		work_centers.map(function (element) {
+  			return(
+  					<div>
+			        <WorkCenter id={element._id} workcenterCode = {element.workcenterCode} workcenterName = {element.workcenterName} />   
+  					</div>
+  				);
+  		});
+  	}
+  },
+	render : function(){
+		return(
+				<div>
+					{this.displayWorkCenters(this.data.work_centers)}
+				</div>	
+		      )
+	}
 
 });
 
