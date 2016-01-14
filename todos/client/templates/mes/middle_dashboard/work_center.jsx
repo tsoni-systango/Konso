@@ -2,7 +2,8 @@ WorkCenter = React.createClass({
   render : function(){
     return(
         <div>
-          this.props.workcenterCode
+
+          {this.props.workcenterCode}
         </div>  
       )
   }

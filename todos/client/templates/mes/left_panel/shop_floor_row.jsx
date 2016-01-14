@@ -1,8 +1,8 @@
 ShopFloorRow = React.createClass({
   displayWorkcenters : function(){
+    DashBoardWorkCenters.remove({});
     this.props.shopfloor.workcenter.map(function (element) {
       
-      DashBoardWorkCenters.remove({});
 
       DashBoardWorkCenters.insert({
         "workcenterCode" : element.workcenterCode,

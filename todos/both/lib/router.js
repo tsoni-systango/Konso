@@ -157,7 +157,7 @@ Router.map(function () {
 	});
 	this.route('/mes', {
 		name: 'MES',
-		template: "mes_display_area",
+		template: "dashboard_area",
 		yieldTemplates: {
 			"shop_floor_groups": {to: "leftMenu"},
 			"allUserList": {to: "rightMenu"}
