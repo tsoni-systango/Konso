@@ -11,7 +11,7 @@ ShopFloorGroupComponent = React.createClass ({
 		var rows = [];
 		if (this.state.showShopFloor) {
 			this.props.shopfloorGroup.shopfloor.forEach(function(shopFloor) {
-				rows.push(<ShopFloorRow shopfloor={shopFloor}/>);
+				rows.push(<ShopFloorRow shopfloor={shopFloor} key={shopFloor._id}/>);
 			});
 		}
 
