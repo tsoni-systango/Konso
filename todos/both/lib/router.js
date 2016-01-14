@@ -159,7 +159,7 @@ Router.map(function () {
 		name: 'MES',
 		template: "mes_display_area",
 		yieldTemplates: {
-			"shop_floor_group_list": {to: "leftMenu"},
+			"shop_floor_groups": {to: "leftMenu"},
 			"allUserList": {to: "rightMenu"}
 		},
 		waitOn: function () {
