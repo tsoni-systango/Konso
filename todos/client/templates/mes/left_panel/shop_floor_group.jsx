@@ -7,7 +7,7 @@ ShopFloorGroup = React.createClass ({
   expandItem : function(){
     this.setState({showShopFloor: !this.state.showShopFloor});
   },
-  render() {
+  render : function(){
     var rows = [];
     if (this.state.showShopFloor) {
       this.props.shopfloorGroup.shopfloor.forEach(function(shopFloor) {

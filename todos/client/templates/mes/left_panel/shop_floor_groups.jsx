@@ -30,7 +30,7 @@ ShopFloorGroups = React.createClass({
     
   return(  
       <div>
-        Left Panel List 
+        Shop Floor Gruops 
         <button onClick={this.expandItem}> {!this.state.showShopFloorGroups ?"+":"-"} </button>
         <ul>
           {shop_floor_groups}
