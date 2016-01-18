@@ -18,14 +18,14 @@ DashboardArea = React.createClass({
     var position_data = WorkcenterPositions.findOne({"workcenterCode":element.workcenterCode})
     var element_position = position_data ? position_data : {};
     if (element_position.x_coordinate) {
-      position['x'] = element_position.x_coordinate;
+      position['x'] = element_position.x_coordinate*this.state.width ;
     }
     else{
       position['x'] = 100*index;
     }
 
     if (element_position.y_coordinate){
-      position['y'] = element_position.y_coordinate;
+      position['y'] = element_position.y_coordinate*this.state.height;
     }
     else{
       position['y'] = 0;
@@ -36,7 +36,13 @@ DashboardArea = React.createClass({
   	if (work_centers ){
   		return work_centers.map(function (element,index) {
         var position = this.getPositions(element,index)
-  			return <WorkCenter id={element._id} workcenterCode = {element.workcenterCode} workcenterName = {element.workcenterName} position = {position} key={element.workcenterCode} />;  					
+  			return <WorkCenter 
+                id={element._id}
+                workcenterCode = {element.workcenterCode}
+                workcenterName = {element.workcenterName}
+                position = {position} key={element.workcenterCode}
+                page_height = {this.state.height}
+                page_width = {this.state.width} />;  					
   		}.bind(this));
   	}
   },
