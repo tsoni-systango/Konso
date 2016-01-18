@@ -22,7 +22,7 @@ ShopFloorGroups = React.createClass({
     this.data.shopfloorList.map(function (element) {
       shop_floor_groups.push(
         <li>
-          <ShopFloorGroup shopfloorGroup={element}  key={element.shopfloorGroup._id}/>
+          <ShopFloorGroup shopfloorGroup={element}  key={element.shopfloorGroup}/>
         </li>
         )
     });
