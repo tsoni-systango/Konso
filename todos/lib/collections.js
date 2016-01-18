@@ -103,5 +103,12 @@ ShopFloor = new Meteor.Collection("shopfloor");
 			}]
 		}]
 	}
-*/	
+*/
 
+WorkcenterPositions = new Meteor.Collection("workcenterpositions");
+/*
+	_id
+	workcenterCode 
+	x_coordinate
+	y_coordinate
+*/	

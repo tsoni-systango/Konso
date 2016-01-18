@@ -90,3 +90,9 @@ Meteor.publish("fetchShopFloorList",function () {
     var list =  ShopFloor.find();
     return list
 });
+
+Meteor.publish("fetchPosition",function () {
+    var position = {}
+    position =  WorkcenterPositions.find();
+    return position
+});

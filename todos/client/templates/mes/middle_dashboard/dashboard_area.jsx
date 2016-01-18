@@ -8,22 +8,24 @@ DashboardArea = React.createClass({
     }
   },
   getMeteorData : function(){
+    Meteor.subscribe("fetchPosition");
   	return{
-  		work_centers : DashBoardWorkCenters.find({}).fetch()
+  		work_centers : DashBoardWorkCenters.find({}).fetch(),
   	}
   },
   getPositions : function(element,index){
-
     var position = {}
-    if (element.x_coordinate) {
-      position['x'] = element.x_coordinate;
+    var position_data = WorkcenterPositions.findOne({"workcenterCode":element.workcenterCode})
+    var element_position = position_data ? position_data : {};
+    if (element_position.x_coordinate) {
+      position['x'] = element_position.x_coordinate;
     }
     else{
       position['x'] = 100*index;
     }
 
-    if (element.y_coordinate){
-      position['y'] = element.y_coordinate;
+    if (element_position.y_coordinate){
+      position['y'] = element_position.y_coordinate;
     }
     else{
       position['y'] = 0;
@@ -34,7 +36,7 @@ DashboardArea = React.createClass({
   	if (work_centers ){
   		return work_centers.map(function (element,index) {
         var position = this.getPositions(element,index)
-  			return <WorkCenter id={element._id} workcenterCode = {element.workcenterCode} workcenterName = {element.workcenterName} position = {position} />;  					
+  			return <WorkCenter id={element._id} workcenterCode = {element.workcenterCode} workcenterName = {element.workcenterName} position = {position} key={element.workcenterCode} />;  					
   		}.bind(this));
   	}
   },

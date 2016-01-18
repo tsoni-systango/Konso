@@ -35,6 +35,7 @@ Draggable = React.createClass({
     this.setState({dragging: false})
     element.stopPropagation()
     element.preventDefault()
+    this.changeHandler();
   },
   onMouseMove: function (element) {
     if (!this.state.dragging) return
@@ -48,9 +49,10 @@ Draggable = React.createClass({
     element.stopPropagation()
     element.preventDefault()
   },
+  changeHandler: function(){
+    this.props.onChange(this.state.pos.x,this.state.pos.y)
+  },
   render: function () {
-    // transferPropsTo will merge style & other props passed into our
-    // component to also be on the child DIV.
     return (
       <div style = {{"border":"1px","width":"100px","height" : "100px","borderStyle": "solid","borderColor": "#000000","position": 'absolute', "left": this.state.pos.x + 'px',"top": this.state.pos.y + 'px'}} onMouseDown = {this.onMouseDown}>
         {this.props.data_attr}
