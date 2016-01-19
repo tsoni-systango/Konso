@@ -1,4 +1,13 @@
 WorkCenter = React.createClass({
+
+  mixins: [ReactMeteorData],
+
+  getMeteorData : function(){
+    return{
+      work_center_data_records : DataRecord.find({workcenterCode: this.props.workcenterCode}).fetch()
+    }
+  },
+
   savePosition : function(x_coordinate,y_coordinate){
     x_coordinate = x_coordinate/this.props.page_width;
     y_coordinate = y_coordinate/this.props.page_height;

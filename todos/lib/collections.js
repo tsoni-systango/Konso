@@ -111,4 +111,30 @@ WorkcenterPositions = new Meteor.Collection("workcenterpositions");
 	workcenterCode 
 	x_coordinate
 	y_coordinate
+<<<<<<< HEAD
 */	
+
+
+DataRecord = new Mongo.Collection('dataRecord');	
+/*
+   workcenterCode 
+   workcenterName 
+   machineIP 
+   machineName 
+   isCounter 
+   currentStatus
+   workorderNo 
+   partno 
+   partnoName
+   sequenceNo 
+   deviceNo 
+   startTime
+   endTime 
+   personCount
+   Count 
+   StandardWorkTime
+   recordTime 
+   functionCode 
+   functionName 
+   remark
+*/  

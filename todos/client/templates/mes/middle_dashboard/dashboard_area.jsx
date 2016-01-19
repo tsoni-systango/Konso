@@ -8,9 +8,13 @@ DashboardArea = React.createClass({
     }
   },
   getMeteorData : function(){
+    dbWorkCenters = DashBoardWorkCenters.find({}).fetch()
+    dbWorkCentersCodes = dbWorkCenters.map(function(dr) {return dr['workcenterCode']})
     Meteor.subscribe("fetchPosition");
+    Meteor.subscribe("fetchDataRecords", dbWorkCentersCodes);
+
   	return{
-  		work_centers : DashBoardWorkCenters.find({}).fetch(),
+  		work_centers :dbWorkCenters,
   	}
   },
   getPositions : function(element,index){

@@ -96,3 +96,9 @@ Meteor.publish("fetchPosition",function () {
     position =  WorkcenterPositions.find();
     return position
 });
+
+Meteor.publish('fetchDataRecords', function(workcenterCodes) {
+  var records = {}
+  records = DataRecord.find({workcenterCode: {$in:workcenterCodes}});
+  return records;
+});
