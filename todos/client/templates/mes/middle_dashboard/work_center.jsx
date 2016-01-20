@@ -13,9 +13,9 @@ WorkCenter = React.createClass({
     endDate.setMinutes(59);
     endDate = new Date(endDate);
 
-    var data_record_count = DataRecord.aggregate([{$match:{workcenterCode:workcenterCode, recordTime:{ $gte:startDate, $lt:endDate }}},{$group:{_id:"$workcenterCode",total:{$sum:"$personCount"}}}]).fetch()
+    var data_record_count = DataRecord.aggregate([{$match:{workcenterCode:this.props.workcenterCode, recordTime:{ $gte:startDate, $lt:endDate }}},{$group:{_id:"$workcenterCode",total:{$sum:"$personCount"}}}]).fetch()
     
-    var data_record_count_function_code = DataRecord.aggregate([{$match:{workcenterCode:workcenterCode,{functionCode:"C001"},recordTime:{ $gte:startDate, $lt:endDate }}},{$group:{_id:"$workcenterCode",total:{$sum:"$personCount"}}}]).fetch();
+    var data_record_count_function_code = DataRecord.aggregate([{$match:{workcenterCode:this.props.workcenterCode,functionCode:"C001",recordTime:{ $gte:startDate, $lt:endDate }}},{$group:{_id:"$workcenterCode",total:{$sum:"$personCount"}}}]).fetch();
 
     if (last_item[0]){
       pending_items = DataRecord.find({workcenterCode:this.props.workcenterCode,recordTime:{ $lt:  Date(),$gt:last_item[0].startTime},functionCode:/F.*/}).fetch()
