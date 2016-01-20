@@ -54,7 +54,7 @@ Draggable = React.createClass({
   },
   render: function () {
     return (
-      <div style = {{"border":"1px","width":"100px","height" : "100px","borderStyle": "solid","borderColor": "#000000","position": 'absolute', "left": this.state.pos.x + 'px',"top": this.state.pos.y + 'px'}} onMouseDown = {this.onMouseDown}>
+      <div style = {{"border":"1px","width":"100px","height" : "100px","borderStyle": "solid","borderColor": "#000000","position": 'absolute', "left": this.state.pos.x + 'px',"top": this.state.pos.y + 'px'}} onMouseDown = {this.onMouseDown} onMouseOver={this.props.over} onMouseOut={this.props.out}>
         {this.props.data_attr}
       </div>
     )

@@ -111,7 +111,6 @@ WorkcenterPositions = new Meteor.Collection("workcenterpositions");
 	workcenterCode 
 	x_coordinate
 	y_coordinate
-<<<<<<< HEAD
 */	
 
 
