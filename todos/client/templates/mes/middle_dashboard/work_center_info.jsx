@@ -16,12 +16,9 @@ WorkCenterInfo = React.createClass({
     });
 
     if (accumulativeCount){
-        currentEfficiency = ((((new Date("2 December 2015") - (new Date(this.props.last_item[0].startTime))) * this.props.last_item[0].personCount)/ (this.props.last_item[0].StandardWorkTime)) / accumulativeCount)/1000;}
+        currentEfficiency = ((((new Date("2 December 2015") - (new Date(this.props.last_item.startTime))) * this.props.last_item.personCount)/ (this.props.last_item.StandardWorkTime)) / accumulativeCount)/1000;}
 
     currentQualityRate =  accumulativeCount/(accumulativeCount+NGCount);
-    console.log(this.props.data_record_count_function_code);
-    console.log(this.props.data_record_count);
-
     todayQualityRate = this.props.data_record_count_function_code/this.props.data_record_count;
 
     return{

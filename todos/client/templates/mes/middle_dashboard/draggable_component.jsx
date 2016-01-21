@@ -4,8 +4,8 @@ Draggable = React.createClass({
       pos: this.props.initialPos,
       dragging: false,
       rel: null, // position relative to the cursor
-      colour : "#00000",
-      do_flash : false
+      // colour : "#00000",
+      // do_flash : false
     }
   },
   
@@ -55,42 +55,13 @@ Draggable = React.createClass({
     this.props.onChange(this.state.pos.x,this.state.pos.y)
   },
 
-  componentWillMount : function() {
-    console.log("this.props.last_item>>>>>>>.........")
-    console.log(this.props.last_item)
-    switch("STOP") {
-      case "ONLINE":
-        this.setState({colour: "GREEN"})
-        break;
-      case "OFFLINE":
-        this.setState({colour: "RED"})
-        break;
-      case "FAULT":
-        this.setState({colour: "RED"})
-        this.setState({do_flash: true})
-        break;
-      case "PAUSE":
-        this.setState({colour: "BLUE"})
-        break;
-      case "STOP":
-        this.setState({colour: "GRAY"})
-        break;
-      case "WORKING":
-        this.setState({colour: "GREEN"})
-        this.setState({do_flash: true})
-        break;
-      default:
-        // OTHER: show the background yellow with flash, this status didn't include in the status column, you must calculate it, if the production efficiency(avg output) is lower than standard production(stand output) effciency then show it.
-        this.setState({colour: "#0000"})
-    }
-  },
   mouseOver : function(){
     this.props.over(this.state.pos.x,this.state.pos.y)
   },
   render: function () {
+    
     return (
-      <div style = {{"backgroundColor":this.state.colour,"border":"1px","width":"100px","height" : "100px","borderStyle": "solid","borderColor": "#000000","position": 'absolute', "left": this.state.pos.x + 'px',"top": this.state.pos.y + 'px'}} onMouseDown = {this.onMouseDown} onMouseOver={this.mouseOver} onMouseOut={this.props.out}>
-        {this.getColor}
+      <div style = {{"backgroundColor":this.props.colour,"border":"1px","width":"100px","height" : "100px","borderStyle": "solid","borderColor": "#000000","position": 'absolute', "left": this.state.pos.x + 'px',"top": this.state.pos.y + 'px'}} onMouseDown = {this.onMouseDown} onMouseOver={this.mouseOver} onMouseOut={this.props.out}>
         {this.props.data_attr}
       </div>
     )

@@ -47,7 +47,7 @@ WorkCenter = React.createClass({
     return{
       show_info : false,
       pos_x : 0,
-      pos_y : 0
+      pos_y : 0,
     }
   },
   savePosition : function(x_coordinate,y_coordinate){
@@ -64,10 +64,41 @@ WorkCenter = React.createClass({
   },
 
   render : function(){
+    var get_state = function(){
+      if (this.data.last_item[0])
+        {var status = this.data.last_item[0].currentStatus;}
+      var colour = "#00000";
+      do_flash = false;
+      switch(status) {
+        case "ONLINE":
+          colour = "GREEN"
+          break;
+        case "OFFLINE":
+          colour = "RED"
+          break;
+        case "FAULT":
+          colour = "RED"
+          do_flash = true
+          break;
+        case "PAUSE":
+          colour = "BLUE"
+          break;
+        case "STOP":
+          colour = "GRAY"
+          break;
+        case "WORKING":
+          colour = "GREEN"
+          do_flash = true
+          break;
+        default:
+          colour = "#0000"
+      }
+    return [colour,do_flash]  
+    }.bind(this);
     return(
         <div>
         { this.state.show_info ? <WorkCenterInfo last_item={this.data.last_item} pos_x={this.state.pos_x} pos_y={this.state.pos_y} pending_items={this.data.pending_items} accumulative_items={this.data.accumulative_items} data_record_count={this.data.data_record_count} data_record_count_function_code={this.data.data_record_count_function_code} /> : '' }
-       <Draggable ref="draggable" initialPos={this.props.position} data_attr={this.props.workcenterCode} onChange={this.savePosition} over={this.mouseOver} out = {this.mouseOut} last_item={this.data.last_item} />
+       <Draggable ref="draggable" initialPos={this.props.position} data_attr={this.props.workcenterCode} onChange={this.savePosition} over={this.mouseOver} out = {this.mouseOut} colour={get_state()[0]} do_flash={get_state()[1]} />
        </div>
       )
   }
