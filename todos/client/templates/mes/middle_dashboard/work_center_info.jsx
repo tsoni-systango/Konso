@@ -19,8 +19,10 @@ WorkCenterInfo = React.createClass({
         currentEfficiency = ((((new Date("2 December 2015") - (new Date(this.props.last_item[0].startTime))) * this.props.last_item[0].personCount)/ (this.props.last_item[0].StandardWorkTime)) / accumulativeCount)/1000;}
 
     currentQualityRate =  accumulativeCount/(accumulativeCount+NGCount);
+    console.log(this.props.data_record_count_function_code);
+    console.log(this.props.data_record_count);
 
-    todayQualityRate = this.props.data_record_count_function_code[0].total/this.props.data_record_count[0].total;
+    todayQualityRate = this.props.data_record_count_function_code/this.props.data_record_count;
 
     return{
       NGCount : NGCount,
@@ -33,7 +35,7 @@ WorkCenterInfo = React.createClass({
     return(
       <div>
       {this.props.last_item[0] ? 
-        <div style = {{"border":"1px","borderStyle": "solid","borderColor": "#000000","position": 'absolute', "left": this.props.pos_x + 50 + 'px',"top": this.props.pos_y +50 + 'px'}}>
+        <div style = {{"border":"1px","borderStyle": "solid","borderColor": "#000000","position": 'absolute', "left": this.props.pos_x + 'px',"top": this.props.pos_y +100 + 'px'}}>
           <ul>
             <li> Status : {this.props.last_item[0].currentStatus} </li>
             <li> workcenterName : {this.props.last_item[0].workcenterName} </li>
