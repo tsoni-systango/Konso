@@ -4,8 +4,9 @@ Draggable = React.createClass({
       pos: this.props.initialPos,
       dragging: false,
       rel: null, // position relative to the cursor
-      // colour : "#00000",
-      // do_flash : false
+      colour : this.props.colour,
+      do_flash : this.props.do_flash,
+      flash_colour : ''
     }
   },
   
@@ -58,10 +59,20 @@ Draggable = React.createClass({
   mouseOver : function(){
     this.props.over(this.state.pos.x,this.state.pos.y)
   },
+  componentDidUpdate : function(){
+    if (this.state.do_flash){
+      setTimeout(function(){ this.setState({colour : this.state.flash_colour});},2000);
+    }
+  },
+  componentWillMount : function(){
+    if (this.state.do_flash){
+      this.setState({flash_colour:this.state.colour,colour:"WHITE"})
+    }
+  },
   render: function () {
     
     return (
-      <div style = {{"backgroundColor":this.props.colour,"border":"1px","width":"100px","height" : "100px","borderStyle": "solid","borderColor": "#000000","position": 'absolute', "left": this.state.pos.x + 'px',"top": this.state.pos.y + 'px'}} onMouseDown = {this.onMouseDown} onMouseOver={this.mouseOver} onMouseOut={this.props.out}>
+      <div style = {{"backgroundColor":this.state.colour,"border":"1px","width":"100px","height" : "100px","borderStyle": "solid","borderColor": "#000000","position": 'absolute', "left": this.state.pos.x + 'px',"top": this.state.pos.y + 'px'}} onMouseDown = {this.onMouseDown} onMouseOver={this.mouseOver} onMouseOut={this.props.out}>
         {this.props.data_attr}
       </div>
     )
