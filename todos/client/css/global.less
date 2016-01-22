@@ -502,3 +502,12 @@ body.dragging {
   background: radial-gradient(ellipse at center,  @gradient_1 0%,@gradient_2 100%); /* W3C */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@gradient_1', endColorstr='@gradient_2',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
 }
+
+.example-appear {
+  opacity: 0.01;
+}
+
+.example-appear.example-appear-active {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+}

@@ -1,3 +1,4 @@
+ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 Draggable = React.createClass({
   getInitialState: function () {
     return {
@@ -70,7 +71,9 @@ Draggable = React.createClass({
   },
   render: function () {
     return (
-      <div style = {{"backgroundColor":this.props.colour,"border":"1px","width":"100px","height" : "100px","borderStyle": "solid","borderColor": "#000000","position": 'absolute', "left": this.state.pos.x + 'px',"top": this.state.pos.y + 'px'}} onMouseDown = {this.onMouseDown} onMouseOver={this.mouseOver} onMouseOut={this.props.out}>{this.props.data_attr}</div>
+      <ReactCSSTransitionGroup transitionName="example" transitionAppear={true} transitionAppearTimeout={500}>
+        <div style = {{"backgroundColor":this.props.colour,"border":"1px","width":"100px","height" : "100px","borderStyle": "solid","borderColor": "#000000","position": 'absolute', "left": this.state.pos.x + 'px',"top": this.state.pos.y + 'px'}} onMouseDown = {this.onMouseDown} onMouseOver={this.mouseOver} onMouseOut={this.props.out}>{this.props.data_attr}</div>
+      </ReactCSSTransitionGroup>
     )
   }
 });
