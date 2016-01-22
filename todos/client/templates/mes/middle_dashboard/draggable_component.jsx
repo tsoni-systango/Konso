@@ -1,4 +1,5 @@
 ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+
 Draggable = React.createClass({
   getInitialState: function () {
     return {
@@ -63,16 +64,30 @@ Draggable = React.createClass({
   //     setInterval(function(){ this.setState({flash : !this.state.flash});}.bind(this),1000);
   //   }
   // },
-  showFlash : function(){
-    if(!this.state.flash && this.props.do_flash){
-      return true
-    }
-    return false
+  // showFlash : function(){
+  //   if(!this.state.flash && this.props.do_flash){
+  //     return true
+  //   }
+  //   return false
+  // },
+
+  toggleColor : function(){
+    if (this.props.do_flash) {
+      this.setState({flash: !this.state.flash})
+    };
   },
+
+
+  componentDidMount: function(){
+    window.setInterval(function () {
+      this.toggleColor();
+    }.bind(this), 200);
+  },
+
   render: function () {
     return (
-      <ReactCSSTransitionGroup transitionName="example" transitionAppear={true} transitionAppearTimeout={500}>
-        <div style = {{"backgroundColor":this.props.colour,"border":"1px","width":"100px","height" : "100px","borderStyle": "solid","borderColor": "#000000","position": 'absolute', "left": this.state.pos.x + 'px',"top": this.state.pos.y + 'px'}} onMouseDown = {this.onMouseDown} onMouseOver={this.mouseOver} onMouseOut={this.props.out}>{this.props.data_attr}</div>
+      <ReactCSSTransitionGroup transitionAppear={true} transitionAppearTimeout={1000}>
+        <div style = {{"backgroundColor":(this.state.flash ? "WHITE" : this.props.colour),"border":"1px","width":"100px","height" : "100px","borderStyle": "solid","borderColor": "#000000","position": 'absolute', "left": this.state.pos.x + 'px',"top": this.state.pos.y + 'px'}} onMouseDown = {this.onMouseDown} onMouseOver={this.mouseOver} onMouseOut={this.props.out}>{this.props.data_attr}</div>
       </ReactCSSTransitionGroup>
     )
   }

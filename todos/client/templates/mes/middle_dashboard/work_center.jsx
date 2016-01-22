@@ -93,7 +93,7 @@ WorkCenter = React.createClass({
         default:
           colour = "#0000"
       }
-    return [colour,do_flash]  
+      return [colour,do_flash]  
     }.bind(this);
     return(
         <div>
