@@ -6,32 +6,25 @@ WorkCenterInfo = React.createClass({
 
     var pending_items = []
     var accumulative_items = []
-    var data_records = DataRecord.find().fetch();
+    var data_records = DataRecord.find({workcenterCode:this.props.workcenterCode}).fetch();
     var total_items = DataRecord.find({workcenterCode:this.props.workcenterCode,$or:[{functionCode:"C001"},{functionCode:/S.*/}]},{sort: {recordTime:-1}, limit: 1}).fetch();
     last_item = total_items[0];
 
-    pending_items = DataRecord.find({workcenterCode:this.props.workcenterCode,recordTime:{ $lt:  Date(),$gt:last_item.startTime},functionCode:/F.*/}).fetch()
+    pending_items = DataRecord.find({workcenterCode:this.props.workcenterCode,recordTime:{ $lt:  Date(),$gte:last_item.startTime},functionCode:/F.*/}).fetch();
     accumulative_items = DataRecord.find({workcenterCode:this.props.workcenterCode,workorderNo:last_item.workorderNo,functionCode:"C001",recordTime:{$lt:Date(),$gt:last_item.startTime}}).fetch()
-
-    var startDate = new Date();
-
-    startDate = new Date( startDate.toLocaleDateString() )
-    var endDate = new Date();
-    endDate.setHours(23);
-    endDate.setMinutes(59);
-    endDate = new Date(endDate);
 
     var data_record_count = 0;
     var data_record_count_function_code = 0;
 
-    data_records.map(function(element){
-      if ((element.recordTime >= startDate) && (element.recordTime >= endDate))  {
-        data_record_count += element.personCount;
-      }
-    });
+    var start = new Date(moment().startOf('day'))
+    var end = new Date(moment().endOf('day'))
+
+    todays_dr = DataRecord.find({workcenterCode:this.props.workcenterCode,recordTime:{ $lte: end , $gte: start}}).fetch();
+    console.log(todays_dr)
+    todays_dr.map(function(element){ data_record_count += element.personCount });
 
     data_records.map(function(element){
-      if ((element.functionCode=="C001") && (element.recordTime >= startDate) && (element.recordTime >= endDate))  {
+      if ((element.functionCode=="C001") && (element.recordTime >= start) && (element.recordTime >= end))  {
         data_record_count_function_code += element.personCount;
       }
     });
