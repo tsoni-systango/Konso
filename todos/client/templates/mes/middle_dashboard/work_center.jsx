@@ -6,8 +6,7 @@ WorkCenter = React.createClass({
     var pending_items = []
     var accumulative_items = []
     var data_records = DataRecord.find({workcenterCode:this.props.workcenterCode}).fetch();
-    var total_items = DataRecord.find({workcenterCode:this.props.workcenterCode,$or:[{functionCode:"C001"},{functionCode:/S.*/}]},{sort: {recordTime:-1}, limit: 1}).fetch();
-    last_item = total_items[0];
+    var last_item = DataRecord.findOne({workcenterCode:this.props.workcenterCode,$or:[{functionCode:"C001"},{functionCode:/S.*/}]},{sort: {recordTime:-1}, limit: 1});
     if (last_item) {
       pending_items = DataRecord.find({workcenterCode:this.props.workcenterCode,recordTime:{ $lt:  Date(),$gte:last_item.startTime},functionCode:/F.*/}).fetch();
       accumulative_items = DataRecord.find({workcenterCode:this.props.workcenterCode,workorderNo:last_item.workorderNo,functionCode:"C001",recordTime:{$lt:Date(),$gte:last_item.startTime}}).fetch()
@@ -84,9 +83,11 @@ WorkCenter = React.createClass({
   },
 
   savePosition : function(x_coordinate,y_coordinate){
-    x_coordinate = x_coordinate/this.props.page_width;
-    y_coordinate = y_coordinate/this.props.page_height;
-    Meteor.call("savePosition",this.props.workcenterCode,x_coordinate,y_coordinate)
+    if (this.props.is_auth_for_moving) {
+      x_coordinate = x_coordinate/this.props.page_width;
+      y_coordinate = y_coordinate/this.props.page_height;
+      Meteor.call("savePosition",this.props.workcenterCode,x_coordinate,y_coordinate)
+    };
   },
 
   mouseOver : function(x,y){
@@ -141,7 +142,7 @@ WorkCenter = React.createClass({
     return(
         <div>
         { this.state.show_info ? <WorkCenterInfo workcenterCode={this.props.workcenterCode} pos_x={this.state.pos_x} pos_y={this.state.pos_y} info_stats={this.data}/> : '' }
-       <Draggable ref="draggable" initialPos={this.props.position} data_attr={this.props.workcenterCode} onChange={this.savePosition} over={this.mouseOver} out = {this.mouseOut} colour={get_state()[0]} do_flash={get_state()[1]} />
+       <Draggable ref="draggable" initialPos={this.props.position} data_attr={this.props.workcenterCode} onChange={this.savePosition} over={this.mouseOver} out = {this.mouseOut} colour={get_state()[0]} do_flash={get_state()[1]} is_auth_for_moving={this.props.is_auth_for_moving} />
        </div>
       )
   }

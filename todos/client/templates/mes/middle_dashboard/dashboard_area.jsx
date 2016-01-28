@@ -12,9 +12,12 @@ DashboardArea = React.createClass({
     dbWorkCentersCodes = dbWorkCenters.map(function(dr) {return dr['workcenterCode']})
     Meteor.subscribe("fetchPosition");
     Meteor.subscribe("fetchDataRecords", dbWorkCentersCodes);
-
+    if (Meteor.user() && dbWorkCentersCodes[0]) {
+      var is_auth_for_moving = ShopFloor.findOne({"shopfloor.workcenter.workcenterCode" : dbWorkCentersCodes[0], 'shopfloor.useraccess.userId' : Meteor.user().username});
+    };
   	return{
   		work_centers :dbWorkCenters,
+      is_auth_for_moving : (is_auth_for_moving ? true : false)
   	}
   },
   getPositions : function(element,index){
@@ -40,22 +43,16 @@ DashboardArea = React.createClass({
   	if (work_centers ){
   		return work_centers.map(function (element,index) {
         var position = this.getPositions(element,index)
-  			return <WorkCenter 
-                id={element._id}
-                workcenterCode = {element.workcenterCode}
-                workcenterName = {element.workcenterName}
-                position = {position} key={element.workcenterCode}
-                page_height = {this.state.height}
-                page_width = {this.state.width} />;  					
+  			return <WorkCenter id={element._id} workcenterCode = {element.workcenterCode} workcenterName = {element.workcenterName} position = {position} key={element.workcenterCode} page_height = {this.state.height} page_width = {this.state.width} is_auth_for_moving={this.data.is_auth_for_moving}/>;  					
   		}.bind(this));
   	}
   },
 	render : function(){
     return(
-        <div ref="dashboard_area">
-					{this.displayWorkCenters(this.data.work_centers)}
-				</div>
-		      )
+      <div ref="dashboard_area">
+				{this.displayWorkCenters(this.data.work_centers)}
+			</div>
+		)
 	}
 
 });
