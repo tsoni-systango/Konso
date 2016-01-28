@@ -2,11 +2,13 @@ ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 Draggable = React.createClass({
   getInitialState: function () {
+    var is_auth_for_moving = ShopFloor.find({"shopfloor.workcenter.workcenterCode" : this.props.data_attr, 'shopfloor.useraccess.userId' : "shen.ming.zhi"}).fetch()[0];
     return {
       pos: this.props.initialPos,
       dragging: false,
       rel: null, // position relative to the cursor
-      flash : false
+      flash : false,
+      is_auth_for_moving: (is_auth_for_moving ? true : false)
     }
   },
   
@@ -42,6 +44,7 @@ Draggable = React.createClass({
   },
   onMouseMove: function (element) {
     if (!this.state.dragging) return
+    if (!this.state.is_auth_for_moving) return
     var pos = $(this.getDOMNode()).parent().offset()
     this.setState({
       pos: {
