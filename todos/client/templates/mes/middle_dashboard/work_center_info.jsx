@@ -21,7 +21,7 @@ WorkCenterInfo = React.createClass({
             <li> Avg. Output : {this.props.info_stats.avg_output} </li>
             <li> standard output : {this.props.info_stats.last_item.StandardWorkTime} </li>
             <li> currentEfficiency : {this.props.info_stats.currentEfficiency} </li>
-            <li> todayEfficiency : TBD </li>
+            <li> todayEfficiency : {this.props.info_stats.todayEfficiency} </li>
             <li> currentQualityRate : {this.props.info_stats.currentQualityRate} </li>
             <li> todayQualityRate : {this.props.info_stats.todayQualityRate} </li>
             <li> functionCode : {this.props.info_stats.last_item.functionCode} </li>
