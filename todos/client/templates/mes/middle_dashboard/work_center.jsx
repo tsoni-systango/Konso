@@ -27,15 +27,15 @@ WorkCenter = React.createClass({
       var currentEfficiency = 0;
       currentEfficiency = ((((new Date() - (new Date(last_item.startTime))) * last_item.personCount)/ (last_item.StandardWorkTime)) / accumulativeCount)/1000;
 
-    // todayEfficiency  "1. Get the record of which workcenterNo is  current workcenter, recordTime belong to today (from 0:00 ~ 23:59:59), functionCode is ""C001"", Grouped by startTime, summarize the Count as ""production quantity"", ""Production quantity"" * peopleCount / standWorkTime as ""Standard Efficiency"", ""Production Quantity"" * peopleCount * (currentTime - startTime ) as as ""Fact Efficiency"" . 
-    //2. Summarize the ""Standard Efficiency"" / Summarize the ""Fact Efficiency"" of 1, convert to percent."
-    var todayEfficiency = 0;
-    var todays_dr_w_fc = DataRecord.find({workcenterCode:this.props.workcenterCode,recordTime:{ $gte:day_start, $lte:day_end }, functionCode:"C001"}).fetch()
-    var pq = todays_dr_w_fc.length
-    var td = (new Date() - new Date(last_item.startTime))
-    var se = (pq * last_item.personCount * td) / last_item.StandardWorkTime
-    var fe = pq * last_item.personCount * td
-    todayEfficiency = se / fe 
+      // todayEfficiency  "1. Get the record of which workcenterNo is  current workcenter, recordTime belong to today (from 0:00 ~ 23:59:59), functionCode is ""C001"", Grouped by startTime, summarize the Count as ""production quantity"", ""Production quantity"" * peopleCount / standWorkTime as ""Standard Efficiency"", ""Production Quantity"" * peopleCount * (currentTime - startTime ) as as ""Fact Efficiency"" . 
+      //2. Summarize the ""Standard Efficiency"" / Summarize the ""Fact Efficiency"" of 1, convert to percent."
+      var todayEfficiency = 0;
+      var todays_dr_w_fc = DataRecord.find({workcenterCode:this.props.workcenterCode,recordTime:{ $gte:day_start, $lte:day_end }, functionCode:"C001"}).fetch()
+      var pq = todays_dr_w_fc.length
+      var td = (new Date() - new Date(last_item.startTime))
+      var se = (pq * last_item.personCount * td) / last_item.StandardWorkTime
+      var fe = pq * last_item.personCount * td
+      todayEfficiency = se / fe 
     };
 
     var data_record_count = 0;

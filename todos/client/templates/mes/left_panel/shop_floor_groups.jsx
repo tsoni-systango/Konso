@@ -17,22 +17,22 @@ ShopFloorGroups = React.createClass({
     this.setState({ showShopFloorGroups : !this.state.showShopFloorGroups });
   },
   render : function(){
-  var shop_floor_groups = [];  
-  if (this.state.showShopFloorGroups) {
-    this.data.shopfloorList.map(function (element) {
-      shop_floor_groups.push(
-        <li>
-          <ShopFloorGroup shopfloorGroup={element}  key={element.shopfloorGroup}/>
-        </li>
-        )
-    });
-  }   
+    var shop_floor_groups = [];  
+    if (this.state.showShopFloorGroups) {
+      this.data.shopfloorList.map(function (element) {
+        shop_floor_groups.push(
+          <li>
+            <ShopFloorGroup shopfloorGroup={element}  key={element.shopfloorGroup}/>
+          </li>
+          )
+      });
+    }   
     
-  return(  
-      <div>
-        Shop Floor Gruops 
-        <button onClick={this.expandItem}> {!this.state.showShopFloorGroups ?"+":"-"} </button>
-        <ul>
+    return(  
+      <div >
+        All        
+        <button onClick={this.expandItem} className=""><i className={!this.state.showShopFloorGroups ?"mdi-content-add ":"mdi-content-archive"}> </i></button>
+        <ul className="last-message">
           {shop_floor_groups}
         </ul>  
       </div>

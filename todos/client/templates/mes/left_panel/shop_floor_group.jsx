@@ -16,9 +16,9 @@ ShopFloorGroup = React.createClass ({
     }
 
     return (
-      <div>
+      <div >
         <h6 >{this.props.shopfloorGroup.shopfloorGroupName}</h6>
-        <button onClick={this.expandItem}> {!this.state.showShopFloor ?"+":"-"} </button>
+        <button onClick={this.expandItem} className=""> <i className={!this.state.showShopFloor ?"mdi-content-add ":"mdi-content-archive"}></i> </button>
         <div>
           {rows}
         </div>
