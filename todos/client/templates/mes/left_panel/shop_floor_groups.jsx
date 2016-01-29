@@ -21,7 +21,7 @@ ShopFloorGroups = React.createClass({
     if (this.state.showShopFloorGroups) {
       this.data.shopfloorList.map(function (element) {
         shop_floor_groups.push(
-          <li>
+          <li className="no-padding">
             <ShopFloorGroup shopfloorGroup={element}  key={element.shopfloorGroup}/>
           </li>
           )
@@ -29,17 +29,15 @@ ShopFloorGroups = React.createClass({
     }   
     
     return(  
-      <div >
-        All        
-        <button onClick={this.expandItem} className=""><i className={!this.state.showShopFloorGroups ?"mdi-content-add ":"mdi-content-archive"}> </i></button>
-        <ul className="last-message">
+      <li className="no-padding">
+        <a onClick={this.expandItem} className={!this.state.showShopFloorGroups ?"mdi-content-add collapsible collapsible-accordion":"mdi-content-remove collapsible collapsible-accordion"}>All </a>        
+        <ul className="">
           {shop_floor_groups}
         </ul>  
-      </div>
+       </li>       
     )
   } 
 })
-
 Template.shop_floor_groups.helpers({
   ShopFloorGroups() {
     return ShopFloorGroups;

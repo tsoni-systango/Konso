@@ -13,9 +13,11 @@ ShopFloorRow = React.createClass({
   },
   render: function() {
     return (
-        <div onClick={this.displayWorkcenters}>
+      <li>
+        <a onClick={this.displayWorkcenters}>
           {this.props.shopfloor.shopfloorName}
-        </div>
+        </a>
+        </li>
       );
   }
 });
