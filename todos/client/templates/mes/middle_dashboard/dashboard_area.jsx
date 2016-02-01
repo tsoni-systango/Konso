@@ -2,6 +2,8 @@ DashboardArea = React.createClass({
 
   mixins: [ReactMeteorData],
   getInitialState : function(){
+    this.Scroll = true;
+    this.ScrollToRight = true;
     return{
       height : $("#application-content").height(),
       width : $("#application-content").width(),
@@ -39,6 +41,45 @@ DashboardArea = React.createClass({
     }
     return position
   },
+
+  autoScroll : function(){
+    var element_to_scroll = document.getElementById('application-content');
+    if ((element_to_scroll.scrollWidth - element_to_scroll.offsetWidth) <= 0) {
+      return
+    };
+    if (element_to_scroll.scrollLeft === 0) {
+      this.ScrollToRight = true;
+    }
+    else if (element_to_scroll.scrollLeft === (element_to_scroll.scrollWidth - element_to_scroll.offsetWidth)) {
+      this.ScrollToRight = false;
+    };
+    if(this.ScrollToRight && this.Scroll){
+      element_to_scroll.scrollLeft=element_to_scroll.scrollLeft+1
+    }
+    else if (this.Scroll)
+    {
+      element_to_scroll.scrollLeft=element_to_scroll.scrollLeft-1
+    }
+  },
+
+  componentDidMount: function() {
+    this.interval = setInterval(function () {
+      this.autoScroll();
+    }.bind(this), 20);
+  },
+
+  componentWillUnmount: function() {
+    clearInterval(this.interval);
+  },
+
+  mouseOver: function(){
+    this.Scroll = false;
+  },
+
+  mouseOut: function() {
+    this.Scroll = true;
+  },
+
   displayWorkCenters : function(work_centers){
   	if (work_centers ){
   		return work_centers.map(function (element,index) {
@@ -49,7 +90,8 @@ DashboardArea = React.createClass({
   },
 	render : function(){
     return(
-      <div ref="dashboard_area">
+      <div ref="dashboard_area" onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}>
+        // <DashBoardAreaLegend/>
 				{this.displayWorkCenters(this.data.work_centers)}
 			</div>
 		)
