@@ -91,7 +91,6 @@ DashboardArea = React.createClass({
 	render : function(){
     return(
       <div ref="dashboard_area" onMouseOver={this.mouseOver} onMouseOut={this.mouseOut}>
-        // <DashBoardAreaLegend/>
 				{this.displayWorkCenters(this.data.work_centers)}
 			</div>
 		)
