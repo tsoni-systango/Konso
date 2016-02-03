@@ -24,7 +24,6 @@ WorkCenterInfo = React.createClass({
 
   render : function(){
     var pos = this.getInfoDivPos();
-    console.log([">>>>>>>>", pos])
     return(
       <div className='infobox'>
       {this.props.info_stats.last_item ? 

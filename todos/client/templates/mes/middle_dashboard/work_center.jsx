@@ -110,7 +110,7 @@ WorkCenter = React.createClass({
       } else if (this.data.last_item){
         var status = this.data.last_item.currentStatus;
       }
-      var colour = "YELLOW";
+      var colour = "BLACK";
       var do_flash = false;
       switch(status) {
         case "ONLINE":
