@@ -8,15 +8,12 @@ WorkCenterInfo = React.createClass({
     if ((this.props.pos_x) < (dashboard_div.offsetWidth - 300)) {
       pos_x = this.props.pos_x + 100 
     }
-    else if ( true ){
-      pos_x = this.props.pos_x - 260
+    else{
+      pos_x = this.props.pos_x - 296
     }
 
-    if (false) {
-      pos_y = this.props.pos_y 
-    }
-    else if ( (this.props.pos_y + 370) > dashboard_div.offsetHeight ){
-      pos_y = dashboard_div.offsetHeight - 370
+    if ((this.props.pos_y + 375) > dashboard_div.offsetHeight) {
+      pos_y = dashboard_div.offsetHeight - 375
     }
 
     return [pos_x, pos_y]
@@ -27,7 +24,7 @@ WorkCenterInfo = React.createClass({
     return(
       <div className='infobox'>
       {this.props.info_stats.last_item ? 
-        <div style = {{"border":"1px","borderStyle": "solid","borderColor": "#000000","position": 'absolute', "left": pos[0] + 'px',"top": pos[1] + 'px'}}>
+        <div style = {{"border":"1px","borderStyle": "solid","borderColor": "#000000","position": 'absolute', "left": pos[0] + 'px',"top": pos[1] + 'px',"height":"360px","width":"296px"}}>
           <ul>
             <li> Status : {this.props.info_stats.last_item.currentStatus} </li>
             <li> WorkCenterName : {this.props.info_stats.last_item.workcenterName} </li>

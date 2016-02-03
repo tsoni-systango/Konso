@@ -15,7 +15,10 @@ DashboardArea = React.createClass({
     Meteor.subscribe("fetchPosition");
     Meteor.subscribe("fetchDataRecords", dbWorkCentersCodes);
     if (Meteor.user() && dbWorkCentersCodes[0]) {
-      var is_auth_for_moving = ShopFloor.findOne({"shopfloor.workcenter.workcenterCode" : dbWorkCentersCodes[0], 'shopfloor.useraccess.userId' : Meteor.user().username});
+      var shopfloorgroup = ShopFloor.findOne({"shopfloor.workcenter.workcenterCode" : dbWorkCentersCodes[0], 'shopfloor.useraccess.userId' : Meteor.user().username});
+      if (shopfloorgroup) {
+        var is_auth_for_moving = IsAuthToMoveWorkCenter(dbWorkCentersCodes[0], shopfloorgroup)
+      };
     };
   	return{
   		work_centers :dbWorkCenters,

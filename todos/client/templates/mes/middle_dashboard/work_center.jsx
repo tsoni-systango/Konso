@@ -31,11 +31,11 @@ WorkCenter = React.createClass({
       //2. Summarize the ""Standard Efficiency"" / Summarize the ""Fact Efficiency"" of 1, convert to percent."
       var todayEfficiency = 0;
       var todays_dr_w_fc = DataRecord.find({workcenterCode:this.props.workcenterCode,recordTime:{ $gte:day_start, $lte:day_end }, functionCode:"C001"}).fetch()
-      var pq = todays_dr_w_fc.length
-      var td = (new Date() - new Date(last_item.startTime))
-      var se = (pq * last_item.personCount * td) / last_item.StandardWorkTime
-      var fe = pq * last_item.personCount * td
-      todayEfficiency = se / fe 
+      var production_qualtiy = todays_dr_w_fc.length
+      var todays_date = (new Date() - new Date(last_item.startTime))
+      var standard_efficiency = (production_qualtiy * last_item.personCount * todays_date) / last_item.StandardWorkTime
+      var fact_efficiency = production_qualtiy * last_item.personCount * todays_date
+      todayEfficiency = standard_efficiency / fact_efficiency 
     };
 
     var data_record_count = 0;
@@ -110,7 +110,7 @@ WorkCenter = React.createClass({
       } else if (this.data.last_item){
         var status = this.data.last_item.currentStatus;
       }
-      var colour = "BLACK";
+      var colour = "Cyan";
       var do_flash = false;
       switch(status) {
         case "ONLINE":

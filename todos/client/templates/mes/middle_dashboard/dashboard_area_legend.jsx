@@ -31,7 +31,7 @@ DashBoardAreaLegend = React.createClass({
           <li className="STOP ultra-small"><span className="legend-color"></span> STOP</li>
           <li className={this.state.flash ? "FLASH ultra-small":"WORKING ultra-small"}><span className="legend-color"></span> WORKING</li>
           <li className={this.state.flash ? "FLASH ultra-small":"OTHER ultra-small"}><span className="legend-color"></span> OTHER</li>
-          <li className="BLACK ultra-small"><span className="legend-color"></span> NO DATA</li>
+          <li className="CYAN ultra-small"><span className="legend-color"></span> NO DATA</li>
         </ul>
       </div>
     )
