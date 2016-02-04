@@ -3,7 +3,7 @@ WorkCenterInfo = React.createClass({
   getInfoDivPos : function() {
     var pos_x = this.props.pos_x;
     var pos_y = this.props.pos_y;
-    var dashboard_div = document.getElementById('application-content');
+    var dashboard_div = document.getElementById('dashboardArea');
 
     if ((this.props.pos_x) < (dashboard_div.offsetWidth - 300)) {
       pos_x = this.props.pos_x + 100 
@@ -22,9 +22,8 @@ WorkCenterInfo = React.createClass({
   render : function(){
     var pos = this.getInfoDivPos();
     return(
-      <div className='infobox'>
-      {this.props.info_stats.last_item ? 
-        <div style = {{"border":"1px","borderStyle": "solid","borderColor": "#000000","position": 'absolute', "left": pos[0] + 'px',"top": pos[1] + 'px',"height":"360px","width":"296px"}}>
+      <div className="WorkCenterInfoBox" style = {{"left": pos[0] + 'px',"top": pos[1] + 'px'}}>
+        {this.props.info_stats.last_item ? 
           <ul>
             <li> Status : {this.props.info_stats.last_item.currentStatus} </li>
             <li> WorkCenterName : {this.props.info_stats.last_item.workcenterName} </li>
@@ -46,9 +45,8 @@ WorkCenterInfo = React.createClass({
             <li> TodayQualityRate : {this.props.info_stats.todayQualityRate} </li>
             <li> FunctionCode : {this.props.info_stats.last_item.functionCode} </li>
           </ul>   
-        </div>
-      :""}
+        :""}
       </div>
-      )
-    }
+    )
+  }
 })
