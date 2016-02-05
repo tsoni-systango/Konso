@@ -6,7 +6,6 @@ Draggable = React.createClass({
       pos: this.props.initialPos,
       dragging: false,
       rel: null, // position relative to the cursor
-      flash : false
     }
   },
   
@@ -61,26 +60,10 @@ Draggable = React.createClass({
     this.props.over(this.state.pos.x,this.state.pos.y)
   },
 
-  toggleColor : function(){
-    if (this.props.do_flash) {
-      this.setState({flash: !this.state.flash})
-    };
-  },
-
-  componentDidMount: function() {
-    this.interval = setInterval(function () {
-      this.toggleColor();
-    }.bind(this), 200);
-  },
-
-  componentWillUnmount: function() {
-    clearInterval(this.interval);
-  },
-
   render: function () {
     return (
       <ReactCSSTransitionGroup transitionName="example" transitionAppear={true} transitionAppearTimeout={1000}>
-        <div style = {{"backgroundColor":(this.state.flash ? "WHITE" : this.props.colour),"border":"1px","width":"100px","height" : "100px","borderStyle": "solid","borderColor": "#000000","position": 'absolute', "left": this.state.pos.x + 'px',"top": this.state.pos.y + 'px'}} onMouseDown = {this.onMouseDown} onMouseOver={this.mouseOver} onMouseOut={this.props.out}>{this.props.data_attr}</div>
+        <div className={this.props.do_flash ? "blink draggable" : "draggable"} style = {{"backgroundColor":this.props.colour, "left": this.state.pos.x + 'px',"top": this.state.pos.y + 'px'}} onMouseDown = {this.onMouseDown} onMouseOver={this.mouseOver} onMouseOut={this.props.out}>{this.props.data_attr}</div>
       </ReactCSSTransitionGroup>
     )
   }

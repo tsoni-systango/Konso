@@ -5,11 +5,11 @@ WorkCenterInfo = React.createClass({
     var pos_y = this.props.pos_y;
     var dashboard_div = document.getElementById('application-content');
 
-    if ((this.props.pos_x) < (dashboard_div.offsetWidth - 300)) {
+    if ((this.props.pos_x + 100) < (dashboard_div.offsetWidth - 170)) {
       pos_x = this.props.pos_x + 100 
     }
     else{
-      pos_x = this.props.pos_x - 296
+      pos_x = this.props.pos_x - 170
     }
 
     if ((this.props.pos_y + 375) > dashboard_div.offsetHeight) {
@@ -33,8 +33,8 @@ WorkCenterInfo = React.createClass({
             <li> PartNo : {this.props.info_stats.last_item.partno}</li>
             <li> PartNoName : {this.props.info_stats.last_item.partnoName}</li>
             <li> DeviceNo : {this.props.info_stats.last_item.deviceNo} </li>
-            <li> StartTime : {this.props.info_stats.last_item.startTime} </li>
-            <li> LastTime : {this.props.info_stats.last_item.recordTime} </li>
+            <li> StartTime : {moment(this.props.info_stats.last_item.startTime).format("MMM Do h:mm:s")} </li>
+            <li> LastTime : {moment(this.props.info_stats.last_item.recordTime).format("MMM Do h:mm:s")} </li>
             <li> NGCount : {this.props.info_stats.NGCount} </li>
             <li> AccumulativeCount : {this.props.info_stats.accumulativeCount} </li>
             <li> Avg. Output : {this.props.info_stats.avg_output} </li>

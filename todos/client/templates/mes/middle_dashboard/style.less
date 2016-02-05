@@ -20,6 +20,16 @@
 .doughnut-chart-legend { 
 	width:800px;
 }
+
+.blink_icon:before{
+  -webkit-animation: bgblink 1s;  /* Chrome, Safari, Opera */
+  -webkit-animation-iteration-count: infinite;  /* Chrome, Safari, Opera */
+}
+
+@keyframes bgblink {    
+  80% {background-color: #bcbcc2}
+}
+
 li.mobile-white:before {
     background: white;
 }
@@ -76,7 +86,23 @@ li.CYAN:before {
 	border-color: #000000;
 	position: absolute;
 	height:360px;
-	width:296px;
+	width:170px;
 	z-index: 10;
 	background: rgba(200, 54, 54, 0.5);
+}
+
+.draggable{
+	border:1px;
+	width:100px;
+	height: 100px;
+	position: absolute;
+}
+
+.blink{
+  -webkit-animation: bgblink 1s;  /* Chrome, Safari, Opera */
+  -webkit-animation-iteration-count: infinite;  /* Chrome, Safari, Opera */
+}
+
+@keyframes bgblink {    
+  80% {background-color: #bcbcc2}
 }
