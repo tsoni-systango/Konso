@@ -47,7 +47,7 @@ Draggable = React.createClass({
     if (element.pageX >= (pos.left + 50)) {
       this.setState({ posX:element.pageX - pos.left - 50 })
     }
-    if (element.pageY >= (pos.top + 50)) {
+    if (element.pageY >= (pos.top + 75)) {
       this.setState({ posY: element.pageY - pos.top - 50 })
     };
     element.stopPropagation()
