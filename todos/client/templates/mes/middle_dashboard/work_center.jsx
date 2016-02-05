@@ -88,7 +88,7 @@ WorkCenter = React.createClass({
   },
 
   savePosition : function(x_coordinate,y_coordinate){
-    if (this.props.is_auth_for_moving) {
+    if (this.props.is_auth_for_moving && x_coordinate >= 0 && y_coordinate >= 0) {
       x_coordinate = x_coordinate/this.props.page_width;
       y_coordinate = y_coordinate/this.props.page_height;
       Meteor.call("savePosition",this.props.workcenterCode,x_coordinate,y_coordinate)

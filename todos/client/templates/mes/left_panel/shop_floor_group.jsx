@@ -4,9 +4,11 @@ ShopFloorGroup = React.createClass ({
       showShopFloor:false
     }
   },
+  
   expandItem : function(){
     this.setState({showShopFloor: !this.state.showShopFloor});
   },
+
   render : function(){
     var rows = [];
     if (this.state.showShopFloor) {
@@ -14,7 +16,6 @@ ShopFloorGroup = React.createClass ({
         rows.push(<ShopFloorRow key={shopFloor.shopfloorCode} shopfloor={shopFloor} />);
       });
     }
-
     return (
       <div>
         <a onClick={this.expandItem} className={!this.state.showShopFloor ?"mdi-content-add collapsible collapsible-accordion":"mdi-content-remove collapsible collapsible-accordion"}> {this.props.shopfloorGroup.shopfloorGroupName} </a>      

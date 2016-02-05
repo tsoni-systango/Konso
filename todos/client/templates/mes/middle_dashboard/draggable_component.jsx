@@ -3,7 +3,8 @@ ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 Draggable = React.createClass({
   getInitialState: function () {
     return {
-      pos: this.props.initialPos,
+      posX: this.props.initialPos['x'],
+      posY: this.props.initialPos['y'],
       dragging: false,
       rel: null, // position relative to the cursor
     }
@@ -43,27 +44,27 @@ Draggable = React.createClass({
     if (!this.state.dragging) return
     if (!this.props.is_auth_for_moving) return
     var pos = $(this.getDOMNode()).parent().offset()
-    this.setState({
-      pos: {
-        x: element.pageX - pos.left - 50,
-        y: element.pageY - pos.top - 50
-      }
-    })
+    if (element.pageX >= (pos.left + 50)) {
+      this.setState({ posX:element.pageX - pos.left - 50 })
+    }
+    if (element.pageY >= (pos.top + 50)) {
+      this.setState({ posY: element.pageY - pos.top - 50 })
+    };
     element.stopPropagation()
     element.preventDefault()
   },
   changeHandler: function(){
-    this.props.onChange(this.state.pos.x,this.state.pos.y)
+    this.props.onChange(this.state.posX,this.state.posY)
   },
 
   mouseOver : function(){
-    this.props.over(this.state.pos.x,this.state.pos.y)
+    this.props.over(this.state.posX,this.state.posY)
   },
 
   render: function () {
     return (
       <ReactCSSTransitionGroup transitionName="example" transitionAppear={true} transitionAppearTimeout={1000}>
-        <div className={this.props.do_flash ? "blink draggable" : "draggable"} style = {{"backgroundColor":this.props.colour, "left": this.state.pos.x + 'px',"top": this.state.pos.y + 'px'}} onMouseDown = {this.onMouseDown} onMouseOver={this.mouseOver} onMouseOut={this.props.out}>{this.props.data_attr}</div>
+        <div className={this.props.do_flash ? "blink draggable" : "draggable"} style = {{"backgroundColor":this.props.colour, "left": this.state.posX + 'px',"top": this.state.posY + 'px'}} onMouseDown = {this.onMouseDown} onMouseOver={this.mouseOver} onMouseOut={this.props.out}>{this.props.data_attr}</div>
       </ReactCSSTransitionGroup>
     )
   }

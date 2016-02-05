@@ -5,6 +5,12 @@ Meteor.methods({
     if (!shopfloorgroup || !IsAuthToMoveWorkCenter(workcenterCode, shopfloorgroup)) {
       Errors.throw("Not authorized to move workcenter position.");
     };
-    WorkcenterPositions.update({workcenterCode:workcenterCode}, { workcenterCode : workcenterCode, x_coordinate : x_coordinate, y_coordinate : y_coordinate }, { upsert: true });
+
+    if (x_coordinate >= 0 && y_coordinate >= 0) {
+    	WorkcenterPositions.update({workcenterCode:workcenterCode}, { workcenterCode : workcenterCode, x_coordinate : x_coordinate, y_coordinate : y_coordinate }, { upsert: true });
+    }
+    else {
+      Errors.throw("Invalid coordinates.");
+    }
   }
 });
