@@ -160,7 +160,8 @@ Router.map(function () {
 		template: "dashboard_area",
 		yieldTemplates: {
 			"shop_floor_groups": {to: "leftMenu"},
-			"allUserList": {to: "rightMenu"}
+			"allUserList": {to: "rightMenu"},
+			"TopLegend": {to: "TopBarlegend"}
 		},
 		waitOn: function () {
 			return [Meteor.subscribe("usersList"), Meteor.subscribe("checkinRules"), Meteor.subscribe('userPresences')]
