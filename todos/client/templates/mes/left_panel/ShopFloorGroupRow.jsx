@@ -1,24 +1,24 @@
 ShopFloorGroupRow = React.createClass ({
   getInitialState: function() {
     return {
-      showShopFloor:false
+      expand_shopfloors:false
     }
   },
   
-  expandItem : function(){
-    this.setState({showShopFloor: !this.state.showShopFloor});
+  expand_shopfloors : function(){
+    this.setState({expand_shopfloors: !this.state.expand_shopfloors});
   },
 
   render : function(){
-    var rows = [];
-    if (this.state.showShopFloor) {
+    var shop_floor_rows = [];
+    if (this.state.expand_shopfloors) {
       this.props.shopfloorGroup.shopfloor.forEach(function(shopFloor) {
-        rows.push(<ShopFloorRow key={shopFloor.shopfloorCode} shopfloor={shopFloor} />);
+        shop_floor_rows.push(<ShopFloorRow key={shopFloor.shopfloorCode} shopfloor={shopFloor} />);
       });
     }
     return (
       <div>
-        <a onClick={this.expandItem} className={!this.state.showShopFloor ?"mdi-content-add collapsible collapsible-accordion":"mdi-content-remove collapsible collapsible-accordion"}> 
+        <a onClick={this.expand_shopfloors} className={!this.state.expand_shopfloors ?"mdi-content-add collapsible collapsible-accordion":"mdi-content-remove collapsible collapsible-accordion"}> 
           {this.props.shopfloorGroup.shopfloorGroupName}
           <i className="circle "><span className="circle"> 3 </span></i>
           <i className="circle "><span className="circle"> 3 </span></i>
@@ -27,7 +27,7 @@ ShopFloorGroupRow = React.createClass ({
           <i className="circle "><span className="circle"> 3 </span></i>
         </a>      
         <ul>        
-          {rows}       
+          {shop_floor_rows} 
         </ul>
       </div>
     );
