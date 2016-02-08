@@ -89,7 +89,7 @@ Tasks = new Mongo.Collection("tasks");
 Notes = new Mongo.Collection("notes");
 
 
-ShopFloor = new Meteor.Collection("shopfloor");
+ShopFloorGroup = new Meteor.Collection("shopfloor");
 /*
 	{
 	"shopfloorGroup": String,

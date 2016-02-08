@@ -1,4 +1,4 @@
-ShopFloorGroup = React.createClass ({
+ShopFloorGroupRow = React.createClass ({
   getInitialState: function() {
     return {
       showShopFloor:false
@@ -18,7 +18,14 @@ ShopFloorGroup = React.createClass ({
     }
     return (
       <div>
-        <a onClick={this.expandItem} className={!this.state.showShopFloor ?"mdi-content-add collapsible collapsible-accordion":"mdi-content-remove collapsible collapsible-accordion"}> {this.props.shopfloorGroup.shopfloorGroupName} </a>      
+        <a onClick={this.expandItem} className={!this.state.showShopFloor ?"mdi-content-add collapsible collapsible-accordion":"mdi-content-remove collapsible collapsible-accordion"}> 
+          {this.props.shopfloorGroup.shopfloorGroupName}
+          <i className="circle "><span className="circle"> 3 </span></i>
+          <i className="circle "><span className="circle"> 3 </span></i>
+          <i className="circle "><span className="circle"> 3 </span></i>
+          <i className="circle "><span className="circle"> 3 </span></i>
+          <i className="circle "><span className="circle"> 3 </span></i>
+        </a>      
         <ul>        
           {rows}       
         </ul>

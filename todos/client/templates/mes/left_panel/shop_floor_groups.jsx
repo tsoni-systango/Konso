@@ -8,9 +8,9 @@ ShopFloorGroups = React.createClass({
     }
   },
   getMeteorData : function(){
-      Meteor.subscribe('fetchShopFloorList');
-      return{
-      shopfloorList : ShopFloor.find({},{fields:{"shopfloorGroupName":1,"shopfloorGroup":1,"shopfloor":1}}).fetch()
+    Meteor.subscribe('fetchShopFloorGroup');
+    return{
+      shopfloorList : ShopFloorGroup.find({},{fields:{"shopfloorGroupName":1,"shopfloorGroup":1,"shopfloor":1}}).fetch()
     }
   },
   expandItem : function(){
@@ -22,7 +22,7 @@ ShopFloorGroups = React.createClass({
       this.data.shopfloorList.map(function (element) {
         shop_floor_groups.push(
           <li className="no-padding">
-            <ShopFloorGroup shopfloorGroup={element}  key={element.shopfloorGroup}/>
+            <ShopFloorGroupRow shopfloorGroup={element}  key={element.shopfloorGroup}/>
           </li>
           )
       });
