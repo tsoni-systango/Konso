@@ -9,7 +9,6 @@ LeftNavigation = React.createClass({
   },
 
   getMeteorData : function(){
-    Meteor.subscribe('fetchShopFloorGroup');
     return{
       ShopFloorGroups : ShopFloorGroup.find({},{fields:{"shopfloorGroupName":1,"shopfloorGroup":1,"shopfloor":1}}).fetch()
     }

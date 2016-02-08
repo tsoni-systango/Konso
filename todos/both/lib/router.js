@@ -164,7 +164,7 @@ Router.map(function () {
 			"TopLegend": {to: "TopBarlegend"}
 		},
 		waitOn: function () {
-			return [Meteor.subscribe("usersList"), Meteor.subscribe("checkinRules"), Meteor.subscribe('userPresences')]
+			return [Meteor.subscribe("usersList"), Meteor.subscribe("checkinRules"), Meteor.subscribe('userPresences'), Meteor.subscribe('fetchShopFloorGroup')]
 		},
 		onBeforeAction: function () {
 			this.next();
