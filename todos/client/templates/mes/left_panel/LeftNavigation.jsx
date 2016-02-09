@@ -21,12 +21,12 @@ LeftNavigation = React.createClass({
   render : function(){
     var shop_floor_groups_rows = [];  
     if (this.state.expand_left_navigation) {
-      this.data.ShopFloorGroups.map(function (element) {
+      this.data.ShopFloorGroups.map(function (shop_floor_group) {
         shop_floor_groups_rows.push(
           <li className="no-padding">
-            <ShopFloorGroupRow shopfloorGroup={element}  key={element.shopfloorGroup}/>
+            <ShopFloorGroupRow shopfloorGroup={shop_floor_group}  key={shop_floor_group.shopfloorGroup}/>
           </li>
-          )
+        )
       });
     }
 
@@ -44,4 +44,5 @@ LeftNavigation = React.createClass({
 Template.left_navigation.helpers({
   LeftNavigation() {
     return LeftNavigation;
-}});
+  }
+});

@@ -9,11 +9,11 @@ DashboardArea = React.createClass({
       width : $("#application-content").width(),
     }
   },
+  
   getMeteorData : function(){
     dbWorkCenters = DashBoardWorkCenters.find({}).fetch()
     dbWorkCentersCodes = dbWorkCenters.map(function(dr) {return dr['workcenterCode']})
     Meteor.subscribe("fetchPosition");
-    Meteor.subscribe("fetchDataRecords", dbWorkCentersCodes);
     if (Meteor.user() && dbWorkCentersCodes[0]) {
       var shopfloorgroup = ShopFloorGroup.findOne({"shopfloor.workcenter.workcenterCode" : dbWorkCentersCodes[0], 'shopfloor.useraccess.userId' : Meteor.user().username});
       if (shopfloorgroup) {
