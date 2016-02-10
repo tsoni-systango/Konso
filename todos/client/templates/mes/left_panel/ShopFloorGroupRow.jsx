@@ -76,11 +76,11 @@ ShopFloorGroupRow = React.createClass ({
       <div>
         <a onClick={this.expand_shopfloors} onMouseOver={this.mouseOver} className={!this.state.expand_shopfloors ?"mdi-content-add collapsible collapsible-accordion":"mdi-content-remove collapsible collapsible-accordion"}> 
           {this.props.shopfloorGroup.shopfloorGroupName}<br/>
-          <i className="bg_style nav_RED blink"><span> {this.data.no_of_faulty} </span></i>
-          <i className="bg_style nav_GRAY"><span> {this.data.no_of_stopped} </span></i>
-          <i className="bg_style nav_RED"><span> {this.data.no_of_offline} </span></i>
-          <i className="bg_style nav_BLUE"><span> {this.data.no_of_paused} </span></i>
-          <i className="bg_style nav_CYAN"><span> {this.data.no_of_no_data_found} </span></i>
+          {this.data.no_of_faulty ? <SummeryInfo color='RED' blink="true" detail={this.data.no_of_faulty}/> : ''}
+          {this.data.no_of_stopped ? <SummeryInfo color='GRAY' detail={this.data.no_of_stopped}/> : ''}
+          {this.data.no_of_offline ? <SummeryInfo color='RED' detail={this.data.no_of_offline}/> : ''}
+          {this.data.no_of_paused ? <SummeryInfo color='BLUE' detail={this.data.no_of_paused}/> : ''}
+          {this.data.no_of_no_data_found ? <SummeryInfo color='CYAN' detail={this.data.no_of_no_data_found}/> : ''}
         </a>
         <ul>        
           {shop_floor_rows} 
@@ -89,3 +89,12 @@ ShopFloorGroupRow = React.createClass ({
     );
   }
 });
+
+SummeryInfo = React.createClass({
+  render : function(){
+    class_name = "bg_style nav_" + (this.props.color ? this.props.color : '') + (this.props.blink ? ' blink' : '')
+    return(
+      <i className={class_name}><span> {this.props.detail} </span></i>
+    )
+  }
+})
