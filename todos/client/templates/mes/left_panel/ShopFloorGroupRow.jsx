@@ -4,7 +4,8 @@ ShopFloorGroupRow = React.createClass ({
 
   getInitialState: function() {
     return {
-      expand_shopfloors:false
+      expand_shopfloors:false,
+      show_shopfloor_group_summary: false
     }
   },
 
@@ -60,6 +61,10 @@ ShopFloorGroupRow = React.createClass ({
     this.setState({expand_shopfloors: !this.state.expand_shopfloors});
   },
 
+  mouseOver : function function_name() {
+    console.log("mouseOver")
+  },
+
   render : function(){
     var shop_floor_rows = [];
     if (this.state.expand_shopfloors) {
@@ -69,14 +74,14 @@ ShopFloorGroupRow = React.createClass ({
     }
     return (
       <div>
-        <a onClick={this.expand_shopfloors} className={!this.state.expand_shopfloors ?"mdi-content-add collapsible collapsible-accordion":"mdi-content-remove collapsible collapsible-accordion"}> 
-          {this.props.shopfloorGroup.shopfloorGroupName}
-          <i className="circle "><span className="circle"> {this.data.no_of_faulty} </span></i>
-          <i className="circle "><span className="circle"> {this.data.no_of_stopped} </span></i>
-          <i className="circle "><span className="circle"> {this.data.no_of_offline} </span></i>
-          <i className="circle "><span className="circle"> {this.data.no_of_paused} </span></i>
-          <i className="circle "><span className="circle"> {this.data.no_of_no_data_found} </span></i>
-        </a>      
+        <a onClick={this.expand_shopfloors} onMouseOver={this.mouseOver} className={!this.state.expand_shopfloors ?"mdi-content-add collapsible collapsible-accordion":"mdi-content-remove collapsible collapsible-accordion"}> 
+          {this.props.shopfloorGroup.shopfloorGroupName}<br/>
+          <i className="bg_style nav_RED blink"><span> {this.data.no_of_faulty} </span></i>
+          <i className="bg_style nav_GRAY"><span> {this.data.no_of_stopped} </span></i>
+          <i className="bg_style nav_RED"><span> {this.data.no_of_offline} </span></i>
+          <i className="bg_style nav_BLUE"><span> {this.data.no_of_paused} </span></i>
+          <i className="bg_style nav_CYAN"><span> {this.data.no_of_no_data_found} </span></i>
+        </a>
         <ul>        
           {shop_floor_rows} 
         </ul>

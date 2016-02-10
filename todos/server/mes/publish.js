@@ -3,7 +3,6 @@ Meteor.publish("fetchShopFloorGroup",function () {
 });
 
 Meteor.publish("fetchPosition",function (dbWorkCentersCodes) {
-	console.log(dbWorkCentersCodes)
   return WorkcenterPositions.find({workcenterCode: {$in:dbWorkCentersCodes}});
 });
 
