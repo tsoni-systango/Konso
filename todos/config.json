@@ -30,5 +30,12 @@
       "port": 389,
       "dn": "dc=example,dc=com"
     }
+  },
+  "kadira": {
+    "appId": "DPnExYccfffJYqPR5",
+    "appSecret": "5Wd4SPupvf4Pb4apn",
+    "options": {
+
+    }
   }
 }

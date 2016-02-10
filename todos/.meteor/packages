@@ -25,11 +25,8 @@ zuzel:atlassian-crowd
 mrt:moment
 percolate:synced-cron
 meteorhacks:cluster
-meteorhacks:kadira
-meteorhacks:kadira-profiler
 tap:i18n
 flemay:less-autoprefixer
-kadira:debug
 tmeasday:publish-counts
 fortawesome:fontawesome
 zuzel:user-presence

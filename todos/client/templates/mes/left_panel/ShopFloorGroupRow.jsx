@@ -16,7 +16,7 @@ ShopFloorGroupRow = React.createClass ({
       })
     })
     Meteor.subscribe("fetchDataRecords", work_centers_codes);
-
+    Meteor.subscribe("fetchPosition", work_centers_codes);
     var no_of_faulty  = 0;
     var no_of_stopped = 0;
     var no_of_offline = 0;

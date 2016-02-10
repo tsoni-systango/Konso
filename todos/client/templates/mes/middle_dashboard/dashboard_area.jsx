@@ -13,7 +13,6 @@ DashboardArea = React.createClass({
   getMeteorData : function(){
     dbWorkCenters = DashBoardWorkCenters.find({}).fetch()
     dbWorkCentersCodes = dbWorkCenters.map(function(dr) {return dr['workcenterCode']})
-    Meteor.subscribe("fetchPosition");
     if (Meteor.user() && dbWorkCentersCodes[0]) {
       var shopfloorgroup = ShopFloorGroup.findOne({"shopfloor.workcenter.workcenterCode" : dbWorkCentersCodes[0], 'shopfloor.useraccess.userId' : Meteor.user().username});
       if (shopfloorgroup) {
@@ -40,7 +39,7 @@ DashboardArea = React.createClass({
       position['y'] = element_position.y_coordinate*this.state.height;
     }
     else{
-      position['y'] = 0;
+      position['y'] = 25;
     }
     return position
   },
@@ -104,4 +103,5 @@ DashboardArea = React.createClass({
 Template.dashboard_area.helpers({
   DashboardArea() {
     return DashboardArea;
-}});
+  }
+});

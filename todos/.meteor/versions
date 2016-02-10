@@ -49,7 +49,6 @@ iron:router@1.0.12
 iron:url@1.0.11
 jquery@1.11.4
 jsx@0.2.3
-kadira:debug@2.2.4
 launch-screen@1.0.4
 livedata@1.0.15
 localstorage@1.0.5
@@ -57,10 +56,6 @@ logging@1.0.8
 meteor@1.1.9
 meteor-base@1.0.1
 meteorhacks:cluster@1.6.9
-meteorhacks:kadira@2.24.0
-meteorhacks:kadira-binary-deps@1.4.0
-meteorhacks:kadira-profiler@1.2.1
-meteorhacks:meteorx@1.4.1
 meteorhacks:ssr@2.2.0
 meteorspark:util@0.2.0
 minifiers@1.1.7
@@ -70,7 +65,6 @@ mobile-status-bar@1.0.6
 momentjs:moment@2.9.0
 mongo@1.1.2
 mongo-id@1.0.1
-mongo-livedata@1.0.9
 mquandalle:jade@0.4.5
 mquandalle:jade-compiler@0.4.5
 mrt:moment@2.8.1

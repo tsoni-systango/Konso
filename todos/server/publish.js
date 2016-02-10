@@ -85,19 +85,3 @@ Meteor.publish("dialogUploads", function (id) {
     }
     return this.ready();
 });
-
-Meteor.publish("fetchShopFloorGroup",function () {
-  return ShopFloorGroup.find();
-});
-
-Meteor.publish("fetchPosition",function () {
-    var position = {}
-    position =  WorkcenterPositions.find();
-    return position
-});
-
-Meteor.publish('fetchDataRecords', function(workcenterCodes) {
-  var records = {}
-  records = DataRecord.find({workcenterCode: {$in:workcenterCodes}});
-  return records;
-});
