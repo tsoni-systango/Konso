@@ -4,8 +4,7 @@ ShopFloorGroupRow = React.createClass ({
 
   getInitialState: function() {
     return {
-      expand_shopfloors:false,
-      show_shopfloor_group_summary: false
+      expand_shopfloors:false
     }
   },
 
@@ -18,40 +17,40 @@ ShopFloorGroupRow = React.createClass ({
     })
     Meteor.subscribe("fetchDataRecords", work_centers_codes);
     Meteor.subscribe("fetchPosition", work_centers_codes);
-    var no_of_faulty  = 0;
-    var no_of_stopped = 0;
-    var no_of_offline = 0;
-    var no_of_paused  = 0;
-    var no_of_no_data_found = 0;
+    var faulty  = [];
+    var stopped = [];
+    var offline = [];
+    var paused  = [];
+    var no_data_found = [];
     work_centers_codes.map(function(work_center_code){
       var last_item = DataRecord.findOne({workcenterCode:work_center_code,$or:[{functionCode:"C001"},{functionCode:/S.*/}]},{sort: {recordTime:-1}, limit: 1});
       if (last_item) {
         switch(last_item.currentStatus) {
         case "FAULT":
-          no_of_faulty += 1
+          faulty.push(last_item)
           break;
         case "STOP":
-          no_of_stopped += 1
+          stopped.push(last_item)
           break;
         case "OFFLINE":
-          no_of_offline += 1
+          offline.push(last_item)
           break;
         case "PAUSE":
-          no_of_paused += 1
+          paused.push(last_item)
           break;
         }
       }
       else{
-        no_of_no_data_found += 1
+        no_data_found.push(work_center_code)
       }
     })
 
     return{
-      no_of_faulty: no_of_faulty,
-      no_of_stopped: no_of_stopped,
-      no_of_offline: no_of_offline,
-      no_of_paused: no_of_paused,
-      no_of_no_data_found: no_of_no_data_found
+      faulty: faulty,
+      stopped: stopped,
+      offline: offline,
+      paused: paused,
+      no_data_found: no_data_found
       // work_centers :dbWorkCenters,
       // is_auth_for_moving : (is_auth_for_moving ? true : false)
     }
@@ -61,8 +60,8 @@ ShopFloorGroupRow = React.createClass ({
     this.setState({expand_shopfloors: !this.state.expand_shopfloors});
   },
 
-  mouseOver : function function_name() {
-    console.log("mouseOver")
+  componentWillMount: function() {
+    $('.tooltipped').tooltip({delay: 5});
   },
 
   render : function(){
@@ -74,15 +73,15 @@ ShopFloorGroupRow = React.createClass ({
     }
     return (
       <div>
-        <a onClick={this.expand_shopfloors} onMouseOver={this.mouseOver} className={!this.state.expand_shopfloors ?"mdi-content-add collapsible collapsible-accordion":"mdi-content-remove collapsible collapsible-accordion"}> 
+        <a onClick={this.expand_shopfloors} onMouseOver={this.mouseOver} onMouseOut={this.onMouseOut} className={!this.state.expand_shopfloors ?"mdi-content-add collapsible collapsible-accordion":"mdi-content-remove collapsible collapsible-accordion"}> 
           {this.props.shopfloorGroup.shopfloorGroupName}<br/>
-          {this.data.no_of_faulty ? <SummeryInfo color='RED' blink="true" detail={this.data.no_of_faulty}/> : ''}
-          {this.data.no_of_stopped ? <SummeryInfo color='GRAY' detail={this.data.no_of_stopped}/> : ''}
-          {this.data.no_of_offline ? <SummeryInfo color='RED' detail={this.data.no_of_offline}/> : ''}
-          {this.data.no_of_paused ? <SummeryInfo color='BLUE' detail={this.data.no_of_paused}/> : ''}
-          {this.data.no_of_no_data_found ? <SummeryInfo color='CYAN' detail={this.data.no_of_no_data_found}/> : ''}
+          {this.data.faulty.length > 0 ? <SummeryInfo color='RED' blink="true" detail_array={this.data.faulty} info_type="Faulty: "/> : ''}
+          {this.data.stopped.length > 0 ? <SummeryInfo color='GRAY' detail_array={this.data.stopped} info_type="Stopped: "/> : ''}
+          {this.data.offline.length > 0 ? <SummeryInfo color='RED' detail_array={this.data.offline} info_type="Offline: "/> : ''}
+          {this.data.paused.length > 0 ? <SummeryInfo color='BLUE' detail_array={this.data.paused} info_type="Paused: "/> : ''}
+          {this.data.no_data_found.length > 0 ? <SummeryInfo color='CYAN' detail_array={this.data.no_data_found} info_type="No Data: "/> : ''}
         </a>
-        <ul>        
+        <ul>
           {shop_floor_rows} 
         </ul>
       </div>
@@ -91,10 +90,18 @@ ShopFloorGroupRow = React.createClass ({
 });
 
 SummeryInfo = React.createClass({
+
+  componentDidMount: function() {
+    $('.tooltipped').tooltip({delay: 5});
+  },
+
   render : function(){
-    class_name = "bg_style nav_" + (this.props.color ? this.props.color : '') + (this.props.blink ? ' blink' : '')
+    class_name = "bg_style tooltipped nav_" + (this.props.color ? this.props.color : '') + (this.props.blink ? ' blink' : '')
+    workcenter_names = this.props.detail_array.map(function(item) { 
+      return (item.workcenterCode || item)
+    })
     return(
-      <i className={class_name}><span> {this.props.detail} </span></i>
+      <i className={class_name} data-position="right" data-delay="50" data-tooltip={this.props.info_type + workcenter_names.join()} ><span> {this.props.detail_array.length} </span></i>
     )
   }
 })
