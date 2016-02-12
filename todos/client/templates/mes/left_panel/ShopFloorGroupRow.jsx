@@ -15,7 +15,6 @@ ShopFloorGroupRow = React.createClass ({
         work_centers_codes.push(work_center.workcenterCode)
       })
     })
-    Meteor.subscribe("fetchDataRecords", work_centers_codes);
     Meteor.subscribe("fetchPosition", work_centers_codes);
     var faulty  = [];
     var stopped = [];
@@ -23,7 +22,7 @@ ShopFloorGroupRow = React.createClass ({
     var paused  = [];
     var no_data_found = [];
     work_centers_codes.map(function(work_center_code){
-      var last_item = DataRecord.findOne({workcenterCode:work_center_code,$or:[{functionCode:"C001"},{functionCode:/S.*/}]},{sort: {recordTime:-1}, limit: 1});
+      var last_item = DataRecord.findOne({workcenterCode:work_center_code,$or:[{functionCode:"C001"},{functionCode:/S.*/}]},{sort: {recordTime:-1}});
       if (last_item) {
         switch(last_item.currentStatus) {
         case "FAULT":

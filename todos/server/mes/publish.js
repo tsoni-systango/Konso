@@ -7,5 +7,5 @@ Meteor.publish("fetchPosition",function (dbWorkCentersCodes) {
 });
 
 Meteor.publish('fetchDataRecords', function(workcenterCodes) {
-  return DataRecord.find({workcenterCode: {$in:workcenterCodes}});
+  return DataRecord.find({});
 });

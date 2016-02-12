@@ -8,7 +8,7 @@ WorkCenter = React.createClass({
     var pending_items = []
     var accumulative_items = []
     var data_records = DataRecord.find({workcenterCode:this.props.workcenterCode}).fetch();
-    var last_item = DataRecord.findOne({workcenterCode:this.props.workcenterCode,$or:[{functionCode:"C001"},{functionCode:/S.*/}]},{sort: {recordTime:-1}, limit: 1});
+    var last_item = DataRecord.findOne({workcenterCode:this.props.workcenterCode,$or:[{functionCode:"C001"},{functionCode:/S.*/}]},{sort: {recordTime:-1}});
     if (last_item) {
       pending_items = DataRecord.find({workcenterCode:this.props.workcenterCode,recordTime:{ $lt:  Date(),$gte:last_item.startTime},functionCode:/F.*/}).fetch();
       accumulative_items = DataRecord.find({workcenterCode:this.props.workcenterCode,workorderNo:last_item.workorderNo,functionCode:"C001",recordTime:{$lt:Date(),$gte:last_item.startTime}}).fetch()
