@@ -26,7 +26,8 @@ WorkCenter = React.createClass({
       // currentEfficiency ((currentTime - last.startTime) * peopleCount  / last.standardWorkTime) / accumulativeCount, convert to percent.
       var currentEfficiency = 0;
       currentEfficiency = ((((new Date() - (new Date(last_item.startTime))) * last_item.personCount)/ (last_item.StandardWorkTime)) / accumulativeCount)/1000;
-
+      if (currentEfficiency) { currentEfficiency = (currentEfficiency * 100).toFixed(2) }
+        
       // todayEfficiency  "1. Get the record of which workcenterNo is  current workcenter, recordTime belong to today (from 0:00 ~ 23:59:59), functionCode is ""C001"", Grouped by startTime, summarize the Count as ""production quantity"", ""Production quantity"" * peopleCount / standWorkTime as ""Standard Efficiency"", ""Production Quantity"" * peopleCount * (currentTime - startTime ) as as ""Fact Efficiency"" . 
       //2. Summarize the ""Standard Efficiency"" / Summarize the ""Fact Efficiency"" of 1, convert to percent."
       var todayEfficiency = 0;
@@ -35,7 +36,8 @@ WorkCenter = React.createClass({
       var todays_date = (new Date() - new Date(last_item.startTime))
       var standard_efficiency = (production_qualtiy * last_item.personCount * todays_date) / last_item.StandardWorkTime
       var fact_efficiency = production_qualtiy * last_item.personCount * todays_date
-      todayEfficiency = standard_efficiency / fact_efficiency 
+      todayEfficiency = standard_efficiency / fact_efficiency
+      if (todayEfficiency) { todayEfficiency = (todayEfficiency * 100).toFixed(2) }
     };
 
     var data_record_count = 0;
