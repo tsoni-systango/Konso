@@ -7,6 +7,7 @@ Draggable = React.createClass({
       posY: this.props.initialPos['y'],
       dragging: false,
       rel: null, // position relative to the cursor
+      grab: false
     }
   },
   
@@ -29,13 +30,14 @@ Draggable = React.createClass({
       rel: {
         x: pos.left,
         y: pos.top
-      }
+      },
+      grab:true
     })
     element.stopPropagation()
     element.preventDefault()
   },
   onMouseUp: function (element) {
-    this.setState({dragging: false})
+    this.setState({dragging: false, grab:false})
     element.stopPropagation()
     element.preventDefault()
     this.changeHandler();
@@ -64,7 +66,7 @@ Draggable = React.createClass({
   render: function () {
     return (
       <ReactCSSTransitionGroup transitionName="example" transitionAppear={true} transitionAppearTimeout={1000}>
-        <div className={this.props.do_flash ? "blink draggable" : "draggable"} style = {{"backgroundColor":this.props.colour, "left": this.state.posX + 'px',"top": this.state.posY + 'px'}} onMouseDown = {this.onMouseDown} onMouseOver={this.mouseOver} onMouseOut={this.props.out}>{this.props.data_attr}</div>
+        <div className={this.props.do_flash ? "blink draggable" : "draggable"} style = {{"cursor":(this.state.grab ? 'move' : ''), "backgroundColor":this.props.colour, "left": this.state.posX + 'px',"top": this.state.posY + 'px'}} onMouseDown = {this.onMouseDown} onMouseOver={this.mouseOver} onMouseOut={this.props.out}>{this.props.data_attr}</div>
       </ReactCSSTransitionGroup>
     )
   }
