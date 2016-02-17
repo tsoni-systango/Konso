@@ -160,7 +160,7 @@ Router.map(function () {
 		template: "dashboard_area",
 		yieldTemplates: {
 			"left_navigation": {to: "leftMenu"},
-			"allUserList": {to: "rightMenu"},
+			"mesRightMenu": {to: "rightMenu"},
 			"TopLegend": {to: "TopBarlegend"}
 		},
 		waitOn: function () {

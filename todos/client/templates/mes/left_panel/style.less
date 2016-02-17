@@ -6,9 +6,10 @@
     		padding: 0 15px;
  		    font-size: 14px;
  			  font-weight: 400;
-			  line-height: 42px;
+			  line-height: 25px;
   			cursor: pointer;
   			border-bottom:1px solid #2B2B2B;
+  			padding:5px 15px;
 			}    		
 		}
 	}
@@ -17,7 +18,7 @@
 	.left-menu{
 		line-height: 44px;
 		a:hover{
-		    background:#000 !important;
+		    background:#006396 !important;
 		    color:#fff;
 			}    		
 		}
@@ -30,7 +31,7 @@
 	 .left-menu{
 	 		ul {
 	 			 a{
-	 			 	padding-left:30px !important
+	 			 	padding-left:15px !important
 	 			 }
 	 		}
 	 	}
@@ -49,18 +50,27 @@
 				}	
 	 }
 
+
+ul.side_nav_pos {
+	 ul{
+	 		li{
+ 				padding:0px !important
+	 			}
+	 		}
+		}
+
 #app-left-menu {
 	.side_nav_pos .mdi-content-add:after {
     content: "\e6fb" !important;
     position:absolute;
     right:30px;
-    top:23px !important;
+    top:18px !important;
 	}
 	.side_nav_pos .mdi-content-remove:after {
     content: "\e711" !important;
     position:absolute;
     right:30px;
-    top:23px !important;    
+    top:18px !important;    
 	}
 	.mdi-content-add:before {
     display:none !important;
@@ -79,14 +89,14 @@
     content: "\e6fb" !important;
     position:absolute;
     right:30px;
-    top:60px;
+    top:66px;
 	}
 
 	.mdi-content-remove.collapsible-accordion:after {
     content: "\e711" !important;
     position:absolute;
     right:30px;
-    top:60px;   
+    top:66px;   
 	}
 
 }
@@ -102,10 +112,12 @@
   80% {background-color: #bcbcc2}
 }
 
-.bg_style{ border-radius: 4px;
+.bg_style{ 
     width: 100%;
     padding: 1px 0px 3px 4px; margin-right:5px;}
 .nav_RED{ background:RED;}
-.nav_GRAY{ background:GRAY;}
-.nav_BLUE{ background:BLUE;}
-.nav_CYAN{ background:CYAN;}
+.nav_GRAY{ background:GRAY; }
+.nav_BLUE{ background:BLUE; padding: 1px 6px 3px 4px;}
+.nav_CYAN{ background:CYAN; padding: 1px 6px 3px 4px;}
+
+
