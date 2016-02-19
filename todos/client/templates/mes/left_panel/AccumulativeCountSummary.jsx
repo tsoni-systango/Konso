@@ -1,0 +1,4 @@
+AccumulativeCountSummary = React.createClass({
+
+	
+})

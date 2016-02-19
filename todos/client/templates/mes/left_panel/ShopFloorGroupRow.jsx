@@ -87,20 +87,3 @@ ShopFloorGroupRow = React.createClass ({
     );
   }
 });
-
-SummeryInfo = React.createClass({
-
-  componentDidMount: function() {
-    $('.material_tooltip').tooltip({delay: 5});
-  },
-
-  render : function(){
-    class_name = "bg_style material_tooltip nav_" + (this.props.color ? this.props.color : '') + (this.props.blink ? ' blink' : '')
-    workcenter_names = this.props.detail_array.map(function(item) { 
-      return (item.workcenterCode || item)
-    })
-    return(
-      <i className={class_name} data-position="top" data-delay="50" data-tooltip={this.props.info_type + workcenter_names.join("<br/>")} ><span> {this.props.detail_array.length} </span></i>
-    )
-  }
-})
