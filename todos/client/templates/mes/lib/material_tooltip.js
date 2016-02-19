@@ -19,7 +19,7 @@
         var origin = $(this);
 
         // Create Text span
-        var tooltip_text = $('<span></span>').text(origin.attr('data-tooltip'));
+        var tooltip_text = $('<div></div>').append(origin.attr('data-tooltip'));
 
         // Create tooltip
         var newTooltip = $('<div></div>');

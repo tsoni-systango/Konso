@@ -100,7 +100,7 @@ SummeryInfo = React.createClass({
       return (item.workcenterCode || item)
     })
     return(
-      <i className={class_name} data-position="top" data-delay="50" data-tooltip={this.props.info_type + workcenter_names.join()} ><span> {this.props.detail_array.length} </span></i>
+      <i className={class_name} data-position="top" data-delay="50" data-tooltip={this.props.info_type + workcenter_names.join("<br/>")} ><span> {this.props.detail_array.length} </span></i>
     )
   }
 })
