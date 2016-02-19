@@ -60,9 +60,11 @@
 
                         if (tooltipPosition === "top") {
                             // Top Position
+                            var top = origin.offset().top - tooltipHeight - margin
+                            var left = origin.offset().left + originWidth / 2 - tooltipWidth / 2
                             newTooltip.css({
-                                top: origin.offset().top - tooltipHeight - margin,
-                                left: origin.offset().left + originWidth / 2 - tooltipWidth / 2
+                                top: top < 0 ? 0 : top,
+                                left: left < 0 ? 0 : left
                             });
                             tooltipVerticalMovement = '-10px';
                             backdrop.css({
@@ -75,9 +77,11 @@
                         }
                         // Left Position
                         else if (tooltipPosition === "left") {
+                            var top = origin.offset().top + originHeight / 2 - tooltipHeight / 2
+                            var left = origin.offset().left - tooltipWidth - margin 
                             newTooltip.css({
-                                top: origin.offset().top + originHeight / 2 - tooltipHeight / 2,
-                                left: origin.offset().left - tooltipWidth - margin
+                                top: top < 0 ? 0 : top,
+                                left: left < 0 ? 0 : left
                             });
                             tooltipHorizontalMovement = '-10px';
                             backdrop.css({
@@ -91,9 +95,11 @@
                         }
                         // Right Position
                         else if (tooltipPosition === "right") {
+                            var top = origin.offset().top + originHeight / 2 - tooltipHeight / 2
+                            var left = origin.offset().left + originWidth + margin 
                             newTooltip.css({
-                                top: origin.offset().top + originHeight / 2 - tooltipHeight / 2,
-                                left: origin.offset().left + originWidth + margin
+                                top: top < 0 ? 0 : top,
+                                left: left < 0 ? 0 : left
                             });
                             tooltipHorizontalMovement = '+10px';
                             backdrop.css({
@@ -107,9 +113,11 @@
                         }
                         else {
                             // Bottom Position
+                            var top = origin.offset().top + origin.outerHeight() + margin
+                            var left = origin.offset().left + originWidth / 2 - tooltipWidth / 2
                             newTooltip.css({
-                                top: origin.offset().top + origin.outerHeight() + margin,
-                                left: origin.offset().left + originWidth / 2 - tooltipWidth / 2
+                                top: top < 0 ? 0 : top,
+                                left: left < 0 ? 0 : left
                             });
                             tooltipVerticalMovement = '+10px';
                             backdrop.css({
