@@ -60,7 +60,7 @@ ShopFloorGroupRow = React.createClass ({
   },
 
   componentWillMount: function() {
-    $('.tooltipped').tooltip({delay: 5});
+    $('.material_tooltip').tooltip({delay: 5});
   },
 
   render : function(){
@@ -91,11 +91,11 @@ ShopFloorGroupRow = React.createClass ({
 SummeryInfo = React.createClass({
 
   componentDidMount: function() {
-    $('.tooltipped').tooltip({delay: 5});
+    $('.material_tooltip').tooltip({delay: 5});
   },
 
   render : function(){
-    class_name = "bg_style tooltipped nav_" + (this.props.color ? this.props.color : '') + (this.props.blink ? ' blink' : '')
+    class_name = "bg_style material_tooltip nav_" + (this.props.color ? this.props.color : '') + (this.props.blink ? ' blink' : '')
     workcenter_names = this.props.detail_array.map(function(item) { 
       return (item.workcenterCode || item)
     })
