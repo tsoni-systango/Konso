@@ -50,8 +50,6 @@ ShopFloorGroupRow = React.createClass ({
       offline: offline,
       paused: paused,
       no_data_found: no_data_found
-      // work_centers :dbWorkCenters,
-      // is_auth_for_moving : (is_auth_for_moving ? true : false)
     }
   },
   
