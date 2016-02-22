@@ -1,11 +1,11 @@
 SummeryInfo = React.createClass({
 
-  componentDidMount: function() {
-    $('.material_tooltip').tooltip({delay: 5});
+  componentWillMount() {
+    this.id = this._reactInternalInstance._rootNodeID
   },
 
   render : function(){
-    class_name = "bg_style material_tooltip nav_" + (this.props.color ? this.props.color : '') + (this.props.blink ? ' blink' : '')
+    class_name = "bg_style nav_" + (this.props.color ? this.props.color : '') + (this.props.blink ? ' blink' : '')
     workcenter_codes = this.props.detail_array.map(function(item) { 
       return (item.workcenterCode || item)
     })
@@ -20,7 +20,13 @@ SummeryInfo = React.createClass({
       index += 1
     })
     return(
-      <i className={class_name} data-position="top" data-delay="50" data-tooltip={this.props.info_type + formatted_array.join("  ")} ><span> {this.props.detail_array.length} </span></i>
+      <div>
+        <ReactTooltip id={this.id} place="bottom">
+         <p>{this.props.info_type + formatted_array.join("  ")}</p>
+        </ReactTooltip>
+        <i data-tip data-for={this.id} className={class_name}><span> {this.props.detail_array.length} </span></i>
+      </div>
     )
   }
 })
+

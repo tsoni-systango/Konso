@@ -55,19 +55,53 @@ Draggable = React.createClass({
     element.stopPropagation()
     element.preventDefault()
   },
+
   changeHandler: function(){
     this.props.onChange(this.state.posX,this.state.posY)
   },
 
-  mouseOver : function(){
-    this.props.over(this.state.posX,this.state.posY)
+  componentWillMount() {
+    this.id = this._reactInternalInstance._rootNodeID
+  },
+
+  infoStats: function(){
+    return(
+      this.props.info_stats.last_item ? 
+          <ul>
+            <li> Status : {this.props.info_stats.last_item.currentStatus} </li>
+            <li> WorkCenterName : {this.props.info_stats.last_item.workcenterName} </li>
+            <li> MachineName : {this.props.info_stats.last_item.machineName} </li>
+            <li> WorkOrderNo : {this.props.info_stats.last_item.workorderNo} </li>
+            <li> SequenceNo : {this.props.info_stats.last_item.sequenceNo} </li>
+            <li> PartNo : {this.props.info_stats.last_item.partno}</li>
+            <li> PartNoName : {this.props.info_stats.last_item.partnoName}</li>
+            <li> DeviceNo : {this.props.info_stats.last_item.deviceNo} </li>
+            <li> StartTime : {moment(this.props.info_stats.last_item.startTime).format("MMM Do h:mm:s")} </li>
+            <li> LastTime : {moment(this.props.info_stats.last_item.recordTime).format("MMM Do h:mm:s")} </li>
+            <li> NGCount : {this.props.info_stats.NGCount} </li>
+            <li> AccumulativeCount : {this.props.info_stats.accumulativeCount} </li>
+            <li> Avg. Output : {this.props.info_stats.avg_output} </li>
+            <li> StandardOutput : {this.props.info_stats.last_item.StandardWorkTime} </li>
+            <li> CurrentEfficiency : {this.props.info_stats.currentEfficiency} </li>
+            <li> TodayEfficiency : {this.props.info_stats.todayEfficiency} </li>
+            <li> CurrentQualityRate : {this.props.info_stats.currentQualityRate} </li>
+            <li> TodayQualityRate : {this.props.info_stats.todayQualityRate} </li>
+            <li> FunctionCode : {this.props.info_stats.last_item.functionCode} </li>
+          </ul>   
+        : "lLLLLLLLLLLLLLLLLLLLLLLLLl"
+      
+    )
   },
 
   render: function () {
+    var details = this.infoStats()
     return (
-      <ReactCSSTransitionGroup transitionName="example" transitionAppear={true} transitionAppearTimeout={1000}>
-        <div className={this.props.do_flash ? "blink draggable" : "draggable"} style = {{"cursor":(this.state.grab ? 'move' : ''), "backgroundColor":this.props.colour, "left": this.state.posX + 'px',"top": this.state.posY + 'px'}} onMouseDown = {this.onMouseDown} onMouseOver={this.mouseOver} onMouseOut={this.props.out}>{this.props.data_attr}</div>
-      </ReactCSSTransitionGroup>
+      <div>
+        <ReactTooltip id={this.id} effect="float">
+          {details}
+        </ReactTooltip>
+        <div data-tip data-for={this.id} className={this.props.do_flash ? "blink draggable" : "draggable"} style = {{"cursor":(this.state.grab ? 'move' : ''), "backgroundColor":this.props.colour, "left": this.state.posX + 'px',"top": this.state.posY + 'px'}} onMouseDown = {this.onMouseDown} >{this.props.data_attr}</div>
+      </div>
     )
   }
 });
