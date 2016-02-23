@@ -5,15 +5,15 @@ WorkCenterInfo = React.createClass({
     var pos_y = this.props.pos_y;
     var dashboard_div = document.getElementById('application-content');
 
-    if ((this.props.pos_x + 100) < (dashboard_div.offsetWidth - 170)) {
+    if ((this.props.pos_x + 100) < (dashboard_div.offsetWidth - 180)) {
       pos_x = this.props.pos_x + 100 
     }
     else{
-      pos_x = this.props.pos_x - 170
+      pos_x = this.props.pos_x - 180
     }
 
-    if ((this.props.pos_y + 375) > dashboard_div.offsetHeight) {
-      pos_y = dashboard_div.offsetHeight - 375
+    if ((this.props.pos_y + 390) > dashboard_div.offsetHeight) {
+      pos_y = dashboard_div.offsetHeight - 390
     }
 
     return [pos_x, pos_y]

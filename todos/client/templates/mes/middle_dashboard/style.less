@@ -80,14 +80,16 @@ li.CYAN:before {
 }
 
 .WorkCenterInfoBox {
-	border: 1px;
-	border-style: solid;
-	border-color: #000000;
+    border-radius: 3px;
+    display: inline-block;
+    font-size: 13px;
 	position: absolute;
-	height:360px;
-	width:170px;
-	z-index: 10;
-	background: rgba(200, 54, 54, 0.5);
+	padding: 4px 8px;
+	transition: opacity 0.3s ease-out, margin-top 0.3s ease-out, margin-left 0.3s ease-out;
+	z-index: 9999999;
+    color: #fff;
+    opacity: 0.9;
+    background-color: #222
 }
 
 .draggable{
