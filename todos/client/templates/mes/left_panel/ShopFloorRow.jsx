@@ -2,6 +2,13 @@ ShopFloorRow = React.createClass({
 
   mixins: [ReactMeteorData],
 
+  getInitialState : function(){
+    return{
+      showHourlyInfo : false,
+      x : 0,
+      y: 0
+    }
+  },
   getMeteorData : function(){
     var work_centers_codes = []; 
     this.props.shopfloor.workcenter.map(function(work_center){
@@ -40,19 +47,31 @@ ShopFloorRow = React.createClass({
       stopped: stopped,
       offline: offline,
       paused: paused,
-      no_data_found: no_data_found
+      no_data_found: no_data_found,
+      work_center_codes : work_centers_codes
     }
   },
 
-  displayWorkcenters : function(){
+  displayWorkcenters : function(event){
 
     DashBoardWorkCenters.remove({});
 
     this.props.shopfloor.workcenter.map(function (element) {
       DashBoardWorkCenters.insert({ "workcenterCode" : element.workcenterCode, "workcenterName" : element.workcenterName });
     });
+    this.showShopFloorHourlyInfo(event);
   },
-  
+
+  showShopFloorHourlyInfo : function(event){
+    console.log("test");
+    if (!this.state.showHourlyInfo){
+      console.log("test success");
+      this.setState({showHourlyInfo:true,x:event.clientX,y:event.clientY});
+    } 
+  },
+  closePopUp : function(){
+    this.setState({showHourlyInfo:false});
+  },
   render: function() {
     return (
       <div>
@@ -66,6 +85,9 @@ ShopFloorRow = React.createClass({
             {this.data.no_data_found.length > 0 ? <SummeryInfo color='CYAN' detail_array={this.data.no_data_found} info_type="No Data: "/> : ''}
           </a>           
         </li>
+        <div>
+          {this.state.showHourlyInfo ? <ShopFloorHourlyInfo info={this.props.shopfloor} close = {this.closePopUp} x={this.state.x} y={this.state.y} workcenterCodes = {this.data.work_center_codes}/>:''}
+        </div>  
       </div>
     );
   }
