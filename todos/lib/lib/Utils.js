@@ -2,6 +2,17 @@ _now = function () {
 	return new Date().getTime();
 }
 
+_DayStart = function () {
+	return new Date(moment().startOf('day'))
+}
+
+_DayEnd = function () {
+	return new Date(moment().endOf('day'))
+}
+
+_Now = function () {
+	return new Date()
+}
 
 Utils = new function () {
 	this.getUsername = function (user) {

@@ -1,39 +1,37 @@
 WorkCenter = React.createClass({
- 
+
   mixins: [ReactMeteorData],
 
   getMeteorData : function(){
-    var day_start = new Date(moment().startOf('day')).toString()
-    var day_end = new Date(moment().endOf('day')).toString()
     var pending_items = []
     var accumulative_items = []
     var data_records = DataRecord.find({workcenterCode:this.props.workcenterCode}).fetch();
-    var last_item = DataRecord.findOne({workcenterCode:this.props.workcenterCode,$or:[{functionCode:"C001"},{functionCode:/S.*/}]},{sort: {recordTime:-1}});
+    var last_item = DataRecord.findOne({workcenterCode:this.props.workcenterCode, $or:[{functionCode:"C001"}, {functionCode:/S.*/}]}, {sort: {recordTime: -1}});
     if (last_item) {
-      pending_items = DataRecord.find({workcenterCode:this.props.workcenterCode,recordTime:{ $lt:  Date(),$gte:last_item.startTime},functionCode:/F.*/}).fetch();
-      accumulative_items = DataRecord.find({workcenterCode:this.props.workcenterCode,workorderNo:last_item.workorderNo,functionCode:"C001",recordTime:{$lt:Date(),$gte:last_item.startTime}}).fetch()
-  
+      pending_items = DataRecord.find({workcenterCode:this.props.workcenterCode,recordTime:{ $lte: _Now(), $gte: last_item.startTime},functionCode:/F.*/}).fetch();
+      accumulative_items = DataRecord.find({workcenterCode:this.props.workcenterCode,workorderNo:last_item.workorderNo,functionCode:"C001",recordTime:{$lte: _Now(),$gte:last_item.startTime}}).fetch()
+
       //accumulativeCount sum(dataRecord.Count), condition is dataRecord.workcenterCode = last.workcenterCode and dataRecord.workorderNo = last.workorderNo and dataRecord.recordTime between last.startTime and currentTime and dataRecord.functionCode = "C001"
       var accumulativeCount = 0;
       accumulative_items.map(function(element){
         accumulativeCount += element.personCount;
       });
-      
+
       // avg output (currentTime - last.startTime) * last.personCount / accumulativeCount
       var avg_output = 0;
-      avg_output = ((new Date() - (new Date(last_item.startTime))) * last_item.personCount) / accumulativeCount
-  
+      avg_output = (_Now() - (new Date(last_item.startTime)) * last_item.personCount) / accumulativeCount
+
       // currentEfficiency ((currentTime - last.startTime) * peopleCount  / last.standardWorkTime) / accumulativeCount, convert to percent.
       var currentEfficiency = 0;
-      currentEfficiency = ((((new Date() - (new Date(last_item.startTime))) * last_item.personCount)/ (last_item.StandardWorkTime)) / accumulativeCount)/1000;
+      currentEfficiency = ((((_Now() - (new Date(last_item.startTime))) * last_item.personCount)/ (last_item.StandardWorkTime)) / accumulativeCount)/1000;
       if (currentEfficiency) { currentEfficiency = (currentEfficiency * 100).toFixed(2) }
-        
-      // todayEfficiency  "1. Get the record of which workcenterNo is  current workcenter, recordTime belong to today (from 0:00 ~ 23:59:59), functionCode is ""C001"", Grouped by startTime, summarize the Count as ""production quantity"", ""Production quantity"" * peopleCount / standWorkTime as ""Standard Efficiency"", ""Production Quantity"" * peopleCount * (currentTime - startTime ) as as ""Fact Efficiency"" . 
+
+      // todayEfficiency  "1. Get the record of which workcenterNo is  current workcenter, recordTime belong to today (from 0:00 ~ 23:59:59), functionCode is ""C001"", Grouped by startTime, summarize the Count as ""production quantity"", ""Production quantity"" * peopleCount / standWorkTime as ""Standard Efficiency"", ""Production Quantity"" * peopleCount * (currentTime - startTime ) as as ""Fact Efficiency"" .
       //2. Summarize the ""Standard Efficiency"" / Summarize the ""Fact Efficiency"" of 1, convert to percent."
       var todayEfficiency = 0;
-      var todays_dr_w_fc = DataRecord.find({workcenterCode:this.props.workcenterCode,recordTime:{ $gte:day_start, $lte:day_end }, functionCode:"C001"}).fetch()
+      var todays_dr_w_fc = DataRecord.find({workcenterCode:this.props.workcenterCode,recordTime:{ $gte: _DayStart() , $lte: _DayEnd() }, functionCode:"C001"}).fetch()
       var production_qualtiy = todays_dr_w_fc.length
-      var todays_date = (new Date() - new Date(last_item.startTime))
+      var todays_date = (_Now() - last_item.startTime)
       var standard_efficiency = (production_qualtiy * last_item.personCount * todays_date) / last_item.StandardWorkTime
       var fact_efficiency = production_qualtiy * last_item.personCount * todays_date
       todayEfficiency = standard_efficiency / fact_efficiency
@@ -43,9 +41,9 @@ WorkCenter = React.createClass({
     var data_record_count = 0;
     var data_record_count_function_code = 0;
 
-    var todays_dr = DataRecord.find({workcenterCode:this.props.workcenterCode,recordTime:{ $gte:day_start, $lte:day_end }}).fetch();
-    todays_dr.map(function(element){ 
-      data_record_count += element.personCount 
+    var todays_dr = DataRecord.find({workcenterCode:this.props.workcenterCode,recordTime:{ $gte:_DayStart(), $lte:_DayEnd() }}).fetch();
+    todays_dr.map(function(element){
+      data_record_count += element.personCount
       data_record_count_function_code += element.personCount;
     });
 
@@ -59,7 +57,7 @@ WorkCenter = React.createClass({
     if (accumulativeCount) {
       // currentQualityRate accumulativeCount / (accumulativeCount + NGCount) , convert to percent
       var currentQualityRate = 0;
-      currentQualityRate =  accumulativeCount/(accumulativeCount+NGCount);      
+      currentQualityRate =  accumulativeCount/(accumulativeCount+NGCount);
     };
 
     //todayQualityRate  "1.To summerize the count of dataRecord of today  and workcenterNo is current workcenter.
@@ -138,13 +136,13 @@ WorkCenter = React.createClass({
         case "OTHER":
           colour = "YELLOW"
           do_flash = true
-          //OTHER: show the background yellow with flash, this status didn't include in the status column, you must calculate it, if the production  
+          //OTHER: show the background yellow with flash, this status didn't include in the status column, you must calculate it, if the production
           //efficiency(avg output) is lower than standard production(stand output) effciency then show it.
-          //you will get the last status (by get the maximal recordtime of current workcenter and corresponding record) and paint the status on the 
+          //you will get the last status (by get the maximal recordtime of current workcenter and corresponding record) and paint the status on the
           //chart.
 
       }
-      return [colour,do_flash]  
+      return [colour,do_flash]
     }.bind(this);
     return(
       <div>

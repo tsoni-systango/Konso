@@ -5,17 +5,17 @@ ShopFloorHourlyInfo = React.createClass({
   getMeteorData : function(){
     var day_start = new Date(moment().startOf('day')).toString();
     var day_end = new Date(moment().endOf('day')).toString();
-    var dataRecords = DataRecord.find({workcenterCode:{$in:this.props.workcenterCodes}/*,recordTime:{$gte:day_start, $lte:day_end }*/}).fetch();
+    var dataRecords = DataRecord.find({workcenterCode:{$in:this.props.workcenterCodes},recordTime:{$gte:day_start, $lte:day_end }}).fetch();
     var info = {};
     dataRecords.forEach(function(record){
       var time = moment(record.recordTime);
       var hour = time.hour();
-      if (hour >= 0 && hour < 1){
-        info["zero"] += record.personCount;
-      }
+      info[hour] += record.personCount;
+      info["accumulativeCount"] += record.personCount;
     })
     return {
-      dataRecords : dataRecords
+      dataRecords : dataRecords,
+      info : info
     }
   },
 
@@ -25,7 +25,7 @@ ShopFloorHourlyInfo = React.createClass({
   render : function(){
     console.log(this.data.dataRecords)
     return(
-      <div style={{"top": this.props.y + "px","left": (this.props.x + 100) + "px"}} className="ShopFloorInfoBox">
+      <div style={{"top": this.props.y + "px","left": this.props.x + "px"}} className="ShopFloorInfoBox">
         <div> {this.props.info.shopfloorName} </div>
         <div onClick={this.closePopUp}> X </div>
         <div>
