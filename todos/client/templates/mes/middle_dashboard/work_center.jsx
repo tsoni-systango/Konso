@@ -16,10 +16,11 @@ WorkCenter = React.createClass({
       accumulative_items.map(function(element){
         accumulativeCount += element.personCount;
       });
+      // accumulativeCount = accumulative_items.length
 
       // avg output (currentTime - last.startTime) * last.personCount / accumulativeCount
       var avg_output = 0;
-      avg_output = (_Now() - (new Date(last_item.startTime)) * last_item.personCount) / accumulativeCount
+      avg_output = (_Now() - last_item.startTime * last_item.personCount) / accumulativeCount
 
       // currentEfficiency ((currentTime - last.startTime) * peopleCount  / last.standardWorkTime) / accumulativeCount, convert to percent.
       var currentEfficiency = 0;

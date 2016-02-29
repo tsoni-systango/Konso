@@ -10,7 +10,7 @@ ShopFloorRow = React.createClass({
     }
   },
   getMeteorData : function(){
-    var work_centers_codes = []; 
+    var work_centers_codes = [];
     this.props.shopfloor.workcenter.map(function(work_center){
       work_centers_codes.push(work_center.workcenterCode)
     })
@@ -67,7 +67,7 @@ ShopFloorRow = React.createClass({
     if (!this.state.showHourlyInfo){
       console.log("test success");
       this.setState({showHourlyInfo:true,x:event.clientX,y:event.clientY});
-    } 
+    }
   },
   closePopUp : function(){
     this.setState({showHourlyInfo:false});
@@ -83,11 +83,11 @@ ShopFloorRow = React.createClass({
             {this.data.offline.length > 0 ? <SummeryInfo color='RED' detail_array={this.data.offline} info_type="Offline: "/> : ''}
             {this.data.paused.length > 0 ? <SummeryInfo color='BLUE' detail_array={this.data.paused} info_type="Paused: "/> : ''}
             {this.data.no_data_found.length > 0 ? <SummeryInfo color='CYAN' detail_array={this.data.no_data_found} info_type="No Data: "/> : ''}
-          </a>           
+          </a>
         </li>
         <div>
           {this.state.showHourlyInfo ? <ShopFloorHourlyInfo info={this.props.shopfloor} close = {this.closePopUp} x={this.state.x} y={this.state.y} workcenterCodes = {this.data.work_center_codes}/>:''}
-        </div>  
+        </div>
       </div>
     );
   }

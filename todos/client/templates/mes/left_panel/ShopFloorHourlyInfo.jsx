@@ -8,7 +8,7 @@ ShopFloorHourlyInfo = React.createClass({
     var dataRecords = DataRecord.find({workcenterCode:{$in:this.props.workcenterCodes},recordTime:{$gte:day_start, $lte:day_end }}).fetch();
     var info = {};
     dataRecords.forEach(function(record){
-      var time = moment(record.recordTime);
+      var time = record.recordTime
       var hour = time.hour();
       info[hour] += record.personCount;
       info["accumulativeCount"] += record.personCount;
@@ -22,10 +22,11 @@ ShopFloorHourlyInfo = React.createClass({
   closePopUp : function(){
     this.props.close()
   },
+
   render : function(){
     console.log(this.data.dataRecords)
     return(
-      <div style={{"top": this.props.y + "px","left": this.props.x + "px"}} className="ShopFloorInfoBox">
+      <div id="ShopFloorHourlyInfo" style={{"top": this.props.y + "px","left": this.props.x + "px"}} className="ShopFloorInfoBox">
         <div> {this.props.info.shopfloorName} </div>
         <div onClick={this.closePopUp}> X </div>
         <div>

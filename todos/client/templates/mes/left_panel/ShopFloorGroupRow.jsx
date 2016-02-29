@@ -9,13 +9,13 @@ ShopFloorGroupRow = React.createClass ({
   },
 
   getMeteorData : function(){
-    var work_centers_codes = []; 
-    this.props.shopfloorGroup.shopfloor.map( function(shop_floor){ 
+    var work_centers_codes = [];
+    this.props.shopfloorGroup.shopfloor.map( function(shop_floor){
       shop_floor.workcenter.map(function(work_center){
         work_centers_codes.push(work_center.workcenterCode)
       })
     })
-    Meteor.subscribe("fetchPosition", work_centers_codes);
+    Meteor.subscribe("fetchPosition");
     var faulty  = [];
     var stopped = [];
     var offline = [];
@@ -54,7 +54,7 @@ ShopFloorGroupRow = React.createClass ({
       // is_auth_for_moving : (is_auth_for_moving ? true : false)
     }
   },
-  
+
   expand_shopfloors : function(){
     this.setState({expand_shopfloors: !this.state.expand_shopfloors});
   },
@@ -72,7 +72,7 @@ ShopFloorGroupRow = React.createClass ({
     }
     return (
       <div>
-        <a onClick={this.expand_shopfloors} onMouseOver={this.mouseOver} onMouseOut={this.onMouseOut} className={!this.state.expand_shopfloors ?"mdi-content-add collapsible collapsible-accordion":"mdi-content-remove collapsible collapsible-accordion"}> 
+        <a onClick={this.expand_shopfloors} onMouseOver={this.mouseOver} onMouseOut={this.onMouseOut} className={!this.state.expand_shopfloors ?"mdi-content-add collapsible collapsible-accordion":"mdi-content-remove collapsible collapsible-accordion"}>
           {this.props.shopfloorGroup.shopfloorGroupName}<br/>
           {this.data.faulty.length > 0 ? <SummeryInfo color='RED' blink="true" detail_array={this.data.faulty} info_type="Faulty: "/> : ''}
           {this.data.stopped.length > 0 ? <SummeryInfo color='GRAY' detail_array={this.data.stopped} info_type="Stopped: "/> : ''}
@@ -81,7 +81,7 @@ ShopFloorGroupRow = React.createClass ({
           {this.data.no_data_found.length > 0 ? <SummeryInfo color='CYAN' detail_array={this.data.no_data_found} info_type="No Data: "/> : ''}
         </a>
         <ul>
-          {shop_floor_rows} 
+          {shop_floor_rows}
         </ul>
       </div>
     );
