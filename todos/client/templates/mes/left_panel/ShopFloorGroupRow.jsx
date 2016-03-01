@@ -60,7 +60,9 @@ ShopFloorGroupRow = React.createClass ({
 
   expandShopfloorsAndShowHourlyInfo : function(event){
     this.setState({expand_shopfloors: !this.state.expand_shopfloors});
-    this.showHourlyInfo(event);
+    if (!this.state.expand_shopfloors) {
+      this.showHourlyInfo(event);
+    }
   },
 
   showHourlyInfo : function(event){
