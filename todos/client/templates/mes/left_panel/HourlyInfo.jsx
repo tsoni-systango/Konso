@@ -1,4 +1,4 @@
-ShopFloorHourlyInfo = React.createClass({
+HourlyInfo = React.createClass({
 
   mixins: [ReactMeteorData],
 
@@ -20,14 +20,30 @@ ShopFloorHourlyInfo = React.createClass({
   },
 
   closePopUp : function(){
-    this.props.close()
+    ReactiveHourlyFieldsVisibleBoxId.set(Random.id())
+  },
+
+  componentDidMount() {
+      $('body').on('click', this.onBodyClick);
+  },
+
+  componentWillUnmount() {
+      $('body').off('click', this.onBodyClick);
+  },
+
+  onBodyClick(event) {
+      var trigger = this.refs.trigger;
+      var overlayElem = React.findDOMNode(this.refs.overlay);
+      var isTargetInOverlay = $(event.target).closest(overlayElem).length > 0;
+      if (!isTargetInOverlay) {
+          ReactiveHourlyFieldsVisibleBoxId.set(Random.id())
+      }
   },
 
   render : function(){
-    console.log(this.data.dataRecords)
     return(
-      <div id="ShopFloorHourlyInfo" style={{"top": this.props.y + "px","left": this.props.x + "px"}} className="ShopFloorInfoBox">
-        <div> {this.props.info.shopfloorName} </div>
+      <div ref="overlay" style={{"top": this.props.y + "px","left": this.props.x + "px"}} className="ShopFloorInfoBox">
+        <div> {this.props.levelName} </div>
         <div onClick={this.closePopUp}> X </div>
         <div>
           <p>00:00 - 01:00 01:00 - 02:00 02:00 - 03:00 03:00 - 04:00</p>

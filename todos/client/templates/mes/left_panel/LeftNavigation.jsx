@@ -19,23 +19,21 @@ LeftNavigation = React.createClass({
   },
 
   render : function(){
-    var shop_floor_groups_rows = [];  
+    var shop_floor_groups_rows = [];
     if (this.state.expand_left_navigation) {
       this.data.ShopFloorGroups.map(function (shop_floor_group) {
         shop_floor_groups_rows.push(
-          <li className="no-padding">
-            <ShopFloorGroupRow shopfloorGroup={shop_floor_group}  key={shop_floor_group.shopfloorGroup}/>
-          </li>
+          <ShopFloorGroupRow shopfloorGroup={shop_floor_group}  key={shop_floor_group.shopfloorGroup}/>
         )
       });
     }
 
-    return(  
+    return(
       <li className="no-padding">
-        <a onClick={this.expand_navigation} className={!this.state.expand_left_navigation ?"mdi-content-add collapsible collapsible-accordion":"mdi-content-remove collapsible collapsible-accordion"}>All </a>        
+        <a onClick={this.expand_navigation} className={!this.state.expand_left_navigation ?"mdi-content-add collapsible collapsible-accordion":"mdi-content-remove collapsible collapsible-accordion"}>All </a>
         <ul className="side_nav_pos">
           {shop_floor_groups_rows}
-        </ul>  
+        </ul>
       </li>
     )
   }

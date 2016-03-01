@@ -4,9 +4,9 @@ ShopFloorRow = React.createClass({
 
   getInitialState : function(){
     return{
-      showHourlyInfo : false,
       x : 0,
-      y: 0
+      y: 0,
+      HourlyInfoBoxId:Random.id(),
     }
   },
   getMeteorData : function(){
@@ -48,35 +48,32 @@ ShopFloorRow = React.createClass({
       offline: offline,
       paused: paused,
       no_data_found: no_data_found,
-      work_center_codes : work_centers_codes
+      work_center_codes : work_centers_codes,
+      ReactiveHourlyFieldsVisibleBoxId: ReactiveHourlyFieldsVisibleBoxId.get()
     }
   },
 
-  displayWorkcenters : function(event){
+  displayWorkCentersAndHourlyInfo : function(event){
 
     DashBoardWorkCenters.remove({});
 
     this.props.shopfloor.workcenter.map(function (element) {
       DashBoardWorkCenters.insert({ "workcenterCode" : element.workcenterCode, "workcenterName" : element.workcenterName });
     });
-    this.showShopFloorHourlyInfo(event);
+    this.showHourlyInfo(event);
   },
 
-  showShopFloorHourlyInfo : function(event){
-    console.log("test");
-    if (!this.state.showHourlyInfo){
-      console.log("test success");
-      this.setState({showHourlyInfo:true,x:event.clientX,y:event.clientY});
-    }
+  showHourlyInfo : function(event){
+      var randomId = Random.id();
+      this.setState({x:event.clientX,y:event.clientY,HourlyInfoBoxId:randomId});
+      ReactiveHourlyFieldsVisibleBoxId.set(randomId)
   },
-  closePopUp : function(){
-    this.setState({showHourlyInfo:false});
-  },
+
   render: function() {
     return (
       <div>
         <li>
-          <a onClick={this.displayWorkcenters}>
+          <a onClick={this.displayWorkCentersAndHourlyInfo}>
             {this.props.shopfloor.shopfloorName}<br/>
             {this.data.faulty.length > 0 ? <SummeryInfo color='RED' blink="true" detail_array={this.data.faulty} info_type="Faulty: "/> : ''}
             {this.data.stopped.length > 0 ? <SummeryInfo color='GRAY' detail_array={this.data.stopped} info_type="Stopped: "/> : ''}
@@ -86,7 +83,7 @@ ShopFloorRow = React.createClass({
           </a>
         </li>
         <div>
-          {this.state.showHourlyInfo ? <ShopFloorHourlyInfo info={this.props.shopfloor} close = {this.closePopUp} x={this.state.x} y={this.state.y} workcenterCodes = {this.data.work_center_codes}/>:''}
+          {this.state.HourlyInfoBoxId === this.data.ReactiveHourlyFieldsVisibleBoxId ? <HourlyInfo levelName={this.props.shopfloor.shopfloorName} x={this.state.x} y={this.state.y} workcenterCodes = {this.data.work_center_codes}/>:''}
         </div>
       </div>
     );
