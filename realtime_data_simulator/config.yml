@@ -1,0 +1,15 @@
+defaults: &defaults
+
+development:
+  <<: *defaults
+  isCounter:
+    - true
+    - false
+  currentStatus:
+    - ONLINE
+    - OFFLINE
+    - FAULT
+    - PAUSE
+    - STOP
+    - WORKING
+  functionCode:
