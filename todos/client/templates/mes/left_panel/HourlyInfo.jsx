@@ -7,9 +7,11 @@ HourlyInfo = React.createClass({
     var day_end = new Date(moment().endOf('day')).toString();
     var dataRecords = DataRecord.find({workcenterCode:{$in:this.props.workcenterCodes},recordTime:{$gte:day_start, $lte:day_end }}).fetch();
     var info = {};
+    console.log(dataRecords);
     dataRecords.forEach(function(record){
       var time = record.recordTime
       var hour = time.hour();
+      console.log([hour, "<<<<<<<<<<<<<<<<<<<<<<<<,"]);
       info[hour] += record.personCount;
       info["accumulativeCount"] += record.personCount;
     })
@@ -43,9 +45,9 @@ HourlyInfo = React.createClass({
   render : function(){
     return(
       <div ref="overlay" style={{"top": this.props.y + "px","left": this.props.x + "px"}} className="ShopFloorInfoBox">
-        <div> {this.props.levelName} </div>
-        <div onClick={this.closePopUp}> X </div>
-        <div>
+        <div className="hourlyinfo_lft"> {this.props.levelName} </div>
+        <a onClick={this.closePopUp} className="hourlyinfo_rgt"> X </a>
+        <div className="clr_div">
           <p>00:00 - 01:00 01:00 - 02:00 02:00 - 03:00 03:00 - 04:00</p>
           <p>04:00 - 05:00 05:00 - 06:00 06:00 - 07:00 07:00 - 08:00</p>
           <p>08:00 - 09:00 09:00 - 10:00 10:00 - 11:00 11:00 - 12:00</p>

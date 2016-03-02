@@ -13,11 +13,11 @@ class DataRecord
   # field :partnoName
   # field :sequenceNo
   # field :deviceNo
-  # field :startTime
-  # field :endTime
+  field :startTime,   :type => DateTime
+  field :endTime,     :type => DateTime
   # field :personCount
   # field :StandardWorkTime
-  # field :recordTime
+  field :recordTime,  :type => DateTime
   # field :functionCode
   # field :functionName
   # field :remark
