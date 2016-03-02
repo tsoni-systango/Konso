@@ -7,6 +7,7 @@ HourlyInfo = React.createClass({
     var day_end = new Date(moment().endOf('day')).toString();
     var dataRecords = DataRecord.find({workcenterCode:{$in:this.props.workcenterCodes},recordTime:{$gte:day_start, $lte:day_end }}).fetch();
     var info = {};
+    console.log(this.props.workcenterCodes);
     console.log(dataRecords);
     dataRecords.forEach(function(record){
       var time = record.recordTime
@@ -19,6 +20,15 @@ HourlyInfo = React.createClass({
       dataRecords : dataRecords,
       info : info
     }
+  },
+
+  getHourlyInfoDivPos : function() {
+    var pos_y = this.props.y;
+    var left_nav_menu = document.getElementById('app-left-menu');
+    if ((pos_y + 180) > left_nav_menu.offsetHeight) {
+      pos_y = pos_y - 180;
+    }
+    return pos_y
   },
 
   closePopUp : function(){
@@ -43,8 +53,9 @@ HourlyInfo = React.createClass({
   },
 
   render : function(){
+    var yaxis = this.getHourlyInfoDivPos();
     return(
-      <div ref="overlay" style={{"top": this.props.y + "px","left": this.props.x + "px"}} className="ShopFloorInfoBox">
+      <div ref="overlay" style={{"top": yaxis + "px","left": this.props.x + "px"}} className="ShopFloorInfoBox">
         <div className="hourlyinfo_lft"> {this.props.levelName} </div>
         <a onClick={this.closePopUp} className="hourlyinfo_rgt"> X </a>
         <div className="clr_div">
