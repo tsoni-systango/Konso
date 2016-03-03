@@ -9,13 +9,15 @@ WorkCenter = React.createClass({
     var last_item = DataRecord.findOne({workcenterCode:this.props.workcenterCode, $or:[{functionCode:"C001"}, {functionCode:/S.*/}]}, {sort: {recordTime: -1}});
     if (last_item) {
       pending_items = DataRecord.find({workcenterCode:this.props.workcenterCode,recordTime:{ $lte: _Now(), $gte: last_item.startTime},functionCode:/F.*/}).fetch();
-      accumulative_items = DataRecord.find({workcenterCode:this.props.workcenterCode,workorderNo:last_item.workorderNo,functionCode:"C001",recordTime:{$lte: _Now(),$gte:last_item.startTime}}).fetch()
+      // accumulative_items = DataRecord.find({workcenterCode:this.props.workcenterCode,workorderNo:last_item.workorderNo,functionCode:"C001",recordTime:{$lte: _Now(),$gte:last_item.startTime}}).fetch()
+      var accumulativeCount = 0;
+      accumulativeCount = DataRecord.find({workcenterCode:this.props.workcenterCode,workorderNo:last_item.workorderNo,functionCode:"C001",recordTime:{$lte: _Now(),$gte:last_item.startTime}}).fetch()
 
       //accumulativeCount sum(dataRecord.Count), condition is dataRecord.workcenterCode = last.workcenterCode and dataRecord.workorderNo = last.workorderNo and dataRecord.recordTime between last.startTime and currentTime and dataRecord.functionCode = "C001"
-      var accumulativeCount = 0;
-      accumulative_items.map(function(element){
-        accumulativeCount += element.personCount;
-      });
+      // var accumulativeCount = 0;
+      // accumulative_items.map(function(element){
+      //   accumulativeCount += element.personCount;
+      // });
       // accumulativeCount = accumulative_items.length
 
       // avg output (currentTime - last.startTime) * last.personCount / accumulativeCount
