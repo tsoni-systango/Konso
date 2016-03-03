@@ -3,9 +3,7 @@ HourlyInfo = React.createClass({
   mixins: [ReactMeteorData],
 
   getMeteorData : function(){
-    var day_start = new Date(moment().startOf('day'));
-    var day_end = new Date(moment().endOf('day'));
-    var dataRecords = DataRecord.find({workcenterCode:{$in:this.props.workcenterCodes},recordTime:{$gte:day_start, $lte:day_end }}).fetch();
+    var dataRecords = DataRecord.find({workcenterCode:{$in:this.props.workcenterCodes},recordTime:{$gte:_DayStart(), $lte:_DayEnd() }}).fetch();
     var info = {};
     for (count = 0; count < 24; count++) {
     info[count.toString()]=0;
