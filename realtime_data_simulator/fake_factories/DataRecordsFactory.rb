@@ -34,7 +34,8 @@ class DataRecordFactory
       :recordTime => Time.now,
       :functionCode => ["S#{rand(999)}", "C001"].sample,
       :functionName => FFaker::UnitMetric.volume_name,
-      :remark => FFaker::SSNMX.imss
+      :remark => FFaker::SSNMX.imss,
+      :count => 1
     )
   end
 end
