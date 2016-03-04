@@ -30,7 +30,7 @@ LeftNavigation = React.createClass({
 
     return(
       <li className="no-padding">
-        <a onClick={this.expand_navigation} className={!this.state.expand_left_navigation ?"mdi-content-add collapsible collapsible-accordion":"mdi-content-remove collapsible collapsible-accordion"}>All </a>
+        <a onClick={this.expand_navigation} className={!this.state.expand_left_navigation ?"mdi-content-add collapsible collapsible-accordion":"mdi-content-remove collapsible collapsible-accordion"}>所有</a>
         <ul className="side_nav_pos">
           {shop_floor_groups_rows}
         </ul>
