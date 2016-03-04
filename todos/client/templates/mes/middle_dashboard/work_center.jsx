@@ -9,30 +9,22 @@ WorkCenter = React.createClass({
     var last_item = DataRecord.findOne({workcenterCode:this.props.workcenterCode, $or:[{functionCode:"C001"}, {functionCode:/S.*/}]}, {sort: {recordTime: -1}});
     if (last_item) {
       pending_items = DataRecord.find({workcenterCode:this.props.workcenterCode,recordTime:{ $lte: _Now(), $gte: last_item.startTime},functionCode:/F.*/}).fetch();
-      // accumulative_items = DataRecord.find({workcenterCode:this.props.workcenterCode,workorderNo:last_item.workorderNo,functionCode:"C001",recordTime:{$lte: _Now(),$gte:last_item.startTime}}).fetch()
+
       var accumulativeCount = 0;
-      accumulativeCount = DataRecord.find({workcenterCode:this.props.workcenterCode,workorderNo:last_item.workorderNo,functionCode:"C001",recordTime:{$lte: _Now(),$gte:last_item.startTime}}).count()
+      var accumulativeCountRecords = DataRecord.find({workcenterCode:this.props.workcenterCode,workorderNo:last_item.workorderNo,functionCode:"C001",recordTime:{$lte: _Now(),$gte:last_item.startTime}}).fetch()
+      accumulativeCountRecords.map(function(record){
+        accumulativeCount += record.count;
+      });
 
-      //accumulativeCount sum(dataRecord.Count), condition is dataRecord.workcenterCode = last.workcenterCode and dataRecord.workorderNo = last.workorderNo and dataRecord.recordTime between last.startTime and currentTime and dataRecord.functionCode = "C001"
-      // var accumulativeCount = 0;
-      // accumulative_items.map(function(element){
-      //   accumulativeCount += element.personCount;
-      // });
-      // accumulativeCount = accumulative_items.length
-
-      // avg output (currentTime - last.startTime) * last.personCount / accumulativeCount
       var avg_output = 0;
       if (accumulativeCount)
       avg_output = (_Now() - last_item.startTime * last_item.personCount) / accumulativeCount 
 
-      // currentEfficiency ((currentTime - last.startTime) * peopleCount  / last.standardWorkTime) / accumulativeCount, convert to percent.
       var currentEfficiency = 0;
       if (accumulativeCount)
       currentEfficiency = ((((_Now() - (new Date(last_item.startTime))) * last_item.personCount)/ (last_item.StandardWorkTime)) / accumulativeCount)/1000;
       if (currentEfficiency) { currentEfficiency = (currentEfficiency * 100).toFixed(2) }
 
-      // todayEfficiency  "1. Get the record of which workcenterNo is  current workcenter, recordTime belong to today (from 0:00 ~ 23:59:59), functionCode is ""C001"", Grouped by startTime, summarize the Count as ""production quantity"", ""Production quantity"" * peopleCount / standWorkTime as ""Standard Efficiency"", ""Production Quantity"" * peopleCount * (currentTime - startTime ) as as ""Fact Efficiency"" .
-      //2. Summarize the ""Standard Efficiency"" / Summarize the ""Fact Efficiency"" of 1, convert to percent."
       var todayEfficiency = 0;
       var todays_dr_w_fc = DataRecord.find({workcenterCode:this.props.workcenterCode,recordTime:{ $gte: _DayStart() , $lte: _DayEnd() }, functionCode:"C001"}).fetch()
       var production_qualtiy = todays_dr_w_fc.length
