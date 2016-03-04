@@ -10,7 +10,7 @@ Draggable = React.createClass({
       grab: false
     }
   },
-  
+
   componentDidUpdate: function (props, state) {
     if (this.state.dragging && !state.dragging) {
       document.addEventListener('mousemove', this.onMouseMove)
@@ -66,7 +66,9 @@ Draggable = React.createClass({
   render: function () {
     return (
       <ReactCSSTransitionGroup transitionName="example" transitionAppear={true} transitionAppearTimeout={1000}>
-        <div className={this.props.do_flash ? "blink draggable" : "draggable"} style = {{"cursor":(this.state.grab ? 'move' : ''), "backgroundColor":this.props.colour, "left": this.state.posX + 'px',"top": this.state.posY + 'px'}} onMouseDown = {this.onMouseDown} onMouseOver={this.mouseOver} onMouseOut={this.props.out}>{this.props.data_attr}</div>
+        <div className={this.props.do_flash ? "blink draggable" : "draggable"} style = {{"cursor":(this.state.grab ? 'move' : ''), "backgroundColor":this.props.colour, "left": this.state.posX + 'px',"top": this.state.posY + 'px'}} onMouseDown = {this.onMouseDown} onMouseOver={this.mouseOver} onMouseOut={this.props.out}>
+          <p className="bx_txt_cntr">{this.props.data_attr}</p>
+        </div>
       </ReactCSSTransitionGroup>
     )
   }

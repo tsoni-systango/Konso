@@ -5,15 +5,15 @@ WorkCenterInfo = React.createClass({
     var pos_y = this.props.pos_y;
     var dashboard_div = document.getElementById('application-content');
 
-    if ((this.props.pos_x + 100) < (dashboard_div.offsetWidth - 180)) {
-      pos_x = this.props.pos_x + 100 
+    if ((this.props.pos_x + 100) < (dashboard_div.offsetWidth - 200)) {
+      pos_x = this.props.pos_x + 100
     }
     else{
-      pos_x = this.props.pos_x - 180
+      pos_x = this.props.pos_x - 200
     }
 
-    if ((this.props.pos_y + 390) > dashboard_div.offsetHeight) {
-      pos_y = dashboard_div.offsetHeight - 390
+    if ((this.props.pos_y + 410) > dashboard_div.offsetHeight) {
+      pos_y = dashboard_div.offsetHeight - 410
     }
 
     return [pos_x, pos_y]
@@ -22,8 +22,8 @@ WorkCenterInfo = React.createClass({
   render : function(){
     var pos = this.getInfoDivPos();
     return(
-      <div className="WorkCenterInfoBox" style = {{"left": pos[0] + 'px',"top": pos[1] + 'px'}}>
-        {this.props.info_stats.last_item ? 
+      <div className="WorkCenterInfoBox" style = {{"left": pos[0] + 'px',"top": pos[1] + 'px', "width": "200"}}>
+        {this.props.info_stats.last_item ?
           <ul>
             <li> 状态 : {this.props.info_stats.last_item.currentStatus} </li>
             <li> 工作中心名称 : {this.props.info_stats.last_item.workcenterName} </li>
@@ -44,7 +44,7 @@ WorkCenterInfo = React.createClass({
             <li> 当前质量速率 : {this.props.info_stats.currentQualityRate} </li>
             <li> 今天达标率 : {this.props.info_stats.todayQualityRate} </li>
             <li> 功能代码 : {this.props.info_stats.last_item.functionCode} </li>
-          </ul>   
+          </ul>
         :""}
       </div>
     )
