@@ -18,7 +18,7 @@ WorkCenter = React.createClass({
 
       var avg_output = 0;
       if (accumulativeCount)
-      avg_output = (_Now() - last_item.startTime * last_item.personCount) / accumulativeCount 
+      avg_output = (_Now() - last_item.startTime * last_item.personCount) / accumulativeCount
 
       var currentEfficiency = 0;
       if (accumulativeCount)
@@ -107,8 +107,8 @@ WorkCenter = React.createClass({
       } else if (this.data.last_item){
         var status = this.data.last_item.currentStatus;
       }
-      var colour = "Cyan";
-      var do_flash = false;
+      var colour = "RED";
+      var do_flash = true;
       switch(status) {
         case "ONLINE":
           colour = "GREEN"
@@ -127,6 +127,10 @@ WorkCenter = React.createClass({
           colour = "GRAY"
           break;
         case "WORKING":
+          colour = "GREEN"
+          do_flash = true
+          break;
+        case "START":
           colour = "GREEN"
           do_flash = true
           break;
