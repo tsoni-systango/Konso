@@ -108,32 +108,32 @@ ShopFloorGroup = new Meteor.Collection("shopfloor");
 WorkcenterPositions = new Meteor.Collection("workcenterpositions");
 /*
 	_id
-	workcenterCode 
+	workcenterCode
 	x_coordinate
 	y_coordinate
-*/	
+*/
 
 
-DataRecord = new Mongo.Collection('dataRecord');	
+DataRecord = new Mongo.Collection('DataRecord');	
 /*
-   workcenterCode 
-   workcenterName 
-   machineIP 
-   machineName 
-   isCounter 
+   workcenterCode
+   workcenterName
+   machineIP
+   machineName
+   isCounter
    currentStatus
-   workorderNo 
-   partno 
+   workorderNo
+   partno
    partnoName
-   sequenceNo 
-   deviceNo 
+   sequenceNo
+   deviceNo
    startTime
-   endTime 
+   endTime
    personCount
-   Count 
+   Count
    StandardWorkTime
-   recordTime 
-   functionCode 
-   functionName 
+   recordTime
+   functionCode
+   functionName
    remark
-*/  
+*/

@@ -1,7 +1,7 @@
 class DataRecord
   include Mongoid::Document
   include Mongoid::Attributes::Dynamic
-  store_in collection: "dataRecord"
+  store_in collection: "DataRecord"
   # field :workcenterCode
   # field :workcenterName
   # field :machineIP
