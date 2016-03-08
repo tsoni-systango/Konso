@@ -11,7 +11,6 @@ DashBoardAreaLegend = React.createClass({
           <li className="STOP ultra-small infoSpan">停止</li>
           <li className="blink_icon WORKING ultra-small infoSpan">加工</li>
           <li className="blink_icon OTHER ultra-small infoSpan">其他</li>
-          <li className="CYAN ultra-small infoSpan">没有数据</li>
         </ul>
       </div>
     )
