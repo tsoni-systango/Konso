@@ -50,3 +50,34 @@ WorkCenterInfo = React.createClass({
     )
   }
 })
+
+
+
+// return(
+//   <div className="WorkCenterInfoBox" style = {{"left": pos[0] + 'px',"top": pos[1] + 'px', "width": "200"}}>
+//     {this.props.info_stats.last_item ?
+//       <table>
+//         <tr> <td>状态 :</td> <td> {this.props.info_stats.last_item.currentStatus} </td> </tr>
+//         <tr> <td>工作中心名称 :</td> <td> {this.props.info_stats.last_item.workcenterName} </td> </tr>
+//         <tr> <td>机器名称 :</td> <td> {this.props.info_stats.last_item.machineName} </td> </tr>
+//         <tr> <td>工作订单数 : </td><td>  {this.props.info_stats.last_item.workorderNo} </td> </tr>
+//         <tr> <td>序列数 :</td> <td> {this.props.info_stats.last_item.sequenceNo} </td> </tr>
+//         <tr> <td>部分数 :</td> <td> {this.props.info_stats.last_item.partno}</td> </tr>
+//         <tr> <td>部分数名称 :</td> <td> {this.props.info_stats.last_item.partnoName}</td> </tr>
+//         <tr> <td>设备数 :</td> <td> {this.props.info_stats.last_item.deviceNo} </td> </tr>
+//         <tr> <td>开始时间 :</td> <td> {moment(this.props.info_stats.last_item.startTime).format("MMM Do h:mm:s")} </td> </tr>
+//         <tr> <td>最后的时间 :</td> <td> {moment(this.props.info_stats.last_item.recordTime).format("MMM Do h:mm:s")} </td> </tr>
+//         <tr> <td>NG次数 :</td> <td> {this.props.info_stats.NGCount} </td> </tr>
+//         <tr> <td>累计计数 :</td> <td> {this.props.info_stats.accumulativeCount} </td> </tr>
+//         <tr> <td>平均输出 :</td> <td> {this.props.info_stats.avg_output} </td> </tr>
+//         <tr> <td>标准输出 :</td> <td> {this.props.info_stats.last_item.StandardWorkTime} </td> </tr>
+//         <tr> <td>电流效率 :</td> <td> {this.props.info_stats.currentEfficiency} </td> </tr>
+//         <tr> <td>今天效率 :</td> <td> {this.props.info_stats.todayEfficiency} </td> </tr>
+//         <tr> <td>当前质量速率 :</td> <td> {this.props.info_stats.currentQualityRate} </td> </tr>
+//         <tr> <td>今天达标率 :</td> <td> {this.props.info_stats.todayQualityRate} </td> </tr>
+//         <tr> <td>功能代码 :</td> <td> {this.props.info_stats.last_item.functionCode} </td> </tr>
+//       </table>
+//     :""}
+//   </div>
+// )
+// }

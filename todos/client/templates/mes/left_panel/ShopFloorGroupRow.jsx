@@ -53,7 +53,8 @@ ShopFloorGroupRow = React.createClass ({
       offline: offline,
       paused: paused,
       work_centers_codes: work_centers_codes,
-      ReactiveHourlyFieldsVisibleBoxId: ReactiveHourlyFieldsVisibleBoxId.get()
+      ReactiveHourlyFieldsVisibleBoxId: ReactiveHourlyFieldsVisibleBoxId.get(),
+      ActiveLeftNav: ActiveLeftNav.get()
     }
   },
 
@@ -82,7 +83,12 @@ ShopFloorGroupRow = React.createClass ({
 
   render : function(){
     var shop_floor_rows = [];
-    var shpgrp = this.props.shopfloorGroup;
+    var highlighted = false
+    this.props.shopfloorGroup.shopfloor.forEach(function(shopFloor) {
+      if (shopFloor.shopfloorCode == ActiveLeftNav.get()) {
+        highlighted = true
+      }
+    });
     if (this.state.expand_shopfloors) {
       this.props.shopfloorGroup.shopfloor.forEach(function(shopFloor) {
         if (IsAuthToViewShopFloor(shopFloor)) {
@@ -93,7 +99,7 @@ ShopFloorGroupRow = React.createClass ({
     return (
         <div>
           <li className="no-padding">
-            <a onClick={this.expandShopfloorsAndShowHourlyInfo} style={{"height": "60px"}} onMouseOver={this.mouseOver} onMouseOut={this.onMouseOut} className={!this.state.expand_shopfloors ?"mdi-content-add collapsible collapsible-accordion":"mdi-content-remove collapsible collapsible-accordion"}>
+            <a onClick={this.expandShopfloorsAndShowHourlyInfo} style={highlighted ? {"backgroundColor": "#006396", "height": "60px"} : {"height": "60px"}} onMouseOver={this.mouseOver} onMouseOut={this.onMouseOut} className={!this.state.expand_shopfloors ?"mdi-content-add collapsible collapsible-accordion":"mdi-content-remove collapsible collapsible-accordion"}>
               {this.props.shopfloorGroup.shopfloorGroupName}<br/>
               {this.data.faulty.length > 0 ? <SummeryInfo color='RED' blink="true" detail_array={this.data.faulty} info_type="Faulty: "/> : ''}
               {this.data.stopped.length > 0 ? <SummeryInfo color='GRAY' detail_array={this.data.stopped} info_type="Stopped: "/> : ''}
