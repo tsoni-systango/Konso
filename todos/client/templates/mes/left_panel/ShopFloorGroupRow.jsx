@@ -86,7 +86,6 @@ ShopFloorGroupRow = React.createClass ({
         shop_floor_rows.push(<ShopFloorRow key={shopFloor.shopfloorCode} shopfloor={shopFloor} />);
       });
     }
-    console.log("Rendering group");
     return (
         <div>
           <li className="no-padding">

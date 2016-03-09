@@ -47,7 +47,8 @@ ShopFloorRow = React.createClass({
       offline: offline,
       paused: paused,
       work_center_codes : work_centers_codes,
-      ReactiveHourlyFieldsVisibleBoxId: ReactiveHourlyFieldsVisibleBoxId.get()
+      ReactiveHourlyFieldsVisibleBoxId: ReactiveHourlyFieldsVisibleBoxId.get(),
+      ActiveLeftNav: ActiveLeftNav.get()
     }
   },
 
@@ -58,6 +59,7 @@ ShopFloorRow = React.createClass({
     this.props.shopfloor.workcenter.map(function (element) {
       DashBoardWorkCenters.insert({ "workcenterCode" : element.workcenterCode, "workcenterName" : element.workcenterName });
     });
+    ActiveLeftNav.set(this.props.shopfloor.shopfloorCode)
     this.showHourlyInfo(event);
   },
 
@@ -68,10 +70,11 @@ ShopFloorRow = React.createClass({
   },
 
   render: function() {
+    var highlighted = ActiveLeftNav.get() == this.props.shopfloor.shopfloorCode ? true : false
     return (
       <div>
         <li>
-          <a onClick={this.displayWorkCentersAndHourlyInfo}>
+          <a onClick={this.displayWorkCentersAndHourlyInfo} style={highlighted ? {"backgroundColor": "#006396"} : {}}>
             {this.props.shopfloor.shopfloorName}<br/>
             {this.data.faulty.length > 0 ? <SummeryInfo color='RED' blink="true" detail_array={this.data.faulty} info_type="Faulty: "/> : ''}
             {this.data.stopped.length > 0 ? <SummeryInfo color='GRAY' detail_array={this.data.stopped} info_type="Stopped: "/> : ''}
