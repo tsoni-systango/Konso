@@ -22,9 +22,9 @@ LeftNavigation = React.createClass({
     var shop_floor_groups_rows = [];
     if (this.state.expand_left_navigation) {
       this.data.ShopFloorGroups.map(function (shop_floor_group) {
-        shop_floor_groups_rows.push(
-          <ShopFloorGroupRow key={Random.id()} shopfloorGroup={shop_floor_group}/>
-        )
+        if (HasAccessToSomeShopfloors(shop_floor_group)) {
+          shop_floor_groups_rows.push(<ShopFloorGroupRow key={Random.id()} shopfloorGroup={shop_floor_group}/>)
+        }
       });
     }
 
