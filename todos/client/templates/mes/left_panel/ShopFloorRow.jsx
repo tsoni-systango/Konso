@@ -37,7 +37,7 @@ ShopFloorRow = React.createClass({
         }
       }
       else{
-        faulty.push(work_center_code)
+        offline.push(work_center_code)
       }
     })
 
