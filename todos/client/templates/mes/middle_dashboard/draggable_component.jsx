@@ -44,7 +44,6 @@ Draggable = React.createClass({
   },
   onMouseMove: function (element) {
     if (!this.state.dragging) return
-    if (!this.props.is_auth_for_moving) return
     var pos = $(this.getDOMNode()).parent().offset()
     if (element.pageX >= (pos.left + 50)) {
       this.setState({ posX:element.pageX - pos.left - 50 })

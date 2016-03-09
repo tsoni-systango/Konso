@@ -53,7 +53,6 @@ ShopFloorRow = React.createClass({
   },
 
   displayWorkCentersAndHourlyInfo : function(event){
-
     DashBoardWorkCenters.remove({});
 
     this.props.shopfloor.workcenter.map(function (element) {
@@ -74,7 +73,7 @@ ShopFloorRow = React.createClass({
     return (
       <div>
         <li>
-          <a onClick={this.displayWorkCentersAndHourlyInfo} style={highlighted ? {"backgroundColor": "#006396"} : {}}>
+          <a onClick={this.displayWorkCentersAndHourlyInfo} style={highlighted ? {"backgroundColor": "#006396", "height": "60px"} : {"height": "60px"}}>
             {this.props.shopfloor.shopfloorName}<br/>
             {this.data.faulty.length > 0 ? <SummeryInfo color='RED' blink="true" detail_array={this.data.faulty} info_type="Faulty: "/> : ''}
             {this.data.stopped.length > 0 ? <SummeryInfo color='GRAY' detail_array={this.data.stopped} info_type="Stopped: "/> : ''}

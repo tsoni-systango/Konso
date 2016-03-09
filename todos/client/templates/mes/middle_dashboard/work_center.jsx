@@ -85,7 +85,7 @@ WorkCenter = React.createClass({
   },
 
   savePosition : function(x_coordinate,y_coordinate){
-    if (this.props.is_auth_for_moving && x_coordinate >= 0 && y_coordinate >= 0) {
+    if (x_coordinate >= 0 && y_coordinate >= 0) {
       x_coordinate = x_coordinate/this.props.page_width;
       y_coordinate = y_coordinate/this.props.page_height;
       Meteor.call("savePosition",this.props.workcenterCode,x_coordinate,y_coordinate)
@@ -148,7 +148,7 @@ WorkCenter = React.createClass({
     return(
       <div>
         { this.state.show_info && this.data.last_item ? <WorkCenterInfo workcenterCode={this.props.workcenterCode} pos_x={this.state.pos_x} pos_y={this.state.pos_y} info_stats={this.data}/> : '' }
-        <Draggable ref="draggable" initialPos={this.props.position} data_attr={this.props.workcenterCode} onChange={this.savePosition} over={this.mouseOver} out = {this.mouseOut} colour={get_state()[0]} do_flash={get_state()[1]} is_auth_for_moving={this.props.is_auth_for_moving} />
+        <Draggable ref="draggable" initialPos={this.props.position} data_attr={this.props.workcenterCode} onChange={this.savePosition} over={this.mouseOver} out = {this.mouseOut} colour={get_state()[0]} do_flash={get_state()[1]} />
       </div>
     )
   }
