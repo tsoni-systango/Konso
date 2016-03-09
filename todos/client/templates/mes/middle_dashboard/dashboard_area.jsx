@@ -9,7 +9,7 @@ DashboardArea = React.createClass({
       width : $("#application-content").width(),
     }
   },
-  
+
   getMeteorData : function(){
     dbWorkCenters = DashBoardWorkCenters.find({}).fetch()
     dbWorkCentersCodes = dbWorkCenters.map(function(dr) {return dr['workcenterCode']})
@@ -32,7 +32,7 @@ DashboardArea = React.createClass({
       position['x'] = element_position.x_coordinate*this.state.width ;
     }
     else{
-      position['x'] = 100*index;
+      position['x'] = 120*index;
     }
 
     if (element_position.y_coordinate){
@@ -86,7 +86,7 @@ DashboardArea = React.createClass({
   	if (work_centers ){
   		return work_centers.map(function (element,index) {
         var position = this.getPositions(element,index)
-  			return <WorkCenter id={element._id} workcenterCode = {element.workcenterCode} workcenterName = {element.workcenterName} position = {position} key={element.workcenterCode} page_height = {this.state.height} page_width = {this.state.width} is_auth_for_moving={this.data.is_auth_for_moving}/>;  					
+  			return <WorkCenter id={element._id} workcenterCode = {element.workcenterCode} workcenterName = {element.workcenterName} position = {position} key={element.workcenterCode} page_height = {this.state.height} page_width = {this.state.width} is_auth_for_moving={this.data.is_auth_for_moving}/>;
   		}.bind(this));
   	}
   },
