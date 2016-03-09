@@ -64,11 +64,11 @@ HourlyInfo = React.createClass({
       count += 1;
       var int_key = parseInt(key)
       var final_info = key +"-"+ (int_key + 1).toString() + " :- " + info[key].toString() + ", ";
-      three_info.push(<span>{final_info}</span>)
+      three_info.push(<span key={Random.id()}>{final_info}</span>)
       if (count == 3)
       {
-        three_info.push(<br/>);
-        count = 0; 
+        three_info.push(<br key={Random.id()}/>);
+        count = 0;
       }
     })
     return three_info

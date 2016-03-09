@@ -83,7 +83,7 @@ ShopFloorGroupRow = React.createClass ({
     var shop_floor_rows = [];
     if (this.state.expand_shopfloors) {
       this.props.shopfloorGroup.shopfloor.forEach(function(shopFloor) {
-        shop_floor_rows.push(<ShopFloorRow shopfloor={shopFloor} />);
+        shop_floor_rows.push(<ShopFloorRow key={Random.id()} shopfloor={shopFloor} />);
       });
     }
     return (
