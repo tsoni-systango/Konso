@@ -1,6 +1,5 @@
 Meteor.methods({
   savePosition : function(workcenterCode,x_coordinate,y_coordinate){
-  	console.log(IsAuthToMoveWorkCenter)
     var shopfloorgroup = ShopFloorGroup.findOne({"shopfloor.workcenter.workcenterCode" : workcenterCode, 'shopfloor.useraccess.userId' : Meteor.user().username})
     if (!shopfloorgroup || !IsAuthToAccessWorkCenter(workcenterCode, shopfloorgroup)) {
       Errors.throw("Not authorized to move workcenter position.");
