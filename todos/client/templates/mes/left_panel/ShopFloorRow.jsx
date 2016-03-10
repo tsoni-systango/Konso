@@ -18,6 +18,8 @@ ShopFloorRow = React.createClass({
     var stopped = [];
     var offline = [];
     var paused  = [];
+    var working = [];
+    var online = [];
     work_centers_codes.map(function(work_center_code){
       var last_item = DataRecord.findOne({workcenterCode:work_center_code,$or:[{functionCode:"C001"},{functionCode:/S.*/}]},{sort: {recordTime:-1}});
       if (last_item) {
@@ -34,6 +36,15 @@ ShopFloorRow = React.createClass({
         case "PAUSE":
           paused.push(last_item)
           break;
+        case "WORKING":
+          working.push(last_item)
+          break;
+        case "START":
+          working.push(last_item)
+          break;
+        case "ONLINE":
+          online.push(last_item)
+          break;  
         }
       }
       else{
@@ -46,6 +57,8 @@ ShopFloorRow = React.createClass({
       stopped: stopped,
       offline: offline,
       paused: paused,
+      working: working,
+      online: online,
       work_center_codes : work_centers_codes,
       ReactiveHourlyFieldsVisibleBoxId: ReactiveHourlyFieldsVisibleBoxId.get(),
       ActiveLeftNav: ActiveLeftNav.get()
@@ -79,6 +92,8 @@ ShopFloorRow = React.createClass({
             {this.data.stopped.length > 0 ? <SummeryInfo color='GRAY' detail_array={this.data.stopped} info_type="Stopped: "/> : ''}
             {this.data.offline.length > 0 ? <SummeryInfo color='RED' detail_array={this.data.offline} info_type="Offline: "/> : ''}
             {this.data.paused.length > 0 ? <SummeryInfo color='BLUE' detail_array={this.data.paused} info_type="Paused: "/> : ''}
+            {this.data.working.length > 0 ? <SummeryInfo color='GREEN' blink="true" detail_array={this.data.working} info_type="Working/Start: "/> : ''}
+            {this.data.online.length > 0 ? <SummeryInfo color='GREEN' detail_array={this.data.online} info_type="Online: "/> : ''}
           </a>
         </li>
         <div>
