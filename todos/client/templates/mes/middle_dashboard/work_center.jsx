@@ -8,7 +8,8 @@ WorkCenter = React.createClass({
     var data_records = DataRecord.find({workcenterCode:this.props.workcenterCode}).fetch();
     var last_item = DataRecord.findOne({workcenterCode:this.props.workcenterCode, $or:[{functionCode:"C001"}, {functionCode:/S.*/}]}, {sort: {recordTime: -1}});
     if (last_item) {
-      pending_items = DataRecord.find({workcenterCode:this.props.workcenterCode,recordTime:{ $lte: _Now(), $gte: last_item.startTime},functionCode:/F.*/}).fetch();
+
+      pending_items = DataRecord.find({workcenterCode:this.props.workcenterCode,recordTime:{ $lte: _Now(), $gte: last_item.startTime},functionCode:/F*/}).fetch();
 
       var accumulativeCount = 0;
       var accumulativeCountRecords = DataRecord.find({workcenterCode:this.props.workcenterCode,workorderNo:last_item.workorderNo,functionCode:"C001",recordTime:{$lte: _Now(),$gte:last_item.startTime}}).fetch()
@@ -18,7 +19,7 @@ WorkCenter = React.createClass({
 
       var avg_output = 0;
       if (accumulativeCount)
-      avg_output = (_Now() - last_item.startTime * last_item.personCount) / accumulativeCount
+      avg_output = ( (_Now() - last_item.startTime) * last_item.personCount) / accumulativeCount
 
       var currentEfficiency = 0;
       if (accumulativeCount)
@@ -47,7 +48,7 @@ WorkCenter = React.createClass({
     // NGCount  sum(last2.Count)
     var NGCount = 0;
     pending_items.map(function(element){
-      NGCount += element.personCount ;
+      NGCount += element.count ;
     });
 
 
