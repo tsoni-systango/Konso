@@ -22,7 +22,7 @@ class DataRecordFactory
       :machineName => "#{FFaker::NameCN.first_name} #{FFaker::NameCN.last_name}",
       :isCounter => Config::isCounter.sample,
       :currentStatus => Config::currentStatus.sample,
-      :workorderNo => FFaker::PhoneNumber.imei,
+      :workorderNo => Config::workorderNo.sample,
       :partno => FFaker::Identification.drivers_license,
       :partnoName => FFaker::PhoneNumber.imei,
       :sequenceNo => FFaker::PhoneNumber.imei,
