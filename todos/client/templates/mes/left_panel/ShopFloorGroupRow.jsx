@@ -114,12 +114,12 @@ ShopFloorGroupRow = React.createClass ({
           <li className="no-padding">
             <a onClick={this.expandShopfloorsAndShowHourlyInfo} style={highlighted ? {"backgroundColor": "#006396", "height": "60px"} : {"height": "60px"}} onMouseOver={this.mouseOver} onMouseOut={this.onMouseOut} className={!this.state.expand_shopfloors ?"mdi-content-add collapsible collapsible-accordion":"mdi-content-remove collapsible collapsible-accordion"}>
               {this.props.shopfloorGroup.shopfloorGroupName}<br/>
-              {this.data.faulty.length > 0 ? <SummeryInfo color='RED' blink="true" detail_array={this.data.faulty} info_type="Faulty: "/> : ''}
-              {this.data.stopped.length > 0 ? <SummeryInfo color='GRAY' detail_array={this.data.stopped} info_type="Stopped: "/> : ''}
-              {this.data.offline.length > 0 ? <SummeryInfo color='RED' detail_array={this.data.offline} info_type="Offline: "/> : ''}
-              {this.data.paused.length > 0 ? <SummeryInfo color='BLUE' detail_array={this.data.paused} info_type="Paused: "/> : ''}
-              {this.data.working.length > 0 ? <SummeryInfo color='GREEN' blink="true" detail_array={this.data.working} info_type="Working/Start: "/> : ''}
-              {this.data.online.length > 0 ? <SummeryInfo color='GREEN' detail_array={this.data.online} info_type="Online: "/> : ''}              
+              {this.data.faulty.length > 0 ? <SummeryInfo color='RED' blink="true" detail_array={this.data.faulty} info_type="故障: "/> : ''}
+              {this.data.stopped.length > 0 ? <SummeryInfo color='GRAY' detail_array={this.data.stopped} info_type="已停止: "/> : ''}
+              {this.data.offline.length > 0 ? <SummeryInfo color='RED' detail_array={this.data.offline} info_type="離線: "/> : ''}
+              {this.data.paused.length > 0 ? <SummeryInfo color='BLUE' detail_array={this.data.paused} info_type="暫停: "/> : ''}
+              {this.data.working.length > 0 ? <SummeryInfo color='GREEN' blink="true" detail_array={this.data.working} info_type="工作中: "/> : ''}
+              {this.data.online.length > 0 ? <SummeryInfo color='GREEN' detail_array={this.data.online} info_type="在線: "/> : ''}              
             </a>
           </li>
           <div>
