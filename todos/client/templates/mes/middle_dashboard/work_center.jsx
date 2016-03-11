@@ -6,10 +6,10 @@ WorkCenter = React.createClass({
     var pending_items = []
     var accumulative_items = []
     var data_records = DataRecord.find({workcenterCode:this.props.workcenterCode}).fetch();
-    var last_item = DataRecord.findOne({workcenterCode:this.props.workcenterCode, $or:[{functionCode:"C001"}, {functionCode:/S.*/}]}, {sort: {recordTime: -1}});
+    var last_item = DataRecord.findOne({workcenterCode:this.props.workcenterCode, $or:[{machineFunction:"COUNT"}]}, {sort: {recordTime: -1}});
     if (last_item) {
 
-      pending_items = DataRecord.find({workcenterCode:this.props.workcenterCode,recordTime:{ $lte: _Now(), $gte: last_item.startTime},functionCode:/F*/}).fetch();
+      pending_items = DataRecord.find({workcenterCode:this.props.workcenterCode,recordTime:{ $lte: _Now(), $gte: last_item.startTime},functionCode:"QUALITY"}).fetch();
 
       var accumulativeCount = 0;
       var accumulativeCountRecords = DataRecord.find({workcenterCode:this.props.workcenterCode,workorderNo:last_item.workorderNo,functionCode:"C001",recordTime:{$lte: _Now(),$gte:last_item.startTime}}).fetch()
@@ -28,8 +28,7 @@ WorkCenter = React.createClass({
       if (currentEfficiency) { currentEfficiency = (currentEfficiency * 100).toFixed(2) }
 
       var todayEfficiency = 0;
-      var production_quantity = DataRecord.find({workcenterCode:this.props.workcenterCode,recordTime:{ $gte: _DayStart() , $lte: _DayEnd() }, functionCode:"C001"}).count()
-      var todays_date = (_Now() - last_item.startTime)
+      var production_quantity = DataRecord.find({workcenterCode:this.props.workcenterCode,recordTime:{ $gte: _DayStart() , $lte: _DayEnd() }, functionCode:"C001"}).fetch().length
       var standard_efficiency = production_quantity/last_item.StandardWorkTime
       var fact_efficiency = production_quantity *(_Now() - last_item.startTime)
       todayEfficiency = standard_efficiency / fact_efficiency
