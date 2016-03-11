@@ -27,15 +27,26 @@ class DataRecordFactory
       :partnoName => FFaker::PhoneNumber.imei,
       :sequenceNo => FFaker::PhoneNumber.imei,
       :deviceNo => FFaker::PhoneNumber.imei,
-      :startTime => FFaker::Time.date,
-      :endTime => FFaker::Time.date,
+      :startTime => sample_past_time,
+      :endTime => sample_past_time,
       :personCount => rand(100),
       :StandardWorkTime => rand(0.9),
       :recordTime => Time.now,
       :functionCode => ["S#{rand(999)}", "C001"].sample,
       :functionName => FFaker::UnitMetric.volume_name,
       :remark => FFaker::SSNMX.imss,
-      :count => 1
+      :count => 1,
+      :machineFunction => Config::machineFunction.sample,
     )
   end
+
+  private
+    
+    def sample_past_time
+      past_time = nil
+      begin
+        past_time = FFaker::Time.date
+      end while past_time > Time.now
+      past_time
+    end
 end
