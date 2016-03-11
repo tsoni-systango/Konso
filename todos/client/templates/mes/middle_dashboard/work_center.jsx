@@ -19,19 +19,19 @@ WorkCenter = React.createClass({
 
       var avg_output = 0;
       if (accumulativeCount)
-      avg_output = ( (_Now() - last_item.startTime) * last_item.personCount) / accumulativeCount
+      avg_output = (3600/(_Now() - last_item.startTime)) * accumulativeCount
+      if (avg_output){ avg_output = avg_output.toFixed(2)}
 
       var currentEfficiency = 0;
       if (accumulativeCount)
-      currentEfficiency = ((((_Now() - (new Date(last_item.startTime))) * last_item.personCount)/ (last_item.StandardWorkTime)) / accumulativeCount)/1000;
+      currentEfficiency = (((_Now() - (new Date(last_item.startTime)))/ (last_item.StandardWorkTime)) / accumulativeCount)/1000;
       if (currentEfficiency) { currentEfficiency = (currentEfficiency * 100).toFixed(2) }
 
       var todayEfficiency = 0;
-      var todays_dr_w_fc = DataRecord.find({workcenterCode:this.props.workcenterCode,recordTime:{ $gte: _DayStart() , $lte: _DayEnd() }, functionCode:"C001"}).fetch()
-      var production_qualtiy = todays_dr_w_fc.length
+      var production_quantity = DataRecord.find({workcenterCode:this.props.workcenterCode,recordTime:{ $gte: _DayStart() , $lte: _DayEnd() }, functionCode:"C001"}).count()
       var todays_date = (_Now() - last_item.startTime)
-      var standard_efficiency = (production_qualtiy * last_item.personCount * todays_date) / last_item.StandardWorkTime
-      var fact_efficiency = production_qualtiy * last_item.personCount * todays_date
+      var standard_efficiency = production_quantity/last_item.StandardWorkTime
+      var fact_efficiency = production_quantity *(_Now() - last_item.startTime)
       todayEfficiency = standard_efficiency / fact_efficiency
       if (todayEfficiency) { todayEfficiency = (todayEfficiency * 100).toFixed(2) }
     };
@@ -56,6 +56,7 @@ WorkCenter = React.createClass({
       // currentQualityRate accumulativeCount / (accumulativeCount + NGCount) , convert to percent
       var currentQualityRate = 0;
       currentQualityRate =  accumulativeCount/(accumulativeCount+NGCount);
+      if (currentQualityRate){ currentQualityRate = currentQualityRate.toFixed(2);}
     };
 
     //todayQualityRate  "1.To summerize the count of dataRecord of today  and workcenterNo is current workcenter.
@@ -64,7 +65,7 @@ WorkCenter = React.createClass({
     var todayQualityRate = 0;
 
     todayQualityRate = data_record_count_function_code / data_record_count;
-
+    if (todayQualityRate){todayQualityRate = todayQualityRate.toFixed(2)}
     return{
       last_item : last_item,
       NGCount : NGCount,
