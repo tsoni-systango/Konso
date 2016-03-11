@@ -63,8 +63,8 @@ HourlyInfo = React.createClass({
     all_keys.map(function(key){
       count += 1;
       var int_key = parseInt(key)
-      var final_info = key +"-"+ (int_key + 1).toString() + " :- " + info[key].toString() + ", ";
-      three_info.push(<span key={Random.id()}>{final_info}</span>)
+      var final_info =  key +":00 -"+(int_key + 1).toString()+ ":00"+ " :- "; 
+      three_info.push(<span key={Random.id()}>{final_info} <b>{info[key].toString()},</b> </span>)
       if (count == 3)
       {
         three_info.push(<br key={Random.id()}/>);
@@ -79,10 +79,10 @@ HourlyInfo = React.createClass({
     return(
       <div ref="overlay" style={{"top": yaxis + "px","left": this.props.x + "px"}} className="ShopFloorInfoBox">
         <div className="hourlyinfo_lft"> {this.props.levelName} </div>
-        <a onClick={this.closePopUp} className="hourlyinfo_rgt"> X </a>
+        <a onClick={this.closePopUp} className="hourlyinfo_rgt"><font color="black">X</font></a>
         <div className="clr_div">
           {this.plotInfo()}
-          <p> 累计产量 : {this.data.accumulativeCount} </p>
+          <p> 累计产量 : <b>{this.data.accumulativeCount}</b> </p>
         </div>
       </div>
     )
